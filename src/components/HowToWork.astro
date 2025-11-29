@@ -1,0 +1,272 @@
+---
+const steps = [
+  { number: '01', title: 'Consulta Inicial', description: 'Evaluamos tus necesidades de seguridad' },
+  { number: '02', title: 'Diseño Personalizado', description: 'Creamos un plan adaptado a tu espacio' },
+  { number: '03', title: 'Instalación Profesional', description: 'Técnicos certificados instalan el sistema' },
+  { number: '04', title: 'Configuración', description: 'Optimizamos y probamos todo el equipo' },
+  { number: '05', title: 'Monitoreo 24/7', description: 'Protección continua las 24 horas' }
+];
+---
+
+<section class="how-to-work">
+  <div class="container">
+    <h2 class="section-title">How to work</h2>
+
+    <div class="process-diagram">
+      <svg class="connection-lines" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+        <path class="path-line" d="M 400 50 Q 200 150, 150 300" stroke="var(--color-primary)" stroke-width="2" fill="none" opacity="0.3"/>
+        <path class="path-line" d="M 400 50 Q 600 150, 650 300" stroke="var(--color-primary)" stroke-width="2" fill="none" opacity="0.3"/>
+        <path class="path-line" d="M 150 300 Q 250 450, 400 500" stroke="var(--color-primary)" stroke-width="2" fill="none" opacity="0.3"/>
+        <path class="path-line" d="M 650 300 Q 550 450, 400 500" stroke="var(--color-primary)" stroke-width="2" fill="none" opacity="0.3"/>
+      </svg>
+
+      <div class="step-nodes">
+        <div class="step-node top-center" data-step="1">
+          <div class="node-circle">
+            <span class="node-number">01</span>
+          </div>
+          <p class="node-label">Consulta</p>
+        </div>
+
+        <div class="step-node left" data-step="2">
+          <div class="node-circle">
+            <span class="node-number">02</span>
+          </div>
+          <p class="node-label">Diseño</p>
+        </div>
+
+        <div class="step-node right" data-step="3">
+          <div class="node-circle">
+            <span class="node-number">03</span>
+          </div>
+          <p class="node-label">Instalación</p>
+        </div>
+
+        <div class="step-node bottom-left" data-step="4">
+          <div class="node-circle">
+            <span class="node-number">04</span>
+          </div>
+          <p class="node-label">Config</p>
+        </div>
+
+        <div class="step-node bottom-right" data-step="5">
+          <div class="node-circle">
+            <span class="node-number">05</span>
+          </div>
+          <p class="node-label">Monitoreo</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .how-to-work {
+    padding: 8rem 2rem;
+    background: white;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    color: var(--color-dark);
+    text-align: center;
+    margin-bottom: 5rem;
+  }
+
+  .process-diagram {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    height: 600px;
+    margin: 0 auto;
+  }
+
+  .connection-lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  .step-nodes {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+  }
+
+  .step-node {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .step-node.top-center {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .step-node.left {
+    top: 40%;
+    left: 10%;
+  }
+
+  .step-node.right {
+    top: 40%;
+    right: 10%;
+  }
+
+  .step-node.bottom-left {
+    bottom: 10%;
+    left: 25%;
+  }
+
+  .step-node.bottom-right {
+    bottom: 10%;
+    right: 25%;
+  }
+
+  .node-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: white;
+    border: 3px solid var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 30px rgba(223, 100, 63, 0.2);
+    transition: all 0.4s ease;
+    cursor: pointer;
+  }
+
+  .node-circle:hover {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    transform: scale(1.15);
+    box-shadow: 0 15px 40px rgba(223, 100, 63, 0.4);
+  }
+
+  .node-circle:hover .node-number {
+    color: white;
+  }
+
+  .node-number {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--color-primary);
+    transition: color 0.3s ease;
+  }
+
+  .node-label {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-dark);
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    .how-to-work {
+      padding: 5rem 1.5rem;
+    }
+
+    .process-diagram {
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+
+    .connection-lines {
+      display: none;
+    }
+
+    .step-nodes {
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+
+    .step-node {
+      position: relative !important;
+      top: auto !important;
+      left: auto !important;
+      right: auto !important;
+      bottom: auto !important;
+      transform: none !important;
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener('DOMContentLoaded', () => {
+    gsap.from('.section-title', {
+      scrollTrigger: {
+        trigger: '.section-title',
+        start: 'top 80%',
+        toggleActions: 'play none none reverse'
+      },
+      y: 40,
+      opacity: 0,
+      duration: 0.8,
+      ease: 'power3.out'
+    });
+
+    const pathLines = document.querySelectorAll('.path-line');
+    pathLines.forEach((path, index) => {
+      gsap.fromTo(path,
+        {
+          strokeDasharray: 1000,
+          strokeDashoffset: 1000
+        },
+        {
+          scrollTrigger: {
+            trigger: '.process-diagram',
+            start: 'top 70%',
+            toggleActions: 'play none none reverse'
+          },
+          strokeDashoffset: 0,
+          duration: 2,
+          delay: index * 0.2,
+          ease: 'power2.inOut'
+        }
+      );
+    });
+
+    const nodes = document.querySelectorAll('.step-node');
+    nodes.forEach((node, index) => {
+      gsap.from(node, {
+        scrollTrigger: {
+          trigger: '.process-diagram',
+          start: 'top 70%',
+          toggleActions: 'play none none reverse'
+        },
+        scale: 0,
+        opacity: 0,
+        duration: 0.6,
+        delay: 0.5 + (index * 0.15),
+        ease: 'back.out(1.7)'
+      });
+    });
+  });
+</script>

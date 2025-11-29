@@ -1,0 +1,195 @@
+@import "tailwindcss";
+
+@theme {
+  /* Indian Red - Tonalidades */
+  --color-indian-red-50: #FFF5F5;
+  --color-indian-red-100: #FFE3E3;
+  --color-indian-red-200: #FFC9C9;
+  --color-indian-red-300: #FFA8A8;
+  --color-indian-red-400: #FF8787;
+  --color-indian-red-500: #CD5C5C;
+  /* Original */
+  --color-indian-red-600: #B34545;
+  --color-indian-red-700: #993333;
+  --color-indian-red-800: #802626;
+  --color-indian-red-900: #661A1A;
+
+  /* Lemon Chiffon - Tonalidades */
+  --color-lemon-chiffon-50: #FFFFF9;
+  --color-lemon-chiffon-100: #FFFEF5;
+  --color-lemon-chiffon-200: #FFFACD;
+  /* Original */
+  --color-lemon-chiffon-300: #FFF7B3;
+  --color-lemon-chiffon-400: #FFF499;
+  --color-lemon-chiffon-500: #FFE066;
+  --color-lemon-chiffon-600: #E6C200;
+  --color-lemon-chiffon-700: #B39900;
+  --color-lemon-chiffon-800: #807000;
+  --color-lemon-chiffon-900: #4D4700;
+
+  /* Alias para compatibilidad */
+  --color-indian-red: #CD5C5C;
+  --color-lemon-chiffon: #FFFACD;
+}
+
+:root {
+  --color-primary: #CD5C5C;
+  --color-secondary: #FFFACD;
+  --color-dark: #3D1F1D;
+  --color-light: #FAF8F5;
+  --color-white: #FFFFFF;
+
+  --font-display: "Roboto Mono", monospace;
+  --font-body: "Roboto Mono", monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-dark);
+  background: var(--color-light);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  display: inline-block;
+  position: relative;
+  transform: rotate(45deg);
+}
+
+.loader::before {
+  content: "";
+  box-sizing: border-box;
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  left: 0;
+  top: -24px;
+  animation: animloader 4s ease infinite;
+}
+
+.loader::after {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 24px;
+  height: 24px;
+  background: rgba(205, 92, 92, 0.85);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  animation: animloader2 2s ease infinite;
+}
+
+@keyframes animloader {
+  0% {
+    box-shadow:
+      0 24px rgba(255, 255, 255, 0),
+      24px 24px rgba(255, 255, 255, 0),
+      24px 48px rgba(255, 255, 255, 0),
+      0px 48px rgba(255, 255, 255, 0);
+  }
+
+  12% {
+    box-shadow:
+      0 24px var(--color-primary),
+      24px 24px rgba(255, 255, 255, 0),
+      24px 48px rgba(255, 255, 255, 0),
+      0px 48px rgba(255, 255, 255, 0);
+  }
+
+  25% {
+    box-shadow:
+      0 24px var(--color-primary),
+      24px 24px var(--color-primary),
+      24px 48px rgba(255, 255, 255, 0),
+      0px 48px rgba(255, 255, 255, 0);
+  }
+
+  37% {
+    box-shadow:
+      0 24px var(--color-primary),
+      24px 24px var(--color-primary),
+      24px 48px var(--color-primary),
+      0px 48px rgba(255, 255, 255, 0);
+  }
+
+  50% {
+    box-shadow:
+      0 24px var(--color-primary),
+      24px 24px var(--color-primary),
+      24px 48px var(--color-primary),
+      0px 48px var(--color-primary);
+  }
+
+  62% {
+    box-shadow:
+      0 24px rgba(255, 255, 255, 0),
+      24px 24px var(--color-primary),
+      24px 48px var(--color-primary),
+      0px 48px var(--color-primary);
+  }
+
+  75% {
+    box-shadow:
+      0 24px rgba(255, 255, 255, 0),
+      24px 24px rgba(255, 255, 255, 0),
+      24px 48px var(--color-primary),
+      0px 48px var(--color-primary);
+  }
+
+  87% {
+    box-shadow:
+      0 24px rgba(255, 255, 255, 0),
+      24px 24px rgba(255, 255, 255, 0),
+      24px 48px rgba(255, 255, 255, 0),
+      0px 48px var(--color-primary);
+  }
+
+  100% {
+    box-shadow:
+      0 24px rgba(255, 255, 255, 0),
+      24px 24px rgba(255, 255, 255, 0),
+      24px 48px rgba(255, 255, 255, 0),
+      0px 48px rgba(255, 255, 255, 0);
+  }
+}
+
+@keyframes animloader2 {
+  0% {
+    transform: translate(0, 0) rotateX(0) rotateY(0);
+  }
+
+  25% {
+    transform: translate(100%, 0) rotateX(0) rotateY(180deg);
+  }
+
+  50% {
+    transform: translate(100%, 100%) rotateX(-180deg) rotateY(180deg);
+  }
+
+  75% {
+    transform: translate(0, 100%) rotateX(-180deg) rotateY(360deg);
+  }
+
+  100% {
+    transform: translate(0, 0) rotateX(0) rotateY(360deg);
+  }
+}

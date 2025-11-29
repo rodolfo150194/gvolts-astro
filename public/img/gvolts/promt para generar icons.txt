@@ -1,0 +1,5 @@
+Generate a clean outline icon of [alarm] for a modern UI. 
+Style: minimal, geometric, consistent stroke width, no shading, no gradients.
+Background: transparent.
+Color: monochrome black.
+Format: vector-like, high contrast.

@@ -1,0 +1,110 @@
+---
+const services = [
+  {
+    image: '/img/gvolts/alarm.png',
+    title: 'Alarmas de Incendio',
+    description: 'Sistemas avanzados de detección y alerta temprana contra incendios.'
+  },
+  {
+    image: '/img/gvolts/camera.png',
+    title: 'Videovigilancia',
+    description: 'Cámaras de alta definición con monitoreo remoto 24/7.'
+  },
+  {
+    image: '/img/gvolts/panel-config.png',
+    title: 'Paneles de Control',
+    description: 'Configuración y gestión centralizada de todos tus sistemas.'
+  },
+  {
+    image: '/img/gvolts/alarm-connect.png',
+    title: 'Integración Smart',
+    description: 'Conectividad total con tus dispositivos inteligentes.'
+  }
+];
+---
+
+<section class="relative py-20 px-8 md:px-6 services-section z-0 bg-[url('/img/gvolts/camara-bosque.jpg')] bg-cover bg-center bg-no-repeat bg-fixed" id="services">
+  <!-- Overlay background que cubre el 100% de la sección -->
+  <div class="absolute inset-0 bg-gradient-to-b from-[#3D1F1D]/85 via-[#3D1F1D]/70 to-[#3D1F1D]/60 z-[1] pointer-events-none"></div>
+
+  <!-- Línea decorativa superior -->
+  <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-indian-red-500 to-transparent z-[2]"></div>
+
+  <div class="max-w-[1400px] mx-auto relative z-10 h-[65%]">
+    <div class="text-center mb-20 section-header">
+      <span class="hero-badge inline-flex justify-center items-center gap-2 mt-5 bg-white border border-indian-red-500 px-6 py-2 rounded-full text-indian-red-500 text-sm font-semibold mb-8">Servicios</span>
+      <h2 class="section-title font-display text-[clamp(2.5rem,5vw,3rem)] font-extrabold text-white mb-4 leading-tight">Protección Integral para tu Seguridad</h2>
+      <p class="section-subtitle font-body text-lg text-white/60 max-w-[600px] mx-auto">Soluciones completas de alarmas contra incendios y videovigilancia</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-8 services-grid">
+      {services.map((service, index) => (
+        <div class="group bg-white rounded-[24px] overflow-hidden shadow-[0_10px_40px_rgba(61,31,29,0.08)] transition-all duration-500 hover:-translate-y-[15px] hover:scale-[1.02] hover:shadow-[0_25px_60px_rgba(223,100,63,0.25)] service-card relative flex flex-col" data-index={index} style="transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);">
+          <!-- Círculo con número a la derecha -->
+          <div class="absolute top-1/2 -translate-y-1/2 left-5 w-20 h-12 bg-indian-red-500 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg z-10">
+            {index + 1}
+          </div>
+
+          <div class="relative h-[280px] overflow-hidden">
+            <img src={service.image} alt={service.title} class="w-full h-full object-cover transition-transform duration-[600ms] ease-in-out group-hover:scale-110" />
+          </div>
+          <hr />
+          <div class="p-8 flex flex-col flex-grow">
+            <h3 class="font-display text-2xl font-bold text-[#3D1F1D] mb-3">{service.title}</h3>
+            <p class="font-body text-base leading-relaxed text-[#3D1F1D]/70 mb-6">{service.description}</p>
+
+            <div class="mt-auto text-center">
+              <button class="header-cta bg-indian-red-500 cursor-pointer text-white px-6 py-2.5 rounded-lg font-bold hover:bg-indian-red-600 transition-[background-color,transform,box-shadow] duration-300 shadow-lg shadow-indian-red-500/30 hover:-translate-y-0.5 active:translate-y-0">
+                Ver más
+              </button>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Fondo parallax con imagen */
+
+  
+
+  /* Ajuste de responsive para mobile */
+  @media (max-width: 768px) {
+    .services-section {
+      padding: 5rem 1.5rem;
+    }
+
+    .section-header {
+      margin-bottom: 3rem;
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener('DOMContentLoaded', () => {
+   
+
+    const cards = document.querySelectorAll('.service-card');
+    cards.forEach((card, index) => {
+      gsap.from(card, {
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse'
+        },
+        y: 80,
+        opacity: 0,
+        duration: 0.8,
+        delay: index * 0.1,
+        ease: 'power3.out'
+      });
+    });
+  });
+</script>

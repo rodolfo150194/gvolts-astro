@@ -1,0 +1,64 @@
+---
+const features = [
+  {
+    number: '01',
+    img: '/img/gvolts/camera1.png',
+    title: 'Detección Avanzada',
+    description: 'Sistemas de última generación que detectan incendios antes de que se propaguen.'
+  },
+  {
+    number: '02',
+    img: '/img/gvolts/alarm-connect1.png',
+    title: 'Monitoreo 24/7',
+    description: 'Vigilancia constante con respuesta inmediata ante cualquier amenaza.'
+  },
+  {
+    number: '03',
+    img: '/img/gvolts/panel-config1.png',
+    title: 'Instalación Certificada',
+    description: 'Técnicos especializados garantizan una instalación perfecta y segura.'
+  }
+];
+---
+
+<section class="py-24 px-8 md:px-4 bg-lemon-chiffon-50">
+  <div class="max-w-[1400px] mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+      {features.map((feature, index) => (
+        <div class="feature-card group relative bg-white border-2 border-indian-red-100 rounded-[30px] overflow-hidden shadow-[0_10px_30px_rgba(61,31,29,0.08)] transition-all duration-[400ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)] hover:-translate-y-2.5 hover:shadow-[0_20px_50px_rgba(223,100,63,0.2)] hover:border-indian-red-300" data-index={index}>
+          <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indian-red-500 to-indian-red-700 scale-x-0 origin-left transition-transform duration-600 ease-out card-top-line"></div>
+
+          <div class="flex h-full">
+            <!-- Bloque estrecho: icono y número -->
+            <div class="w-24 p-4 flex-shrink-0 bg-gradient-to-b from-indian-red-500 to-indian-red-600 flex flex-col items-center justify-between gap-4 py-8">
+              <img src={feature.img} />
+              <div class="text-5xl font-bold text-white">{feature.number}</div>
+            </div>
+
+            <!-- Bloque principal: título, descripción y botón -->
+            <div class="flex-1 p-8 flex flex-col justify-between">
+              <div>
+                <h3 class="text-2xl font-bold text-slate-900 mb-4">{feature.title}</h3>
+                <p class="text-base leading-[1.7] text-slate-900/70 mb-6">{feature.description}</p>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .feature-card {
+    corner-shape: bevel;
+  }
+
+
+</style>
+<script>
+
+
+  
+</script>

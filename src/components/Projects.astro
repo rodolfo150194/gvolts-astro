@@ -1,0 +1,190 @@
+---
+const projects = [
+  {
+    image: '/img/gvolts/men-install-camera.png',
+    title: 'Instalación Comercial',
+    description: 'Sistema completo instalado'
+  },
+  {
+    image: '/img/gvolts/infografia-fuego.png',
+    title: 'Sistema de Incendios',
+    description: 'Protección certificada'
+  },
+  {
+    image: '/img/gvolts/infografia-videovigilancia.png',
+    title: 'Red de Vigilancia',
+    description: 'Monitoreo integral'
+  },
+  {
+    image: '/img/gvolts/planing-project.png',
+    title: 'Planificación',
+    description: 'Diseño personalizado'
+  }
+];
+---
+
+<section class="projects">
+  <div class="container">
+    <h2 class="section-title">Projects</h2>
+
+    <div class="projects-grid">
+      {projects.map((project, index) => (
+        <div class="project-card" data-index={index}>
+          <div class="image-container">
+            <img src={project.image} alt={project.title} />
+            <div class="overlay">
+              <div class="overlay-content">
+                <h3 class="project-title">{project.title}</h3>
+                <p class="project-desc">{project.description}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .projects {
+    padding: 8rem 2rem;
+    background: var(--color-light);
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    color: var(--color-dark);
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .project-card {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(61, 31, 29, 0.1);
+    transition: transform 0.4s ease;
+  }
+
+  .project-card:hover {
+    transform: translateY(-8px);
+  }
+
+  .image-container {
+    position: relative;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+  }
+
+  .image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+
+  .project-card:hover img {
+    transform: scale(1.1);
+  }
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(61, 31, 29, 0.95) 70%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    display: flex;
+    align-items: flex-end;
+    padding: 2rem;
+  }
+
+  .project-card:hover .overlay {
+    opacity: 1;
+  }
+
+  .overlay-content {
+    transform: translateY(20px);
+    transition: transform 0.4s ease;
+  }
+
+  .project-card:hover .overlay-content {
+    transform: translateY(0);
+  }
+
+  .project-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.5rem;
+  }
+
+  .project-desc {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  @media (max-width: 768px) {
+    .projects {
+      padding: 5rem 1.5rem;
+    }
+
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener('DOMContentLoaded', () => {
+    gsap.from('.section-title', {
+      scrollTrigger: {
+        trigger: '.projects',
+        start: 'top 80%',
+        toggleActions: 'play none none reverse'
+      },
+      y: 40,
+      opacity: 0,
+      duration: 0.8,
+      ease: 'power3.out'
+    });
+
+    const cards = document.querySelectorAll('.project-card');
+    cards.forEach((card, index) => {
+      gsap.from(card, {
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse'
+        },
+        y: 60,
+        opacity: 0,
+        duration: 0.8,
+        delay: index * 0.1,
+        ease: 'power3.out'
+      });
+    });
+  });
+</script>

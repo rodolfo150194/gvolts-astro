@@ -1,0 +1,700 @@
+---
+
+---
+
+<section
+  class="relative min-h-screen flex items-center overflow-hidden"
+  id="home"
+>
+  <!-- Background Slider with Overlay -->
+  <div class="absolute top-0 left-0 w-full h-[120%] -top-[10%] z-0">
+    <!-- Slider Container -->
+    <div class="slider-container w-full h-full relative overflow-hidden">
+      <div class="slider-slide active">
+        <img
+          src="/img/gvolts/planing-project.png"
+          alt="Professional Security Installation"
+          class="background-image w-full h-full object-cover object-center will-change-transform"
+        />
+      </div>
+      <div class="slider-slide">
+        <img
+          src="/img/gvolts/extintor.jpg"
+          alt="Security Camera Installation"
+          class="background-image w-full h-full object-cover object-center will-change-transform"
+        />
+      </div>
+      <div class="slider-slide">
+        <img
+          src="/img/gvolts/camara-bosque.jpg"
+          alt="Security Systems"
+          class="background-image w-full h-full object-cover object-center will-change-transform"
+        />
+      </div>
+    </div>
+
+    <!-- Overlay siempre visible encima del slider -->
+    <div class="hero-overlay absolute top-0 left-0 w-full h-full z-[2]"></div>
+  </div>
+
+  <!-- Hero Content -->
+  <div class="relative z-[3] w-full px-8 pt-48 pb-20 md:px-4 md:pt-32 md:pb-16">
+    <div class="max-w-[1400px] mx-auto flex flex-col items-center text-center">
+      <!-- Badge -->
+      <div
+        class="hero-badge inline-flex items-center gap-2 mt-5 bg-indian-red-500 border border-indian-red-500 px-6 py-2 rounded-full text-white text-sm font-semibold mb-8"
+      >
+        <svg
+          class="w-5 h-5"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"
+          ></path>
+        </svg>
+        <span>Soluciones de Seguridad Confiables</span>
+      </div>
+
+      <!-- Title Decorator -->
+      <div class="title-decorator-wrapper">
+        <div class="title-decorator-line-left bg-lemon-chiffon"></div>
+        <div class="title-decorator bg-lemon-chiffon"></div>
+        <div class="title-decorator-line-right bg-lemon-chiffon"></div>
+      </div>
+
+      <!-- Main Title -->
+      <h1
+        class="hero-title text-[clamp(3rem,8vw,4rem)] font-extrabold leading-[1.1] mb-8 max-w-[1100px] tracking-tight"
+      >
+        <span class="block text-white drop-shadow-sm">Protege lo que</span>
+        <span class="block text-white drop-shadow-sm">Más Importa con</span>
+        <span class="block relative pb-2">
+          <span
+            class="typewriter-text bg-gradient-to-r from-lemon-chiffon-500 to-lemon-chiffon-300 bg-clip-text text-transparent"
+            >Seguridad Avanzada</span
+          >
+          <span
+            class="cursor-blink inline-block w-1 h-[clamp(3rem,9vw,6rem)] bg-indian-red-400 ml-1 align-middle"
+          ></span>
+        </span>
+      </h1>
+
+      <!-- Description -->
+      <p
+        class="hero-description text-[clamp(1.1rem,2.5vw,1.35rem)] leading-[1.8] text-lemon-chiffon-50/90 max-w-[800px] mb-12 font-medium"
+      >
+        Experimente sistemas de seguridad electrónica de última generación
+        diseñados para proteger su hogar y negocio.
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="hero-cta flex gap-6 flex-wrap justify-center mb-20">
+        <button
+          class="cta-primary inline-flex items-center gap-3 bg-indian-red-500 text-white px-10 py-4 rounded-xl text-lg font-bold border-0 cursor-pointer transition-all duration-300 shadow-[0_10px_30px_rgba(205,92,92,0.4)] relative overflow-hidden hover:-translate-y-1 hover:shadow-[0_15px_40px_rgba(205,92,92,0.5)] hover:bg-indian-red-600"
+        >
+          <span>Consulta Gratuita</span>
+          <svg
+            class="cta-arrow w-5 h-5 transition-transform duration-300"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z"
+              clip-rule="evenodd"></path>
+          </svg>
+        </button>
+        <button
+          class="js-video-modal-trigger inline-flex items-center gap-3 bg-white/10 text-white px-8 py-4 rounded-xl text-lg font-semibold border-2 border-white/20 cursor-pointer transition-all duration-300 backdrop-blur-[10px] hover:bg-white/15 hover:border-white/30 hover:-translate-y-1"
+        >
+          <svg
+            class="w-5 h-5 text-indian-red-400"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z"
+              clip-rule="evenodd"></path>
+          </svg>
+          <span>Ver</span>
+        </button>
+      </div>
+
+      <!-- Stats -->
+      <div
+        class="hero-stats flex gap-16 items-center justify-center flex-wrap w-full border-t border-white/10 pt-12"
+      >
+        <div
+          class="text-center group hover:-translate-y-1 transition-transform duration-300"
+        >
+          <div
+            class="text-[clamp(2.5rem,5vw,3.5rem)] font-extrabold text-white leading-none mb-2 group-hover:text-indian-red-200 transition-colors"
+          >
+            <span class="counter" data-target="500">0</span><span
+              class="text-indian-red-500">+</span
+            >
+          </div>
+          <div class="text-base text-white/70 font-medium">
+            Proyectos Completados
+          </div>
+        </div>
+        <div
+          class="w-px h-[60px] bg-gradient-to-b from-transparent via-white/20 to-transparent hidden md:block"
+        >
+        </div>
+        <div
+          class="text-center group hover:-translate-y-1 transition-transform duration-300"
+        >
+          <div
+            class="text-[clamp(2.5rem,5vw,3.5rem)] font-extrabold text-white leading-none mb-2 group-hover:text-indian-red-200 transition-colors"
+          >
+            <span class="counter" data-target="24" data-suffix="/7">0</span>
+          </div>
+          <div class="text-base text-white/70 font-medium">
+            Soporte de Monitoreo
+          </div>
+        </div>
+        <div
+          class="w-px h-[60px] bg-gradient-to-b from-transparent via-white/20 to-transparent hidden md:block"
+        >
+        </div>
+        <div
+          class="text-center group hover:-translate-y-1 transition-transform duration-300"
+        >
+          <div
+            class="text-[clamp(2.5rem,5vw,3.5rem)] font-extrabold text-white leading-none mb-2 group-hover:text-indian-red-200 transition-colors"
+          >
+            <span class="counter" data-target="10">0</span><span
+              class="text-indian-red-500">+</span
+            >
+          </div>
+          <div class="text-base text-white/70 font-medium">
+            Años de Experiencia
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating Feature Cards (Redesigned as floating elements in background or sides) -->
+    <div
+      class="hidden xl:block absolute right-[5%] bottom-[20%] z-[3] parallax-card"
+      data-speed="0.05"
+    >
+      <div
+        class="bg-white/10 backdrop-blur-[20px] border border-white/20 rounded-[20px] p-6 w-[260px] shadow-[0_20px_60px_rgba(0,0,0,0.3)]"
+      >
+        <div
+          class="w-12 h-12 bg-indian-red-500 rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-indian-red-500/40"
+        >
+          <svg
+            class="w-6 h-6 text-white"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
+            <path d="M12 15a3 3 0 100-6 3 3 0 000 6z"></path>
+            <path
+              fill-rule="evenodd"
+              d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z"
+              clip-rule="evenodd"></path>
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-1">Vigilancia IA</h3>
+        <p class="text-sm text-white/70">Reconocimiento facial inteligente</p>
+      </div>
+    </div>
+
+    <div
+      class="hidden xl:block absolute left-[5%] bottom-[20%] z-[3] parallax-card"
+      data-speed="0.08"
+    >
+      <div
+        class="bg-white/10 backdrop-blur-[20px] border border-white/20 rounded-[20px] p-6 w-[260px] shadow-[0_20px_60px_rgba(0,0,0,0.3)]"
+      >
+        <div
+          class="w-12 h-12 bg-indian-red-500 rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-indian-red-500/40"
+        >
+          <svg
+            class="w-6 h-6 text-white"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M12.963 2.286a.75.75 0 00-1.071-.136 9.742 9.742 0 00-3.539 6.177A7.547 7.547 0 016.648 6.61a.75.75 0 00-1.152-.082A9 9 0 1015.68 4.534a7.46 7.46 0 01-2.717-2.248zM15.75 14.25a3.75 3.75 0 11-7.313-1.172c.628.465 1.35.81 2.133 1a5.99 5.99 0 011.925-3.545 3.75 3.75 0 013.255 3.717z"
+              clip-rule="evenodd"></path>
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-1">
+          Detección de Incendios
+        </h3>
+        <p class="text-sm text-white/70">Sensores de calor avanzados</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Video Modal -->
+  <div
+    id="video-modal"
+    class="fixed inset-0 z-[100] hidden opacity-0 transition-opacity duration-300"
+  >
+    <!-- Backdrop -->
+    <div class="absolute inset-0 bg-black/80 backdrop-blur-sm js-modal-close">
+    </div>
+
+    <!-- Modal Content -->
+    <div
+      class="relative w-full h-full flex items-center justify-center p-4 md:p-8"
+    >
+      <div
+        class="relative w-full max-w-5xl aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl transform scale-95 transition-transform duration-300 modal-content"
+      >
+        <!-- Close Button -->
+        <button
+          class="absolute top-4 right-4 z-10 text-white/70 hover:text-white bg-black/50 hover:bg-black/70 rounded-full p-2 transition-colors js-modal-close"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+
+        <!-- Video Iframe -->
+        <!-- Video Player -->
+        <video
+          width="100%"
+          height="100%"
+          controls
+          class="w-full h-full object-cover"
+        >
+          <source src="/img/gvolts/camara_video.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Gradiente del overlay - Darker for better text contrast */
+  .hero-overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(15, 23, 42, 0.75) 0%,
+      rgba(15, 23, 42, 0.65) 50%,
+      rgba(15, 23, 42, 0.85) 100%
+    );
+    pointer-events: none;
+  }
+
+  .hero-description {
+    text-shadow:
+      0 2px 8px rgba(0, 0, 0, 0.7),
+      0 1px 3px rgba(0, 0, 0, 0.5);
+  }
+
+  .hero-badge {
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Línea decorativa encima del título */
+  .title-decorator-wrapper {
+    position: relative;
+    width: clamp(400px, 70%, 900px);
+    height: clamp(2rem, 5vw, 2rem);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .title-decorator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    transform: scaleX(0);
+    transform-origin: center;
+    width: 100%;
+    height: 3px;
+    border-radius: 2px;
+  }
+
+  /* Líneas verticales desde los extremos */
+  .title-decorator-line-left,
+  .title-decorator-line-right {
+    width: 5px;
+    height: 350%;
+    border-radius: 2px;
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+
+  .title-decorator-line-left {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  .title-decorator-line-right {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .title-line-accent::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 6px;
+    background: linear-gradient(90deg, transparent, #cd5c5c, transparent);
+    border-radius: 3px;
+    opacity: 0.8;
+  }
+
+  @keyframes blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+
+  .cursor-blink {
+    animation: blink 1s step-end infinite;
+  }
+
+  /* Efecto shine en botón primario */
+  .cta-primary::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent
+    );
+    transition: left 0.6s ease;
+  }
+
+  .cta-primary:hover::before {
+    left: 100%;
+  }
+
+  .cta-primary:hover .cta-arrow {
+    transform: translateX(5px);
+  }
+
+  /* Animaciones de entrada */
+  .hero-badge,
+  .hero-title,
+  .hero-description,
+  .hero-cta,
+  .hero-stats {
+    opacity: 0; /* Initial state for GSAP */
+  }
+
+  /* Slider Styles */
+  .slider-container {
+    position: relative;
+    background-color: #0f172a; /* Fondo base para evitar vacío durante transiciones */
+  }
+
+  .slider-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
+    z-index: 0;
+  }
+
+  .slider-slide.active {
+    opacity: 1;
+    z-index: 1;
+  }
+
+  /* Modal Styles */
+  #video-modal.open {
+    display: flex;
+    opacity: 1;
+  }
+
+  #video-modal.open .modal-content {
+    transform: scale(1);
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener("DOMContentLoaded", () => {
+    // Entrance Animations
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+    tl.fromTo(
+      ".hero-badge",
+      { y: 30, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8 },
+    )
+      .to(
+        ".title-decorator",
+        {
+          scaleX: 1,
+          duration: 0.8,
+          ease: "power2.out",
+          transformOrigin: "center",
+        },
+        "-=0.3",
+      )
+      .to(
+        ".title-decorator-line-left, .title-decorator-line-right",
+        {
+          scaleY: 1,
+          duration: 0.6,
+          ease: "power2.out",
+          transformOrigin: "top",
+        },
+        "-=0.2",
+      )
+      .fromTo(
+        ".hero-title",
+        { y: 40, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1 },
+        "-=0.4",
+      )
+      .fromTo(
+        ".hero-description",
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8 },
+        "-=0.8",
+      )
+      .fromTo(
+        ".hero-cta",
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8 },
+        "-=0.6",
+      )
+      .fromTo(
+        ".hero-stats",
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8 },
+        "-=0.6",
+      );
+
+    // Counter Animation
+    const counters = document.querySelectorAll(".counter");
+    counters.forEach((counter) => {
+      const target = parseInt(counter.getAttribute("data-target") || "0");
+      const suffix = counter.getAttribute("data-suffix") || "";
+      const obj = { value: 0 };
+
+      gsap.to(obj, {
+        value: target,
+        duration: 2.5,
+        delay: 1.5,
+        ease: "power2.out",
+        onUpdate: () => {
+          counter.textContent = Math.ceil(obj.value) + suffix;
+        },
+      });
+    });
+
+    // Parallax Effect - Enhanced (aplicado a todas las imágenes del slider)
+    gsap.utils.toArray(".background-image").forEach((img) => {
+      gsap.to(img, {
+        yPercent: 50,
+        scale: 1.2,
+        ease: "none",
+        scrollTrigger: {
+          trigger: "#home",
+          start: "top top",
+          end: "bottom top",
+          scrub: 1,
+        },
+      });
+    });
+
+    // Floating Cards Parallax
+    const cards = document.querySelectorAll(".parallax-card");
+    cards.forEach((card) => {
+      const speed = card.getAttribute("data-speed");
+      gsap.to(card, {
+        y: -100 * Number(speed),
+        ease: "none",
+        scrollTrigger: {
+          trigger: "#home",
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+    });
+
+    // Typewriter Effect (Core GSAP Implementation)
+    const words = [
+      "Seguridad Avanzada",
+      "Vigilancia Inteligente",
+      "Monitoreo 24/7",
+      "Respuesta Rápida",
+    ];
+    const textElement = document.querySelector(".typewriter-text");
+    const cursorElement = document.querySelector(".cursor-blink");
+    let wordIndex = 0;
+
+    if (textElement && cursorElement) {
+      const typeWord = (word: string) => {
+        const tl = gsap.timeline();
+        const proxy = { length: 0 };
+
+        tl.to(proxy, {
+          length: word.length,
+          duration: word.length * 0.1,
+          ease: "none",
+          onUpdate: () => {
+            textElement.textContent = word.slice(0, Math.ceil(proxy.length));
+          },
+        });
+        return tl;
+      };
+
+      const deleteWord = (word: string) => {
+        const tl = gsap.timeline();
+        const proxy = { length: word.length };
+
+        tl.to(proxy, {
+          length: 0,
+          duration: word.length * 0.05,
+          ease: "none",
+          onUpdate: () => {
+            textElement.textContent = word.slice(0, Math.ceil(proxy.length));
+          },
+        });
+        return tl;
+      };
+
+      const cycleWords = () => {
+        const currentWord = words[wordIndex];
+        const nextWordIndex = (wordIndex + 1) % words.length;
+
+        const masterTl = gsap.timeline({
+          onComplete: () => {
+            wordIndex = nextWordIndex;
+            cycleWords();
+          },
+        });
+
+        masterTl
+          .add(typeWord(currentWord))
+          .to({}, { duration: 2 })
+          .add(deleteWord(currentWord))
+          .to({}, { duration: 0.5 });
+      };
+
+      // Start the cycle
+      setTimeout(() => {
+        cycleWords();
+      }, 2000);
+    }
+
+    // Background Slider
+    const slides = document.querySelectorAll(".slider-slide");
+    let currentSlide = 0;
+    const slideInterval = 5000;
+
+    function nextSlide() {
+      slides[currentSlide].classList.remove("active");
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add("active");
+    }
+    setInterval(nextSlide, slideInterval);
+
+    // Video Modal Logic
+    const modal = document.getElementById("video-modal");
+    const triggerBtn = document.querySelector(".js-video-modal-trigger");
+    const closeBtns = document.querySelectorAll(".js-modal-close");
+    const video = modal?.querySelector("video");
+
+    function openModal() {
+      if (!modal) return;
+      modal.classList.remove("hidden");
+      // Force reflow
+      void modal.offsetWidth;
+      modal.classList.add("open");
+      document.body.style.overflow = "hidden"; // Prevent background scrolling
+
+      // Auto-play video
+      if (video) {
+        video.currentTime = 0;
+        video.play().catch((e) => console.log("Autoplay prevented:", e));
+      }
+    }
+
+    function closeModal() {
+      if (!modal) return;
+      modal.classList.remove("open");
+      document.body.style.overflow = "";
+
+      // Stop video
+      if (video) {
+        video.pause();
+        video.currentTime = 0;
+      }
+
+      setTimeout(() => {
+        modal.classList.add("hidden");
+      }, 300); // Match transition duration
+    }
+
+    if (triggerBtn) {
+      triggerBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        openModal();
+      });
+    }
+
+    closeBtns.forEach((btn) => {
+      btn.addEventListener("click", closeModal);
+    });
+
+    // Close on Escape key
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal && modal.classList.contains("open")) {
+        closeModal();
+      }
+    });
+  });
+</script>

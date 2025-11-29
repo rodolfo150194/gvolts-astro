@@ -1,0 +1,303 @@
+Habilidades de diseño frontend que utilizo. Las comparto aquí; solo tienes que adaptarlas a tus necesidades o gustos.
+HABILIDAD[.]md:
+---
+nombre: diseño frontend moderno
+Descripción: Sistema integral de diseño frontend para crear interfaces distintivas y de producción que evitan la estética genérica de la IA. Úselo cuando los usuarios soliciten componentes web, páginas, aplicaciones o cualquier interfaz frontend. Proporciona flujos de trabajo de diseño, pautas estéticas, patrones de código, bibliotecas de animación, sistemas tipográficos, teoría del color y antipatrones para crear diseños memorables y específicos del contexto que se sientan como si hubieran sido creados, no generados.
+---
+
+# Sistema de diseño frontend moderno
+
+Esta habilidad proporciona un sistema integral para crear interfaces frontend distintivas y de calidad de producción que trascienden la estética genérica de la IA. Cada diseño debe sentirse diseñado específicamente para su contexto específico.
+
+## Filosofía fundamental
+
+** Cada interfaz cuenta una historia. ** El diseño no es decoración aplicada a la funcionalidad: es la síntesis de propósito, emoción e interacción en una experiencia cohesiva.
+
+Antes de escribir cualquier código, establezca:
+1. ** Contexto ** : ¿Qué problema resuelve? ¿Quién lo usa? ¿Qué emoción debería evocar?
+2. ** Concepto ** : ¿Cuál es la metáfora o idea central que impulsa todas las decisiones de diseño?
+3. ** Compromiso ** : Elija una dirección audaz y ejecútela con precisión en todo momento.
+
+## Flujo de trabajo del proceso de diseño
+
+### Fase 1: Descubrimiento y concepto (SIEMPRE COMIENCE AQUÍ)
+
+Comprenda profundamente la solicitud:
+-¿Cuál es el requisito literal?
+-¿Cuál es la necesidad subyacente?
+- ¿Qué respuesta emocional debería esto evocar?
+-¿Qué hace que esto sea diferente de todo lo demás?
+
+Elija UNA dirección estética primaria entre:
+- ** Neobrutalista ** : Texturas de hormigón crudo, tipografía audaz, contrastes marcados
+- ** Minimalismo suave ** : Paletas apagadas, espacios en blanco generosos, interacciones sutiles
+- ** Retro-Futurista ** : Efectos CRT, líneas de escaneo, brillos de neón, elementos ciberpunk
+- ** Editorial/Revista ** : Cuadrículas dinámicas, técnicas mixtas, tratamientos de tipografía en negrita
+- ** Orgánico/Natural ** : Formas fluidas, paletas inspiradas en la naturaleza, texturas de papel
+- ** Morfismo de vidrio ** : Capas translúcidas, filtros de fondo, profundidad a través de la transparencia
+- ** Caos maximalista ** : densidad de información, estética del collage, desorden controlado
+- ** Art Déco ** : Patrones geométricos, acentos dorados, lujo vintage
+- ** Diseño de Memphis ** : Patrones atrevidos, colores primarios, geometría lúdica
+- ** Diseño suizo ** : Sistemas de cuadrícula, tipografía sans-serif, belleza funcional
+- ** Dark Academia ** : Texturas ricas, tipografía serif, atmósfera académica
+- ** Renacimiento del Y2K ** : Degradados, metálicos, nostalgia de los primeros tiempos de la web
+- ** Híbrido personalizado ** : combina 2 o 3 direcciones para lograr algo único
+
+### Fase 2: Definición del sistema de diseño
+
+Define tus tokens de diseño ANTES de codificar:
+``` css
+/* Ejemplo: Sistema neobrutalista */
+:raíz {
+/* Escala tipográfica */
+--font-display: 'Archivo Black', sans-serif; /* Nunca utilice Inter/Roboto */
+--font-body: 'Work Sans', sin serifa;
+--scale-base: abrazadera (1rem, 2vw, 1.125rem);
+--ratio de escala: 1.333; /* Cuarta justa */
+  
+  /* Sistema espacial */
+--unidad espacial: 0.5rem;
+--columnas de cuadrícula: 12;
+--contenedor-máximo: 1440px;
+
+/* Filosofía del color */
+--tinta-de-color: #0A0A0A ;
+--papel-de-color: #F7F3F0 ;
+--color-acento: #FF3E00 ;
+--color-moretón: #7B68EE ;
+
+/* Tiempo de animación */
+--ease-out-expo: cúbico-bezier (0.19, 1, 0.22, 1);
+--duración-base: 200ms;
+--retardo de escalonamiento: 50ms;
+}
+```
+
+### Fase 3: Patrones de implementación
+
+#### Jerarquía tipográfica
+
+Nunca uses pilas de fuentes predeterminadas. Siempre empareja las fuentes intencionalmente:
+``` css
+/* Malo - Basura genérica de IA */
+familia de fuentes: Inter, system-ui, sans-serif;
+
+/* Buena - Emparejamiento intencional */
+Familia de fuentes: 'Instrument Serif', 'Crimson Pro', serif; /* Editorial */
+familia de fuentes: 'Space Mono', 'JetBrains Mono', monoespaciado; /* Tecnología */
+Familia de fuentes: 'Bebas Neue', 'Oswald', sans-serif; /* Bold Display */
+Familia tipográfica: 'Playfair Display', 'Libre Baskerville', serif; /* Lujo */
+```
+
+#### Uso del color
+
+Evite los degradados predecibles. Use el color con intención.
+``` css
+/* Malo - Degradado púrpura sobreutilizado */
+fondo: gradiente lineal (135 grados, #667eea 0 %, #764ba2 100 %) ;
+
+/* Bueno - Enfoques específicos del contexto */
+/* Duotono inspirado en la risografía */
+fondo:
+gradiente lineal (45 grados, #FF6B6B 0 %, transparente 70 %) ,
+gradiente lineal (-45 grados, #4ECDC4 0%, transparente 70 %) ,
+#F7FFF7 ;
+
+/* Superposición de textura de ruido */
+fondo:
+url ("datos:imagen/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www[.]w3[.]org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence tipo='fractalNoise' frecuenciabase='0.65' númOctavas='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect ancho='100%25' alto='100%25' filtro='url (%23noiseFilter)' opacidad='0.02'/%3E%3C/svg%3E"),
+gradiente lineal (180 grados, #0A0E27 0%, #151B3D 100 %) ;
+```
+
+#### Estrategias de diseño
+
+Romper la cuadrícula intencionalmente:
+``` CSS
+/* Cuadrícula asimétrica dinámica */
+.contenedor {
+pantalla: cuadrícula;
+columnas-de-plantilla-de-cuadrícula: 2fr 1fr 1fr 3fr 1fr;
+cuadrícula-plantilla-filas: auto 1fr auto;
+espacio: abrazadera (1rem, 3vw, 2rem);
+}
+
+.contenido-heroico {
+cuadrícula-columna: 1 / tramo 3;
+cuadrícula-fila: 2;
+índice z: 2;
+}
+
+.héroe-visual {
+cuadrícula-columna: 3 / -1;
+cuadrícula-fila: 1 / tramo 2;
+margin-top: -10vh; /* Romper los límites del contenedor */
+}
+```
+
+### Fase 4: Animación e interacción
+
+#### Animaciones de entrada
+
+Una entrada orquestada supera las microinteracciones dispersas:
+``` css
+[@]fotogramas clave revelan {
+de {
+opacidad: 0;
+transformar: translateY (30px) escala (0.98);
+}
+}
+
+.héroe > * {
+animación: revealUp 800ms var (--ease-out-expo) ambos;
+}
+
+.hero > *:nth-child (1) { retraso de animación: 0ms; }
+.hero > *:nth-child (2) { retraso de animación: 80ms; }
+.hero > *:nth-child (3) { retraso de animación: 160ms; }
+```
+
+#### Efectos activados por desplazamiento
+``` javascript
+// Paralaje con observador de intersección
+const parallaxElements = document.querySelectorAll (' [datos-paralaje]');
+const observer = new IntersectionObserver (( entradas) => {
+entradas.paraCada (entrada => {
+si (entrada.isIntersecting) {
+const scrolled = ventana.pageYOffset;
+tasa constante = desplazado * entrada[.]objetivo.conjunto de datos.paralaje;
+entrada[.]objetivo[.]estilo.transform = `translateY (${rate}px)`;
+}
+});
+});
+parallaxElements.forEach (el => observador.observe (el));
+```
+
+#### Estados flotantes que sorprenden
+``` CSS
+.tarjeta {
+transición: transformar 200ms var (--ease-out-expo);
+}
+
+.tarjeta:hover {
+transformar: perspectiva (1000px) rotarX (5deg) escala (1.02);
+}
+
+.card:hover :: antes de {
+/* Revelar capa oculta */
+opacidad: 1;
+transformar: traducir (-5px, -5px);
+}
+```
+
+## Antipatrones críticos que se deben evitar
+
+### La lista de verificación "AI Look"
+
+NUNCA hagas todo esto junto:
+- ❌ Fondos degradados morado/azul
+- ❌ Fuentes inter o del sistema
+- ❌ Héroe centrado con subtítulo
+- ❌ Tarjetas de características de 3 columnas
+- ❌ Esquinas redondeadas en todo.
+- ❌ Sombras proyectadas en todas las cartas
+- ❌ #6366F1 como color primario
+- ❌ Radio de borde de 16 px
+- ❌ "Moderno", "Limpio", "Sencillo" como únicos descriptores
+
+### Errores comunes
+
+1. ** Sobreanimación ** : No todo tiene que moverse. Elige los momentos.
+2. ** Decisiones tímidas ** : Comprométete plenamente con tu dirección estética.
+3. ** Complejidad desigual ** : los diseños mínimos necesitan detalles perfectos, no código elaborado.
+4. ** Ignorancia del contexto ** : Una aplicación bancaria no debería parecerse a un sitio de un festival de música.
+5. ** Persiguiendo tendencias ** : El morfismo del vidrio en todas partes es el nuevo degradado púrpura.
+
+## Directrices específicas del marco
+
+### Componentes de React
+
+Para React, enfatice la composición y la gestión del estado:
+``` jsx
+// Utilice componentes compuestos para una interfaz de usuario compleja
+const Card = ( { niños } ) => {
+const [isExpanded, setIsExpanded] = useState (false);
+devolver ( 
+<CardContext.Provider value<span translate="no"> ={{ se expande, se establece se expande }} >
+<article className="card" data-expanded={isExpanded}>
+{niños}
+</article>
+</CardContext.Provider>
+);
+};
+
+Card.Header = ( { niños } ) => {
+constante { setIsExpanded } = useContext (CardContext);
+devolver ( 
+<header onClick={() => setIsExpanded (prev => !prev)}>
+     {children}
+   </header>
+);
+};
+```
+
+### Composición de Vue
+
+Para Vue, aproveche el diseño reactivo:
+``` vista 
+<script setup>
+import { ref, computed } from 'vue'
+
+const theme = ref ('dark')
+const themeClasses = computed(() => ({
+ 'theme-dark': theme.value === 'dark',
+ 'theme-light': theme.value === 'light'
+}))
+</script>
+```
+
+## Lista de verificación de calidad
+
+Antes de entregar cualquier frontend:
+
+### Impacto visual
+- [ ] ¿Tiene un punto de vista claro?
+- [ ] ¿Alguien se acordaría de esto mañana?
+- [ ] ¿Evita todos los patrones genéricos de IA?
+
+### Excelencia técnica
+- [ ] ¿Responde en todos los puntos de interrupción?
+- [ ] ¿Accesible (etiquetas ARIA, navegación con teclado)?
+- [ ] ¿Rendimiento optimizado (carga diferida, división de código)?
+- [ ] ¿Probado en varios navegadores?
+
+### Atención al detalle
+- [ ] ¿Estados de enfoque personalizados definidos?
+- [ ] ¿Estados de carga y error diseñados?
+- [ ] ¿Las microinteracciones mejoran la usabilidad?
+- [ ] ¿Es consistente la jerarquía tipográfica?
+
+## Uso de recursos
+
+### Scripts
+- ** generate-palette[.]py ** : Crea sistemas de colores cohesivos a partir de un color base
+- ** optimize-animations[.]py ** : Convierte animaciones CSS en transformaciones aceleradas por GPU
+- ** accessibility-check[.]py ** : Validar el cumplimiento de WCAG
+
+### Referencias
+- ** aesthetic-systems[.]md ** : Análisis profundo de cada dirección de diseño con ejemplos
+- ** typography-pairings[.]md ** : Combinaciones de fuentes seleccionadas según el estado de ánimo y el propósito
+- ** animation-curves[.]md ** : Funciones de suavizado personalizadas y patrones de tiempo
+- ** psicología del color[.]md ** : Impacto emocional de la elección del color
+
+### Activos
+- ** estilos de reinicio /** : Variaciones de reinicio de CSS modernas
+- ** sistemas de cuadrícula /** : Plantillas de cuadrícula flexibles
+- ** conjuntos de iconos /** : Bibliotecas de iconos SVG personalizados
+- ** biblioteca de texturas /** : Patrones de fondo y texturas de ruido
+
+## Recordatorio final
+
+No estás generando una interfaz, sino creando una experiencia. Cada decisión debe contribuir al concepto. Cada detalle debe reforzar la historia. El usuario debe sentir algo al verlo.
+
+Hazlo memorable. Hazlo distintivo. Haz que parezca diseñado, no generado.
+"""

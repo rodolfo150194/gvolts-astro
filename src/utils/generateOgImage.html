@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OG Image Generator - GVOLTS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      background: #1a1f35;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    .canvas-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    #ogCanvas {
+      border: 2px solid #FFB300;
+      box-shadow: 0 10px 40px rgba(255, 179, 0, 0.3);
+      max-width: 100%;
+      height: auto;
+    }
+
+    .controls {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    button {
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #FFB300, #FF6B00);
+      color: #0B1120;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 0 10px;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba(255, 179, 0, 0.5);
+    }
+
+    .info {
+      color: #FFF8E7;
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="canvas-container">
+    <canvas id="ogCanvas" width="1200" height="630"></canvas>
+    <div class="controls">
+      <button onclick="downloadOG()">Download OG Image (1200x630)</button>
+      <button onclick="downloadAppleTouch()">Download Apple Touch Icon (180x180)</button>
+    </div>
+    <div class="info">
+      <p>Right-click on the canvas above to save the OG image, or use the download buttons.</p>
+      <p>Save the OG image as <strong>og-image.png</strong> and Apple Touch Icon as <strong>apple-touch-icon.png</strong> in the <strong>public/</strong> folder.</p>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('ogCanvas');
+    const ctx = canvas.getContext('2d');
+
+    function drawOGImage() {
+      // Background gradient
+      const bgGrad = ctx.createLinearGradient(0, 0, 1200, 630);
+      bgGrad.addColorStop(0, '#0B1120');
+      bgGrad.addColorStop(0.5, '#1a1f35');
+      bgGrad.addColorStop(1, '#0B1120');
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, 1200, 630);
+
+      // Grid pattern
+      ctx.strokeStyle = 'rgba(255, 179, 0, 0.1)';
+      ctx.lineWidth = 1;
+      for (let i = 0; i < 1200; i += 50) {
+        ctx.beginPath();
+        ctx.moveTo(i, 0);
+        ctx.lineTo(i, 630);
+        ctx.stroke();
+      }
+      for (let i = 0; i < 630; i += 50) {
+        ctx.beginPath();
+        ctx.moveTo(0, i);
+        ctx.lineTo(1200, i);
+        ctx.stroke();
+      }
+
+      // Decorative circles
+      ctx.strokeStyle = 'rgba(255, 179, 0, 0.2)';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(150, 150, 100, 0, Math.PI * 2);
+      ctx.stroke();
+
+      ctx.strokeStyle = 'rgba(0, 255, 65, 0.2)';
+      ctx.beginPath();
+      ctx.arc(1050, 480, 80, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Logo/Icon
+      const iconX = 120;
+      const iconY = 315;
+      const iconSize = 80;
+
+      // House shield
+      ctx.strokeStyle = '#FFB300';
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.moveTo(iconX, iconY - iconSize/2);
+      ctx.lineTo(iconX - iconSize/2, iconY - iconSize/4);
+      ctx.lineTo(iconX - iconSize/2, iconY + iconSize/2);
+      ctx.lineTo(iconX + iconSize/2, iconY + iconSize/2);
+      ctx.lineTo(iconX + iconSize/2, iconY - iconSize/4);
+      ctx.closePath();
+      ctx.stroke();
+
+      // Center line
+      ctx.beginPath();
+      ctx.moveTo(iconX, iconY - iconSize/2);
+      ctx.lineTo(iconX, iconY + iconSize/2);
+      ctx.stroke();
+
+      // Detection indicator
+      ctx.fillStyle = '#00FF41';
+      ctx.beginPath();
+      ctx.arc(iconX, iconY, 10, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.strokeStyle = '#00FF41';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(iconX, iconY, 20, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Main text
+      ctx.font = '900 120px Orbitron, sans-serif';
+      const gradient = ctx.createLinearGradient(280, 200, 1100, 200);
+      gradient.addColorStop(0, '#FFB300');
+      gradient.addColorStop(0.5, '#FF8800');
+      gradient.addColorStop(1, '#FFB300');
+      ctx.fillStyle = gradient;
+      ctx.fillText('GVOLTS', 280, 280);
+
+      // Subtitle
+      ctx.font = '700 32px Space Mono, monospace';
+      ctx.fillStyle = '#FFF8E7';
+      ctx.fillText('SECURITY SYSTEMS', 280, 330);
+
+      // Description
+      ctx.font = '500 28px sans-serif';
+      ctx.fillStyle = 'rgba(255, 248, 231, 0.7)';
+      ctx.fillText('Advanced Fire Alarm & Surveillance Installation', 280, 400);
+
+      // Status badge
+      ctx.fillStyle = 'rgba(255, 179, 0, 0.15)';
+      ctx.strokeStyle = 'rgba(255, 179, 0, 0.5)';
+      ctx.lineWidth = 2;
+      roundRect(ctx, 280, 440, 280, 50, 25);
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.fillStyle = '#00FF41';
+      ctx.beginPath();
+      ctx.arc(310, 465, 6, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.font = '600 20px monospace';
+      ctx.fillStyle = '#FFB300';
+      ctx.fillText('SYSTEM ONLINE • 24/7', 330, 472);
+
+      // Stats
+      const stats = [
+        { label: '99.9%', desc: 'UPTIME' },
+        { label: '<3s', desc: 'RESPONSE' },
+        { label: 'ISO', desc: 'CERTIFIED' }
+      ];
+
+      let statX = 280;
+      stats.forEach(stat => {
+        ctx.font = '700 42px Space Mono, monospace';
+        ctx.fillStyle = '#00FF41';
+        ctx.fillText(stat.label, statX, 550);
+
+        ctx.font = '600 14px sans-serif';
+        ctx.fillStyle = 'rgba(255, 248, 231, 0.5)';
+        ctx.fillText(stat.desc, statX, 575);
+
+        statX += 200;
+      });
+
+      // Border accent
+      ctx.strokeStyle = '#FFB300';
+      ctx.lineWidth = 6;
+      ctx.strokeRect(3, 3, 1194, 624);
+    }
+
+    function roundRect(ctx, x, y, width, height, radius) {
+      ctx.beginPath();
+      ctx.moveTo(x + radius, y);
+      ctx.lineTo(x + width - radius, y);
+      ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+      ctx.lineTo(x + width, y + height - radius);
+      ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+      ctx.lineTo(x + radius, y + height);
+      ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+      ctx.lineTo(x, y + radius);
+      ctx.quadraticCurveTo(x, y, x + radius, y);
+      ctx.closePath();
+    }
+
+    function downloadOG() {
+      const link = document.createElement('a');
+      link.download = 'og-image.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }
+
+    function downloadAppleTouch() {
+      // Create a temporary canvas for apple touch icon
+      const tempCanvas = document.createElement('canvas');
+      tempCanvas.width = 180;
+      tempCanvas.height = 180;
+      const tempCtx = tempCanvas.getContext('2d');
+
+      // Background
+      const bgGrad = tempCtx.createLinearGradient(0, 0, 180, 180);
+      bgGrad.addColorStop(0, '#0B1120');
+      bgGrad.addColorStop(1, '#1a1f35');
+      tempCtx.fillStyle = bgGrad;
+      tempCtx.fillRect(0, 0, 180, 180);
+
+      // Icon
+      const iconX = 90;
+      const iconY = 90;
+      const iconSize = 70;
+
+      tempCtx.strokeStyle = '#FFB300';
+      tempCtx.lineWidth = 5;
+      tempCtx.beginPath();
+      tempCtx.moveTo(iconX, iconY - iconSize/2);
+      tempCtx.lineTo(iconX - iconSize/2, iconY - iconSize/4);
+      tempCtx.lineTo(iconX - iconSize/2, iconY + iconSize/2);
+      tempCtx.lineTo(iconX + iconSize/2, iconY + iconSize/2);
+      tempCtx.lineTo(iconX + iconSize/2, iconY - iconSize/4);
+      tempCtx.closePath();
+      tempCtx.stroke();
+
+      tempCtx.beginPath();
+      tempCtx.moveTo(iconX, iconY - iconSize/2);
+      tempCtx.lineTo(iconX, iconY + iconSize/2);
+      tempCtx.stroke();
+
+      tempCtx.fillStyle = '#00FF41';
+      tempCtx.beginPath();
+      tempCtx.arc(iconX, iconY, 12, 0, Math.PI * 2);
+      tempCtx.fill();
+
+      tempCtx.strokeStyle = '#00FF41';
+      tempCtx.lineWidth = 3;
+      tempCtx.beginPath();
+      tempCtx.arc(iconX, iconY, 22, 0, Math.PI * 2);
+      tempCtx.stroke();
+
+      tempCtx.beginPath();
+      tempCtx.arc(iconX, iconY, 32, 0, Math.PI * 2);
+      tempCtx.stroke();
+
+      const link = document.createElement('a');
+      link.download = 'apple-touch-icon.png';
+      link.href = tempCanvas.toDataURL('image/png');
+      link.click();
+    }
+
+    // Draw on page load
+    drawOGImage();
+  </script>
+</body>
+</html>

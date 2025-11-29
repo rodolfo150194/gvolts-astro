@@ -1,0 +1,20 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import Header from "../components/header.astro";
+import Features from "../components/Features.astro";
+import ImageSection from "../components/ImageSection.astro";
+import Services from "../components/Services.astro";
+---
+
+<Layout>
+  <Header client:load />
+  <Hero client:idle />
+  <Features />
+  <ImageSection client:visible />
+  <Services client:visible />
+</Layout>
+
+<script>
+
+</script>
