@@ -1,5 +1,102 @@
 ---
+import Icon from "./Icon.astro";
 
+// Configuración del Hero
+const heroData = {
+  // Badge superior
+  badge: {
+    icon: "shield-check",
+    text: "Soluciones de Seguridad Confiables"
+  },
+
+  // Título principal
+  title: {
+    line1: "Protege lo que",
+    line2: "Más Importa con",
+    highlight: "Seguridad Avanzada"
+  },
+
+  // Descripción
+  description: "Experimente sistemas de seguridad electrónica de última generación diseñados para proteger su hogar y negocio.",
+
+  // Botones CTA
+  buttons: {
+    primary: {
+      text: "Consulta Gratuita",
+      icon: "alt-arrow-right"
+    },
+    secondary: {
+      text: "Ver",
+      icon: "play"
+    }
+  },
+
+  // Estadísticas
+  stats: [
+    {
+      value: 500,
+      suffix: "+",
+      label: "Proyectos Completados"
+    },
+    {
+      value: 24,
+      suffix: "/7",
+      label: "Soporte de Monitoreo"
+    },
+    {
+      value: 10,
+      suffix: "+",
+      label: "Años de Experiencia"
+    }
+  ],
+
+  // Tarjetas flotantes
+  floatingCards: [
+    {
+      position: "right",
+      speed: "0.05",
+      icon: "eye",
+      title: "Vigilancia IA",
+      description: "Reconocimiento facial inteligente"
+    },
+    {
+      position: "left",
+      speed: "0.08",
+      icon: "flame",
+      title: "Detección de Incendios",
+      description: "Sensores de calor avanzados"
+    }
+  ],
+
+  // Imágenes del slider
+  sliderImages: [
+    {
+      src: "/img/gvolts/planing-project.png",
+      alt: "Professional Security Installation"
+    },
+    {
+      src: "/img/gvolts/extintor.jpg",
+      alt: "Security Camera Installation"
+    },
+    {
+      src: "/img/gvolts/camara-bosque.jpg",
+      alt: "Security Systems"
+    }
+  ],
+
+  // Video del modal
+  video: {
+    src: "/img/gvolts/camara_video.mp4"
+  }
+};
+
+// Palabras para el efecto typewriter (se usan en el script)
+const typewriterWords = [
+  "Seguridad Avanzada",
+  "Vigilancia Inteligente",
+  "Monitoreo 24/7",
+  "Respuesta Rápida"
+];
 ---
 
 <section
@@ -10,27 +107,16 @@
   <div class="absolute top-0 left-0 w-full h-[120%] -top-[10%] z-0">
     <!-- Slider Container -->
     <div class="slider-container w-full h-full relative overflow-hidden">
-      <div class="slider-slide active">
-        <img
-          src="/img/gvolts/planing-project.png"
-          alt="Professional Security Installation"
-          class="background-image w-full h-full object-cover object-center will-change-transform"
-        />
-      </div>
-      <div class="slider-slide">
-        <img
-          src="/img/gvolts/extintor.jpg"
-          alt="Security Camera Installation"
-          class="background-image w-full h-full object-cover object-center will-change-transform"
-        />
-      </div>
-      <div class="slider-slide">
-        <img
-          src="/img/gvolts/camara-bosque.jpg"
-          alt="Security Systems"
-          class="background-image w-full h-full object-cover object-center will-change-transform"
-        />
-      </div>
+      {heroData.sliderImages.map((image, index) => (
+        <div class={`slider-slide ${index === 0 ? 'active' : ''}`}>
+          <img
+            src={image.src}
+            alt={image.alt}
+            class="background-image w-full h-full object-cover object-center will-change-transform"
+            loading={index === 0 ? "eager" : "lazy"}
+          />
+        </div>
+      ))}
     </div>
 
     <!-- Overlay siempre visible encima del slider -->
@@ -44,21 +130,8 @@
       <div
         class="hero-badge inline-flex items-center gap-2 mt-5 bg-indian-red-500 border border-indian-red-500 px-6 py-2 rounded-full text-white text-sm font-semibold mb-8"
       >
-        <svg
-          class="w-5 h-5"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"
-          ></path>
-        </svg>
-        <span>Soluciones de Seguridad Confiables</span>
+        <Icon name={heroData.badge.icon} size="20" />
+        <span>{heroData.badge.text}</span>
       </div>
 
       <!-- Title Decorator -->
@@ -72,12 +145,12 @@
       <h1
         class="hero-title text-[clamp(3rem,8vw,4rem)] font-extrabold leading-[1.1] mb-8 max-w-[1100px] tracking-tight"
       >
-        <span class="block text-white drop-shadow-sm">Protege lo que</span>
-        <span class="block text-white drop-shadow-sm">Más Importa con</span>
+        <span class="block text-white drop-shadow-sm">{heroData.title.line1}</span>
+        <span class="block text-white drop-shadow-sm">{heroData.title.line2}</span>
         <span class="block relative pb-2">
           <span
             class="typewriter-text bg-gradient-to-r from-lemon-chiffon-500 to-lemon-chiffon-300 bg-clip-text text-transparent"
-            >Seguridad Avanzada</span
+            >{heroData.title.highlight}</span
           >
           <span
             class="cursor-blink inline-block w-1 h-[clamp(3rem,9vw,6rem)] bg-indian-red-400 ml-1 align-middle"
@@ -89,8 +162,7 @@
       <p
         class="hero-description text-[clamp(1.1rem,2.5vw,1.35rem)] leading-[1.8] text-lemon-chiffon-50/90 max-w-[800px] mb-12 font-medium"
       >
-        Experimente sistemas de seguridad electrónica de última generación
-        diseñados para proteger su hogar y negocio.
+        {heroData.description}
       </p>
 
       <!-- CTA Buttons -->
@@ -98,34 +170,18 @@
         <button
           class="cta-primary inline-flex items-center gap-3 bg-indian-red-500 text-white px-10 py-4 rounded-xl text-lg font-bold border-0 cursor-pointer transition-all duration-300 shadow-[0_10px_30px_rgba(205,92,92,0.4)] relative overflow-hidden hover:-translate-y-1 hover:shadow-[0_15px_40px_rgba(205,92,92,0.5)] hover:bg-indian-red-600"
         >
-          <span>Consulta Gratuita</span>
-          <svg
-            class="cta-arrow w-5 h-5 transition-transform duration-300"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z"
-              clip-rule="evenodd"></path>
-          </svg>
+          <span>{heroData.buttons.primary.text}</span>
+          <div class="cta-arrow transition-transform duration-300">
+            <Icon name={heroData.buttons.primary.icon} size="20" />
+          </div>
         </button>
         <button
           class="js-video-modal-trigger inline-flex items-center gap-3 bg-white/10 text-white px-8 py-4 rounded-xl text-lg font-semibold border-2 border-white/20 cursor-pointer transition-all duration-300 backdrop-blur-[10px] hover:bg-white/15 hover:border-white/30 hover:-translate-y-1"
         >
-          <svg
-            class="w-5 h-5 text-indian-red-400"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z"
-              clip-rule="evenodd"></path>
-          </svg>
-          <span>Ver</span>
+          <div class="text-indian-red-400">
+            <Icon name={heroData.buttons.secondary.icon} size="20" />
+          </div>
+          <span>{heroData.buttons.secondary.text}</span>
         </button>
       </div>
 
@@ -133,120 +189,45 @@
       <div
         class="hero-stats flex gap-16 items-center justify-center flex-wrap w-full border-t border-white/10 pt-12"
       >
-        <div
-          class="text-center group hover:-translate-y-1 transition-transform duration-300"
-        >
-          <div
-            class="text-[clamp(2.5rem,5vw,3.5rem)] font-extrabold text-white leading-none mb-2 group-hover:text-indian-red-200 transition-colors"
-          >
-            <span class="counter" data-target="500">0</span><span
-              class="text-indian-red-500">+</span
-            >
-          </div>
-          <div class="text-base text-white/70 font-medium">
-            Proyectos Completados
-          </div>
-        </div>
-        <div
-          class="w-px h-[60px] bg-gradient-to-b from-transparent via-white/20 to-transparent hidden md:block"
-        >
-        </div>
-        <div
-          class="text-center group hover:-translate-y-1 transition-transform duration-300"
-        >
-          <div
-            class="text-[clamp(2.5rem,5vw,3.5rem)] font-extrabold text-white leading-none mb-2 group-hover:text-indian-red-200 transition-colors"
-          >
-            <span class="counter" data-target="24" data-suffix="/7">0</span>
-          </div>
-          <div class="text-base text-white/70 font-medium">
-            Soporte de Monitoreo
-          </div>
-        </div>
-        <div
-          class="w-px h-[60px] bg-gradient-to-b from-transparent via-white/20 to-transparent hidden md:block"
-        >
-        </div>
-        <div
-          class="text-center group hover:-translate-y-1 transition-transform duration-300"
-        >
-          <div
-            class="text-[clamp(2.5rem,5vw,3.5rem)] font-extrabold text-white leading-none mb-2 group-hover:text-indian-red-200 transition-colors"
-          >
-            <span class="counter" data-target="10">0</span><span
-              class="text-indian-red-500">+</span
-            >
-          </div>
-          <div class="text-base text-white/70 font-medium">
-            Años de Experiencia
-          </div>
-        </div>
+        {heroData.stats.map((stat, index) => (
+          <>
+            {index > 0 && (
+              <div class="w-px h-[60px] bg-gradient-to-b from-transparent via-white/20 to-transparent hidden md:block"></div>
+            )}
+            <div class="text-center group hover:-translate-y-1 transition-transform duration-300">
+              <div class="text-[clamp(2.5rem,5vw,3.5rem)] font-extrabold text-white leading-none mb-2 group-hover:text-indian-red-200 transition-colors">
+                <span class="counter" data-target={stat.value} data-suffix={stat.suffix}>0</span>
+              </div>
+              <div class="text-base text-white/70 font-medium">
+                {stat.label}
+              </div>
+            </div>
+          </>
+        ))}
       </div>
     </div>
 
-    <!-- Floating Feature Cards (Redesigned as floating elements in background or sides) -->
-    <div
-      class="hidden xl:block absolute right-[5%] bottom-[20%] z-[3] parallax-card"
-      data-speed="0.05"
-    >
+    <!-- Floating Feature Cards -->
+    {heroData.floatingCards.map((card) => (
       <div
-        class="bg-white/10 backdrop-blur-[20px] border border-white/20 rounded-[20px] p-6 w-[260px] shadow-[0_20px_60px_rgba(0,0,0,0.3)]"
+        class={`hidden xl:block absolute ${card.position === 'right' ? 'right-[5%]' : 'left-[5%]'} bottom-[20%] z-[3] parallax-card`}
+        data-speed={card.speed}
       >
-        <div
-          class="w-12 h-12 bg-indian-red-500 rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-indian-red-500/40"
-        >
-          <svg
-            class="w-6 h-6 text-white"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-          >
-            <path d="M12 15a3 3 0 100-6 3 3 0 000 6z"></path>
-            <path
-              fill-rule="evenodd"
-              d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z"
-              clip-rule="evenodd"></path>
-          </svg>
+        <div class="bg-white/10 backdrop-blur-[20px] border border-white/20 rounded-[20px] p-6 w-[260px] shadow-[0_20px_60px_rgba(0,0,0,0.3)]">
+          <div class="w-12 h-12 bg-indian-red-500 text-white rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-indian-red-500/40">
+            <Icon name={card.icon} size="24" />
+          </div>
+          <h3 class="text-lg font-bold text-white mb-1">{card.title}</h3>
+          <p class="text-sm text-white/70">{card.description}</p>
         </div>
-        <h3 class="text-lg font-bold text-white mb-1">Vigilancia IA</h3>
-        <p class="text-sm text-white/70">Reconocimiento facial inteligente</p>
       </div>
-    </div>
-
-    <div
-      class="hidden xl:block absolute left-[5%] bottom-[20%] z-[3] parallax-card"
-      data-speed="0.08"
-    >
-      <div
-        class="bg-white/10 backdrop-blur-[20px] border border-white/20 rounded-[20px] p-6 w-[260px] shadow-[0_20px_60px_rgba(0,0,0,0.3)]"
-      >
-        <div
-          class="w-12 h-12 bg-indian-red-500 rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-indian-red-500/40"
-        >
-          <svg
-            class="w-6 h-6 text-white"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M12.963 2.286a.75.75 0 00-1.071-.136 9.742 9.742 0 00-3.539 6.177A7.547 7.547 0 016.648 6.61a.75.75 0 00-1.152-.082A9 9 0 1015.68 4.534a7.46 7.46 0 01-2.717-2.248zM15.75 14.25a3.75 3.75 0 11-7.313-1.172c.628.465 1.35.81 2.133 1a5.99 5.99 0 011.925-3.545 3.75 3.75 0 013.255 3.717z"
-              clip-rule="evenodd"></path>
-          </svg>
-        </div>
-        <h3 class="text-lg font-bold text-white mb-1">
-          Detección de Incendios
-        </h3>
-        <p class="text-sm text-white/70">Sensores de calor avanzados</p>
-      </div>
-    </div>
+    ))}
   </div>
 
   <!-- Video Modal -->
   <div
     id="video-modal"
-    class="fixed inset-0 z-[100] hidden opacity-0 transition-opacity duration-300"
+    class="fixed inset-0 z-[9999] hidden opacity-0 transition-opacity duration-300"
   >
     <!-- Backdrop -->
     <div class="absolute inset-0 bg-black/80 backdrop-blur-sm js-modal-close">
@@ -278,7 +259,6 @@
           </svg>
         </button>
 
-        <!-- Video Iframe -->
         <!-- Video Player -->
         <video
           width="100%"
@@ -286,7 +266,7 @@
           controls
           class="w-full h-full object-cover"
         >
-          <source src="/img/gvolts/camara_video.mp4" type="video/mp4" />
+          <source src={heroData.video.src} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </div>
@@ -569,7 +549,7 @@
       "Seguridad Avanzada",
       "Vigilancia Inteligente",
       "Monitoreo 24/7",
-      "Respuesta Rápida",
+      "Respuesta Rápida"
     ];
     const textElement = document.querySelector(".typewriter-text");
     const cursorElement = document.querySelector(".cursor-blink");

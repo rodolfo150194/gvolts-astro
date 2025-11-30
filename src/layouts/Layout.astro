@@ -52,15 +52,6 @@ const {
     <title>{title}</title>
   </head>
   <body>
-    <Loader />
     <slot />
-    <script>
-      window.addEventListener("load", () => {
-        const loader = document.getElementById("loader-wrapper");
-        if (loader) {
-          loader.classList.add("loaded");
-        }
-      });
-    </script>
   </body>
 </html>

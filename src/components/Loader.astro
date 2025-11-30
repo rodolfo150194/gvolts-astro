@@ -2,29 +2,111 @@
 
 ---
 
-<div id="loader-wrapper" class="loader-wrapper">
-    <span class="loader"></span>
+<!-- Loader de carga -->
+<div id="loader-screen" class="loader-wrapper">
+  <div class="loading-text">
+    <span class="letter-c">C</span>
+    <span class="letter-a">A</span>
+    <span class="letter-r">R</span>
+    <span class="letter-g">G</span>
+    <span class="letter-a2">A</span>
+    <span class="letter-n">N</span>
+    <span class="letter-d">D</span>
+    <span class="letter-o">O</span>
+  </div>
 </div>
 
-<style>
-    .loader-wrapper {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(255, 255, 255, 0.9);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-        transition:
-            opacity 0.5s ease-out,
-            visibility 0.5s ease-out;
-    }
 
-    .loader-wrapper.loaded {
-        opacity: 0;
-        visibility: hidden;
-    }
+<style>
+.loading-text {
+  --ANIMATION-DELAY-MULTIPLIER: 80ms;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  overflow: hidden;
+}
+.loading-text span {
+  padding: 0;
+  margin: 0;
+  font-size: 4rem;
+  font-weight: 900;
+  font-family: var(--font-display);
+  color: var(--color-dark);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  animation-delay: 0s;
+  transform: translateY(4rem);
+  animation: hideAndSeek 1s alternate infinite cubic-bezier(0.86, 0, 0.07, 1);
+}
+.loading-text .letter-c {
+  animation-delay: calc(var(--ANIMATION-DELAY-MULTIPLIER) * 0);
+}
+.loading-text .letter-a {
+  animation-delay: calc(var(--ANIMATION-DELAY-MULTIPLIER) * 1);
+}
+.loading-text .letter-r {
+  animation-delay: calc(var(--ANIMATION-DELAY-MULTIPLIER) * 2);
+}
+.loading-text .letter-g {
+  animation-delay: calc(var(--ANIMATION-DELAY-MULTIPLIER) * 3);
+}
+.loading-text .letter-a2 {
+  animation-delay: calc(var(--ANIMATION-DELAY-MULTIPLIER) * 4);
+}
+.loading-text .letter-n {
+  animation-delay: calc(var(--ANIMATION-DELAY-MULTIPLIER) * 5);
+}
+.loading-text .letter-d {
+  animation-delay: calc(var(--ANIMATION-DELAY-MULTIPLIER) * 6);
+}
+.loading-text .letter-o {
+  animation-delay: calc(var(--ANIMATION-DELAY-MULTIPLIER) * 7);
+}
+@keyframes hideAndSeek {
+  0% {
+    transform: translateY(4rem);
+  }
+  100% {
+    transform: translateY(0rem);
+  }
+}
+
+.loader-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, var(--color-lemon-chiffon-200) 0%, var(--color-indian-red-100) 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.5s ease-out;
+}
+
+.loader-wrapper.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
 </style>
+
+<script>
+  // Ocultar el loader después de 2.5 segundos
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const loader = document.getElementById('loader-screen');
+      if (loader) {
+        loader.classList.add('fade-out');
+        // Remover el elemento del DOM después de la transición
+        setTimeout(() => {
+          loader.remove();
+        }, 500);
+      }
+    }, 2500);
+  });
+</script>

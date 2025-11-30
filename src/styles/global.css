@@ -193,3 +193,15 @@ h6 {
     transform: translate(0, 0) rotateX(0) rotateY(360deg);
   }
 }
+.corner-shape {
+  corner-shape:bevel;   
+}
+.corner-top-right-shape {
+  border-top-right-radius: 50px;
+  corner-shape:bevel;   
+}
+
+.corner-top-left-shape {
+  border-top-left-radius: 50px;
+  corner-shape:bevel;   
+}

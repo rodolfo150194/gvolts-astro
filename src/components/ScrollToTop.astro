@@ -1,0 +1,88 @@
+---
+import Icon from "./Icon.astro";
+---
+
+<button id="scroll-to-top" class="scroll-to-top-btn" aria-label="Volver arriba">
+  <Icon name="alt-arrow-up" size="24" />
+</button>
+
+<style>
+  .scroll-to-top-btn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 3.5rem;
+    height: 3.5rem;
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.8);
+    transition: all 0.3s ease;
+    z-index: 1000;
+  }
+
+  .scroll-to-top-btn:hover {
+    background: var(--color-indian-red-600);
+    transform: scale(1);
+    box-shadow: 0 6px 20px rgba(205, 92, 92, 0.4);
+  }
+
+  .scroll-to-top-btn:active {
+    transform: scale(0.95);
+  }
+
+  .scroll-to-top-btn.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+  }
+
+  .scroll-to-top-btn svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .scroll-to-top-btn {
+      bottom: 1.5rem;
+      right: 1.5rem;
+      width: 3rem;
+      height: 3rem;
+    }
+
+    .scroll-to-top-btn svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+</style>
+
+<script>
+  const scrollToTopBtn = document.getElementById('scroll-to-top');
+
+  // Mostrar/ocultar botón según scroll
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      scrollToTopBtn?.classList.add('visible');
+    } else {
+      scrollToTopBtn?.classList.remove('visible');
+    }
+  });
+
+  // Scroll suave al hacer click
+  scrollToTopBtn?.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+</script>

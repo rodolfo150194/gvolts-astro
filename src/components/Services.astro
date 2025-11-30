@@ -23,7 +23,7 @@ const services = [
 ];
 ---
 
-<section class="relative py-20 px-8 md:px-6 services-section z-0 bg-[url('/img/gvolts/camara-bosque.jpg')] bg-cover bg-center bg-no-repeat bg-fixed" id="services">
+<section class="relative py-20 px-8 md:px-6 services-section z-0 bg-[url('/img/gvolts/camara-bosque.jpg')] h-[850px] bg-cover bg-center bg-no-repeat bg-fixed" id="services">
   <!-- Overlay background que cubre el 100% de la sección -->
   <div class="absolute inset-0 bg-gradient-to-b from-[#3D1F1D]/85 via-[#3D1F1D]/70 to-[#3D1F1D]/60 z-[1] pointer-events-none"></div>
 
@@ -39,14 +39,13 @@ const services = [
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-8 services-grid">
       {services.map((service, index) => (
-        <div class="group bg-white rounded-[24px] overflow-hidden shadow-[0_10px_40px_rgba(61,31,29,0.08)] transition-all duration-500 hover:-translate-y-[15px] hover:scale-[1.02] hover:shadow-[0_25px_60px_rgba(223,100,63,0.25)] service-card relative flex flex-col" data-index={index} style="transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);">
-          <!-- Círculo con número a la derecha -->
+        <div class="group bg-white rounded-[30px] border-2 border-indian-red-100 hover:border-indian-red-500 overflow-hidden transition-all duration-500 hover:-translate-y-[15px] hover:scale-[1.02] service-card relative flex flex-col" data-index={index} style="transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);">
           <div class="absolute top-1/2 -translate-y-1/2 left-5 w-20 h-12 bg-indian-red-500 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg z-10">
             {index + 1}
           </div>
 
           <div class="relative h-[280px] overflow-hidden">
-            <img src={service.image} alt={service.title} class="w-full h-full object-cover transition-transform duration-[600ms] ease-in-out group-hover:scale-110" />
+            <img src={service.image} alt={service.title} class="w-full h-full object-cover transition-transform duration-[600ms] ease-in-out group-hover:scale-110" loading="lazy" />
           </div>
           <hr />
           <div class="p-8 flex flex-col flex-grow">
@@ -78,6 +77,9 @@ const services = [
 
     .section-header {
       margin-bottom: 3rem;
+    }
+    .service-card{
+      corner-shape: bevel;
     }
   }
 </style>

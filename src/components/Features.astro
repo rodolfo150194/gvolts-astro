@@ -31,7 +31,7 @@ const features = [
           <div class="flex h-full">
             <!-- Bloque estrecho: icono y número -->
             <div class="w-24 p-4 flex-shrink-0 bg-gradient-to-b from-indian-red-500 to-indian-red-600 flex flex-col items-center justify-between gap-4 py-8">
-              <img src={feature.img} />
+              <img src={feature.img} loading="lazy" alt={feature.title} />
               <div class="text-5xl font-bold text-white">{feature.number}</div>
             </div>
 

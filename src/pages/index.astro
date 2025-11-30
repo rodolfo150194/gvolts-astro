@@ -1,20 +1,26 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Loader from "../components/Loader.astro";
 import Hero from "../components/Hero.astro";
-import Header from "../components/header.astro";
+import Header from "../components/Header.astro";
 import Features from "../components/Features.astro";
 import ImageSection from "../components/ImageSection.astro";
 import Services from "../components/Services.astro";
+import Subscription from "../components/Subscription.astro";
+import HowToWork from "../components/HowToWork.astro";
+import ScrollToTop from "../components/ScrollToTop.astro";
 ---
 
 <Layout>
-  <Header client:load />
-  <Hero client:idle />
+  <Loader />
+  <Header />
+  <Hero />
   <Features />
-  <ImageSection client:visible />
-  <Services client:visible />
+  <ImageSection />
+  <Services />
+  <Subscription />
+  <HowToWork />
+  <ScrollToTop />
 </Layout>
 
-<script>
-
-</script>
+<script></script>

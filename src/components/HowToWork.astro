@@ -1,217 +1,253 @@
 ---
+import Icon from "./Icon.astro";
+
+// Mapeo de iconos del sprite
+const iconNames = {
+  fire: 'flame',
+  ruler: 'ruler',
+  wrench: 'corkscrew',
+  gear: 'settings',
+  shield: 'shield-check',
+  camera: 'clapperboard-play',
+  map: 'point-on-map',
+  ladder: 'alt-arrow-up',
+  signal: 'heart-pulse',
+  eye: 'eye',
+};
+
+// Initial data for server-side rendering (defaulting to Fire)
 const steps = [
-  { number: '01', title: 'Consulta Inicial', description: 'Evaluamos tus necesidades de seguridad' },
-  { number: '02', title: 'Diseño Personalizado', description: 'Creamos un plan adaptado a tu espacio' },
-  { number: '03', title: 'Instalación Profesional', description: 'Técnicos certificados instalan el sistema' },
-  { number: '04', title: 'Configuración', description: 'Optimizamos y probamos todo el equipo' },
-  { number: '05', title: 'Monitoreo 24/7', description: 'Protección continua las 24 horas' }
+  {
+    id: 1,
+    label: 'Consulta',
+    description: 'Análisis inicial de necesidades',
+    iconName: iconNames.fire,
+    x: 10,
+    y: 0,
+    badgeAngle: 45,
+    position: "bottom"
+  },
+  {
+    id: 2,
+    label: 'Diseño',
+    description: 'Planificación del sistema',
+    iconName: iconNames.ruler,
+    x: 30,
+    y: 50,
+    badgeAngle: 285,
+    position: "bottom"
+  },
+  {
+    id: 3,
+    label: 'Instalación',
+    description: 'Montaje de equipos',
+    iconName: iconNames.wrench,
+    x: 50,
+    y: 20,
+    badgeAngle: 90,
+    position: "top"
+  },
+  {
+    id: 4,
+    label: 'Config',
+    description: 'Configuración y pruebas',
+    iconName: iconNames.gear,
+    x: 70,
+    y: 50,
+    badgeAngle: 225,
+    position: "bottom"
+  },
+  {
+    id: 5,
+    label: 'Monitoreo',
+    description: 'Supervisión continua',
+    iconName: iconNames.shield,
+    x: 90,
+    y: 0,
+    badgeAngle: 135,
+    position: "bottom"
+  }
 ];
+
+// Configuration for calculations
+const containerWidth = 1200;
+const containerHeight = 600;
+const circleRadius = 64; 
+const badgeOffset = circleRadius; 
+
+const pathPoints = steps.map(step => {
+  const cx = (step.x / 100) * containerWidth;
+  const cy = (step.y / 100) * containerHeight;
+  const angleRad = (step.badgeAngle * Math.PI) / 180;
+  const bx = cx + (badgeOffset * Math.cos(angleRad));
+  const by = cy + (badgeOffset * Math.sin(angleRad));
+  return { x: bx, y: by };
+});
+
+const pathSegments = [];
+for (let i = 0; i < pathPoints.length - 1; i++) {
+  const p1 = pathPoints[i];
+  const p2 = pathPoints[i+1];
+  const d = `M ${p1.x} ${p1.y} Q ${(p1.x + p2.x)/2} ${(p1.y + p2.y)/2 + (i % 2 === 0 ? 50 : -50)}, ${p2.x} ${p2.y}`;
+  pathSegments.push(d);
+}
 ---
 
-<section class="how-to-work">
-  <div class="container">
-    <h2 class="section-title">How to work</h2>
+<section class="py-24 overflow-hidden relative" id="how-to-work">
+  <!-- Background SVG Pattern -->
+  <div class="absolute inset-0 opacity-5 pointer-events-none">
+    <svg class="w-full h-full" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="100" r="150" stroke="#DC362E" stroke-width="2"/>
+      <circle cx="1000" cy="200" r="200" stroke="#DC362E" stroke-width="2"/>
+      <circle cx="600" cy="600" r="180" stroke="#DC362E" stroke-width="2"/>
+      <path d="M200 300 L400 200 L600 350 L800 250" stroke="#DC362E" stroke-width="2" stroke-dasharray="10 5"/>
+      <path d="M100 500 L300 600 L500 500 L700 600" stroke="#DC362E" stroke-width="2" stroke-dasharray="10 5"/>
+      <rect x="850" y="450" width="100" height="100" stroke="#DC362E" stroke-width="2" transform="rotate(45 900 500)"/>
+      <rect x="50" y="650" width="80" height="80" stroke="#DC362E" stroke-width="2" transform="rotate(30 90 690)"/>
+    </svg>
+  </div>
 
-    <div class="process-diagram">
-      <svg class="connection-lines" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
-        <path class="path-line" d="M 400 50 Q 200 150, 150 300" stroke="var(--color-primary)" stroke-width="2" fill="none" opacity="0.3"/>
-        <path class="path-line" d="M 400 50 Q 600 150, 650 300" stroke="var(--color-primary)" stroke-width="2" fill="none" opacity="0.3"/>
-        <path class="path-line" d="M 150 300 Q 250 450, 400 500" stroke="var(--color-primary)" stroke-width="2" fill="none" opacity="0.3"/>
-        <path class="path-line" d="M 650 300 Q 550 450, 400 500" stroke="var(--color-primary)" stroke-width="2" fill="none" opacity="0.3"/>
-      </svg>
-
-      <div class="step-nodes">
-        <div class="step-node top-center" data-step="1">
-          <div class="node-circle">
-            <span class="node-number">01</span>
-          </div>
-          <p class="node-label">Consulta</p>
-        </div>
-
-        <div class="step-node left" data-step="2">
-          <div class="node-circle">
-            <span class="node-number">02</span>
-          </div>
-          <p class="node-label">Diseño</p>
-        </div>
-
-        <div class="step-node right" data-step="3">
-          <div class="node-circle">
-            <span class="node-number">03</span>
-          </div>
-          <p class="node-label">Instalación</p>
-        </div>
-
-        <div class="step-node bottom-left" data-step="4">
-          <div class="node-circle">
-            <span class="node-number">04</span>
-          </div>
-          <p class="node-label">Config</p>
-        </div>
-
-        <div class="step-node bottom-right" data-step="5">
-          <div class="node-circle">
-            <span class="node-number">05</span>
-          </div>
-          <p class="node-label">Monitoreo</p>
-        </div>
+  <div class="max-w-7xl mx-auto px-4 relative z-10">
+    
+    <!-- Header -->
+    <div class="text-center mb-12">
+    
+      <h2 class="font-display text-3xl md:text-6xl font-bold text-gray-900 mb-8">Como trabajamos</h2>
+      
+      <!-- Tabs -->
+      <div class="flex justify-center gap-4 mb-8">
+        <button
+          class="tab-btn active px-8 py-2 rounded-[20px] cursor-pointer font-bold text-lg transition-all duration-300 border-2 border-indian-red-500 bg-indian-red-500 text-white shadow-lg hover:border-indian-red-500 hover:text-indian-red-500 flex items-center gap-2"
+          data-type="fire"
+        >
+          <Icon name="flame" size="20" />
+          <span>Alarmas de Fuego</span>
+        </button>
+        <button
+          class="tab-btn px-8 py-2 rounded-[20px] cursor-pointer font-bold text-lg transition-all duration-300 border-2 border-gray-200 bg-white text-gray-500 hover:border-indian-red-500 hover:text-indian-red-500 flex items-center gap-2"
+          data-type="video"
+        >
+          <Icon name="clapperboard-play" size="20" />
+          <span>Video Vigilancia</span>
+        </button>
       </div>
     </div>
+
+    <!-- Diagram Container -->
+    <div class="relative h-[600px] hidden md:block w-full max-w-[1200px] mx-auto">
+      
+      <!-- SVG Connecting Line -->
+      <svg class="absolute top-0 left-0 w-full h-full z-0 pointer-events-none" viewBox="0 0 1200 600" preserveAspectRatio="none">
+        <defs>
+          {pathSegments.map((d, index) => (
+            <mask id={`mask-line-${index}`}>
+              <path 
+                d={d} 
+                stroke="white" 
+                stroke-width="7" 
+                fill="none"
+                pathLength="1"
+                class={`mask-path mask-path-${index}`}
+                stroke-dasharray="1"
+                stroke-dashoffset="1"
+              />
+            </mask>
+          ))}
+        </defs>
+        {pathSegments.map((d, index) => (
+          <path 
+            d={d}
+            fill="none" 
+            stroke="#3D1F1D" 
+            stroke-width="5" 
+            stroke-dasharray="15 15"
+            mask={`url(#mask-line-${index})`}
+          />
+        ))}
+      </svg>
+
+      <!-- Steps -->
+      <div class="relative z-10 w-full h-full">
+        {steps.map((step, index) => (
+          <div 
+            class={`absolute flex flex-col items-center gap-4 step-item step-${index + 1}`}
+            style={`
+              left: ${step.x}%; 
+              top: ${step.y}%;
+              transform: translate(-50%, -50%);
+            `}
+          >
+            <div class="relative group cursor-pointer">
+              <div class="w-32 h-32 rounded-full border-2 border-gray-900 bg-white flex items-center justify-center transition-transform duration-300 group-hover:scale-110 hover:border-5 group-hover:border-indian-red-500 shadow-lg relative z-10">
+                <div class="step-icon text-gray-700 group-hover:text-indian-red-500 transition-colors duration-300" data-icon={step.iconName}>
+                  <Icon name={step.iconName} size="48" />
+                </div>
+              </div>
+
+              <div
+                class="absolute w-10 h-10 rounded-full border-2 border-gray-900 bg-white shadow-md z-20 flex items-center justify-center"
+                style={`
+                  left: 50%;
+                  top: 50%;
+                  transform: translate(-50%, -50%) rotate(${step.badgeAngle}deg) translate(64px) rotate(-${step.badgeAngle}deg);
+                `}
+              >
+                 <div class="w-3 h-3 bg-indian-red-500 rounded-full"></div>
+              </div>
+            </div>
+
+            <!-- LABEL ARRIBA -->
+            {step.position === "top" && (
+              <div class="step-label-container absolute bottom-full mb-4 w-48 text-center transition-opacity duration-300">
+                <div class="step-label font-body text-lg font-bold text-gray-800 mb-1">
+                  {step.label}
+                </div>
+                <div class="step-description text-sm text-gray-600">
+                  {step.description}
+                </div>
+              </div>
+            )}
+
+            <!-- LABEL ABAJO -->
+            {step.position === "bottom" && (
+              <div class="step-label-container absolute top-full mt-4 w-48 text-center transition-opacity duration-300">
+                <div class="step-label font-body text-lg font-bold text-gray-800 mb-1">
+                  {step.label}
+                </div>
+                <div class="step-description text-sm text-gray-600">
+                  {step.description}
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Mobile Vertical Layout -->
+    <div class="md:hidden flex flex-col gap-12 relative">
+      <div class="absolute left-8 top-8 bottom-8 w-1 bg-gray-200 -z-10 border-l-2 border-dashed border-gray-400"></div>
+
+      {steps.map((step) => (
+        <div class="flex items-center gap-8 step-item-mobile">
+          <div class="relative flex-shrink-0 w-16 h-16 bg-white border-2 border-gray-900 rounded-full flex items-center justify-center z-10 shadow-md">
+             <div class="step-icon-mobile text-gray-700" data-icon={step.iconName}>
+               <Icon name={step.iconName} size="32" />
+             </div>
+             <div class="absolute -top-1 -right-1 w-5 h-5 rounded-full border border-gray-900 bg-white flex items-center justify-center">
+                <div class="w-2 h-2 bg-indian-red-500 rounded-full"></div>
+             </div>
+          </div>
+          <div>
+            <div class="step-label-mobile font-display text-xl font-bold text-gray-900">{step.label}</div>
+            <div class="step-description-mobile text-sm text-gray-600 mt-1">{step.description}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+
   </div>
 </section>
-
-<style>
-  .how-to-work {
-    padding: 8rem 2rem;
-    background: white;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .container {
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-
-  .section-title {
-    font-family: var(--font-display);
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    font-weight: 800;
-    color: var(--color-dark);
-    text-align: center;
-    margin-bottom: 5rem;
-  }
-
-  .process-diagram {
-    position: relative;
-    width: 100%;
-    max-width: 900px;
-    height: 600px;
-    margin: 0 auto;
-  }
-
-  .connection-lines {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-  }
-
-  .step-nodes {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    z-index: 2;
-  }
-
-  .step-node {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .step-node.top-center {
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  .step-node.left {
-    top: 40%;
-    left: 10%;
-  }
-
-  .step-node.right {
-    top: 40%;
-    right: 10%;
-  }
-
-  .step-node.bottom-left {
-    bottom: 10%;
-    left: 25%;
-  }
-
-  .step-node.bottom-right {
-    bottom: 10%;
-    right: 25%;
-  }
-
-  .node-circle {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background: white;
-    border: 3px solid var(--color-primary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 10px 30px rgba(223, 100, 63, 0.2);
-    transition: all 0.4s ease;
-    cursor: pointer;
-  }
-
-  .node-circle:hover {
-    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-    transform: scale(1.15);
-    box-shadow: 0 15px 40px rgba(223, 100, 63, 0.4);
-  }
-
-  .node-circle:hover .node-number {
-    color: white;
-  }
-
-  .node-number {
-    font-family: var(--font-display);
-    font-size: 1.8rem;
-    font-weight: 800;
-    color: var(--color-primary);
-    transition: color 0.3s ease;
-  }
-
-  .node-label {
-    font-family: var(--font-body);
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--color-dark);
-    text-align: center;
-  }
-
-  @media (max-width: 768px) {
-    .how-to-work {
-      padding: 5rem 1.5rem;
-    }
-
-    .process-diagram {
-      height: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 3rem;
-    }
-
-    .connection-lines {
-      display: none;
-    }
-
-    .step-nodes {
-      display: flex;
-      flex-direction: column;
-      gap: 3rem;
-    }
-
-    .step-node {
-      position: relative !important;
-      top: auto !important;
-      left: auto !important;
-      right: auto !important;
-      bottom: auto !important;
-      transform: none !important;
-    }
-  }
-</style>
 
 <script>
   import { gsap } from 'gsap';
@@ -219,54 +255,151 @@ const steps = [
 
   gsap.registerPlugin(ScrollTrigger);
 
+  // Mapeo de iconos del sprite
+  const iconNames = {
+    fire: 'flame',
+    ruler: 'ruler',
+    wrench: 'corkscrew',
+    gear: 'settings',
+    shield: 'shield-check',
+    camera: 'clapperboard-play',
+    map: 'point-on-map',
+    ladder: 'alt-arrow-up',
+    signal: 'heart-pulse',
+    eye: 'eye',
+  };
+
+  // Data for the tabs
+  const workflows = {
+    fire: [
+      { label: 'Consulta', description: 'Análisis inicial de necesidades', iconName: iconNames.fire },
+      { label: 'Diseño', description: 'Planificación del sistema', iconName: iconNames.ruler },
+      { label: 'Instalación', description: 'Montaje de equipos', iconName: iconNames.wrench },
+      { label: 'Config', description: 'Configuración y pruebas', iconName: iconNames.gear },
+      { label: 'Monitoreo', description: 'Supervisión continua', iconName: iconNames.shield }
+    ],
+    video: [
+      { label: 'Evaluación', description: 'Análisis de requisitos', iconName: iconNames.camera },
+      { label: 'Cobertura', description: 'Mapeo de áreas', iconName: iconNames.map },
+      { label: 'Montaje', description: 'Instalación de cámaras', iconName: iconNames.ladder },
+      { label: 'Red', description: 'Conexión y configuración', iconName: iconNames.signal },
+      { label: 'Vigilancia', description: 'Monitoreo activo 24/7', iconName: iconNames.eye }
+    ]
+  };
+
   document.addEventListener('DOMContentLoaded', () => {
-    gsap.from('.section-title', {
-      scrollTrigger: {
-        trigger: '.section-title',
-        start: 'top 80%',
-        toggleActions: 'play none none reverse'
-      },
-      y: 40,
-      opacity: 0,
-      duration: 0.8,
-      ease: 'power3.out'
-    });
 
-    const pathLines = document.querySelectorAll('.path-line');
-    pathLines.forEach((path, index) => {
-      gsap.fromTo(path,
-        {
-          strokeDasharray: 1000,
-          strokeDashoffset: 1000
-        },
-        {
-          scrollTrigger: {
-            trigger: '.process-diagram',
-            start: 'top 70%',
-            toggleActions: 'play none none reverse'
-          },
-          strokeDashoffset: 0,
-          duration: 2,
-          delay: index * 0.2,
-          ease: 'power2.inOut'
-        }
-      );
-    });
+    // Tab Logic
+    const tabs = document.querySelectorAll('.tab-btn');
+    const stepIcons = document.querySelectorAll('.step-icon');
+    const stepLabels = document.querySelectorAll('.step-label');
+    const stepDescriptions = document.querySelectorAll('.step-description');
+    const stepIconsMobile = document.querySelectorAll('.step-icon-mobile');
+    const stepLabelsMobile = document.querySelectorAll('.step-label-mobile');
+    const stepDescriptionsMobile = document.querySelectorAll('.step-description-mobile');
 
-    const nodes = document.querySelectorAll('.step-node');
-    nodes.forEach((node, index) => {
-      gsap.from(node, {
-        scrollTrigger: {
-          trigger: '.process-diagram',
-          start: 'top 70%',
-          toggleActions: 'play none none reverse'
-        },
-        scale: 0,
-        opacity: 0,
-        duration: 0.6,
-        delay: 0.5 + (index * 0.15),
-        ease: 'back.out(1.7)'
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        // Update active state
+        tabs.forEach(t => {
+            t.classList.remove('bg-indian-red-500', 'text-white', 'border-indian-red-500');
+            t.classList.add('bg-white', 'text-gray-500', 'border-gray-200');
+        });
+        tab.classList.remove('bg-white', 'text-gray-500', 'border-gray-200');
+        tab.classList.add('bg-indian-red-500', 'text-white', 'border-indian-red-500');
+
+        const type = tab.getAttribute('data-type');
+        if (!type) return;
+        const data = workflows[type as keyof typeof workflows];
+
+        // Animate out
+        gsap.to([stepIcons, stepLabels, stepDescriptions, stepIconsMobile, stepLabelsMobile, stepDescriptionsMobile], {
+            opacity: 0,
+            y: -10,
+            duration: 0.2,
+            onComplete: () => {
+                // Update content
+                data.forEach((item, index) => {
+                    // Actualizar iconos del sprite (desktop)
+                    if(stepIcons[index]) {
+                        const useElement = stepIcons[index].querySelector('use');
+                        if (useElement) {
+                            useElement.setAttribute('href', `/sprite.svg#${item.iconName}`);
+                        }
+                    }
+                    if(stepLabels[index]) stepLabels[index].textContent = item.label;
+                    if(stepDescriptions[index]) stepDescriptions[index].textContent = item.description;
+
+                    // Actualizar iconos del sprite (mobile)
+                    if(stepIconsMobile[index]) {
+                        const useElement = stepIconsMobile[index].querySelector('use');
+                        if (useElement) {
+                            useElement.setAttribute('href', `/sprite.svg#${item.iconName}`);
+                        }
+                    }
+                    if(stepLabelsMobile[index]) stepLabelsMobile[index].textContent = item.label;
+                    if(stepDescriptionsMobile[index]) stepDescriptionsMobile[index].textContent = item.description;
+                });
+
+                // Reset and Replay Sequence
+                playSequence(false);
+
+                // Animate content back in (both desktop and mobile)
+                gsap.to([stepIcons, stepLabels, stepDescriptions, stepIconsMobile, stepLabelsMobile, stepDescriptionsMobile], {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.3,
+                    stagger: 0.05
+                });
+            }
+        });
       });
     });
+
+    // Sequence Animation Function
+    function playSequence(withScroll = false) {
+      const steps = document.querySelectorAll('.step-item');
+      const masks = document.querySelectorAll('.mask-path');
+      
+      // Kill existing tweens
+      gsap.killTweensOf(steps);
+      gsap.killTweensOf(masks);
+
+      // Reset state
+      gsap.set(steps, { scale: 0, opacity: 0 });
+      gsap.set(masks, { strokeDashoffset: 1 });
+
+      const tl = gsap.timeline({
+        scrollTrigger: withScroll ? {
+          trigger: '#how-to-work',
+          start: 'top 60%',
+        } : null
+      });
+
+      steps.forEach((step, index) => {
+        // Animate Step
+        tl.to(step, { 
+            scale: 1, 
+            opacity: 1, 
+            duration: 0.5, 
+            ease: 'back.out(1.7)' 
+        });
+
+        // Animate Line to next step
+        if (index < steps.length - 1) {
+          const maskPath = document.querySelector(`.mask-path-${index}`);
+          if (maskPath) {
+            tl.to(maskPath, {
+              strokeDashoffset: 0,
+              duration: 0.5,
+              ease: 'power1.inOut'
+            });
+          }
+        }
+      });
+    }
+
+    // Initial Play
+    playSequence(true);
   });
 </script>
