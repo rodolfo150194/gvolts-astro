@@ -1,198 +1,144 @@
 ---
+import Icon from "./Icon.astro";
+
 const faqs = [
   {
-    question: 'Pregunta',
-    answer: 'Respuesta - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+    question: "¿Qué servicios de seguridad ofrecen?",
+    answer:
+      "Ofrecemos una gama completa de soluciones, incluyendo instalación de cámaras de videovigilancia, sistemas de alarma contra incendios, control de acceso y monitoreo 24/7 con tecnología de inteligencia artificial.",
   },
   {
-    question: 'Pregunta',
-    answer: 'Respuesta - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+    question: "¿Realizan instalaciones residenciales y comerciales?",
+    answer:
+      "Sí, nuestros servicios están diseñados para adaptarse tanto a hogares como a grandes empresas. Personalizamos cada proyecto según las necesidades específicas de seguridad de cada cliente.",
   },
   {
-    question: 'Pregunta',
-    answer: 'Respuesta - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+    question: "¿Cuánto tiempo toma la instalación?",
+    answer:
+      "Para la mayoría de los proyectos residenciales, la instalación se completa en 24-48 horas. Proyectos comerciales más grandes pueden requerir un cronograma detallado que acordaremos contigo previamente.",
   },
   {
-    question: 'Pregunta',
-    answer: 'Respuesta - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-  }
+    question: "¿Ofrecen garantía en sus equipos?",
+    answer:
+      "Absolutamente. Todos nuestros equipos cuentan con garantía de fábrica y ofrecemos una garantía extendida en nuestra mano de obra de instalación para asegurar tu tranquilidad total.",
+  },
 ];
 ---
 
-<section class="faqs">
-  <div class="container">
-    <h2 class="section-title">Faqs</h2>
+<section class="py-40 bg-white" id="faqs">
+  <div class="max-w-7xl mx-auto px-4 lg:px-8">
+    <div class="text-center mb-16">
+      
+      <span
+        class="hero-badge inline-flex items-center gap-2 mt-5 bg-indian-red-500 border border-indian-red-500 px-6 py-2 rounded-full text-white text-sm font-semibold mb-8"
+        ><Icon name="question-circle" size={24} />
+         Ayuda y Soporte</span
+      >
+      <h2 class="font-display text-4xl md:text-5xl font-bold text-slate-900">
+        Preguntas Frecuentes
+      </h2>
+    </div>
 
-    <div class="faqs-grid">
-      {faqs.map((faq, index) => (
-        <div class="faq-item" data-index={index}>
-          <button class="faq-question">
-            <span class="question-text">{faq.question}</span>
-            <span class="icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>{faq.answer}</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 items-start">
+      {
+        faqs.map((faq, index) => (
+          <div class="faq-item group bg-white rounded-[20px] border border-slate-200 p-8 hover:border-indian-red-200 hover:shadow-lg hover:shadow-indian-red-500/5 transition-all duration-300">
+            <button class="faq-question w-full flex justify-between items-start text-left gap-4 group-hover:text-indian-red-600 transition-colors">
+              <span class="font-display text-xl font-bold text-slate-900 group-hover:text-indian-red-700 transition-colors">
+                {faq.question}
+              </span>
+              <span class="icon flex-shrink-0 w-8 h-8 flex items-center justify-center bg-slate-100 rounded-full text-slate-500 group-hover:bg-indian-red-100 group-hover:text-indian-red-500 transition-all duration-300 text-2xl leading-none pb-1">
+                +
+              </span>
+            </button>
+            <div class="faq-answer max-h-0 overflow-hidden opacity-0 transition-all duration-300 ease-in-out">
+              <p class="pt-4 text-slate-600 leading-relaxed font-body">
+                {faq.answer}
+              </p>
+            </div>
           </div>
-        </div>
-      ))}
+        ))
+      }
     </div>
   </div>
 </section>
 
-<style>
-  .faqs {
-    padding: 8rem 2rem;
-    background: white;
-  }
-
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .section-title {
-    font-family: var(--font-display);
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    font-weight: 800;
-    color: var(--color-dark);
-    text-align: center;
-    margin-bottom: 4rem;
-  }
-
-  .faqs-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-  }
-
-  .faq-item {
-    background: white;
-    border-radius: 16px;
-    border: 2px solid rgba(61, 31, 29, 0.1);
-    overflow: hidden;
-    transition: all 0.3s ease;
-  }
-
-  .faq-item:hover {
-    border-color: var(--color-primary);
-    box-shadow: 0 8px 25px rgba(223, 100, 63, 0.15);
-  }
-
-  .faq-item.active {
-    border-color: var(--color-primary);
-  }
-
-  .faq-question {
-    width: 100%;
-    background: none;
-    border: none;
-    padding: 1.75rem 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    cursor: pointer;
-    text-align: left;
-    transition: background 0.3s ease;
-  }
-
-  .faq-question:hover {
-    background: rgba(223, 100, 63, 0.05);
-  }
-
-  .question-text {
-    font-family: var(--font-display);
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--color-dark);
-  }
-
-  .icon {
-    font-size: 1.5rem;
-    color: var(--color-primary);
-    font-weight: 300;
-    transition: transform 0.3s ease;
-    flex-shrink: 0;
-  }
-
-  .faq-item.active .icon {
-    transform: rotate(45deg);
-  }
-
-  .faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease, padding 0.4s ease;
-  }
-
-  .faq-item.active .faq-answer {
-    max-height: 500px;
-    padding: 0 2rem 1.75rem 2rem;
-  }
-
-  .faq-answer p {
-    font-family: var(--font-body);
-    font-size: 1rem;
-    line-height: 1.7;
-    color: rgba(61, 31, 29, 0.7);
-  }
-
-  @media (max-width: 768px) {
-    .faqs {
-      padding: 5rem 1.5rem;
-    }
-
-    .faqs-grid {
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-    }
-  }
-</style>
-
 <script>
-  import { gsap } from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
 
   gsap.registerPlugin(ScrollTrigger);
 
-  document.addEventListener('DOMContentLoaded', () => {
-    gsap.from('.section-title', {
-      scrollTrigger: {
-        trigger: '.faqs',
-        start: 'top 80%',
-        toggleActions: 'play none none reverse'
-      },
-      y: 40,
+  document.addEventListener("DOMContentLoaded", () => {
+    // Animate FAQ items on scroll
+    gsap.from(".faq-item", {
+      y: 50,
       opacity: 0,
       duration: 0.8,
-      ease: 'power3.out'
+      stagger: 0.1,
+      ease: "power3.out",
+      clearProps: "all", // Clear inline styles after animation to prevent conflicts
+      scrollTrigger: {
+        trigger: "#faqs",
+        start: "top 80%",
+        toggleActions: "play none none none", // Play once and stay
+      },
     });
 
-    const faqItems = document.querySelectorAll('.faq-item');
-    faqItems.forEach((item, index) => {
-      gsap.from(item, {
-        scrollTrigger: {
-          trigger: item,
-          start: 'top 85%',
-          toggleActions: 'play none none reverse'
-        },
-        y: 40,
-        opacity: 0,
-        duration: 0.6,
-        delay: index * 0.1,
-        ease: 'power3.out'
-      });
+    const faqItems = document.querySelectorAll(".faq-item");
 
-      const question = item.querySelector('.faq-question');
-      question.addEventListener('click', () => {
-        const isActive = item.classList.contains('active');
+    faqItems.forEach((item) => {
+      const button = item.querySelector(".faq-question");
+      const answer = item.querySelector(".faq-answer") as HTMLElement;
+      const icon = item.querySelector(".icon");
 
-        faqItems.forEach(faqItem => {
-          faqItem.classList.remove('active');
+      button?.addEventListener("click", () => {
+        const isOpen = !answer.classList.contains("max-h-0");
+
+        // Close all other items
+        faqItems.forEach((otherItem) => {
+          if (otherItem !== item) {
+            const otherAnswer = otherItem.querySelector(
+              ".faq-answer"
+            ) as HTMLElement;
+            const otherIcon = otherItem.querySelector(".icon");
+
+            otherAnswer.classList.add("max-h-0", "opacity-0");
+            otherAnswer.style.maxHeight = "0px";
+            if (otherIcon) otherIcon.textContent = "+";
+            otherItem.classList.remove(
+              "border-indian-red-200",
+              "shadow-lg",
+              "shadow-indian-red-500/5",
+              "z-10",
+              "relative"
+            );
+          }
         });
 
-        if (!isActive) {
-          item.classList.add('active');
+        // Toggle current item
+        if (isOpen) {
+          answer.classList.add("max-h-0", "opacity-0");
+          answer.style.maxHeight = "0px";
+          if (icon) icon.textContent = "+";
+          item.classList.remove(
+            "border-indian-red-200",
+            "shadow-lg",
+            "shadow-indian-red-500/5",
+            "z-10",
+            "relative"
+          );
+        } else {
+          answer.classList.remove("max-h-0", "opacity-0");
+          answer.style.maxHeight = answer.scrollHeight + "px";
+          if (icon) icon.textContent = "-";
+          item.classList.add(
+            "border-indian-red-200",
+            "shadow-lg",
+            "shadow-indian-red-500/5",
+            "z-10",
+            "relative"
+          );
         }
       });
     });

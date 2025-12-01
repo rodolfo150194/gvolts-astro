@@ -6,29 +6,30 @@ const heroData = {
   // Badge superior
   badge: {
     icon: "shield-check",
-    text: "Soluciones de Seguridad Confiables"
+    text: "Soluciones de Seguridad Confiables",
   },
 
   // Título principal
   title: {
     line1: "Protege lo que",
     line2: "Más Importa con",
-    highlight: "Seguridad Avanzada"
+    highlight: "Seguridad Avanzada",
   },
 
   // Descripción
-  description: "Experimente sistemas de seguridad electrónica de última generación diseñados para proteger su hogar y negocio.",
+  description:
+    "Experimente sistemas de seguridad electrónica de última generación diseñados para proteger su hogar y negocio.",
 
   // Botones CTA
   buttons: {
     primary: {
       text: "Consulta Gratuita",
-      icon: "alt-arrow-right"
+      icon: "alt-arrow-right",
     },
     secondary: {
       text: "Ver",
-      icon: "play"
-    }
+      icon: "play",
+    },
   },
 
   // Estadísticas
@@ -36,18 +37,18 @@ const heroData = {
     {
       value: 500,
       suffix: "+",
-      label: "Proyectos Completados"
+      label: "Proyectos Completados",
     },
     {
       value: 24,
       suffix: "/7",
-      label: "Soporte de Monitoreo"
+      label: "Soporte de Monitoreo",
     },
     {
       value: 10,
       suffix: "+",
-      label: "Años de Experiencia"
-    }
+      label: "Años de Experiencia",
+    },
   ],
 
   // Tarjetas flotantes
@@ -57,37 +58,37 @@ const heroData = {
       speed: "0.05",
       icon: "eye",
       title: "Vigilancia IA",
-      description: "Reconocimiento facial inteligente"
+      description: "Reconocimiento facial inteligente",
     },
     {
       position: "left",
       speed: "0.08",
       icon: "flame",
       title: "Detección de Incendios",
-      description: "Sensores de calor avanzados"
-    }
+      description: "Sensores de calor avanzados",
+    },
   ],
 
   // Imágenes del slider
   sliderImages: [
     {
       src: "/img/gvolts/planing-project.png",
-      alt: "Professional Security Installation"
+      alt: "Professional Security Installation",
     },
     {
       src: "/img/gvolts/extintor.jpg",
-      alt: "Security Camera Installation"
+      alt: "Security Camera Installation",
     },
     {
       src: "/img/gvolts/camara-bosque.jpg",
-      alt: "Security Systems"
-    }
+      alt: "Security Systems",
+    },
   ],
 
   // Video del modal
   video: {
-    src: "/img/gvolts/camara_video.mp4"
-  }
+    src: "/img/gvolts/camara_video.mp4",
+  },
 };
 
 // Palabras para el efecto typewriter (se usan en el script)
@@ -95,28 +96,30 @@ const typewriterWords = [
   "Seguridad Avanzada",
   "Vigilancia Inteligente",
   "Monitoreo 24/7",
-  "Respuesta Rápida"
+  "Respuesta Rápida",
 ];
 ---
 
 <section
-  class="relative min-h-screen flex items-center overflow-hidden"
+  class="relative min-h-[100dvh] w-full flex items-center overflow-hidden"
   id="home"
 >
   <!-- Background Slider with Overlay -->
   <div class="absolute top-0 left-0 w-full h-[120%] -top-[10%] z-0">
     <!-- Slider Container -->
     <div class="slider-container w-full h-full relative overflow-hidden">
-      {heroData.sliderImages.map((image, index) => (
-        <div class={`slider-slide ${index === 0 ? 'active' : ''}`}>
-          <img
-            src={image.src}
-            alt={image.alt}
-            class="background-image w-full h-full object-cover object-center will-change-transform"
-            loading={index === 0 ? "eager" : "lazy"}
-          />
-        </div>
-      ))}
+      {
+        heroData.sliderImages.map((image, index) => (
+          <div class={`slider-slide ${index === 0 ? "active" : ""}`}>
+            <img
+              src={image.src}
+              alt={image.alt}
+              class="background-image w-full h-full object-cover object-center will-change-transform"
+              loading={index === 0 ? "eager" : "lazy"}
+            />
+          </div>
+        ))
+      }
     </div>
 
     <!-- Overlay siempre visible encima del slider -->
@@ -124,7 +127,9 @@ const typewriterWords = [
   </div>
 
   <!-- Hero Content -->
-  <div class="relative z-[3] w-full px-8 pt-48 pb-20 md:px-4 md:pt-32 md:pb-16">
+  <div
+    class="relative z-[3] w-full px-4 pt-32 pb-12 md:px-8 md:pt-32 md:pb-16 flex flex-col justify-center min-h-[100dvh]"
+  >
     <div class="max-w-[1400px] mx-auto flex flex-col items-center text-center">
       <!-- Badge -->
       <div
@@ -145,8 +150,12 @@ const typewriterWords = [
       <h1
         class="hero-title text-[clamp(3rem,8vw,4rem)] font-extrabold leading-[1.1] mb-8 max-w-[1100px] tracking-tight"
       >
-        <span class="block text-white drop-shadow-sm">{heroData.title.line1}</span>
-        <span class="block text-white drop-shadow-sm">{heroData.title.line2}</span>
+        <span class="block text-white drop-shadow-sm"
+          >{heroData.title.line1}</span
+        >
+        <span class="block text-white drop-shadow-sm"
+          >{heroData.title.line2}</span
+        >
         <span class="block relative pb-2">
           <span
             class="typewriter-text bg-gradient-to-r from-lemon-chiffon-500 to-lemon-chiffon-300 bg-clip-text text-transparent"
@@ -189,39 +198,49 @@ const typewriterWords = [
       <div
         class="hero-stats flex gap-16 items-center justify-center flex-wrap w-full border-t border-white/10 pt-12"
       >
-        {heroData.stats.map((stat, index) => (
-          <>
-            {index > 0 && (
-              <div class="w-px h-[60px] bg-gradient-to-b from-transparent via-white/20 to-transparent hidden md:block"></div>
-            )}
-            <div class="text-center group hover:-translate-y-1 transition-transform duration-300">
-              <div class="text-[clamp(2.5rem,5vw,3.5rem)] font-extrabold text-white leading-none mb-2 group-hover:text-indian-red-200 transition-colors">
-                <span class="counter" data-target={stat.value} data-suffix={stat.suffix}>0</span>
+        {
+          heroData.stats.map((stat, index) => (
+            <>
+              {index > 0 && (
+                <div class="w-px h-[60px] bg-gradient-to-b from-transparent via-white/20 to-transparent hidden md:block" />
+              )}
+              <div class="text-center group hover:-translate-y-1 transition-transform duration-300">
+                <div class="text-[clamp(2.5rem,5vw,3.5rem)] font-extrabold text-white leading-none mb-2 group-hover:text-indian-red-200 transition-colors">
+                  <span
+                    class="counter"
+                    data-target={stat.value}
+                    data-suffix={stat.suffix}
+                  >
+                    0
+                  </span>
+                </div>
+                <div class="text-base text-white/70 font-medium">
+                  {stat.label}
+                </div>
               </div>
-              <div class="text-base text-white/70 font-medium">
-                {stat.label}
-              </div>
-            </div>
-          </>
-        ))}
+            </>
+          ))
+        }
       </div>
     </div>
 
     <!-- Floating Feature Cards -->
-    {heroData.floatingCards.map((card) => (
-      <div
-        class={`hidden xl:block absolute ${card.position === 'right' ? 'right-[5%]' : 'left-[5%]'} bottom-[20%] z-[3] parallax-card`}
-        data-speed={card.speed}
-      >
-        <div class="bg-white/10 backdrop-blur-[20px] border border-white/20 rounded-[20px] p-6 w-[260px] shadow-[0_20px_60px_rgba(0,0,0,0.3)]">
-          <div class="w-12 h-12 bg-indian-red-500 text-white rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-indian-red-500/40">
-            <Icon name={card.icon} size="24" />
+    {
+      heroData.floatingCards.map((card) => (
+        <div
+          class={`hidden xl:block absolute ${card.position === "right" ? "right-[5%]" : "left-[5%]"} bottom-[20%] z-[3] parallax-card`}
+          data-speed={card.speed}
+        >
+          <div class="bg-white/10 backdrop-blur-[20px] border border-white/20 rounded-[20px] p-6 w-[260px] shadow-[0_20px_60px_rgba(0,0,0,0.3)]">
+            <div class="w-12 h-12 bg-indian-red-500 text-white rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-indian-red-500/40">
+              <Icon name={card.icon} size="24" />
+            </div>
+            <h3 class="text-lg font-bold text-white mb-1">{card.title}</h3>
+            <p class="text-sm text-white/70">{card.description}</p>
           </div>
-          <h3 class="text-lg font-bold text-white mb-1">{card.title}</h3>
-          <p class="text-sm text-white/70">{card.description}</p>
         </div>
-      </div>
-    ))}
+      ))
+    }
   </div>
 
   <!-- Video Modal -->
@@ -299,11 +318,19 @@ const typewriterWords = [
   /* Línea decorativa encima del título */
   .title-decorator-wrapper {
     position: relative;
-    width: clamp(400px, 70%, 900px);
+    width: clamp(280px, 90%, 900px);
+    max-width: 90vw;
     height: clamp(2rem, 5vw, 2rem);
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+  }
+
+  @media (max-width: 768px) {
+    .title-decorator-wrapper {
+      width: 90vw;
+      max-width: 90vw;
+    }
   }
 
   .title-decorator {
@@ -448,7 +475,7 @@ const typewriterWords = [
     tl.fromTo(
       ".hero-badge",
       { y: 30, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8 },
+      { y: 0, opacity: 1, duration: 0.8 }
     )
       .to(
         ".title-decorator",
@@ -458,7 +485,7 @@ const typewriterWords = [
           ease: "power2.out",
           transformOrigin: "center",
         },
-        "-=0.3",
+        "-=0.3"
       )
       .to(
         ".title-decorator-line-left, .title-decorator-line-right",
@@ -468,31 +495,31 @@ const typewriterWords = [
           ease: "power2.out",
           transformOrigin: "top",
         },
-        "-=0.2",
+        "-=0.2"
       )
       .fromTo(
         ".hero-title",
         { y: 40, opacity: 0 },
         { y: 0, opacity: 1, duration: 1 },
-        "-=0.4",
+        "-=0.4"
       )
       .fromTo(
         ".hero-description",
         { y: 30, opacity: 0 },
         { y: 0, opacity: 1, duration: 0.8 },
-        "-=0.8",
+        "-=0.8"
       )
       .fromTo(
         ".hero-cta",
         { y: 30, opacity: 0 },
         { y: 0, opacity: 1, duration: 0.8 },
-        "-=0.6",
+        "-=0.6"
       )
       .fromTo(
         ".hero-stats",
         { y: 30, opacity: 0 },
         { y: 0, opacity: 1, duration: 0.8 },
-        "-=0.6",
+        "-=0.6"
       );
 
     // Counter Animation
@@ -515,7 +542,7 @@ const typewriterWords = [
 
     // Parallax Effect - Enhanced (aplicado a todas las imágenes del slider)
     gsap.utils.toArray(".background-image").forEach((img) => {
-      gsap.to(img, {
+      gsap.to(img as Element, {
         yPercent: 50,
         scale: 1.2,
         ease: "none",
@@ -549,7 +576,7 @@ const typewriterWords = [
       "Seguridad Avanzada",
       "Vigilancia Inteligente",
       "Monitoreo 24/7",
-      "Respuesta Rápida"
+      "Respuesta Rápida",
     ];
     const textElement = document.querySelector(".typewriter-text");
     const cursorElement = document.querySelector(".cursor-blink");

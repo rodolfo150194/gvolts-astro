@@ -1,0 +1,337 @@
+---
+import Icon from "./Icon.astro";
+
+const contactInfo = [
+  {
+    icon: "mail",
+    title: "Correo Electrónico",
+    info: ["info@gvolts.com", "soporte@gvolts.com"],
+  },
+  {
+    icon: "phone",
+    title: "Teléfono",
+    info: ["+1 (555) 123-4567", "+1 (555) 987-6543"],
+  },
+  {
+    icon: "map-point-rotate",
+    title: "Oficina Principal",
+    info: ["Av. Tecnológica 123", "Ciudad Innovación, CP 12345"],
+  },
+  {
+    icon: "clock",
+    title: "Horario Laboral",
+    info: ["Lun - Vie: 09:00 - 18:00", "Sab: 09:00 - 13:00"],
+  },
+];
+---
+
+<section class="contact-page py-20" id="contact-page">
+  <div class="max-w-7xl mx-auto px-4 lg:px-8">
+    <!-- Header -->
+    <div class="text-center mb-16">
+      <h1
+        class="font-display text-4xl md:text-5xl font-bold text-slate-900 mb-4"
+      >
+        Contáctanos
+      </h1>
+      <p class="font-body text-slate-600 max-w-2xl mx-auto text-lg">
+        Estamos aquí para ayudarte a proteger lo que más importa. Ponte en
+        contacto con nosotros para una consulta gratuita o soporte técnico.
+      </p>
+    </div>
+
+    <!-- Info Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
+      {
+        contactInfo.map((item, index) => (
+          <div class="info-card relative group p-8 rounded-[30px] bg-white border-indian-red-500 hover:shadow-xl hover:shadow-indian-red-500/10 transition-all duration-300 text-center overflow-visible">
+            <div class="relative z-10 w-16 h-16 mx-auto bg-indian-red-100 text-indian-red-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-md">
+              <Icon name={item.icon} size="32" />
+            </div>
+            <h3 class="relative z-10 font-display text-xl font-bold text-slate-900 mb-4">
+              {item.title}
+            </h3>
+            <div class="relative z-10 space-y-1">
+              {item.info.map((line) => (
+                <p class="font-body text-slate-600 text-sm">{line}</p>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- Contact Section -->
+    <div class="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center">
+      <!-- Form Side -->
+      <div class="w-full lg:w-1/2">
+        <div class="mb-8">
+          <span
+            class="text-indian-red-500 font-bold tracking-wider uppercase text-sm mb-2 block"
+            >CONTACTO</span
+          >
+          <h2
+            class="font-display text-3xl md:text-4xl font-bold text-slate-900 mb-4"
+          >
+            Ponte en contacto con nosotros
+          </h2>
+          <p class="font-body text-slate-600">
+            Completa el formulario y un experto en seguridad se pondrá en
+            contacto contigo en menos de 24 horas.
+          </p>
+        </div>
+
+        <form class="space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-2">
+              <label for="name" class="text-sm font-semibold text-slate-700"
+                >Nombre</label
+              >
+              <input
+                type="text"
+                id="name"
+                placeholder="Tu nombre"
+                class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-indian-red-500 focus:ring-2 focus:ring-indian-red-200 outline-none transition-all"
+              />
+            </div>
+            <div class="space-y-2">
+              <label for="email" class="text-sm font-semibold text-slate-700"
+                >Email</label
+              >
+              <input
+                type="email"
+                id="email"
+                placeholder="tucorreo@ejemplo.com"
+                class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-indian-red-500 focus:ring-2 focus:ring-indian-red-200 outline-none transition-all"
+              />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-2">
+              <label for="phone" class="text-sm font-semibold text-slate-700"
+                >Teléfono</label
+              >
+              <input
+                type="tel"
+                id="phone"
+                placeholder="+1 (555) 000-0000"
+                class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-indian-red-500 focus:ring-2 focus:ring-indian-red-200 outline-none transition-all"
+              />
+            </div>
+            <div class="space-y-2">
+              <label for="service" class="text-sm font-semibold text-slate-700"
+                >Servicio de interés</label
+              >
+              <div class="relative">
+                <select
+                  id="service"
+                  class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-indian-red-500 focus:ring-2 focus:ring-indian-red-200 outline-none transition-all appearance-none text-slate-600 cursor-pointer"
+                >
+                  <option value="" disabled selected
+                    >Selecciona un servicio</option
+                  >
+                  <option value="videovigilancia">Videovigilancia</option>
+                  <option value="incendios">Alarmas contra Incendios</option>
+                  <option value="acceso">Control de Acceso</option>
+                  <option value="monitoreo">Monitoreo 24/7</option>
+                  <option value="mantenimiento">Mantenimiento</option>
+                  <option value="otro">Otro</option>
+                </select>
+                <div
+                  class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-slate-500"
+                >
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <label for="subject" class="text-sm font-semibold text-slate-700"
+              >Asunto</label
+            >
+            <input
+              type="text"
+              id="subject"
+              placeholder="Consulta general"
+              class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-indian-red-500 focus:ring-2 focus:ring-indian-red-200 outline-none transition-all"
+            />
+          </div>
+
+          <div class="space-y-2">
+            <label for="message" class="text-sm font-semibold text-slate-700"
+              >Mensaje</label
+            >
+            <textarea
+              id="message"
+              rows="4"
+              placeholder="¿Cómo podemos ayudarte?"
+              class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-indian-red-500 focus:ring-2 focus:ring-indian-red-200 outline-none transition-all resize-none"
+            ></textarea>
+          </div>
+
+          <button
+            type="submit"
+            class="w-full cursor-pointer bg-indian-red-500 text-white font-bold py-4 rounded-xl hover:bg-indian-red-600 transition-colors shadow-lg shadow-indian-red-500/30"
+          >
+            Enviar Mensaje
+          </button>
+        </form>
+      </div>
+
+      <!-- Image Side -->
+      <div class="w-full lg:w-1/2 relative z-1">
+        <div
+          class="relative rounded-[40px] overflow-hidden aspect-[4/5] shadow-2xl"
+        >
+          <img
+            src="/img/gvolts/planing-project.png"
+            alt="Equipo GVolts"
+            class="w-full h-full object-cover"
+          />
+
+          <!-- Decorative Overlay -->
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"
+          >
+          </div>
+
+          <!-- Floating Card -->
+          <div
+            class="absolute bottom-8 left-8 right-8 bg-white/95 backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-white/20"
+          >
+            <div class="flex items-center gap-4">
+              <div
+                class="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center"
+              >
+                <Icon name="shield-check" size="24" />
+              </div>
+              <div>
+                <h4 class="font-bold text-slate-900">Soporte Certificado</h4>
+                <p class="text-sm text-slate-600">
+                  Equipo técnico disponible 24/7
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SVG Decorativo: Rectángulo con puntos (esquina inferior izquierda) -->
+        <svg
+          class="absolute bottom-0 left-0 w-[320px] h-28 text-indian-red-500 opacity-60 z-1 pointer-events-none"
+          viewBox="0 0 120 120"
+          xmlns="http://www.w3.org/2000/svg"
+          style="transform: translate(-50%, 50%);"
+        >
+          <defs>
+            <pattern
+              id="dots-pattern-contact"
+              x="0"
+              y="0"
+              width="15"
+              height="15"
+              patternUnits="userSpaceOnUse"
+            >
+              <circle cx="7.5" cy="7.5" r="2.5" fill="currentColor"></circle>
+            </pattern>
+          </defs>
+          <rect width="320" height="120" fill="url(#dots-pattern-contact)"
+          ></rect>
+        </svg>
+
+        <!-- SVG Decorativo: Círculo con rayas (esquina superior derecha) -->
+        <svg
+          class="absolute top-10 right-0 w-40 h-40 text-indian-red-500 opacity-60 z-0 pointer-events-none"
+          viewBox="0 0 160 160"
+          xmlns="http://www.w3.org/2000/svg"
+          style="transform: translate(50%, -50%);"
+        >
+          <defs>
+            <pattern
+              id="stripes-pattern-contact"
+              x="0"
+              y="0"
+              width="10"
+              height="8"
+              patternUnits="userSpaceOnUse"
+              patternTransform="rotate(45)"
+            >
+              <line
+                x1="0"
+                y1="0"
+                x2="0"
+                y2="8"
+                stroke="currentColor"
+                stroke-width="2.5"></line>
+            </pattern>
+          </defs>
+          <circle cx="80" cy="80" r="80" fill="url(#stripes-pattern-contact)"
+          ></circle>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener("DOMContentLoaded", () => {
+    // Form Animation
+    gsap.from("form", {
+      scrollTrigger: {
+        trigger: "form",
+        start: "top 85%",
+        toggleActions: "play none none reverse",
+      },
+      x: -50,
+      opacity: 0,
+      duration: 1,
+      ease: "power3.out",
+    });
+
+    // Image Animation
+    gsap.from(".aspect-\\[4\\/5\\]", {
+      scrollTrigger: {
+        trigger: ".aspect-\\[4\\/5\\]",
+        start: "top 85%",
+        toggleActions: "play none none reverse",
+      },
+      x: 50,
+      opacity: 0,
+      scale: 0.95,
+      duration: 1,
+      ease: "power3.out",
+    });
+
+    // SVG decoration animations
+    gsap.from(".aspect-\\[4\\/5\\] svg", {
+      scrollTrigger: {
+        trigger: ".aspect-\\[4\\/5\\]",
+        start: "top 80%",
+        toggleActions: "play none none reverse",
+      },
+      scale: 0,
+      opacity: 0,
+      duration: 0.8,
+      stagger: 0.2,
+      ease: "elastic.out(1, 0.5)",
+      delay: 0.5,
+    });
+  });
+</script>

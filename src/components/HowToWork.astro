@@ -93,19 +93,26 @@ for (let i = 0; i < pathPoints.length - 1; i++) {
 }
 ---
 
-<section class="py-24 overflow-hidden relative" id="how-to-work">
-  <!-- Background SVG Pattern -->
-  <div class="absolute inset-0 opacity-5 pointer-events-none">
-    <svg class="w-full h-full" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="100" cy="100" r="150" stroke="#DC362E" stroke-width="2"/>
-      <circle cx="1000" cy="200" r="200" stroke="#DC362E" stroke-width="2"/>
-      <circle cx="600" cy="600" r="180" stroke="#DC362E" stroke-width="2"/>
-      <path d="M200 300 L400 200 L600 350 L800 250" stroke="#DC362E" stroke-width="2" stroke-dasharray="10 5"/>
-      <path d="M100 500 L300 600 L500 500 L700 600" stroke="#DC362E" stroke-width="2" stroke-dasharray="10 5"/>
-      <rect x="850" y="450" width="100" height="100" stroke="#DC362E" stroke-width="2" transform="rotate(45 900 500)"/>
-      <rect x="50" y="650" width="80" height="80" stroke="#DC362E" stroke-width="2" transform="rotate(30 90 690)"/>
-    </svg>
-  </div>
+<section class="pt-20 overflow-hidden relative" id="how-to-work">
+  <!-- Malla decorativa - esquina inferior izquierda -->
+  <svg class="absolute bottom-0 left-0 w-64 h-64 opacity-20 pointer-events-none z-0" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="grid-left" width="20" height="20" patternUnits="userSpaceOnUse">
+        <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#DC143C" stroke-width="0.5"/>
+      </pattern>
+    </defs>
+    <rect width="200" height="200" fill="url(#grid-left)" />
+  </svg>
+
+  <!-- Malla decorativa - esquina inferior derecha -->
+  <svg class="absolute bottom-0 right-0 w-64 h-64 opacity-20 pointer-events-none z-0" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="grid-right" width="20" height="20" patternUnits="userSpaceOnUse">
+        <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#DC143C" stroke-width="0.5"/>
+      </pattern>
+    </defs>
+    <rect width="200" height="200" fill="url(#grid-right)" />
+  </svg>
 
   <div class="max-w-7xl mx-auto px-4 relative z-10">
     
@@ -115,7 +122,7 @@ for (let i = 0; i < pathPoints.length - 1; i++) {
       <h2 class="font-display text-3xl md:text-6xl font-bold text-gray-900 mb-8">Como trabajamos</h2>
       
       <!-- Tabs -->
-      <div class="flex justify-center gap-4 mb-8">
+      <div class="flex justify-center gap-4 mb-12">
         <button
           class="tab-btn active px-8 py-2 rounded-[20px] cursor-pointer font-bold text-lg transition-all duration-300 border-2 border-indian-red-500 bg-indian-red-500 text-white shadow-lg hover:border-indian-red-500 hover:text-indian-red-500 flex items-center gap-2"
           data-type="fire"
@@ -134,10 +141,10 @@ for (let i = 0; i < pathPoints.length - 1; i++) {
     </div>
 
     <!-- Diagram Container -->
-    <div class="relative h-[600px] hidden md:block w-full max-w-[1200px] mx-auto">
-      
+    <div class="relative h-[600px] md:block w-full max-w-[1200px] mx-auto">
+
       <!-- SVG Connecting Line -->
-      <svg class="absolute top-0 left-0 w-full h-full z-0 pointer-events-none" viewBox="0 0 1200 600" preserveAspectRatio="none">
+      <svg class="absolute top-0 left-0 w-full h-full z-0 pointer-events-none" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid meet">
         <defs>
           {pathSegments.map((d, index) => (
             <mask id={`mask-line-${index}`}>

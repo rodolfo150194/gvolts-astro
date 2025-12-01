@@ -4,151 +4,197 @@ import Icon from "./Icon.astro";
 const content = {
   images: [
     {
-      src: '/img/gvolts/img1.png',
-      alt: 'Instalación de sistemas de seguridad'
+      src: "/img/gvolts/img1.png",
+      alt: "Instalación de sistemas de seguridad",
     },
     {
-      src: '/img/gvolts/img2.png',
-      alt: 'Monitoreo profesional'
-    }
+      src: "/img/gvolts/img2.png",
+      alt: "Monitoreo profesional",
+    },
   ],
-  title: 'Protege lo que Más Importa con Tecnología de Vanguardia',
-  description: 'Imagina dormir tranquilo sabiendo que tu familia y patrimonio están bajo la vigilancia de sistemas inteligentes de última generación. En GVolts transformamos la seguridad tradicional en una experiencia tecnológica que se anticipa a cualquier amenaza.',
+  title: "Protege lo que Más Importa con Tecnología de Vanguardia",
+  description:
+    "Imagina dormir tranquilo sabiendo que tu familia y patrimonio están bajo la vigilancia de sistemas inteligentes de última generación. En GVolts transformamos la seguridad tradicional en una experiencia tecnológica que se anticipa a cualquier amenaza.",
   features: [
     {
-      title: 'Instalación Express en 48hrs',
-      description: 'Equipo de élite certificado que transforma tu espacio en una fortaleza digital sin interrumpir tu rutina'
+      title: "Instalación Express en 48hrs",
+      description:
+        "Equipo de élite certificado que transforma tu espacio en una fortaleza digital sin interrumpir tu rutina",
     },
     {
-      title: 'Vigilancia Inteligente 24/7',
-      description: 'IA que detecta amenazas antes de que ocurran, con respuesta inmediata y alertas en tiempo real a tu móvil'
-    }
+      title: "Vigilancia Inteligente 24/7",
+      description:
+        "IA que detecta amenazas antes de que ocurran, con respuesta inmediata y alertas en tiempo real a tu móvil",
+    },
   ],
-  buttonText: '¡Quiero Proteger mi Espacio!'
+  buttonText: "¡Quiero Proteger mi Espacio!",
 };
 ---
 
-<section class="py-24 px-8 bg-white relative overflow-hidden" id="about">
+<section
+  class="py-24 px-4 md:px-8 bg-white relative overflow-hidden w-full"
+  id="about"
+>
   <!-- SVG de fondo con líneas finas -->
-  <svg class="absolute inset-0 w-full h-full pointer-events-none opacity-100 z-0" xmlns="http://www.w3.org/2000/svg">
+  <svg
+    class="absolute inset-0 w-full h-full pointer-events-none opacity-100 z-0 max-w-full"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <defs>
-      <pattern id="lines-pattern" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
-        <line x1="0" y1="0" x2="80" y2="80" stroke="#DF643F" stroke-width="1" opacity="0.15"/>
-        <line x1="80" y1="0" x2="0" y2="80" stroke="#DF643F" stroke-width="1" opacity="0.12"/>
-        <line x1="0" y1="40" x2="80" y2="40" stroke="#DF643F" stroke-width="0.5" opacity="0.1"/>
-        <line x1="40" y1="0" x2="40" y2="80" stroke="#DF643F" stroke-width="0.5" opacity="0.1"/>
-        <circle cx="40" cy="40" r="2" fill="#DF643F" opacity="0.15"/>
+      <pattern
+        id="lines-pattern"
+        x="0"
+        y="0"
+        width="80"
+        height="80"
+        patternUnits="userSpaceOnUse"
+      >
+        <line
+          x1="0"
+          y1="0"
+          x2="80"
+          y2="80"
+          stroke="#DF643F"
+          stroke-width="1"
+          opacity="0.15"></line>
+        <line
+          x1="80"
+          y1="0"
+          x2="0"
+          y2="80"
+          stroke="#DF643F"
+          stroke-width="1"
+          opacity="0.12"></line>
+        <line
+          x1="0"
+          y1="40"
+          x2="80"
+          y2="40"
+          stroke="#DF643F"
+          stroke-width="0.5"
+          opacity="0.1"></line>
+        <line
+          x1="40"
+          y1="0"
+          x2="40"
+          y2="80"
+          stroke="#DF643F"
+          stroke-width="0.5"
+          opacity="0.1"></line>
+        <circle cx="40" cy="40" r="2" fill="#DF643F" opacity="0.15"></circle>
       </pattern>
       <linearGradient id="fade-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-        <stop offset="0%" style="stop-color:white;stop-opacity:0" />
-        <stop offset="15%" style="stop-color:white;stop-opacity:1" />
-        <stop offset="85%" style="stop-color:white;stop-opacity:1" />
-        <stop offset="100%" style="stop-color:white;stop-opacity:1" />
+        <stop offset="0%" style="stop-color:white;stop-opacity:0"></stop>
+        <stop offset="15%" style="stop-color:white;stop-opacity:1"></stop>
+        <stop offset="85%" style="stop-color:white;stop-opacity:1"></stop>
+        <stop offset="100%" style="stop-color:white;stop-opacity:1"></stop>
       </linearGradient>
       <mask id="fade-mask">
-        <rect width="100%" height="100%" fill="url(#fade-gradient)"/>
+        <rect width="100%" height="100%" fill="url(#fade-gradient)"></rect>
       </mask>
     </defs>
-    <rect width="100%" height="100%" fill="url(#lines-pattern)" mask="url(#fade-mask)"/>
+    <rect
+      width="100%"
+      height="100%"
+      fill="url(#lines-pattern)"
+      mask="url(#fade-mask)"></rect>
   </svg>
 
   <div class="max-w-7xl mx-auto relative z-10">
     <div class="flex flex-col lg:flex-row gap-8 items-center">
       <!-- Imágenes - Ahora más pequeñas y compactas -->
       <div class="flex gap-4 lg:max-w-[40%] w-full">
-        {content.images.map((image) => (
-          <div class="image-card relative h-[500px] rounded-[30px] overflow-hidden shadow-[0_15px_40px_rgba(61,31,29,0.1)] aspect-[16/10] transition-transform duration-400 hover:scale-[1.02]">
-            <img
-              src={image.src}
-              alt={image.alt}
-              class="w-full h-full object-cover"
-              loading="lazy"
-            />
-          </div>
-        ))}
+        {
+          content.images.map((image) => (
+            <div class="image-card relative h-[500px] rounded-[30px] overflow-hidden shadow-[0_15px_40px_rgba(61,31,29,0.1)] aspect-[16/10] transition-transform duration-400 hover:scale-[1.02]">
+              <img
+                src={image.src}
+                alt={image.alt}
+                class="w-full h-full object-cover"
+                loading="lazy"
+              />
+            </div>
+          ))
+        }
       </div>
       <!-- Contenido - Ahora va primero y es más grande -->
       <div class="flex-1 lg:max-w-[55%]">
         <div class="text-content w-full">
           <div
-        class="hero-badge inline-flex justify-center items-center gap-2 mt-5 bg-indian-red-500 border border-indian-red-500 px-6 py-2 rounded-full text-white text-sm font-semibold mb-8"
-      >
-        <Icon name="shield-check" size="16" />
-        <span>Instalación Profesional Certificada</span>
-    </div>
-          <h2 class="font-display text-3xl md:text-4xl lg:text-4xl font-bold text-[#3D1F1D] mb-4">
+            class="hero-badge inline-flex justify-center items-center gap-2 mt-5 bg-indian-red-500 border border-indian-red-500 px-6 py-2 rounded-full text-white text-sm font-semibold mb-8"
+          >
+            <Icon name="shield-check" size="16" />
+            <span>Instalación Profesional Certificada</span>
+          </div>
+          <h2
+            class="font-display text-3xl md:text-4xl lg:text-4xl font-bold text-[#3D1F1D] mb-4"
+          >
             {content.title}
           </h2>
-          <p class="font-body text-base md:text-lg leading-relaxed text-[#3D1F1D]/70 mb-6">
+          <p
+            class="font-body text-base md:text-lg leading-relaxed text-[#3D1F1D]/70 mb-6"
+          >
             {content.description}
           </p>
 
           <ul class="mb-6 space-y-4">
-            {content.features.map((feature) => (
-              <li class="flex items-start gap-3 p-4 bg-[#DF643F]/5 rounded-xl border-l-[3px] border-[#DF643F] transition-all duration-300 hover:bg-[#DF643F]/10 hover:translate-x-1">
-                <span class="icon flex-shrink-0 w-6 h-6 bg-[#DF643F] text-white rounded-full flex items-center justify-center text-sm font-bold">
-                  ✓
-                </span>
-                <span class="font-body text-sm md:text-base leading-relaxed text-[#3D1F1D]">
-                  <strong>{feature.title}</strong> - {feature.description}
-                </span>
-              </li>
-            ))}
+            {
+              content.features.map((feature) => (
+                <li class="flex items-start gap-3 p-4 bg-[#DF643F]/5 rounded-xl border-l-[3px] border-[#DF643F] transition-all duration-300 hover:bg-[#DF643F]/10 hover:translate-x-1">
+                  <span class="icon flex-shrink-0 w-6 h-6 bg-[#DF643F] text-white rounded-full flex items-center justify-center text-sm font-bold">
+                    ✓
+                  </span>
+                  <span class="font-body text-sm md:text-base leading-relaxed text-[#3D1F1D]">
+                    <strong>{feature.title}</strong> - {feature.description}
+                  </span>
+                </li>
+              ))
+            }
           </ul>
 
-          <button class="bg-indian-red-500 cursor-pointer text-white px-6 py-2.5 rounded-lg font-bold hover:bg-indian-red-600 transition-[background-color,transform,box-shadow] duration-300 shadow-lg shadow-indian-red-500/30 hover:-translate-y-0.5 active:translate-y-0">
+          <a href="/contact"
+            class="bg-indian-red-500 cursor-pointer text-white px-6 py-2.5 rounded-lg font-bold hover:bg-indian-red-600 transition-[background-color,transform,box-shadow] duration-300 shadow-lg shadow-indian-red-500/30 hover:-translate-y-0.5 active:translate-y-0"
+          >
             {content.buttonText}
           </button>
         </div>
       </div>
-
-      
     </div>
   </div>
 </section>
-<style>
-  .image-card:first-child {
-
-    clip-path: polygon(10% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 100%);
-  }
-
-  .image-card:last-child {
-    clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 90% 100%, 0% 100%);
-  }
-</style>
 <script>
-  import { gsap } from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
 
   gsap.registerPlugin(ScrollTrigger);
 
-  document.addEventListener('DOMContentLoaded', () => {
-    const imageCards = document.querySelectorAll('.image-card');
+  document.addEventListener("DOMContentLoaded", () => {
+    const imageCards = document.querySelectorAll(".image-card");
 
     // Primera imagen: aparece desde arriba
     gsap.from(imageCards[0], {
       scrollTrigger: {
-        trigger: '.image-card',
-        start: 'top 80%',
-        toggleActions: 'play none none reverse'
+        trigger: ".image-card",
+        start: "top 80%",
+        toggleActions: "play none none reverse",
       },
       y: -150,
       opacity: 0,
       duration: 1,
-      ease: 'power3.out'
+      ease: "power3.out",
     });
 
     // Segunda imagen: aparece desde abajo
     gsap.from(imageCards[1], {
       scrollTrigger: {
-        trigger: '.image-card',
-        start: 'top 80%',
-        toggleActions: 'play none none reverse'
+        trigger: ".image-card",
+        start: "top 80%",
+        toggleActions: "play none none reverse",
       },
       y: 150,
       opacity: 0,
       duration: 1,
-      ease: 'power3.out'
+      ease: "power3.out",
     });
   });
 </script>
