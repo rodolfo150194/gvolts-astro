@@ -1,0 +1,48 @@
+---
+import Icon from "./Icon.astro";
+---
+
+<section class="py-12 bg-slate-50 border-t border-slate-200">
+  <div class="container mx-auto px-4">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+      <!-- License Info -->
+      <div class="flex items-center gap-4">
+        <div
+          class="w-16 h-16 bg-white rounded-full shadow-md flex items-center justify-center border border-slate-100"
+        >
+          <Icon name="shield-check" size={32} class="text-indian-red-500" />
+        </div>
+        <div>
+          <h3 class="text-lg font-bold text-slate-900">Licencia Estatal</h3>
+          <p class="text-slate-600 font-mono">ER13016417</p>
+          <p class="text-xs text-slate-500 mt-1">Certificado y Asegurado</p>
+        </div>
+      </div>
+
+      <!-- Trust Badges -->
+      <div
+        class="flex flex-wrap justify-center gap-6 opacity-70 grayscale hover:grayscale-0 transition-all duration-300"
+      >
+        <!-- Placeholder for partner/cert logos - using text for now as per instructions -->
+        <div
+          class="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-slate-200 shadow-sm"
+        >
+          <Icon name="shield-keyhole" size={20} class="text-green-500" />
+          <span class="font-semibold text-slate-700">NFPA Member</span>
+        </div>
+        <div
+          class="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-slate-200 shadow-sm"
+        >
+          <Icon name="notes" size={20} class="text-green-500" />
+          <span class="font-semibold text-slate-700">OSHA Certified</span>
+        </div>
+        <div
+          class="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-slate-200 shadow-sm"
+        >
+          <Icon name="lightbulb-bolt" size={20} class="text-green-500" />
+          <span class="font-semibold text-slate-700">NICET Certified</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

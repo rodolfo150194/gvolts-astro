@@ -1,0 +1,162 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import PageHero from "../../components/PageHero.astro";
+import Footer from "../../components/Footer.astro";
+---
+
+<Layout title="Electricidad | GVolts">
+  <Header />
+
+  <main class="pt-20">
+    <PageHero
+      title="Energía Segura y"
+      highlightedTitle="Eficiente"
+      description="Instalaciones y reparaciones eléctricas residenciales y comerciales. Servicio profesional certificado y garantizado."
+      badge="Servicios Eléctricos"
+      backgroundImage="/img/gvolts/electric.jpg"
+    />
+
+    <!-- Content Section -->
+    <section class="py-20 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div class="space-y-8">
+            <h2 class="text-4xl font-bold text-slate-900 font-display">
+              Potencia para tu proyecto
+            </h2>
+            <p class="text-slate-600 text-lg leading-relaxed">
+              Desde pequeñas reparaciones domésticas hasta complejas
+              instalaciones comerciales, nuestro equipo de electricistas
+              certificados garantiza un trabajo seguro y de alta calidad.
+            </p>
+
+            <div class="space-y-6">
+              <div class="flex gap-4">
+                <div
+                  class="w-12 h-12 rounded-xl bg-indian-red-50 flex items-center justify-center flex-shrink-0"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="w-6 h-6 text-indian-red-500"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                    ></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="text-xl font-bold text-slate-900 mb-2">
+                    Residencial
+                  </h3>
+                  <p class="text-slate-600">
+                    Cableado, iluminación, paneles eléctricos y solución de
+                    problemas en el hogar.
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex gap-4">
+                <div
+                  class="w-12 h-12 rounded-xl bg-indian-red-50 flex items-center justify-center flex-shrink-0"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="w-6 h-6 text-indian-red-500"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                    ></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="text-xl font-bold text-slate-900 mb-2">
+                    Comercial
+                  </h3>
+                  <p class="text-slate-600">
+                    Instalaciones de alta capacidad, iluminación de oficinas y
+                    mantenimiento de edificios.
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex gap-4">
+                <div
+                  class="w-12 h-12 rounded-xl bg-indian-red-50 flex items-center justify-center flex-shrink-0"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="w-6 h-6 text-indian-red-500"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="text-xl font-bold text-slate-900 mb-2">
+                    Eficiencia Energética
+                  </h3>
+                  <p class="text-slate-600">
+                    Actualizaciones LED y sistemas de gestión de energía para
+                    reducir costos.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="relative">
+            <div
+              class="absolute -inset-4 bg-indian-red-500/10 rounded-[30px] transform rotate-3"
+            >
+            </div>
+            <img
+              src="/img/gvolts/instalacion.jpg"
+              alt="Electrician working"
+              class="relative rounded-[30px] shadow-2xl w-full object-cover aspect-[4/5]"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-slate-900 text-white">
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6 font-display">
+          ¿Necesitas un electricista experto?
+        </h2>
+        <p class="text-slate-400 text-lg mb-8 max-w-2xl mx-auto">
+          No arriesgues tu seguridad. Confía en nuestros profesionales
+          certificados.
+        </p>
+        <a
+          href="/contact"
+          class="inline-block bg-indian-red-500 text-white px-8 py-4 rounded-xl font-bold hover:bg-indian-red-600 transition-all transform hover:-translate-y-1 shadow-lg shadow-indian-red-500/30"
+        >
+          Contactar Electricista
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
