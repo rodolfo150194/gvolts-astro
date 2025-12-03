@@ -1,6 +1,6 @@
 import { defineAction } from "astro:actions";
 import { z } from "astro:schema";
-import { saveSubcribe } from "../services/subcribe";
+import { saveSubcribe } from "@/services/subcribe";
 
 export const server = {
     newsletter: defineAction({
