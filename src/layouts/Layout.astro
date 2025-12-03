@@ -1,6 +1,5 @@
 ---
 import "../styles/global.css";
-import Loader from "../components/Loader.astro";
 
 interface Props {
   title?: string;
@@ -51,7 +50,7 @@ const {
 
     <title>{title}</title>
   </head>
-  <body class="min-h-screen w-full">
+  <body class="min-h-screen w-full" id="background-mask">
     <slot />
   </body>
 </html>

@@ -22,26 +22,17 @@ const contactInfo = [
     title: "Horario Laboral",
     info: ["Lun - Vie: 09:00 - 18:00", "Sab: 09:00 - 13:00"],
   },
+  {
+    icon: "folder",
+    title: "Licencia",
+    info: ["ER13016417"],
+  }
 ];
 ---
 
 <section class="contact-page py-20" id="contact-page">
-  <div class="max-w-7xl mx-auto px-4 lg:px-8">
-    <!-- Header -->
-    <div class="text-center mb-16">
-      <h1
-        class="font-display text-4xl md:text-5xl font-bold text-slate-900 mb-4"
-      >
-        Contáctanos
-      </h1>
-      <p class="font-body text-slate-600 max-w-2xl mx-auto text-lg">
-        Estamos aquí para ayudarte a proteger lo que más importa. Ponte en
-        contacto con nosotros para una consulta gratuita o soporte técnico.
-      </p>
-    </div>
-
-    <!-- Info Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
+  <div class="max-w-9/10 mx-auto px-4 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5 mb-20">
       {
         contactInfo.map((item, index) => (
           <div class="info-card relative group p-8 rounded-[30px] bg-white border-indian-red-500 hover:shadow-xl hover:shadow-indian-red-500/10 transition-all duration-300 text-center overflow-visible">
