@@ -1,0 +1,105 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import PageHero from "@/components/PageHero.astro";
+import Footer from "@/components/Footer.astro";
+
+const projects = [
+  {
+    image: "/img/gvolts/men-install-camera.png",
+    title: "Instalación Comercial",
+    category: "Seguridad",
+    description: "Sistema completo de videovigilancia para centro comercial.",
+  },
+  {
+    image: "/img/gvolts/instalacion2.jpg",
+    title: "Sistema de Incendios",
+    category: "Fire Alarm",
+    description: "Protección certificada para complejo residencial.",
+  },
+  {
+    image: "/img/gvolts/electric.jpg",
+    title: "Red de Vigilancia",
+    category: "Seguridad",
+    description: "Monitoreo integral 24/7 para oficinas corporativas.",
+  },
+  {
+    image: "/img/gvolts/planing-project.png",
+    title: "Planificación",
+    category: "Consultoría",
+    description: "Diseño personalizado de sistemas de seguridad.",
+  },
+  {
+    image: "/img/gvolts/instalacion.jpg",
+    title: "Mantenimiento Eléctrico",
+    category: "Electricidad",
+    description: "Actualización de paneles y cableado para nave industrial.",
+  },
+  {
+    image: "/img/gvolts/alarm.png",
+    title: "Detección Temprana",
+    category: "Fire Alarm",
+    description: "Instalación de sensores inteligentes en edificio histórico.",
+  },
+];
+---
+
+<Layout title="Proyectos | GVolts">
+  <Header />
+
+  <main class="pt-20">
+    <PageHero
+      title="Nuestros"
+      highlightedTitle="Proyectos"
+      description="Explora algunos de nuestros trabajos recientes en seguridad, alarmas contra incendios y electricidad."
+      badge="Portafolio"
+    />
+
+    <!-- Projects Grid -->
+    <section class="py-20 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {
+            projects.map((project) => (
+              <div class="group relative overflow-hidden rounded-2xl shadow-lg cursor-pointer">
+                <div class="aspect-[4/3] overflow-hidden">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                  <span class="text-indian-red-400 text-sm font-bold uppercase tracking-wider mb-2">
+                    {project.category}
+                  </span>
+                  <h3 class="text-2xl font-bold text-white mb-2">
+                    {project.title}
+                  </h3>
+                  <p class="text-slate-300 text-sm">{project.description}</p>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="bg-slate-50 py-20">
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold text-slate-900 mb-6 font-display">
+          ¿Tienes un proyecto en mente?
+        </h2>
+        <a
+          href="/contact"
+          class="inline-block bg-indian-red-500 text-white px-8 py-4 rounded-xl font-bold hover:bg-indian-red-600 transition-all shadow-lg shadow-indian-red-500/30"
+        >
+          Hablemos
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
