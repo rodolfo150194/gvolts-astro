@@ -9,22 +9,10 @@ const features = [
     icon: 'eye',
     color: 'text-indian-red-500',
     bg: '',
-    // Flame icon
-    svgViewBox: "0 0 24 24",
-    svgPath: `<path fill="currentColor" d="M19.48,12.35c-1.57-4.08-7.16-4.3-5.81-10.23c0.1-0.44-0.37-0.78-0.75-0.55C12.9,1.57,6.65,5.5,6.65,13.17
-	c0,3.89,3.28,7.06,7.22,6.98c3.78-0.08,6.88-3.1,6.98-6.87C20.87,13.01,20.76,12.72,19.48,12.35z M13.87,17.85
-	c-2.21,0-4-1.79-4-4c0-1.66,1.02-3.08,2.46-3.71c0.23-0.1,0.5,0.06,0.51,0.31c0.02,0.47,0.23,0.9,0.56,1.23
-	c0.59,0.59,1.55,0.59,2.14,0c0.33-0.33,0.54-0.76,0.56-1.23c0.01-0.25,0.28-0.41,0.51-0.31c1.44,0.63,2.46,2.05,2.46,3.71
-	C17.87,16.06,16.08,17.85,13.87,17.85z"/>`,
-    // Bubbles decoration
-    decoration: `
-      <circle cx="10%" cy="20%" r="20" fill="currentColor" class="opacity-30 animate-pulse" />
-      <circle cx="80%" cy="15%" r="30" fill="currentColor" class="opacity-20" />
-      <circle cx="40%" cy="80%" r="40" fill="currentColor" class="opacity-30" />
-      <circle cx="90%" cy="60%" r="15" fill="currentColor" class="opacity-40 animate-bounce" style="animation-duration: 3s;" />
-      <circle cx="15%" cy="60%" r="25" fill="currentColor" class="opacity-20" />
-      <circle cx="60%" cy="30%" r="10" fill="currentColor" class="opacity-30" />
-    `
+    mask: '/img/mask-rectangle1.png',
+    image: '/img/gvolts/img1.png',
+    imageAlt: 'Sistema de detección de incendios',
+    decoration: '/img/circle-two-line-vertical.png',
   },
   {
     number: '02',
@@ -32,23 +20,11 @@ const features = [
     description: 'Vigilancia constante con respuesta inmediata ante cualquier amenaza. Nuestro centro de control opera ininterrumpidamente para tu tranquilidad.',
     icon: 'shield-check',
     color: 'text-indian-red-600',
+    mask: '/img/mask-rectangle2.png',
     bg: '',
-    // CCTV / Eye
-    svgViewBox: "0 0 24 24",
-    svgPath: `<path fill="currentColor" d="M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10s10-4.48,10-10S17.52,2,12,2z M12,19c-3.87,0-7-3.13-7-7s3.13-7,7-7
-	s7,3.13,7,7S15.87,19,12,19z M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5S14.76,7,12,7z M12,15c-1.66,0-3-1.34-3-3s1.34-3,3-3
-	s3,1.34,3,3S13.66,15,12,15z"/>
-    <circle fill="currentColor" cx="12" cy="12" r="1.5"/>`,
-    // Stripes/Lines decoration
-    decoration: `
-      <path d="M-100 100 L200 -100" stroke="currentColor" stroke-width="2" class="opacity-30" />
-      <path d="M-50 150 L250 -50" stroke="currentColor" stroke-width="4" class="opacity-20" />
-      <path d="M0 200 L300 0" stroke="currentColor" stroke-width="2" class="opacity-30" />
-      <path d="M50 250 L350 50" stroke="currentColor" stroke-width="3" class="opacity-20" />
-      <path d="M100 300 L400 100" stroke="currentColor" stroke-width="2" class="opacity-30" />
-      <path d="M80 100 L100 80" stroke="currentColor" stroke-width="10" class="opacity-20" />
-      <path d="M70 100 L100 70" stroke="currentColor" stroke-width="5" class="opacity-30" />
-    `
+    image: '/img/gvolts/img2.png',
+    imageAlt: 'Centro de monitoreo 24/7',
+    decoration: '/img/circle-three-line-vertical.png'
   },
   {
     number: '03',
@@ -56,67 +32,56 @@ const features = [
     description: 'Técnicos especializados garantizan una instalación perfecta y segura, cumpliendo con todas las normativas internacionales de seguridad.',
     icon: 'tool',
     color: 'text-indian-red-700',
+    mask: '/img/mask-rectangle3.png',
     bg: '',
-    // Tools
-    svgViewBox: "0 0 24 24",
-    svgPath: `<path fill="currentColor" d="M22.7,19l-9.1-9.1c0.9-2.3,0.4-5-1.5-6.9c-2-2-5-2.4-7.4-1.3L9,6L6,9L1.6,4.7C0.4,7.1,0.9,10.1,2.9,12.1
-	c1.9,1.9,4.6,2.4,6.9,1.5l9.1,9.1c0.4,0.4,1,0.4,1.4,0l2.3-2.3C23.1,20,23.1,19.4,22.7,19z"/>`,
-    // Waves/Geometric decoration
-    decoration: `
-       <path d="M0,50 Q50,0 100,50 T200,50 T300,50" fill="none" stroke="currentColor" stroke-width="2" class="opacity-30" transform="scale(5)"/>
-       <path d="M0,80 Q50,30 100,80 T200,80 T300,80" fill="none" stroke="currentColor" stroke-width="2" class="opacity-20" transform="scale(5)"/>
-       <circle cx="90%" cy="10%" r="50" fill="none" stroke="currentColor" stroke-width="2" class="opacity-30" />
-       <circle cx="90%" cy="10%" r="30" fill="none" stroke="currentColor" stroke-width="2" class="opacity-20" />
-       <rect x="10%" y="80%" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2" class="opacity-30 rotate-12" />
-    `
+    image: '/img/gvolts/men-install-camera.png',
+    imageAlt: 'Técnico certificado instalando sistema',
+    decoration: '/img/circle-four-line-vertical.png',
   }
 ];
 ---
 
-<section id="features-section" class="relative overflow-hidden h-screen bg-white w-full max-w-full">
+<section id="features-section" class="relative  w-full max-w-full">
   <!-- Container for horizontal scroll -->
   <div class="features-container h-full w-full max-w-full">
     <div class="features-wrapper flex h-full w-[300vw] max-w-[300vw]">
       {features.map((feature, index) => (
-        <div class={`feature-item w-screen h-screen flex-shrink-0 flex items-center justify-center relative ${feature.bg} overflow-hidden`}>
+        <div class={`feature-item w-screen h-screen flex-shrink-0 flex items-center justify-center relative`}>
             
-            <!-- Background Decorations -->
-            <div class={`absolute inset-0 w-full h-full pointer-events-none text-indian-red-300`}>
-                <svg class="w-full h-full" preserveAspectRatio="xMidYMid slice" set:html={feature.decoration}></svg>
-            </div>
+            {feature.decoration && (
+              <img
+                src={feature.decoration}
+                alt=""
+                class="absolute bottom-20 left-20 w-[500px] h-[500px]  object-contain opacity-80 pointer-events-none z-0"
+              />
+            )}
 
-            <!-- Background Gradients -->
-            <div class="absolute inset-0 overflow-hidden pointer-events-none">
-                <div class="absolute top-0 right-0 w-[50vw] h-[50vw] bg-gradient-to-b from-indian-red-500/5 to-transparent rounded-full blur-3xl transform translate-x-1/3 -translate-y-1/3"></div>
-                <div class="absolute bottom-0 left-0 w-[40vw] h-[40vw] bg-gradient-to-t from-lemon-chiffon-500/10 to-transparent rounded-full blur-3xl transform -translate-x-1/3 translate-y-1/3"></div>
-            </div>
+            <div class="max-w-7xl w-full mx-auto px-8 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center relative z-10 mt-5">
 
-            <div class="max-w-7xl w-full mx-auto px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10 mt-5">
-                
-                <!-- Content -->
                 <div class="space-y-8 feature-content opacity-0 translate-y-10">
                     <div class="inline-flex items-center gap-3 px-4 py-2 rounded-[20px] bg-indian-red-100/50 border border-indian-red-200 text-indian-red-700 font-semibold text-[38px]">
                         <span>{feature.number}</span>
                     </div>
-                    
+
                     <h2 class="text-5xl lg:text-7xl font-bold text-slate-900 leading-tight">
                         {feature.title}
                     </h2>
-                    
+
                     <p class="text-xl text-slate-600 leading-relaxed max-w-xl">
                         {feature.description}
                     </p>
                 </div>
-
-                <!-- SVG Illustration -->
-                <div class="relative feature-image opacity-0 translate-x-10 flex justify-center items-center">
-                    <div class={`absolute inset-0 bg-gradient-to-br from-indian-red-100 to-transparent opacity-20 rounded-full blur-3xl transform scale-150`}></div>
-                    <svg 
-                        viewBox={feature.svgViewBox} 
-                        class={`w-full max-w-[500px] h-auto drop-shadow-2xl z-10 transform transition-transform duration-700 hover:scale-105 ${feature.color}`}
-                        set:html={feature.svgPath}
+                <div class="relative w-full max-w-2xl mx-auto">
+                  <div class="relative w-full pt-[100%]" style={`--mask-url: url('${feature.mask}');`}>
+                    <img
+                      src={feature.image}
+                      alt={feature.imageAlt}
+                      loading="lazy"
+                      class="absolute inset-0 w-full h-full object-cover mask-clip"
                     />
+                  </div>
                 </div>
+
             </div>
         </div>
       ))}
@@ -124,13 +89,27 @@ const features = [
   </div>
 
   <!-- Scroll Progress Indicator -->
-  <div class="fixed bottom-12 left-1/2 -translate-x-1/2 flex gap-4 z-50 mix-blend-multiply">
+  <div class="fixed bottom-12 left-1/2 -translate-x-1/2 flex gap-3 z-50">
     {features.map((_, index) => (
-        <div class={`scroll-indicator w-3 h-3 rounded-full border-2 border-indian-red-300 transition-all duration-300 ${index === 0 ? 'bg-indian-red-500 scale-125' : 'bg-transparent'}`} data-index={index}></div>
+        <div class={`scroll-indicator h-1 rounded-full bg-indian-red-200 transition-all duration-500 ease-out ${index === 0 ? 'w-12 bg-indian-red-600' : 'w-8'}`} data-index={index}></div>
     ))}
   </div>
 </section>
+<style>
+.mask-clip {
+  -webkit-mask-image: var(--mask-url);
+  mask-image: var(--mask-url);
 
+  -webkit-mask-size: contain;
+  mask-size: contain;
+
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+</style>
+</style>
 <script>
   import { gsap } from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -162,11 +141,11 @@ const features = [
                     
                     indicators.forEach((ind, i) => {
                         if (i === index) {
-                            ind.classList.add('bg-indian-red-500', 'scale-125');
-                            ind.classList.remove('bg-transparent');
+                            ind.classList.add('w-12', 'bg-indian-red-600');
+                            ind.classList.remove('w-8', 'bg-indian-red-200');
                         } else {
-                            ind.classList.remove('bg-indian-red-500', 'scale-125');
-                            ind.classList.add('bg-transparent');
+                            ind.classList.remove('w-12', 'bg-indian-red-600');
+                            ind.classList.add('w-8', 'bg-indian-red-200');
                         }
                     });
                 }
@@ -197,3 +176,30 @@ const features = [
     }
   });
 </script>
+
+<style>
+  /* Blob shape styles for images */
+  .image-blob-container {
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    animation: morphBlob 8s ease-in-out infinite;
+    isolation: isolate;
+  }
+
+  @keyframes morphBlob {
+    0% {
+      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    }
+    25% {
+      border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%;
+    }
+    50% {
+      border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%;
+    }
+    75% {
+      border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%;
+    }
+    100% {
+      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    }
+  }
+</style>

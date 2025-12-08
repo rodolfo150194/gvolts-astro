@@ -8,19 +8,14 @@ const services = [
   },
   {
     image: "/img/gvolts/camera.png",
-    title: "Videovigilancia",
+    title: "Seguridad",
     description: "Cámaras de alta definición con monitoreo remoto 24/7.",
   },
   {
     image: "/img/gvolts/panel-config.png",
-    title: "Paneles de Control",
+    title: "Electricidad",
     description: "Configuración y gestión centralizada de todos tus sistemas.",
-  },
-  {
-    image: "/img/gvolts/alarm-connect.png",
-    title: "Integración Smart",
-    description: "Conectividad total con tus dispositivos inteligentes.",
-  },
+  }
 ];
 ---
 
@@ -62,7 +57,7 @@ const services = [
       {
         services.map((service, index) => (
           <div
-            class="group bg-white rounded-[30px] border-2 border-indian-red-100 hover:border-indian-red-500 overflow-hidden transition-all duration-500 hover:-translate-y-[15px] hover:scale-[1.02] service-card relative flex flex-col w-full md:w-[calc(50%-1rem)] lg:w-[calc(25%-1.5rem)]"
+            class="group bg-white rounded-[30px] border-2 border-indian-red-100 hover:border-indian-red-500 overflow-hidden transition-all duration-500 hover:-translate-y-[15px] hover:scale-[1.02] service-card relative flex flex-col w-full md:w-[calc(50%-1rem)] lg:w-[25%]"
             data-index={index}
             style="transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);"
           >
@@ -100,68 +95,6 @@ const services = [
   </div>
 </section>
 
-<style>
-  /* Flexbox container for services */
-  .services-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .service-card {
-    flex: 0 0 auto;
-    box-sizing: border-box;
-  }
-
-  /* Ajuste de responsive para mobile */
-  @media (max-width: 768px) {
-    .services-section {
-      padding: 3rem 1rem;
-      height: auto !important;
-      min-height: auto;
-    }
-
-    .section-header {
-      margin-bottom: 2rem;
-    }
-
-    .services-grid {
-      gap: 1.5rem;
-    }
-
-    .service-card {
-      width: 100% !important;
-      max-width: 100%;
-    }
-  }
-
-  /* Tablet */
-  @media (min-width: 769px) and (max-width: 1023px) {
-    .services-section {
-      height: auto !important;
-      min-height: auto;
-      padding-bottom: 5rem;
-    }
-
-    .service-card {
-      width: calc(50% - 1rem) !important;
-      max-width: calc(50% - 1rem);
-    }
-  }
-
-  /* Desktop */
-  @media (min-width: 1024px) {
-    .services-section {
-      height: auto !important;
-      min-height: 100vh;
-    }
-
-    .service-card {
-      width: calc(25% - 1.5rem) !important;
-      max-width: calc(25% - 1.5rem);
-    }
-  }
-</style>
 
 <script>
   import { gsap } from "gsap";
