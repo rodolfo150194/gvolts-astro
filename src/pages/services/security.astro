@@ -1,160 +1,256 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
-import PageHero from "@/components/PageHero.astro";
 import Footer from "@/components/Footer.astro";
+import Icon from "@/components/Icon.astro";
+import PageHero from "@components/PageHero.astro";
+import ScrollToTop from "@components/ScrollToTop.astro";
+// Import service content
+import serviceContent from "@/data/security-content.json";
+const content = serviceContent.servicesPages.security;
 ---
 
 <Layout title="Seguridad Integral | GVolts">
   <Header />
-
-  <main class="pt-20">
-    <PageHero
-      title="Control y"
-      highlightedTitle="Vigilancia Total"
-      description="Soluciones integrales de seguridad: Control de acceso, cámaras CCTV y alarmas contra robos para tu hogar o negocio."
-      badge="Seguridad Electrónica"
-      backgroundImage="/img/gvolts/camera.png"
+  <PageHero
+      title="Energía Segura y"
+      highlightedTitle="Eficiente"
+      description="Instalaciones y reparaciones eléctricas residenciales y comerciales. Servicio profesional certificado y garantizado."
+      badge="Servicios Eléctricos"
+      backgroundImage="/img/gvolts/control-de-acceso.jpg"
+      icon="shield-check"
     />
-
-    <!-- Content Section -->
-    <section class="py-20 bg-white">
+  </div>
+  <main class="pt-10">
+    <section class="">
       <div class="container mx-auto px-4">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div class="order-2 lg:order-1 relative">
-            <div
-              class="absolute -inset-4 bg-indian-red-500/10 rounded-[30px] transform -rotate-3"
-            >
-            </div>
-            <img
-              src="/img/gvolts/men-install-camera.png"
-              alt="Security Installation"
-              class="relative rounded-[30px] shadow-2xl w-full object-cover aspect-[4/5]"
-            />
-          </div>
-
-          <div class="order-1 lg:order-2 space-y-8">
-            <h2 class="text-4xl font-bold text-slate-900 font-display">
-              Tecnología que protege
-            </h2>
-            <p class="text-slate-600 text-lg leading-relaxed">
-              Implementamos sistemas de seguridad de vanguardia que te permiten
-              tener el control total de tus espacios, estés donde estés.
-            </p>
-
-            <div class="space-y-6">
-              <div class="flex gap-4">
-                <div
-                  class="w-12 h-12 rounded-xl bg-indian-red-50 flex items-center justify-center flex-shrink-0"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="w-6 h-6 text-indian-red-500"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
-                    ></path>
-                  </svg>
+        <div class="max-w-6xl mx-auto">
+          
+         <!-- Highlights with icons -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 highlights-grid">
+            {content.introduction.highlights.map((highlight) => (
+              <div class="highlight-card group bg-slate-50 p-6 rounded-2xl border-2 border-slate-200 hover:border-indian-red-500 transition-all hover:-translate-y-2 hover:shadow-xl">
+                <div class="w-12 h-12 bg-indian-red-500 text-white rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                  <Icon name={highlight.icon} size="24" class="text-white" />
                 </div>
-                <div>
-                  <h3 class="text-xl font-bold text-slate-900 mb-2">
-                    Cámaras CCTV
-                  </h3>
-                  <p class="text-slate-600">
-                    Videovigilancia de alta definición con acceso remoto desde
-                    tu smartphone.
-                  </p>
-                </div>
+                <p class="text-slate-700 font-medium">{highlight.text}</p>
               </div>
-
-              <div class="flex gap-4">
-                <div
-                  class="w-12 h-12 rounded-xl bg-indian-red-50 flex items-center justify-center flex-shrink-0"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="w-6 h-6 text-indian-red-500"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                    ></path>
-                  </svg>
-                </div>
-                <div>
-                  <h3 class="text-xl font-bold text-slate-900 mb-2">
-                    Control de Acceso
-                  </h3>
-                  <p class="text-slate-600">
-                    Gestión inteligente de entradas y salidas para personal
-                    autorizado.
-                  </p>
-                </div>
-              </div>
-
-              <div class="flex gap-4">
-                <div
-                  class="w-12 h-12 rounded-xl bg-indian-red-50 flex items-center justify-center flex-shrink-0"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="w-6 h-6 text-indian-red-500"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
-                    ></path>
-                  </svg>
-                </div>
-                <div>
-                  <h3 class="text-xl font-bold text-slate-900 mb-2">
-                    Alarmas contra Robos
-                  </h3>
-                  <p class="text-slate-600">
-                    Sistemas disuasorios con sensores de movimiento y apertura.
-                  </p>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
     </section>
 
+    <!-- Solutions Showcase -->
+    <section class="py-20">
+      <div class="container mx-auto px-4">
+        <div class="max-w-7xl mx-auto">
+          <div class="text-center mb-16">
+            <h2 class="solutions-title font-display text-5xl md:text-6xl font-bold text-slate-900 mb-4">
+              {content.solutions.title}
+            </h2>
+          </div>
+
+          <!-- Solutions Grid -->
+          <div class="space-y-16 solutions-container">
+            {content.solutions.items.map((solution, index) => (
+              <div class="solution-card bg-white rounded-3xl shadow-2xl overflow-hidden border-2 border-slate-100 hover:border-indian-red-500 transition-all">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
+                  <!-- Content Side -->
+                  <div class="p-8 lg:p-12 flex flex-col justify-center">
+                    <div class="flex items-center gap-3 mb-4">
+                      <div class="w-12 h-12 bg-indian-red-500 text-white rounded-xl flex items-center justify-center">
+                        <Icon name={solution.icon} size="24" class="text-white" />
+                      </div>
+                      <div>
+                        <h3 class="text-3xl font-bold text-slate-900">{solution.name}</h3>
+                        <p class="text-sm text-indian-red-500 font-semibold">{solution.tagline}</p>
+                      </div>
+                    </div>
+                    <p class="text-slate-600 mb-6 text-lg">{solution.description}</p>
+
+                    <!-- Features List -->
+                    <div class="space-y-4 mb-6">
+                      {solution.features.map((feature) => (
+                        <div class="bg-slate-50 p-4 rounded-xl">
+                          <h4 class="font-bold text-slate-900 mb-2">{feature.title}</h4>
+                          <p class="text-sm text-slate-600 mb-3">{feature.description}</p>
+                          <ul class="space-y-1">
+                            {feature.specs.map((spec) => (
+                              <li class="flex items-start gap-2 text-sm text-slate-700">
+                                <Icon name="check" size="14" class="text-indian-red-500 mt-0.5 flex-shrink-0" />
+                                <span>{spec}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Pricing */}
+                    {solution.pricing && (
+                      <div class="bg-gradient-to-r from-indian-red-50 to-orange-50 p-4 rounded-xl border-2 border-indian-red-200">
+                        <div class="flex items-center justify-between">
+                          <div>
+                            <span class="text-2xl font-bold text-indian-red-600">{solution.pricing.starting}</span>
+                            <p class="text-sm text-slate-600">{solution.pricing.note}</p>
+                          </div>
+                          <a href="/contact" class="bg-indian-red-500 text-white px-6 py-3 rounded-lg font-bold hover:bg-indian-red-600 transition-colors">
+                            Cotizar
+                          </a>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  <!-- Image Side -->
+                  <div class="relative h-64 lg:h-auto">
+                    <img
+                      src={solution.image}
+                      alt={solution.name}
+                      class="absolute inset-0 w-full h-full object-cover"
+                    />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+
     <!-- CTA Section -->
-    <section class="py-20 bg-slate-900 text-white">
-      <div class="container mx-auto px-4 text-center">
-        <h2 class="text-3xl md:text-4xl font-bold mb-6 font-display">
-          Tu tranquilidad es nuestra prioridad
-        </h2>
-        <p class="text-slate-400 text-lg mb-8 max-w-2xl mx-auto">
-          Diseñamos el sistema de seguridad perfecto para tu propiedad.
-        </p>
-        <a
-          href="/contact"
-          class="inline-block bg-indian-red-500 text-white px-8 py-4 rounded-xl font-bold hover:bg-indian-red-600 transition-all transform hover:-translate-y-1 shadow-lg shadow-indian-red-500/30"
-        >
-          Consultar Ahora
-        </a>
+    <section class="py-20 bg-slate-950 text-white relative overflow-hidden">
+      <!-- Animated background -->
+      <div class="absolute inset-0 opacity-50">
+        <div
+          class="absolute inset-0"
+          style="background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px); background-size: 50px 50px;"
+        />
+      </div>
+
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="max-w-4xl mx-auto text-center">
+          <h2 class="cta-title font-display text-4xl md:text-6xl font-bold mb-6">
+            {content.cta.title}
+          </h2>
+          <p class="cta-description text-xl text-slate-300 mb-12 max-w-2xl mx-auto">
+            {content.cta.description}
+          </p>
+
+          <div class="flex flex-wrap justify-center gap-4 mb-12">
+            <a
+              href={content.cta.primary.href}
+              class="group bg-gradient-to-r from-indian-red-500 to-indian-red-600 text-white px-8 py-4 rounded-xl font-bold hover:shadow-2xl hover:shadow-indian-red-500/50 transition-all transform hover:-translate-y-1"
+            >
+              {content.cta.primary.label}
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   </main>
 
   <Footer />
+  <ScrollToTop />
 </Layout>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // document.addEventListener("DOMContentLoaded", () => {
+  //   // Hero animations with stagger
+  //   const heroElements = [".hero-badge", ".hero-title", ".hero-description"];
+  //   gsap.from(heroElements, {
+  //     opacity: 0,
+  //     y: 30,
+  //     duration: 1,
+  //     stagger: 0.2,
+  //     ease: "power3.out"
+  //   });
+
+  //   gsap.from(".stat-item", {
+  //     opacity: 0,
+  //     scale: 0.5,
+  //     duration: 0.8,
+  //     stagger: 0.15,
+  //     delay: 0.8,
+  //     ease: "back.out(1.7)"
+  //   });
+
+  //   // Highlights with rotation
+  //   ScrollTrigger.batch(".highlight-card", {
+  //     onEnter: (elements) => {
+  //       gsap.from(elements, {
+  //         opacity: 0,
+  //         y: 50,
+  //         rotation: -5,
+  //         stagger: 0.1,
+  //         duration: 0.8,
+  //         ease: "power3.out"
+  //       });
+  //     },
+  //     start: "top 80%"
+  //   });
+
+  //   // Solutions with slide
+  //   ScrollTrigger.batch(".solution-card", {
+  //     onEnter: (elements) => {
+  //       gsap.from(elements, {
+  //         opacity: 0,
+  //         x: -100,
+  //         duration: 1,
+  //         ease: "power3.out"
+  //       });
+  //     },
+  //     start: "top 75%"
+  //   });
+
+  //   // Integration cards
+  //   ScrollTrigger.batch(".integration-card", {
+  //     onEnter: (elements) => {
+  //       gsap.from(elements, {
+  //         opacity: 0,
+  //         y: 60,
+  //         stagger: 0.15,
+  //         duration: 0.8,
+  //         ease: "power3.out"
+  //       });
+  //     },
+  //     start: "top 80%"
+  //   });
+
+  //   // Industry cards with scale
+  //   ScrollTrigger.batch(".industry-card", {
+  //     onEnter: (elements) => {
+  //       gsap.from(elements, {
+  //         opacity: 0,
+  //         scale: 0.9,
+  //         stagger: 0.2,
+  //         duration: 0.8,
+  //         ease: "power3.out"
+  //       });
+  //     },
+  //     start: "top 80%"
+  //   });
+
+  //   // Benefits grid
+  //   ScrollTrigger.batch(".benefit-card", {
+  //     onEnter: (elements) => {
+  //       gsap.from(elements, {
+  //         opacity: 0,
+  //         y: 60,
+  //         stagger: 0.1,
+  //         duration: 0.8,
+  //         ease: "power3.out"
+  //       });
+  //     },
+  //     start: "top 80%"
+  //   });
+  // });
+</script>

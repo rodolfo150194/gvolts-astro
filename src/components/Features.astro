@@ -1,114 +1,130 @@
 ---
-import Icon from '@/components/Icon.astro';
+import Icon from "@/components/Icon.astro";
 
 const features = [
   {
-    number: '01',
-    title: 'Detección Avanzada',
-    description: 'Sistemas de última generación que detectan incendios antes de que se propaguen, utilizando tecnología térmica y análisis de comportamiento.',
-    icon: 'eye',
-    color: 'text-indian-red-500',
-    bg: '',
-    mask: '/img/mask-rectangle1.png',
-    image: '/img/gvolts/img1.png',
-    imageAlt: 'Sistema de detección de incendios',
-    decoration: '/img/circle-two-line-vertical.png',
+    number: "01",
+    title: "Detección Avanzada",
+    description:
+      "Sistemas de última generación que detectan incendios antes de que se propaguen, utilizando tecnología térmica y análisis de comportamiento.",
+    icon: "eye",
+    color: "text-indian-red-500",
+    bg: "",
+    mask: "/img/mask-rectangle1.png",
+    image: "/img/gvolts/img1.png",
+    imageAlt: "Sistema de detección de incendios",
+    decoration: "/img/circle-two-line-vertical.png",
   },
   {
-    number: '02',
-    title: 'Monitoreo 24/7',
-    description: 'Vigilancia constante con respuesta inmediata ante cualquier amenaza. Nuestro centro de control opera ininterrumpidamente para tu tranquilidad.',
-    icon: 'shield-check',
-    color: 'text-indian-red-600',
-    mask: '/img/mask-rectangle2.png',
-    bg: '',
-    image: '/img/gvolts/img2.png',
-    imageAlt: 'Centro de monitoreo 24/7',
-    decoration: '/img/circle-three-line-vertical.png'
+    number: "02",
+    title: "Monitoreo 24/7",
+    description:
+      "Vigilancia constante con respuesta inmediata ante cualquier amenaza. Nuestro centro de control opera ininterrumpidamente para tu tranquilidad.",
+    icon: "shield-check",
+    color: "text-indian-red-600",
+    mask: "/img/mask-rectangle2.png",
+    bg: "",
+    image: "/img/gvolts/img2.png",
+    imageAlt: "Centro de monitoreo 24/7",
+    decoration: "/img/circle-three-line-vertical.png",
   },
   {
-    number: '03',
-    title: 'Instalación Certificada',
-    description: 'Técnicos especializados garantizan una instalación perfecta y segura, cumpliendo con todas las normativas internacionales de seguridad.',
-    icon: 'tool',
-    color: 'text-indian-red-700',
-    mask: '/img/mask-rectangle3.png',
-    bg: '',
-    image: '/img/gvolts/men-install-camera.png',
-    imageAlt: 'Técnico certificado instalando sistema',
-    decoration: '/img/circle-four-line-vertical.png',
-  }
+    number: "03",
+    title: "Instalación Certificada",
+    description:
+      "Técnicos especializados garantizan una instalación perfecta y segura, cumpliendo con todas las normativas internacionales de seguridad.",
+    icon: "tool",
+    color: "text-indian-red-700",
+    mask: "/img/mask-rectangle3.png",
+    bg: "",
+    image: "/img/gvolts/men-install-camera.png",
+    imageAlt: "Técnico certificado instalando sistema",
+    decoration: "/img/circle-four-line-vertical.png",
+  },
 ];
 ---
 
-<section id="features-section" class="relative  w-full max-w-full">
+<section id="features-section" class="relative w-full max-w-full">
   <!-- Container for horizontal scroll -->
   <div class="features-container h-full w-full max-w-full">
-    <div class="features-wrapper flex h-full w-[300vw] max-w-[300vw]">
-      {features.map((feature, index) => (
-        <div class={`feature-item w-screen h-screen flex-shrink-0 flex items-center justify-center relative`}>
-            
+    <div
+      class="features-wrapper flex flex-col lg:flex-row h-auto lg:h-full w-full lg:w-[300vw] lg:max-w-[300vw]"
+    >
+      {
+        features.map((feature, index) => (
+          <div
+            class={`feature-item w-full h-auto min-h-screen lg:w-screen lg:h-screen flex-shrink-0 flex items-center justify-center relative overflow-hidden`}
+          >
             {feature.decoration && (
               <img
                 src={feature.decoration}
                 alt=""
-                class="absolute bottom-20 left-20 w-[500px] h-[500px]  object-contain opacity-80 pointer-events-none z-0"
+                class="feature-decoration absolute bottom-10 left-10 w-[400px] h-[400px] object-contain opacity-60 pointer-events-none z-0"
               />
             )}
 
-            <div class="max-w-7xl w-full mx-auto px-8 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center relative z-10 mt-5">
-
-                <div class="space-y-8 feature-content opacity-0 translate-y-10">
-                    <div class="inline-flex items-center gap-3 px-4 py-2 rounded-[20px] bg-indian-red-100/50 border border-indian-red-200 text-indian-red-700 font-semibold text-[38px]">
-                        <span>{feature.number}</span>
-                    </div>
-
-                    <h2 class="text-5xl lg:text-7xl font-bold text-slate-900 leading-tight">
-                        {feature.title}
-                    </h2>
-
-                    <p class="text-xl text-slate-600 leading-relaxed max-w-xl">
-                        {feature.description}
-                    </p>
-                </div>
-                <div class="relative w-full max-w-2xl mx-auto">
-                  <div class="relative w-full pt-[100%]" style={`--mask-url: url('${feature.mask}');`}>
-                    <img
-                      src={feature.image}
-                      alt={feature.imageAlt}
-                      loading="lazy"
-                      class="absolute inset-0 w-full h-full object-cover mask-clip"
-                    />
-                  </div>
+            <div class="max-w-[1400px] w-full mx-auto px-12 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center relative z-10">
+              <div class="space-y-5 feature-content">
+                <div class="feature-number inline-flex items-center gap-3 px-6 py-3 rounded-[24px] bg-gradient-to-br from-indian-red-100 to-indian-red-50 border-2 border-indian-red-200 text-indian-red-700 font-bold text-[48px] md:text-[56px] lg:text-[48px] shadow-lg backdrop-blur-sm relative overflow-hidden">
+                  <span class="relative z-10">{feature.number}</span>
+                  <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent shine-effect" />
                 </div>
 
+                <h2 class="feature-title text-5xl md:text-7xl lg:text-8xl font-bold text-slate-900 leading-tight">
+                  {feature.title}
+                </h2>
+
+                <p class="feature-description text-xl md:text-2xl text-slate-600 leading-relaxed max-w-2xl">
+                  {feature.description}
+                </p>
+              </div>
+              <div class="relative w-full max-w-3xl mx-auto">
+                <div
+                  class="relative w-full pt-[100%]"
+                  style={`--mask-url: url('${feature.mask}');`}
+                >
+                  <img
+                    src={feature.image}
+                    alt={feature.imageAlt}
+                    loading="lazy"
+                    class="absolute inset-0 w-full h-full object-cover mask-clip"
+                  />
+                </div>
+              </div>
             </div>
-        </div>
-      ))}
+          </div>
+        ))
+      }
     </div>
   </div>
 
-  <!-- Scroll Progress Indicator -->
-  <div class="fixed bottom-12 left-1/2 -translate-x-1/2 flex gap-3 z-50">
-    {features.map((_, index) => (
-        <div class={`scroll-indicator h-1 rounded-full bg-indian-red-200 transition-all duration-500 ease-out ${index === 0 ? 'w-12 bg-indian-red-600' : 'w-8'}`} data-index={index}></div>
-    ))}
+  <div
+    class="scroll-indicators-container fixed bottom-12 left-1/2 -translate-x-1/2 hidden lg:flex gap-3 z-50"
+  >
+    {
+      features.map((_, index) => (
+        <div
+          class={`scroll-indicator h-1 rounded-full bg-indian-red-200 transition-all duration-500 ease-out ${index === 0 ? "w-12 bg-indian-red-600" : "w-8"}`}
+          data-index={index}
+          role="button"
+          tabindex="0"
+          aria-label={`Ir a feature ${index + 1}`}
+        />
+      ))
+    }
   </div>
 </section>
 <style>
-.mask-clip {
-  -webkit-mask-image: var(--mask-url);
-  mask-image: var(--mask-url);
-
-  -webkit-mask-size: contain;
-  mask-size: contain;
-
-  -webkit-mask-position: center;
-  mask-position: center;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-}
-</style>
+  .mask-clip {
+    -webkit-mask-image: var(--mask-url);
+    mask-image: var(--mask-url);
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+  }
 </style>
 <script>
   import { gsap } from "gsap";
@@ -122,84 +138,241 @@ const features = [
     const indicators = document.querySelectorAll(".scroll-indicator");
     const items = document.querySelectorAll(".feature-item");
 
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
     if (section && wrapper) {
+      // Use matchMedia for responsive animations
+      let mm = gsap.matchMedia();
+
+      // Desktop Animations (Horizontal Scroll)
+      mm.add("(min-width: 1024px)", () => {
         // Horizontal Scroll Animation
         const scrollTween = gsap.to(wrapper, {
-            x: () => -(wrapper.scrollWidth - window.innerWidth),
-            ease: "none",
-            scrollTrigger: {
-                trigger: section,
-                pin: true,
-                scrub: 1,
-                end: () => "+=" + (wrapper.scrollWidth - window.innerWidth),
-                invalidateOnRefresh: true,
-                onUpdate: (self) => {
-                    // Update indicators based on progress
-                    const progress = self.progress;
-                    const total = items.length - 1;
-                    const index = Math.round(progress * total);
-                    
-                    indicators.forEach((ind, i) => {
-                        if (i === index) {
-                            ind.classList.add('w-12', 'bg-indian-red-600');
-                            ind.classList.remove('w-8', 'bg-indian-red-200');
-                        } else {
-                            ind.classList.remove('w-12', 'bg-indian-red-600');
-                            ind.classList.add('w-8', 'bg-indian-red-200');
-                        }
-                    });
+          x: () => -(wrapper.scrollWidth - window.innerWidth),
+          ease: "none",
+          scrollTrigger: {
+            trigger: section,
+            pin: true,
+            scrub: 1,
+            end: () => "+=" + (wrapper.scrollWidth - window.innerWidth),
+            invalidateOnRefresh: true,
+            onUpdate: (self) => {
+              // Update indicators based on progress
+              const progress = self.progress;
+              const total = items.length - 1;
+              const index = Math.round(progress * total);
+
+              indicators.forEach((ind, i) => {
+                if (i === index) {
+                  ind.classList.add("w-12", "bg-indian-red-600");
+                  ind.classList.remove("w-8", "bg-indian-red-200");
+                  // Animate active indicator
+                  gsap.to(ind, {
+                    scale: 1.2,
+                    height: 6,
+                    duration: 0.3,
+                    ease: "back.out(1.7)",
+                  });
+                } else {
+                  ind.classList.remove("w-12", "bg-indian-red-600");
+                  ind.classList.add("w-8", "bg-indian-red-200");
+                  // Reset inactive indicators
+                  gsap.to(ind, {
+                    scale: 1,
+                    height: 4,
+                    duration: 0.3,
+                    ease: "power2.out",
+                  });
                 }
-            }
+              });
+            },
+          },
         });
 
-        // Content Animations for each slide
+        // Enhanced Animations for each slide
         items.forEach((item, i) => {
-            const content = item.querySelector('.feature-content');
-            const image = item.querySelector('.feature-image');
+          const number = item.querySelector(".feature-number");
+          const title = item.querySelector(".feature-title");
+          const description = item.querySelector(".feature-description");
+          const decoration = item.querySelector(".feature-decoration");
 
-            // Animate content in when the slide comes into view
-            gsap.to([content, image], {
-                y: 0,
-                x: 0,
-                opacity: 1,
-                duration: 1,
-                stagger: 0.2,
-                ease: "power3.out",
-                scrollTrigger: {
-                    trigger: item,
-                    containerAnimation: scrollTween,
-                    start: "left center",
-                    toggleActions: "play reverse play reverse"
+          // Create timeline for staggered entrance
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: item,
+              containerAnimation: scrollTween,
+              start: "left 80%",
+              end: "left 10%",
+              toggleActions: "play reverse play reverse",
+            },
+          });
+
+          // Staggered entrance animations
+          tl.to(
+            number,
+            {
+              y: 0,
+              opacity: 1,
+              scale: 1,
+              duration: prefersReducedMotion ? 0.01 : 0.8,
+              ease: "back.out(1.7)",
+              onComplete: () => {
+                if (!prefersReducedMotion) {
+                  gsap.to(number, {
+                    scale: 1.03,
+                    duration: 2.5,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "sine.inOut",
+                  });
                 }
+              },
+            },
+            0
+          )
+            .to(
+              title,
+              {
+                y: 0,
+                opacity: 1,
+                duration: prefersReducedMotion ? 0.01 : 0.8,
+                ease: "power3.out",
+              },
+              0.2
+            )
+            .to(
+              description,
+              {
+                y: 0,
+                opacity: 1,
+                duration: prefersReducedMotion ? 0.01 : 0.8,
+                ease: "power3.out",
+              },
+              0.4
+            );
+
+          // Enhanced parallax effect for decoration
+          if (decoration && !prefersReducedMotion) {
+            decoration.classList.add("animating");
+            gsap.to(decoration, {
+              y: -150,
+              x: 50,
+              rotation: 25,
+              scale: 1.2,
+              scrollTrigger: {
+                trigger: item,
+                containerAnimation: scrollTween,
+                start: "left right",
+                end: "right left",
+                scrub: 1.5,
+                onLeave: () => decoration.classList.remove("animating"),
+                onEnterBack: () => decoration.classList.add("animating"),
+              },
             });
+          }
         });
+      });
+
+      // Mobile Animations (Vertical Scroll)
+      mm.add("(max-width: 1023px)", () => {
+        items.forEach((item, i) => {
+          const number = item.querySelector(".feature-number");
+          const title = item.querySelector(".feature-title");
+          const description = item.querySelector(".feature-description");
+
+          gsap.set([number, title, description], { opacity: 0, y: 30 });
+
+          ScrollTrigger.create({
+            trigger: item,
+            start: "top 80%",
+            onEnter: () => {
+              gsap.to([number, title, description], {
+                opacity: 1,
+                y: 0,
+                stagger: 0.2,
+                duration: 0.8,
+                ease: "power3.out",
+              });
+            },
+          });
+        });
+      });
+
+      // Add click functionality to scroll indicators (Desktop only)
+      indicators.forEach((indicator, index) => {
+        const clickHandler = () => {
+          // Only run on desktop
+          if (window.innerWidth < 1024) return;
+
+          const targetPosition = index * window.innerWidth;
+          const targetProgress =
+            targetPosition / (wrapper.scrollWidth - window.innerWidth);
+
+          gsap.to(window, {
+            scrollTo: {
+              y:
+                section.offsetTop +
+                targetProgress * (wrapper.scrollWidth - window.innerWidth),
+            },
+            duration: prefersReducedMotion ? 0.01 : 1,
+            ease: "power2.inOut",
+          });
+        };
+
+        indicator.addEventListener("click", clickHandler);
+        indicator.addEventListener(
+          "touchstart",
+          (e) => {
+            e.preventDefault();
+            clickHandler();
+          },
+          { passive: false }
+        );
+        indicator.addEventListener("keypress", (e) => {
+          const keyEvent = e as KeyboardEvent;
+          if (keyEvent.key === "Enter" || keyEvent.key === " ") {
+            e.preventDefault();
+            clickHandler();
+          }
+        });
+      });
+
+      // Add touch-friendly swipe support for mobile
+      let touchStartX = 0;
+      let touchEndX = 0;
+
+      const handleSwipe = () => {
+        const swipeThreshold = 50;
+        const diff = touchStartX - touchEndX;
+
+        if (Math.abs(diff) > swipeThreshold) {
+          // Swipe detected, let ScrollTrigger handle it naturally
+          // This just provides haptic feedback on mobile
+          if ("vibrate" in navigator) {
+            navigator.vibrate(10);
+          }
+        }
+      };
+
+      section.addEventListener(
+        "touchstart",
+        (e) => {
+          touchStartX = e.changedTouches[0].screenX;
+        },
+        { passive: true }
+      );
+
+      section.addEventListener(
+        "touchend",
+        (e) => {
+          touchEndX = e.changedTouches[0].screenX;
+          handleSwipe();
+        },
+        { passive: true }
+      );
     }
   });
 </script>
-
-<style>
-  /* Blob shape styles for images */
-  .image-blob-container {
-    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-    animation: morphBlob 8s ease-in-out infinite;
-    isolation: isolate;
-  }
-
-  @keyframes morphBlob {
-    0% {
-      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-    }
-    25% {
-      border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%;
-    }
-    50% {
-      border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%;
-    }
-    75% {
-      border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%;
-    }
-    100% {
-      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-    }
-  }
-</style>

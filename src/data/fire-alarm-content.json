@@ -1,0 +1,276 @@
+{
+  "servicesPages": {
+    "fireAlarm": {
+      "slug": "fire-alarm",
+      "hero": {
+        "badge": "Protección Contra Incendios",
+        "title": {
+          "main": "Sistemas de Alarmas",
+          "highlight": "Contra Incendios"
+        },
+        "icon":"flame",
+        "description": "Detecta, alerta y protege. Tecnología certificada que puede salvar vidas y patrimonio antes de que sea demasiado tarde.",
+        "image": "/img/gvolts/fire-alarm.jpg",
+        "cta": {
+          "primary": {
+            "label": "Cotización Gratuita",
+            "href": "/contact?service=fire-alarm"
+          },
+          "secondary": {
+            "label": "Ver Proyectos",
+            "href": "/projects?category=fire-alarm"
+          }
+        },
+        "stats": [
+          {
+            "value": "99.8%",
+            "label": "Tasa de Detección"
+          },
+          {
+            "value": "<30s",
+            "label": "Tiempo de Respuesta"
+          },
+          {
+            "value": "NFPA",
+            "label": "Certificación"
+          }
+        ]
+      },
+      "introduction": {
+        "title": "Detección Inteligente Antes del Primer Humo Visible",
+        "subtitle": "Sistemas de alarma contra incendios que detectan amenazas invisibles en segundos",
+        "description": "Un incendio puede duplicar su tamaño cada 30 segundos. Nuestros sistemas de detección multi-sensor identifican humo fotoeléctrico, incrementos térmicos y gases tóxicos antes de que aparezcan llamas visibles. Paneles direccionables que pinpointean la ubicación exacta, notificación masiva sincronizada y comunicación instantánea con centrales de monitoreo certificadas. No vendemos alarmas: diseñamos sistemas de supervivencia que cumplen NFPA 72 y superan expectativas.",
+        "highlights": [
+          {
+            "icon": "shield-check",
+            "text": "Diseño certificado NFPA 72, UL 864 y códigos de construcción locales"
+          },
+          {
+            "icon": "clock",
+            "text": "Instalación y certificación completa en 48-72 horas hábiles"
+          },
+          {
+            "icon": "eye",
+            "text": "Monitoreo permanente 24/7 con central UL y tiempo de respuesta <30s"
+          }
+        ]
+      },
+      "features": {
+        "title": "Tecnología que Salva Vidas",
+        "description": "Componentes de última generación que trabajan en perfecta sincronía",
+        "items": [
+          {
+            "number": "01",
+            "icon": "flame-detector",
+            "title": "Detección Multi-Sensor Inteligente",
+            "description": "Combinamos detectores de humo fotoeléctricos, sensores de calor y análisis de CO para identificar amenazas reales y eliminar falsas alarmas. Nuestra tecnología distingue entre el humo de una tostada y un incendio real.",
+            "benefits": [
+              "Reducción del 95% en falsas alarmas",
+              "Detección temprana de fuegos lentos",
+              "Análisis de patrones con IA"
+            ],
+            "image": "/img/gvolts/fuego.jpg"
+          },
+          {
+            "number": "02",
+            "icon": "network",
+            "title": "Panel de Control Inteligente",
+            "description": "El cerebro de tu sistema. Paneles direccionables que identifican la ubicación exacta del incendio en segundos, permitiendo respuesta quirúrgica y evacuación eficiente de áreas específicas.",
+            "benefits": [
+              "Mapeo visual en tiempo real",
+              "Diagnóstico automático de fallos",
+              "Backup de batería por 72 horas"
+            ],
+            "image": "/img/gvolts/panel-control.jpg"
+          },
+          {
+            "number": "03",
+            "icon": "spray",
+            "title": "Integración con Supresión",
+            "description": "Más que detectar, actuamos. Integramos con sistemas de rociadores, supresión de gas limpio FM-200 y control de humo para una respuesta automatizada que minimiza daños.",
+            "benefits": [
+              "Activación automática de rociadores",
+              "Liberación controlada de agentes supresores",
+              "Cierre de compuertas contra humo"
+            ],
+            "image": "/img/gvolts/extintor2.jpg"
+          }
+        ]
+      },
+      "process": {
+        "title": "Nuestro Proceso de Implementación",
+        "subtitle": "De la evaluación a la protección total",
+        "steps": [
+          {
+            "number": 1,
+            "title": "Evaluación de Riesgos",
+            "description": "Inspeccionamos tu propiedad identificando puntos críticos, materiales inflamables, rutas de evacuación y requisitos específicos según tu industria.",
+            "duration": "1-2 días",
+            "deliverable": "Informe detallado de riesgos y recomendaciones"
+          },
+          {
+            "number": 2,
+            "title": "Diseño Personalizado",
+            "description": "Creamos un plano técnico que cumple código y optimiza cobertura. Seleccionamos equipos específicos basados en tu ambiente: polvo, humedad, temperatura, interferencias.",
+            "duration": "3-5 días",
+            "deliverable": "Planos CAD y especificaciones técnicas"
+          },
+          {
+            "number": 3,
+            "title": "Instalación Certificada",
+            "description": "Técnicos NICET realizan el montaje con mínima interrupción. Cableado oculto, ubicación estratégica de detectores según flujo de aire y patrones de calor.",
+            "duration": "2-5 días",
+            "deliverable": "Sistema instalado y probado"
+          },
+          {
+            "number": 4,
+            "title": "Pruebas y Certificación",
+            "description": "Simulamos condiciones de incendio, verificamos cobertura de alarmas, comunicación con central de monitoreo y tiempos de respuesta. Emitimos certificado de cumplimiento.",
+            "duration": "1 día",
+            "deliverable": "Certificado oficial y manual de operación"
+          },
+          {
+            "number": 5,
+            "title": "Capacitación y Monitoreo",
+            "description": "Entrenamos a tu equipo en operación, interpretación de señales y protocolos de evacuación. Activamos monitoreo 24/7 con nuestra central UL certificada.",
+            "duration": "Medio día",
+            "deliverable": "Personal capacitado y monitoreo activo"
+          }
+        ]
+      },
+      "applications": {
+        "title": "Soluciones para Cada Industria",
+        "items": [
+          {
+            "industry": "Comercial",
+            "icon": "building",
+            "description": "Oficinas, centros comerciales, restaurantes",
+            "features": [
+              "Detección direccionable por zona",
+              "Integración con control de acceso",
+              "Protocolos de evacuación personalizados"
+            ],
+            "image": "/img/gvolts/commercial-fire.jpg"
+          },
+          {
+            "industry": "Industrial",
+            "icon": "factory",
+            "description": "Fábricas, almacenes, plantas de producción",
+            "features": [
+              "Detección para ambientes hostiles",
+              "Supresión con agentes especiales",
+              "Zonas de alto riesgo monitoreadas"
+            ],
+            "image": "/img/gvolts/industrial-fire.jpg"
+          },
+          {
+            "industry": "Residencial",
+            "icon": "home",
+            "description": "Condominios, edificios de apartamentos",
+            "features": [
+              "Sistema interconectado inalámbrico",
+              "Notificación a todos los residentes",
+              "Cumplimiento con códigos residenciales"
+            ],
+            "image": "/img/gvolts/residential-fire.jpg"
+          },
+          {
+            "industry": "Institucional",
+            "icon": "hospital",
+            "description": "Hospitales, escuelas, hoteles",
+            "features": [
+              "Evacuación asistida inteligente",
+              "Zonas de refugio monitoreadas",
+              "Integración con sistemas médicos"
+            ],
+            "image": "/img/gvolts/institutional-fire.jpg"
+          }
+        ]
+      },
+      "compliance": {
+        "title": "Certificaciones y Cumplimiento Normativo",
+        "description": "No solo instalamos sistemas, garantizamos cumplimiento total con regulaciones locales e internacionales",
+        "standards": [
+          {
+            "code": "NFPA 72",
+            "name": "Código Nacional de Alarmas de Incendio",
+            "description": "Estándar para instalación, prueba y mantenimiento de sistemas de alarma"
+          },
+          {
+            "code": "NFPA 101",
+            "name": "Código de Seguridad Humana",
+            "description": "Requisitos de evacuación y sistemas de notificación"
+          },
+          {
+            "code": "UL 864",
+            "name": "Unidades de Control Certificadas",
+            "description": "Paneles de control listados y aprobados por UL"
+          },
+          {
+            "code": "ADA",
+            "name": "Accesibilidad para Personas con Discapacidad",
+            "description": "Dispositivos de notificación visual certificados"
+          }
+        ],
+        "certifications": [
+          "Técnicos certificados NICET nivel III y IV",
+          "Licencia estatal de contratista de alarmas contra incendios",
+          "Central de monitoreo certificada UL",
+          "Membresía activa en NFPA"
+        ]
+      },
+      "benefits": {
+        "title": "Por Qué Elegir GVolts para tu Protección Contra Incendios",
+        "items": [
+          {
+            "icon": "award",
+            "title": "Experiencia Certificada",
+            "description": "Más de 10 años protegiendo propiedades. Técnicos con certificaciones NICET y capacitación continua en las últimas tecnologías de detección y supresión."
+          },
+          {
+            "icon": "clock-fast",
+            "title": "Respuesta Ultra-Rápida",
+            "description": "Nuestra central de monitoreo UL certifica tiempos de respuesta menores a 30 segundos. En caso de alarma, despachamos ayuda mientras verificamos la emergencia."
+          },
+          {
+            "icon": "tools",
+            "title": "Soporte Vitalicio",
+            "description": "Mantenimiento preventivo semestral incluido, inspecciones anuales con reporte certificado, actualizaciones de firmware sin costo y soporte técnico 24/7."
+          },
+          {
+            "icon": "shield-dollar",
+            "title": "Garantía Total",
+            "description": "Garantía de 5 años en equipos, 2 años en mano de obra. Si falla, lo reparamos o reemplazamos sin preguntas. Tu inversión está protegida."
+          },
+          {
+            "icon": "chart-line",
+            "title": "ROI Comprobado",
+            "description": "Clientes reportan reducción de hasta 30% en primas de seguros. Evita multas por incumplimiento normativo y minimiza tiempos de inactividad por falsos positivos."
+          },
+          {
+            "icon": "leaf",
+            "title": "Tecnología Sustentable",
+            "description": "Equipos de bajo consumo con baterías de litio de larga duración. Sensores con vida útil de 10+ años que reducen residuos electrónicos."
+          }
+        ]
+      },
+      "cta": {
+        "title": "Protege lo que Construiste con Tanto Esfuerzo",
+        "description": "No esperes a que sea demasiado tarde. Una evaluación gratuita puede marcar la diferencia entre pérdida total y protección garantizada.",
+        "primary": {
+          "label": "Agenda tu Evaluación Gratuita",
+          "href": "/contact?service=fire-alarm"
+        },
+        "secondary": {
+          "label": "Descarga Guía de Prevención",
+          "href": "/resources/fire-prevention-guide.pdf"
+        },
+        "guarantees": [
+          "Evaluación sin compromiso en 24 horas",
+          "Cotización detallada con opciones de financiamiento",
+          "Instalación garantizada en menos de 1 semana"
+        ]
+      }
+    }
+}
+}

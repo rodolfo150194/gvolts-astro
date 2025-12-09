@@ -1,0 +1,368 @@
+{
+  "servicesPages": {
+    "electricity": {
+      "slug": "electricity",
+      "hero": {
+        "badge": "Servicios Eléctricos Profesionales",
+        "title": {
+          "main": "Instalaciones Eléctricas",
+          "highlight": "Seguras y Eficientes"
+        },
+        "description": "Desde circuitos residenciales hasta subestaciones comerciales. Potencia confiable, instalaciones al código, eficiencia energética máxima.",
+        "image": "/img/gvolts/electrical-hero.jpg",
+        "cta": {
+          "primary": {
+            "label": "Inspección Gratuita",
+            "href": "/contact?service=electricity"
+          }
+        },
+        "stats": [
+          {
+            "value": "NEC",
+            "label": "Código Actualizado"
+          },
+          {
+            "value": "15 min",
+            "label": "Respuesta Emergencias"
+          },
+          {
+            "value": "100%",
+            "label": "Garantía de Trabajo"
+          }
+        ]
+      },
+      "introduction": {
+        "title": "Energía que Impulsa tu Vida y Negocio",
+        "subtitle": "Electricistas maestros con licencia estatal y seguro completo",
+        "description": "No arriesgues con improvisados. Nuestros electricistas certificados garantizan instalaciones seguras, eficientes y 100% al código. Ya sea renovar tu hogar, expandir tu negocio o actualizar a sistemas inteligentes, tenemos la experiencia y equipo para hacerlo bien la primera vez.",
+        "highlights": [
+          {
+            "icon": "certificate",
+            "text": "Licencia estatal Master Electrician"
+          },
+          {
+            "icon": "shield-check",
+            "text": "Seguro de responsabilidad $2M"
+          },
+          {
+            "icon": "leaf-electricity",
+            "text": "Especialistas en eficiencia energética"
+          }
+        ]
+      },
+      "services": {
+        "title": "Servicios Eléctricos Completos",
+        "residential": {
+          "name": "Servicios Residenciales",
+          "tagline": "Tu hogar merece instalaciones eléctricas seguras y modernas",
+          "image": "/img/gvolts/residential-electrical.jpg",
+          "items": [
+            {
+              "title": "Actualización de Panel Eléctrico",
+              "description": "¿Panel de 100A saturado? Actualizamos a 200A o 400A con espacio para crecimiento futuro. Incluye reemplazo de breakers obsoletos, reorganización de circuitos y puesta a tierra moderna.",
+              "includes": [
+                "Evaluación de carga eléctrica total",
+                "Panel residencial con breakers AFCI/GFCI",
+                "Transferencia sin interrupción del servicio",
+                "Inspección y permiso municipal incluidos"
+              ],
+              "ideal_for": [
+                "Homes añadiendo vehículos eléctricos",
+                "Ampliaciones con nuevos circuitos",
+                "Reemplazo de paneles Federal Pacific o Zinsco"
+              ]
+            },
+            {
+              "title": "Instalación de Circuitos Dedicados",
+              "description": "Electrodomésticos de alto consumo necesitan circuitos propios. Instalamos líneas dedicadas desde el panel hasta el equipo con calibre correcto y protecciones adecuadas.",
+              "includes": [
+                "Cálculo de calibre de cable según NEC",
+                "Canalización oculta o superficial",
+                "Tomas con protección GFCI donde requiere código",
+                "Etiquetado claro en panel"
+              ],
+              "ideal_for": [
+                "Cargadores de vehículos eléctricos (Nivel 2, 240V)",
+                "Aires acondicionados centrales o mini-split",
+                "Calentadores de agua, secadoras, hornos",
+                "Talleres con herramientas de alto amperaje"
+              ]
+            },
+            {
+              "title": "Iluminación Interior y Exterior",
+              "description": "Transforma tus espacios con iluminación LED moderna, dimeable e inteligente. Diseñamos esquemas de iluminación funcionales y estéticos.",
+              "includes": [
+                "Diseño de iluminación por ambiente",
+                "Instalación de fixtures LED de alta eficiencia",
+                "Dimmers compatibles con LED",
+                "Iluminación de acento, trabajo y ambiente"
+              ],
+              "ideal_for": [
+                "Renovaciones de cocina y baños",
+                "Iluminación de seguridad exterior",
+                "Sistemas de iluminación arquitectónica",
+                "Conversión de halógeno a LED"
+              ]
+            },
+            {
+              "title": "Automatización y Domótica",
+              "description": "Convierte tu casa en un hogar inteligente. Instalamos switches, tomas y termostatos conectados que controlas desde tu móvil o voz.",
+              "includes": [
+                "Switches inteligentes WiFi (Lutron, Leviton)",
+                "Tomas controladas remotamente",
+                "Termostatos inteligentes (Nest, Ecobee)",
+                "Integración con Alexa, Google, HomeKit"
+              ],
+              "ideal_for": [
+                "Control de luces por voz o app",
+                "Programación de horarios de iluminación",
+                "Optimización de aire acondicionado/calefacción",
+                "Simulación de presencia cuando viajas"
+              ]
+            }
+          ]
+        },
+        "commercial": {
+          "name": "Servicios Comerciales",
+          "tagline": "Potencia y confiabilidad para tu operación empresarial",
+          "image": "/img/gvolts/commercial-electrical.jpg",
+          "items": [
+            {
+              "title": "Diseño e Instalación Eléctrica Completa",
+              "description": "Para construcciones nuevas o renovaciones mayores, diseñamos sistemas eléctricos trifásicos completos desde la acometida hasta el último tomacorriente.",
+              "includes": [
+                "Cálculo de demanda eléctrica total",
+                "Planos eléctricos sellados por ingeniero",
+                "Subestación y transformadores si requerido",
+                "Tableros de distribución y sub-paneles",
+                "Coordinación con compañía eléctrica"
+              ],
+              "ideal_for": [
+                "Oficinas, consultorios, restaurantes nuevos",
+                "Expansiones de naves industriales",
+                "Centros comerciales y retail",
+                "Remodelaciones que requieren más capacidad"
+              ]
+            },
+            {
+              "title": "Iluminación Comercial LED",
+              "description": "Reduce tu factura eléctrica hasta 70% con conversión a LED. Luces más brillantes, menos calor, vida útil 10x mayor que fluorescentes.",
+              "includes": [
+                "Auditoría de iluminación actual",
+                "Cálculo de ROI y ahorro proyectado",
+                "Fixtures LED comerciales UL listados",
+                "Controles de iluminación ocupacional",
+                "Reciclaje responsable de lámparas viejas"
+              ],
+              "ideal_for": [
+                "Almacenes con techos altos",
+                "Oficinas con cubículos",
+                "Estacionamientos y áreas exteriores",
+                "Retail con necesidades de alto CRI"
+              ]
+            },
+            {
+              "title": "Sistemas de Respaldo y UPS",
+              "description": "No pierdas ventas ni datos por apagones. Instalamos generadores automáticos y sistemas UPS que mantienen tu negocio funcionando.",
+              "includes": [
+                "Transfer switch automático",
+                "Generadores diésel o gas natural",
+                "UPS para servidores y equipos críticos",
+                "Mantenimiento preventivo programado"
+              ],
+              "ideal_for": [
+                "Data centers y salas de servidores",
+                "Clínicas y consultorios médicos",
+                "Restaurantes con cámaras frías",
+                "Retail con sistemas POS críticos"
+              ]
+            },
+            {
+              "title": "Mantenimiento Preventivo",
+              "description": "Evita paros costosos con inspecciones programadas. Detectamos problemas antes de que causen fallos o incendios.",
+              "includes": [
+                "Termografía infrarroja de conexiones",
+                "Pruebas de carga en paneles principales",
+                "Limpieza y ajuste de conexiones",
+                "Reemplazo de breakers desgastados",
+                "Reporte con recomendaciones"
+              ],
+              "ideal_for": [
+                "Edificios con instalaciones +10 años",
+                "Cumplimiento de requisitos de seguro",
+                "Reducción de prima de póliza",
+                "Prevención de incendios eléctricos"
+              ]
+            }
+          ]
+        }
+      },
+      "specialties": {
+        "title": "Especialidades Técnicas",
+        "items": [
+          {
+            "icon": "car-charging",
+            "title": "Estaciones de Carga para Vehículos Eléctricos",
+            "description": "Instalación certificada de cargadores Nivel 2 (240V) para Tesla, Chevrolet, Nissan y todas las marcas. Desde 16A hasta 80A según tu vehículo.",
+            "details": [
+              "Evaluación de capacidad de panel existente",
+              "Circuito dedicado con breaker apropiado",
+              "Montaje de estación en pared o pedestal",
+              "Compatibilidad con redes inteligentes",
+              "Certificado para créditos fiscales EV"
+            ]
+          },
+          {
+            "icon": "sun-energy",
+            "title": "Preparación para Energía Solar",
+            "description": "Optimizamos tu sistema eléctrico para futuras instalaciones solares. Paneles listos para conexión bidireccional y net metering.",
+            "details": [
+              "Upgrade de panel principal si necesario",
+              "Espacio reservado para breaker solar",
+              "Canalización para futuro cableado DC",
+              "Coordinación con instalador solar",
+              "Main Breaker adecuado para back-feed"
+            ]
+          },
+          {
+            "icon": "factory-smoke",
+            "title": "Instalaciones Industriales Especializadas",
+            "description": "Experiencia en motores trifásicos, controles industriales, transformadores de potencia y sistemas de fuerza.",
+            "details": [
+              "Motores de 1HP hasta 500HP",
+              "Arrancadores suaves y VFDs",
+              "Centros de control de motores MCC",
+              "Bancos de transformadores",
+              "Corrección de factor de potencia"
+            ]
+          },
+          {
+            "icon": "fire-extinguisher",
+            "title": "Sistemas de Emergencia y Salida",
+            "description": "Iluminación de emergencia, señalización de salida y sistemas de alimentación ininterrumpida según código de incendios.",
+            "details": [
+              "Luces de emergencia con batería",
+              "Letreros EXIT iluminados",
+              "Circuitos de iluminación de vida",
+              "Pruebas mensuales documentadas",
+              "Cumplimiento NFPA 101 y NEC 700"
+            ]
+          }
+        ]
+      },
+      "process": {
+        "title": "Cómo Trabajamos Contigo",
+        "steps": [
+          {
+            "number": 1,
+            "title": "Consulta y Evaluación",
+            "description": "Visitamos tu propiedad sin costo. Inspeccionamos panel actual, medimos cargas, identificamos deficiencias de código y escuchamos tus necesidades.",
+            "deliverable": "Reporte fotográfico con diagnóstico honesto"
+          },
+          {
+            "number": 2,
+            "title": "Propuesta Detallada",
+            "description": "No sorpresas. Cotización desglosada con materiales específicos, mano de obra, permisos y tiempo estimado. Opciones de bueno/mejor/óptimo.",
+            "deliverable": "Propuesta escrita con garantías y términos claros"
+          },
+          {
+            "number": 3,
+            "title": "Permisos y Planificación",
+            "description": "Gestionamos permisos municipales, coordinamos con HOA si aplica, y programamos trabajo minimizando interrupciones.",
+            "deliverable": "Permisos aprobados y cronograma acordado"
+          },
+          {
+            "number": 4,
+            "title": "Ejecución Profesional",
+            "description": "Electricistas uniformados llegan puntuales con camión equipado. Trabajo limpio con protección de pisos y retiro de escombros diario.",
+            "deliverable": "Instalación completada al código NEC"
+          },
+          {
+            "number": 5,
+            "title": "Inspección y Certificación",
+            "description": "Inspector municipal verifica trabajo. Corregimos cualquier observación inmediatamente. No terminamos hasta obtener aprobación final.",
+            "deliverable": "Certificado de inspección aprobado"
+          }
+        ]
+      },
+      "safety": {
+        "title": "Seguridad es Nuestra Prioridad #1",
+        "description": "No cortamos caminos. Cada instalación cumple o supera NEC y códigos locales",
+        "practices": [
+          {
+            "icon": "hard-hat",
+            "title": "Capacitación Continua",
+            "description": "Electricistas certifican NEC actualizado cada 3 años. OSHA 30 horas en seguridad de construcción obligatorio para todo el equipo."
+          },
+          {
+            "icon": "test-tube",
+            "title": "Pruebas Exhaustivas",
+            "description": "Antes de energizar, probamos continuidad, aislamiento, polaridad correcta y conexión a tierra. Medimos voltaje bajo carga para asegurar caída aceptable."
+          },
+          {
+            "icon": "file-certificate",
+            "title": "Documentación Completa",
+            "description": "Diagramas unifilares actualizados, etiquetado de breakers claro, especificaciones de equipos y certificados de garantía. Todo en tu carpeta de proyecto."
+          },
+          {
+            "icon": "shield-dollar",
+            "title": "Seguro Robusto",
+            "description": "$2,000,000 en responsabilidad general, $5,000,000 umbrella, compensación a trabajadores. Tu propiedad está protegida ante cualquier eventualidad."
+          }
+        ]
+      },
+      "benefits": {
+        "title": "La Diferencia GVolts en Eléctrica",
+        "items": [
+          {
+            "icon": "piggy-bank",
+            "title": "Precios Transparentes, Sin Sorpresas",
+            "description": "Cotizaciones fijas por proyecto, no por hora. Lo que acordamos es lo que pagas. Garantizamos precio por escrito."
+          },
+          {
+            "icon": "clock-check",
+            "title": "Respetamos tu Tiempo",
+            "description": "Llegamos en ventana de 2 horas prometida. Trabajo eficiente sin sacrificar calidad. Proyectos terminados en plazo comprometido."
+          },
+          {
+            "icon": "sparkles",
+            "title": "Trabajo Limpio Garantizado",
+            "description": "Cubrimos muebles, protegemos pisos, perforamos sin ensuciar. Limpieza diaria y final con aspiradora. Dejamos tu espacio como lo encontramos."
+          },
+          {
+            "icon": "award-star",
+            "title": "Garantía de Satisfacción Total",
+            "description": "Si no estás 100% satisfecho con nuestro trabajo, lo corregimos sin costo o te devolvemos tu dinero. Sin letra pequeña."
+          },
+          {
+            "icon": "receipt-percent",
+            "title": "Opciones de Pago Flexibles",
+            "description": "Aceptamos efectivo, cheques, tarjetas y financiamiento 12 meses sin intereses para proyectos mayores. Descuentos para veteranos y seniors."
+          },
+          {
+            "icon": "phone-24",
+            "title": "Servicio de Emergencia Real",
+            "description": "Electricista en camino 24/7/365. Sin recargos nocturnos o de fin de semana. Problemas eléctricos no esperan, nosotros tampoco."
+          }
+        ]
+      },
+      "cta": {
+        "title": "Energiza tu Proyecto con Profesionales",
+        "description": "Ya sea pequeño o grande, residencial o comercial, lo hacemos bien. Llama hoy y experimenta el servicio eléctrico que debería ser el estándar.",
+        "primary": {
+          "label": "Solicita tu Inspección Gratuita",
+          "href": "/contact?service=electricity"
+        },
+        "secondary": {
+          "label": "Emergencias: Llama Ahora",
+          "href": "tel:+15551234567"
+        },
+        "guarantees": [
+          "Inspección y cotización sin compromiso",
+          "Respuesta de emergencias en 15 minutos",
+          "Garantía de 2 años en mano de obra"
+        ]
+      }
+    }
+  }
+}

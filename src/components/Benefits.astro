@@ -1,0 +1,84 @@
+---
+import Icon from "@/components/Icon.astro";
+import DottedPattern from "@/components/DottedPattern.astro";
+
+const title = "Porque elegirnos";
+
+const features = [
+  {
+    icon: "rocket-fast",
+    title: "Instalación Express sin Interrupciones",
+    description:
+      "Instalaciones residenciales en 48-72 horas, comerciales en menos de 5 días. Trabajamos en horarios flexibles adaptados a tu operación. Cableado oculto profesional y limpieza diaria garantizada.",
+  },
+  {
+    icon: "brain-ai",
+    title: "Vigilancia Inteligente con IA",
+    description:
+      "No más revisar horas de video. Nuestros sistemas con analítica de IA detectan comportamientos sospechosos, reconocen rostros, leen placas y te alertan solo cuando es importante. Búsqueda de eventos en segundos.",
+  },
+  {
+    icon: "shield-heart",
+    title: "Respuesta que Salva Vidas",
+    description:
+      "Central de monitoreo UL con verificación visual en tiempo real. Operadores capacitados que actúan en menos de 60 segundos, coordinando con bomberos, policía o guardias según protocolo personalizado.",
+  },
+  {
+    icon: "tools-wrench",
+    title: "Soporte Vitalicio Incluido",
+    description:
+      "Mantenimiento preventivo semestral, actualizaciones de firmware sin costo, soporte técnico 24/7 y inspecciones anuales con reporte certificado. Tu inversión protegida a largo plazo.",
+  },
+  {
+    icon: "tools-wrench",
+    title: "Soporte Vitalicio Incluido",
+    description:
+      "Mantenimiento preventivo semestral, actualizaciones de firmware sin costo, soporte técnico 24/7 y inspecciones anuales con reporte certificado. Tu inversión protegida a largo plazo.",
+  },
+  {
+    icon: "tools-wrench",
+    title: "Soporte Vitalicio Incluido",
+    description:
+      "Mantenimiento preventivo semestral, actualizaciones de firmware sin costo, soporte técnico 24/7 y inspecciones anuales con reporte certificado. Tu inversión protegida a largo plazo.",
+  },
+];
+---
+
+<!-- Benefits Section -->
+<section class="py-20">
+  <div class="container mx-auto px-4 relative">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h2
+          class="benefits-title font-display text-5xl md:text-6xl font-bold text-slate-900 mb-4"
+        >
+          {title}
+        </h2>
+      </div>
+      <DottedPattern class="top-[5%] left-0" />
+      <DottedPattern class="bottom-[5%] -right-[5%]" />
+      <!-- Benefits Grid -->
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 benefits-grid"
+      >
+        {
+          features.map((benefit, index) => (
+            <div class="benefit-card bg-white p-8 rounded-2xl border-2 border-indian-red-100 z-10 hover:border-indian-red-500 transition-all hover:-translate-y-2 shadow-lg">
+              <div class="w-14 h-14 bg-gradient-to-br from-indian-red-500 to-indian-red-600 rounded-xl flex items-center justify-center mb-6">
+                <Icon name={benefit.icon} size="28" class="text-white" />
+              </div>
+              <h3 class="text-xl font-bold text-slate-900 mb-3">
+                {benefit.title}
+              </h3>
+              <p class="text-slate-600 leading-relaxed">
+                {benefit.description}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<script></script>

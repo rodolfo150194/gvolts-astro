@@ -5,17 +5,20 @@ const services = [
     title: "Alarmas de Incendio",
     description:
       "Sistemas avanzados de detección y alerta temprana contra incendios.",
+    href: "/services/fire-alarm",
   },
   {
     image: "/img/gvolts/camera.png",
     title: "Seguridad",
     description: "Cámaras de alta definición con monitoreo remoto 24/7.",
+    href: "/services/security",
   },
   {
     image: "/img/gvolts/panel-config.png",
     title: "Electricidad",
     description: "Configuración y gestión centralizada de todos tus sistemas.",
-  }
+    href: "/services/electricity",
+  },
 ];
 ---
 
@@ -83,9 +86,9 @@ const services = [
               </p>
 
               <div class="mt-auto text-center">
-                <button class="header-cta bg-indian-red-500 cursor-pointer text-white px-6 py-2.5 rounded-lg font-bold hover:bg-indian-red-600 transition-[background-color,transform,box-shadow] duration-300 shadow-lg shadow-indian-red-500/30 hover:-translate-y-0.5 active:translate-y-0">
+                <a href={service.href} class="header-cta bg-indian-red-500 cursor-pointer text-white px-6 py-2.5 rounded-lg font-bold hover:bg-indian-red-600 transition-[background-color,transform,box-shadow] duration-300 shadow-lg shadow-indian-red-500/30 hover:-translate-y-0.5 active:translate-y-0">
                   Ver más
-                </button>
+                </a>
               </div>
             </div>
           </div>
@@ -94,7 +97,6 @@ const services = [
     </div>
   </div>
 </section>
-
 
 <script>
   import { gsap } from "gsap";

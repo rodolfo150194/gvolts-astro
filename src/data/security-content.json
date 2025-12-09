@@ -1,0 +1,225 @@
+{
+  "servicesPages": {
+    "security": {
+      "slug": "security",
+      "hero": {
+        "badge": "Seguridad Electrónica Integral",
+        "title": {
+          "main": "Vigilancia Inteligente",
+          "highlight": "Control Total"
+        },
+        "icon": "lightbulb-bolt",
+        "description": "Videovigilancia 4K con IA, control de acceso biométrico y alarmas perimetrales. Ve, controla y protege desde cualquier lugar del mundo.",
+        "image": "/img/gvolts/security-hero.jpg",
+        "cta": {
+          "primary": {
+            "label": "Demo en Vivo",
+            "href": "/contact?service=security"
+          },
+          "secondary": {
+            "label": "Ver Soluciones",
+            "href": "#solutions"
+          }
+        },
+        "stats": [
+          {
+            "value": "4K",
+            "label": "Ultra HD"
+          },
+          {
+            "value": "30 días",
+            "label": "Grabación en Nube"
+          },
+          {
+            "value": "99.9%",
+            "label": "Uptime Garantizado"
+          }
+        ]
+      },
+      "introduction": {
+        "title": "Seguridad que Piensa y Actúa por Ti",
+        "subtitle": "Más que cámaras, inteligencia artificial que protege proactivamente",
+        "description": "Olvídate de grabar horas de video que nadie revisa. Nuestros sistemas usan IA para detectar comportamientos sospechosos, reconocer caras, leer placas y alertarte solo cuando importa. Integración total: cámaras, control de acceso, alarmas perimetrales y automatización en una sola plataforma.",
+        "highlights": [
+          {
+            "icon": "magic",
+            "text": "IA que aprende patrones y detecta anomalías"
+          },
+          {
+            "icon": "smartphone",
+            "text": "Control desde tu móvil iOS/Android"
+          },
+          {
+            "icon": "cloud-check",
+            "text": "Almacenamiento redundante local + nube"
+          }
+        ]
+      },
+      "solutions": {
+        "title": "Soluciones de Seguridad a Medida",
+        "items": [
+          {
+            "id": "video-surveillance",
+            "name": "Videovigilancia Inteligente",
+            "tagline": "Ojos que nunca duermen, cerebro que siempre piensa",
+            "description": "Sistema completo de cámaras IP de última generación con analíticas de video integradas",
+            "icon": "camera",
+            "image": "/img/gvolts/instalacion2.jpg",
+            "features": [
+              {
+                "title": "Cámaras 4K con Visión Nocturna",
+                "description": "Imagen ultra nítida hasta 30 metros en oscuridad total. Lentes varifocales motorizados con zoom óptico 4x y enfoque automático. Resistencia IP67 para exteriores extremos.",
+                "specs": [
+                  "Resolución 8MP (3840x2160)",
+                  "WDR 120dB para contraluz",
+                  "H.265+ compresión eficiente"
+                ]
+              },
+              {
+                "title": "Analíticas con IA Incorporada",
+                "description": "Detección de personas, vehículos, intrusión perimetral, objetos abandonados, multitudes y comportamiento anormal. Reduce eventos falsos en 99%.",
+                "specs": [
+                  "Reconocimiento facial 1:N",
+                  "Lectura de placas LPR/ANPR",
+                  "Conteo de personas con heatmap"
+                ]
+              },
+              {
+                "title": "Grabación Inteligente Multi-Nivel",
+                "description": "Graba continuamente en calidad estándar, pero cambia a 4K cuando detecta movimiento. Almacenamiento local redundante con RAID 5 + backup en nube cifrado.",
+                "specs": [
+                  "NVR con 32 canales 4K",
+                  "Hasta 30 días de grabación",
+                  "Acceso remoto seguro SSL"
+                ]
+              }
+            ],
+            "benefits": [
+              "Búsqueda de eventos en segundos con IA",
+              "Alertas personalizadas por zona y tipo",
+              "Integración con POS para retail"
+            ],
+            "pricing": {
+              "starting": "desde $2,499",
+              "note": "Paquete básico 4 cámaras + NVR"
+            }
+          },
+          {
+            "id": "access-control",
+            "name": "Control de Acceso Biométrico",
+            "tagline": "Solo quien tú decidas, cuando tú decidas",
+            "description": "Reemplaza llaves y tarjetas por autenticación multi-factor imposible de duplicar",
+            "icon": "fingerprint",
+            "image": "/img/gvolts/control-de-acceso2.jpg",
+            "features": [
+              {
+                "title": "Lectores Multi-Tecnología",
+                "description": "Huella dactilar, reconocimiento facial, tarjeta RFID, teclado PIN y móvil Bluetooth. Elige la combinación perfecta para cada entrada.",
+                "specs": [
+                  "Sensor óptico 500dpi anti-falsificación",
+                  "Facial 3D resistente a fotos",
+                  "NFC/RFID 13.56MHz"
+                ]
+              },
+              {
+                "title": "Software de Gestión en la Nube",
+                "description": "Panel web intuitivo para gestionar usuarios, horarios, áreas restringidas y reportes de actividad en tiempo real desde cualquier lugar.",
+                "specs": [
+                  "Hasta 10,000 usuarios",
+                  "Horarios personalizados por usuario",
+                  "Integración con directorio activo"
+                ]
+              },
+              {
+                "title": "Cerraduras Electrónicas Inteligentes",
+                "description": "Desde simples puertas hasta torniquetes y barreras vehiculares. Control centralizado de toda tu propiedad.",
+                "specs": [
+                  "Failsafe o Failsecure según código",
+                  "Apertura remota por emergencia",
+                  "Monitoreo de estado de puerta"
+                ]
+              }
+            ],
+            "benefits": [
+              "Elimina llaves perdidas y tarjetas clonadas",
+              "Auditoría completa de entradas/salidas",
+              "Acceso temporal para visitantes por app"
+            ],
+            "pricing": {
+              "starting": "desde $1,899",
+              "note": "2 puertas con lectores biométricos"
+            }
+          }
+        ]
+      },
+      "integration": {
+        "title": "Un Ecosistema, Control Total",
+        "description": "Todos nuestros sistemas se integran en una plataforma unificada para gestión simplificada",
+        "features": [
+          {
+            "title": "App Móvil Única",
+            "description": "Control total desde tu smartphone: ver cámaras en vivo, abrir puertas, armar/desarmar alarmas, recibir notificaciones inteligentes.",
+            "platforms": ["iOS", "Android", "Web"]
+          },
+          {
+            "title": "Automatización Inteligente",
+            "description": "Crea escenarios: 'Al salir' arma alarma, cierra puertas y activa cámaras. 'Al llegar' desarma todo automáticamente por geolocalización.",
+            "examples": [
+              "Enciende luces cuando cámara detecta movimiento",
+              "Bloquea puertas si alarma se activa",
+              "Graba 4K cuando perímetro se rompe"
+            ]
+          },
+          {
+            "title": "Integraciones Enterprise",
+            "description": "APIs abiertas para conectar con tu ERP, RH, CRM. Sincroniza empleados, genera reportes de asistencia, integra con nómina.",
+            "platforms": ["Active Directory", "Google Workspace", "Azure AD"]
+          }
+        ]
+      },
+      "benefits": {
+        "title": "Ventajas de Elegir GVolts",
+        "items": [
+          {
+            "number": "01",
+            "title": "Instalación Rápida sin Interrupciones",
+            "description": "Trabajamos en horarios flexibles, incluso fines de semana. Instalaciones comerciales típicas en 3-5 días sin afectar operaciones. Cableado oculto profesional."
+          },
+          {
+            "number": "02",
+            "title": "Capacitación Completa Incluida",
+            "description": "Entrenamos a tu equipo en uso del sistema, interpretación de alertas y mejores prácticas. Manuales personalizados y videos de referencia."
+          },
+          {
+            "number": "03",
+            "title": "Migración sin Dolor",
+            "description": "¿Ya tienes un sistema antiguo? Lo evaluamos, aprovechamos lo que sirve y migramos a tecnología moderna sin desprotegerte."
+          },
+          {
+            "number": "04",
+            "title": "Escalabilidad Garantizada",
+            "description": "Comienza con lo básico y crece sin límites. Arquitectura modular que se expande con tu negocio. Sin renovaciones costosas de infraestructura."
+          },
+          {
+            "number": "05",
+            "title": "Mantenimiento Preventivo",
+            "description": "Visitas trimestrales incluidas: limpieza de lentes, ajuste de ángulos, actualización de firmware, verificación de almacenamiento. Sistema siempre óptimo."
+          },
+          {
+            "number": "06",
+            "title": "Seguridad Cibernética",
+            "description": "Cifrado AES-256, VPN dedicada, autenticación de dos factores, actualizaciones de seguridad automáticas. Tus videos no caen en manos equivocadas."
+          }
+        ]
+      },
+      "cta": {
+        "title": "Ve tu Propiedad como Nunca Antes",
+        "description": "Agenda una demo en vivo donde te mostramos el sistema funcionando con TUS necesidades específicas. Sin compromisos, solo soluciones reales.",
+        "primary": {
+          "label": "Agendar",
+          "href": "/contact"
+        }
+      }
+    }
+  }
+}
