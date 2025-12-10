@@ -13,14 +13,20 @@ const iconNames = {
   ladder: 'alt-arrow-up',
   signal: 'heart-pulse',
   eye: 'eye',
+  // Electricidad
+  thunder: 'thunder',
+  documents: 'documents',
+  tools: 'corkscrew',
+  check: 'check-circle',
+  support: 'headphones',
 };
 
 // Initial data for server-side rendering (defaulting to Fire)
 const steps = [
   {
     id: 1,
-    label: 'Consulta',
-    description: 'Análisis inicial de necesidades',
+    label: 'Diagnóstico',
+    description: 'Identificación de riesgos y necesidades reales',
     iconName: iconNames.fire,
     x: 10,
     y: 0,
@@ -40,7 +46,7 @@ const steps = [
   {
     id: 3,
     label: 'Instalación',
-    description: 'Montaje de equipos',
+    description: 'Montaje profesional de sensores y dispositivos',
     iconName: iconNames.wrench,
     x: 50,
     y: 20,
@@ -49,8 +55,8 @@ const steps = [
   },
   {
     id: 4,
-    label: 'Config',
-    description: 'Configuración y pruebas',
+    label: 'Configuración y pruebas',
+    description: 'Ajuste del sistema y verificación total de funcionamiento',
     iconName: iconNames.gear,
     x: 70,
     y: 50,
@@ -60,7 +66,7 @@ const steps = [
   {
     id: 5,
     label: 'Monitoreo',
-    description: 'Supervisión continua',
+    description: 'Supervisión continua y asistencia cuando la necesite',
     iconName: iconNames.shield,
     x: 90,
     y: 0,
@@ -113,16 +119,23 @@ for (let i = 0; i < pathPoints.length - 1; i++) {
         </button>
         <button
           class="tab-btn px-8 py-2 rounded-[20px] cursor-pointer font-bold text-lg transition-all duration-300 border-2 border-gray-200 bg-white text-gray-500 hover:border-indian-red-500 hover:text-indian-red-500 flex items-center gap-2"
-          data-type="video"
+          data-type="seguridad"
         >
-          <Icon name="clapperboard-play" size="20" />
-          <span>Video Vigilancia</span>
+          <Icon name="camera" size="20" />
+          <span>Seguridad</span>
+        </button>
+        <button
+          class="tab-btn px-8 py-2 rounded-[20px] cursor-pointer font-bold text-lg transition-all duration-300 border-2 border-gray-200 bg-white text-gray-500 hover:border-indian-red-500 hover:text-indian-red-500 flex items-center gap-2"
+          data-type="electricidad"
+        >
+          <Icon name="thunder" size="20" />
+          <span>Electricidad</span>
         </button>
       </div>
     </div>
 
     <!-- Diagram Container -->
-    <div class="relative h-[600px] xs:hidden md:block w-full max-w-[1200px] mx-auto">
+    <div class="relative md:h-[600px] md:p-24 xs:hidden md:block w-full max-w-[1200px] mx-auto">
 
       <!-- SVG Connecting Line -->
       <svg class="absolute top-0 left-0 w-full h-full z-0 pointer-events-none" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid meet">
@@ -255,24 +268,33 @@ for (let i = 0; i < pathPoints.length - 1; i++) {
     ladder: 'alt-arrow-up',
     signal: 'heart-pulse',
     eye: 'eye',
+    thunder: 'thunder',
   };
 
   // Data for the tabs
   const workflows = {
     fire: [
-      { label: 'Consulta', description: 'Análisis inicial de necesidades', iconName: iconNames.fire },
-      { label: 'Diseño', description: 'Planificación del sistema', iconName: iconNames.ruler },
-      { label: 'Instalación', description: 'Montaje de equipos', iconName: iconNames.wrench },
-      { label: 'Config', description: 'Configuración y pruebas', iconName: iconNames.gear },
-      { label: 'Monitoreo', description: 'Supervisión continua', iconName: iconNames.shield }
+      { label: 'Diagnóstico', description: 'Identificación de riesgos y necesidades reales', iconName: iconNames.fire },
+      { label: 'Diseño del Sistema', description: 'Creación del plan óptimo según la normativa', iconName: iconNames.ruler },
+      { label: 'Instalación Técnica', description: 'Montaje profesional de sensores y dispositivos', iconName: iconNames.wrench },
+      { label: 'Configuración y Pruebas', description: 'Ajuste del sistema y verificación total de funcionamiento', iconName: iconNames.gear },
+      { label: 'Monitoreo y Soporte', description: 'Supervisión continua y asistencia cuando la necesite', iconName: iconNames.shield }
     ],
-    video: [
-      { label: 'Evaluación', description: 'Análisis de requisitos', iconName: iconNames.camera },
-      { label: 'Cobertura', description: 'Mapeo de áreas', iconName: iconNames.map },
-      { label: 'Montaje', description: 'Instalación de cámaras', iconName: iconNames.ladder },
-      { label: 'Red', description: 'Conexión y configuración', iconName: iconNames.signal },
-      { label: 'Vigilancia', description: 'Monitoreo activo 24/7', iconName: iconNames.eye }
-    ]
+    seguridad: [
+    { label: 'Evaluación del Sitio', description: 'Análisis del entorno y puntos críticos', iconName: iconNames.camera },
+    { label: 'Plan de Cobertura', description: 'Definición estratégica de zonas y ángulos de vigilancia', iconName: iconNames.map },
+    { label: 'Instalación de Equipos', description: 'Montaje preciso de cámaras y cableado', iconName: iconNames.ladder },
+    { label: 'Integración de Red', description: 'Conexión, configuración y enlace con el sistema central', iconName: iconNames.signal },
+    { label: 'Vigilancia Activa', description: 'Monitoreo 24/7 y respuesta inmediata', iconName: iconNames.eye }
+    ],
+    electricidad: [
+      { label: 'Inspección Inicial', description: 'Revisión del estado eléctrico y detección de necesidades', iconName: iconNames.thunder },
+      { label: 'Planificación', description: 'Diseño del sistema o mejora según normas y seguridad', iconName: iconNames.map },
+      { label: 'Instalación y Cableado', description: 'Montaje de líneas, paneles y dispositivos eléctricos', iconName: iconNames.ladder },
+      { label: 'Pruebas y Certificación', description: 'Verificación completa del sistema y aseguramiento de calidad', iconName: iconNames.gear },
+      { label: 'Mantenimiento', description: 'Revisión periódica y soporte ante fallas', iconName: iconNames.shield }
+    ],
+
   };
 
   document.addEventListener('DOMContentLoaded', () => {

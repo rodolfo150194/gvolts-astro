@@ -219,47 +219,12 @@
           "Membresía activa en NFPA"
         ]
       },
-      "benefits": {
-        "title": "Por Qué Elegir GVolts para tu Protección Contra Incendios",
-        "items": [
-          {
-            "icon": "award",
-            "title": "Experiencia Certificada",
-            "description": "Más de 10 años protegiendo propiedades. Técnicos con certificaciones NICET y capacitación continua en las últimas tecnologías de detección y supresión."
-          },
-          {
-            "icon": "clock-fast",
-            "title": "Respuesta Ultra-Rápida",
-            "description": "Nuestra central de monitoreo UL certifica tiempos de respuesta menores a 30 segundos. En caso de alarma, despachamos ayuda mientras verificamos la emergencia."
-          },
-          {
-            "icon": "tools",
-            "title": "Soporte Vitalicio",
-            "description": "Mantenimiento preventivo semestral incluido, inspecciones anuales con reporte certificado, actualizaciones de firmware sin costo y soporte técnico 24/7."
-          },
-          {
-            "icon": "shield-dollar",
-            "title": "Garantía Total",
-            "description": "Garantía de 5 años en equipos, 2 años en mano de obra. Si falla, lo reparamos o reemplazamos sin preguntas. Tu inversión está protegida."
-          },
-          {
-            "icon": "chart-line",
-            "title": "ROI Comprobado",
-            "description": "Clientes reportan reducción de hasta 30% en primas de seguros. Evita multas por incumplimiento normativo y minimiza tiempos de inactividad por falsos positivos."
-          },
-          {
-            "icon": "leaf",
-            "title": "Tecnología Sustentable",
-            "description": "Equipos de bajo consumo con baterías de litio de larga duración. Sensores con vida útil de 10+ años que reducen residuos electrónicos."
-          }
-        ]
-      },
       "cta": {
         "title": "Protege lo que Construiste con Tanto Esfuerzo",
         "description": "No esperes a que sea demasiado tarde. Una evaluación gratuita puede marcar la diferencia entre pérdida total y protección garantizada.",
         "primary": {
           "label": "Agenda tu Evaluación Gratuita",
-          "href": "/contact?service=fire-alarm"
+          "href": "/contact"
         },
         "secondary": {
           "label": "Descarga Guía de Prevención",

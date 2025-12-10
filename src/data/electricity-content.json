@@ -13,7 +13,7 @@
         "cta": {
           "primary": {
             "label": "Inspección Gratuita",
-            "href": "/contact?service=electricity"
+            "href": "/service/electricity"
           }
         },
         "stats": [
@@ -37,7 +37,7 @@
         "description": "No arriesgues con improvisados. Nuestros electricistas certificados garantizan instalaciones seguras, eficientes y 100% al código. Ya sea renovar tu hogar, expandir tu negocio o actualizar a sistemas inteligentes, tenemos la experiencia y equipo para hacerlo bien la primera vez.",
         "highlights": [
           {
-            "icon": "certificate",
+            "icon": "documents",
             "text": "Licencia estatal Master Electrician"
           },
           {
@@ -45,7 +45,7 @@
             "text": "Seguro de responsabilidad $2M"
           },
           {
-            "icon": "leaf-electricity",
+            "icon": "user-hands",
             "text": "Especialistas en eficiencia energética"
           }
         ]
@@ -311,47 +311,12 @@
           }
         ]
       },
-      "benefits": {
-        "title": "La Diferencia GVolts en Eléctrica",
-        "items": [
-          {
-            "icon": "piggy-bank",
-            "title": "Precios Transparentes, Sin Sorpresas",
-            "description": "Cotizaciones fijas por proyecto, no por hora. Lo que acordamos es lo que pagas. Garantizamos precio por escrito."
-          },
-          {
-            "icon": "clock-check",
-            "title": "Respetamos tu Tiempo",
-            "description": "Llegamos en ventana de 2 horas prometida. Trabajo eficiente sin sacrificar calidad. Proyectos terminados en plazo comprometido."
-          },
-          {
-            "icon": "sparkles",
-            "title": "Trabajo Limpio Garantizado",
-            "description": "Cubrimos muebles, protegemos pisos, perforamos sin ensuciar. Limpieza diaria y final con aspiradora. Dejamos tu espacio como lo encontramos."
-          },
-          {
-            "icon": "award-star",
-            "title": "Garantía de Satisfacción Total",
-            "description": "Si no estás 100% satisfecho con nuestro trabajo, lo corregimos sin costo o te devolvemos tu dinero. Sin letra pequeña."
-          },
-          {
-            "icon": "receipt-percent",
-            "title": "Opciones de Pago Flexibles",
-            "description": "Aceptamos efectivo, cheques, tarjetas y financiamiento 12 meses sin intereses para proyectos mayores. Descuentos para veteranos y seniors."
-          },
-          {
-            "icon": "phone-24",
-            "title": "Servicio de Emergencia Real",
-            "description": "Electricista en camino 24/7/365. Sin recargos nocturnos o de fin de semana. Problemas eléctricos no esperan, nosotros tampoco."
-          }
-        ]
-      },
       "cta": {
         "title": "Energiza tu Proyecto con Profesionales",
         "description": "Ya sea pequeño o grande, residencial o comercial, lo hacemos bien. Llama hoy y experimenta el servicio eléctrico que debería ser el estándar.",
         "primary": {
           "label": "Solicita tu Inspección Gratuita",
-          "href": "/contact?service=electricity"
+          "href": "/contact"
         },
         "secondary": {
           "label": "Emergencias: Llama Ahora",

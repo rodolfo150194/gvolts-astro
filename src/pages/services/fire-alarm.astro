@@ -21,7 +21,6 @@ const content = serviceContent.servicesPages.fireAlarm;
       icon={content.hero.icon}
     />
   <main class="pt-10">
-    <!-- Introduction Section -->
     <section class="">
       <div class="container mx-auto px-4">
         <div class="max-w-6xl mx-auto">
@@ -29,7 +28,7 @@ const content = serviceContent.servicesPages.fireAlarm;
           <!-- Highlights Grid -->
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 highlights-grid">
             {content.introduction.highlights.map((highlight, index) => (
-              <div class="highlight-card bg-slate-50 p-6 rounded-2xl border-2 border-indian-red-100 hover:border-indian-red-500 transition-all hover:-translate-y-2">
+              <div class="highlight-card bg-slate-50 p-6 rounded-2xl border-2 border-indian-red-100 hover:border-indian-red-500 transition-all  hover:-translate-y-2">
                 <div class="w-12 h-12 bg-indian-red-500 text-white rounded-xl flex items-center justify-center mb-4">
                   <Icon name={highlight.icon} size="24" />
                 </div>

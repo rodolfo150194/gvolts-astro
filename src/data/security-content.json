@@ -177,48 +177,22 @@
           }
         ]
       },
-      "benefits": {
-        "title": "Ventajas de Elegir GVolts",
-        "items": [
-          {
-            "number": "01",
-            "title": "Instalación Rápida sin Interrupciones",
-            "description": "Trabajamos en horarios flexibles, incluso fines de semana. Instalaciones comerciales típicas en 3-5 días sin afectar operaciones. Cableado oculto profesional."
-          },
-          {
-            "number": "02",
-            "title": "Capacitación Completa Incluida",
-            "description": "Entrenamos a tu equipo en uso del sistema, interpretación de alertas y mejores prácticas. Manuales personalizados y videos de referencia."
-          },
-          {
-            "number": "03",
-            "title": "Migración sin Dolor",
-            "description": "¿Ya tienes un sistema antiguo? Lo evaluamos, aprovechamos lo que sirve y migramos a tecnología moderna sin desprotegerte."
-          },
-          {
-            "number": "04",
-            "title": "Escalabilidad Garantizada",
-            "description": "Comienza con lo básico y crece sin límites. Arquitectura modular que se expande con tu negocio. Sin renovaciones costosas de infraestructura."
-          },
-          {
-            "number": "05",
-            "title": "Mantenimiento Preventivo",
-            "description": "Visitas trimestrales incluidas: limpieza de lentes, ajuste de ángulos, actualización de firmware, verificación de almacenamiento. Sistema siempre óptimo."
-          },
-          {
-            "number": "06",
-            "title": "Seguridad Cibernética",
-            "description": "Cifrado AES-256, VPN dedicada, autenticación de dos factores, actualizaciones de seguridad automáticas. Tus videos no caen en manos equivocadas."
-          }
-        ]
-      },
       "cta": {
         "title": "Ve tu Propiedad como Nunca Antes",
         "description": "Agenda una demo en vivo donde te mostramos el sistema funcionando con TUS necesidades específicas. Sin compromisos, solo soluciones reales.",
         "primary": {
           "label": "Agendar",
           "href": "/contact"
-        }
+        },
+        "secondary":{
+          "label": "Urgencia",
+          "href":"tel:+15551234567"
+        },
+        "guarantees": [
+          "Inspección y cotización sin compromiso",
+          "Respuesta de emergencias en 15 minutos",
+          "Garantía de 2 años en mano de obra"
+        ]
       }
     }
   }
