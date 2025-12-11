@@ -177,6 +177,47 @@
           }
         ]
       },
+      "process": {
+        "title": "Nuestro Proceso de Implementación",
+        "subtitle": "De la consulta inicial a la seguridad total",
+        "steps": [
+          {
+            "number": 1,
+            "title": "Análisis de Seguridad",
+            "description": "Evaluamos vulnerabilidades de tu propiedad, puntos de acceso, áreas críticas y flujo de personas. Identificamos necesidades específicas según tu industria y nivel de riesgo.",
+            "duration": "1-2 días",
+            "deliverable": "Informe de seguridad con recomendaciones personalizadas"
+          },
+          {
+            "number": 2,
+            "title": "Diseño del Sistema",
+            "description": "Creamos un plano de cobertura optimizado con ubicación de cámaras, lectores de acceso y sensores. Seleccionamos equipos específicos basados en iluminación, clima y conectividad.",
+            "duration": "2-3 días",
+            "deliverable": "Planos técnicos y cotización detallada"
+          },
+          {
+            "number": 3,
+            "title": "Instalación Profesional",
+            "description": "Técnicos certificados instalan equipos con cableado estructurado categoría 6A. Configuración de red segmentada, VPN dedicada y respaldos redundantes.",
+            "duration": "3-7 días",
+            "deliverable": "Sistema instalado y funcionando"
+          },
+          {
+            "number": 4,
+            "title": "Configuración y Pruebas",
+            "description": "Programamos zonas de detección, máscaras de privacidad, horarios de acceso y reglas de automatización. Verificamos calidad de video, velocidad de respuesta y comunicación con la nube.",
+            "duration": "1 día",
+            "deliverable": "Sistema configurado y probado"
+          },
+          {
+            "number": 5,
+            "title": "Capacitación y Soporte",
+            "description": "Entrenamos a tu equipo en uso de la app móvil, interpretación de alertas y gestión de usuarios. Activamos monitoreo 24/7 y soporte técnico prioritario.",
+            "duration": "Medio día",
+            "deliverable": "Personal capacitado y sistema activo"
+          }
+        ]
+      },
       "cta": {
         "title": "Ve tu Propiedad como Nunca Antes",
         "description": "Agenda una demo en vivo donde te mostramos el sistema funcionando con TUS necesidades específicas. Sin compromisos, solo soluciones reales.",

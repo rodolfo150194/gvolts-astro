@@ -4,6 +4,7 @@ import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import Icon from "@/components/Icon.astro";
 import PageHero from "@components/PageHero.astro";
+import Timeline from "@/components/Timeline.astro";
 import ScrollToTop from "@components/ScrollToTop.astro";
 // Import service content
 import serviceContent from "@/data/electricity-content.json";
@@ -28,13 +29,13 @@ const content = serviceContent.servicesPages.electricity;
           <!-- Highlights Grid with Electric Theme -->
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 highlights-grid">
             {content.introduction.highlights.map((highlight: { icon: string; text: string }, index: number) => (
-              <div class="highlight-card group relative bg-gradient-to-br from-slate-50 to-slate-100 p-6 rounded-2xl border-2 border-indian-red-100 hover:border-indian-red-500 transition-all duration-500 hover:-translate-y-2 overflow-hidden">
+              <div class="highlight-card group relative bg-linear-to-br from-slate-50 to-slate-100 p-6 rounded-2xl border-2 border-indian-red-100 hover:border-indian-red-500 transition-all duration-500 hover:-translate-y-2 overflow-hidden">
                 <!-- Electric pulse background effect -->
                 <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                   <div class="absolute top-0 left-0 w-full h-1"></div>
                 </div>
                 <div class="relative z-10">
-                  <div class="w-14 h-14 bg-gradient-to-br from-indian-red-500 to-indian-red-600 text-white rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg shadow-indian-red-500/30">
+                  <div class="w-14 h-14 bg-linear-to-br from-indian-red-500 to-indian-red-600 text-white rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg shadow-indian-red-500/30">
                     <Icon name={highlight.icon} size="28" class="text-white" />
                   </div>
                   <p class="text-slate-700 font-medium text-lg leading-relaxed">{highlight.text}</p>
@@ -176,6 +177,13 @@ const content = serviceContent.servicesPages.electricity;
       </div>
     </section>
 
+    <!-- Process Timeline -->
+    <Timeline
+      title={content.process.title}
+      subtitle={content.process.subtitle}
+      steps={content.process.steps}
+    />
+
     <!-- CTA Section - High Energy Design -->
     <section class="py-24 bg-slate-900 text-white relative overflow-hidden">
 
@@ -237,42 +245,6 @@ const content = serviceContent.servicesPages.electricity;
   gsap.registerPlugin(ScrollTrigger);
 
   document.addEventListener("DOMContentLoaded", () => {
-  
-    
-
-    // Timeline line animation
-    gsap.fromTo(".timeline-line",
-      { scaleY: 0 },
-      {
-        scaleY: 1,
-        transformOrigin: "top center",
-        ease: "none",
-        scrollTrigger: {
-          trigger: ".timeline-container",
-          start: "top 60%",
-          end: "bottom 60%",
-          scrub: 1
-        }
-      }
-    );
-
-    // Timeline steps
-    ScrollTrigger.batch(".timeline-step", {
-      onEnter: (elements) => {
-        gsap.from(elements, {
-          opacity: 0,
-          x: (index, target) => {
-            const isEven = Array.from(target.parentElement?.children || []).indexOf(target) % 2 === 0;
-            return isEven ? -100 : 100;
-          },
-          duration: 0.8,
-          stagger: 0.2,
-          ease: "power3.out"
-        });
-      },
-      start: "top 80%"
-    });
-
     // Safety cards
     ScrollTrigger.batch(".safety-card", {
       onEnter: (elements) => {

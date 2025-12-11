@@ -4,6 +4,7 @@ import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import Icon from "@/components/Icon.astro";
 import PageHero from "@components/PageHero.astro";
+import Timeline from "@/components/Timeline.astro";
 // Import service content
 import serviceContent from "@/data/fire-alarm-content.json";
 import ScrollToTop from "@components/ScrollToTop.astro";
@@ -95,58 +96,11 @@ const content = serviceContent.servicesPages.fireAlarm;
     </section>
 
     <!-- Process Timeline -->
-    <section class="py-20 relative overflow-hidden">
-      <!-- Decorative background -->
-      <div class="absolute top-0 right-0 w-96 h-96 bg-indian-red-100 rounded-full blur-[100px] opacity-50"></div>
-
-      <div class="container mx-auto px-4 relative z-10">
-        <div class="max-w-6xl mx-auto">
-          <div class="text-center mb-16">
-            <h2 class="process-title font-display text-5xl md:text-6xl font-bold text-slate-900 mb-4">
-              {content.process.title}
-            </h2>
-            <p class="text-xl text-slate-600">{content.process.subtitle}</p>
-          </div>
-
-          <!-- Timeline -->
-          <div class="relative timeline-container">
-            <!-- Connecting line (desktop) -->
-            <div class="hidden lg:block absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-indian-red-200 via-indian-red-500 to-indian-red-200 -translate-x-1/2 timeline-line"></div>
-
-            <div class="space-y-12">
-              {content.process.steps.map((step, index) => (
-                <div class={`timeline-step flex flex-col lg:flex-row gap-8 items-center ${index % 2 === 0 ? '' : 'lg:flex-row-reverse'}`}>
-                  <!-- Content -->
-                  <div class={`flex-1 ${index % 2 === 0 ? 'lg:text-right' : 'lg:text-left'}`}>
-                    <div class="bg-white p-8 rounded-2xl border-2 border-indian-red-100 hover:border-indian-red-500 transition-all shadow-lg hover:shadow-xl">
-                      <div class="flex items-center gap-3 mb-4">
-                        
-                        <div>
-                          <h3 class="text-2xl font-bold text-slate-900">{step.title}</h3>
-                          <span class="text-sm text-indian-red-500 font-semibold">{step.duration}</span>
-                        </div>
-                      </div>
-                      <p class="text-slate-600 mb-4">{step.description}</p>
-                      <div class="bg-indian-red-50 p-3 rounded-lg">
-                        <p class="text-sm text-slate-700"><strong>Entregable:</strong> {step.deliverable}</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Center dot -->
-                  <div class="hidden lg:flex flex-shrink-0 w-16 h-16 bg-indian-red-500 rounded-full items-center justify-center shadow-lg border-4 border-white relative z-10">
-                    <span class="text-white font-bold text-xl">{step.number}</span>
-                  </div>
-
-                  <!-- Spacer -->
-                  <div class="flex-1 hidden lg:block"></div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <Timeline
+      title={content.process.title}
+      subtitle={content.process.subtitle}
+      steps={content.process.steps}
+    />
 
     <!-- CTA Section -->
     <section class="py-20 bg-slate-900 text-white relative overflow-hidden">
@@ -249,39 +203,6 @@ const content = serviceContent.servicesPages.fireAlarm;
         });
       },
       start: "top 75%"
-    });
-
-    // Timeline Line Animation
-    gsap.fromTo(".timeline-line", 
-      { scaleY: 0 },
-      {
-        scaleY: 1,
-        transformOrigin: "top center",
-        ease: "none",
-        scrollTrigger: {
-          trigger: ".timeline-container",
-          start: "top 60%",
-          end: "bottom 60%",
-          scrub: 1
-        }
-      }
-    );
-
-    // Timeline animations
-    ScrollTrigger.batch(".timeline-step", {
-      onEnter: (elements) => {
-        gsap.from(elements, {
-          opacity: 0,
-          x: (index, target) => {
-            const isEven = Array.from(target.parentElement.children).indexOf(target) % 2 === 0;
-            return isEven ? -100 : 100;
-          },
-          duration: 0.8,
-          stagger: 0.2,
-          ease: "power3.out"
-        });
-      },
-      start: "top 80%"
     });
 
     // Applications grid

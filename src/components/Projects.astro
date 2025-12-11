@@ -29,9 +29,6 @@ const projects = [
 ---
 
 <section class="pt-20 overflow-hidden w-full max-w-full">
-  <div class="container mx-auto px-4 mb-12 text-center max-w-full">
-    <h2 class="text-5xl md:text-6xl font-bold text-black font-display">Projects</h2>
-  </div>
 
   <div class="relative w-full max-w-full group">
     <!-- Slider Container -->
@@ -40,21 +37,19 @@ const projects = [
       class="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide gap-0 w-full h-[600px]"
     >
       {projects.map((project, index) => (
-        <div class="min-w-[100%] md:min-w-[33.333%] lg:min-w-[25%] h-full snap-start relative border-r border-black last:border-r-0 group/card cursor-pointer">
+        <div class="min-w-full md:min-w-[33.333%] lg:min-w-[25%] h-full snap-start relative border-r border-black last:border-r-0 group/card cursor-pointer">
           <img 
             src={project.image} 
             alt={project.title} 
             class="w-full h-full object-cover grayscale group-hover/card:grayscale-0 transition-all duration-500"
           />
           
-          <!-- Overlay Content -->
           <div class="absolute inset-0 bg-black/20 group-hover/card:bg-black/40 transition-colors duration-300 flex flex-col justify-end p-8">
             <div class="transform translate-y-4 opacity-0 group-hover/card:translate-y-0 group-hover/card:opacity-100 transition-all duration-300">
               <h3 class="text-2xl font-bold text-white mb-2 font-display">{project.title}</h3>
               <p class="text-white/90 font-body">{project.description}</p>
             </div>
             
-            <!-- Default State (Always visible until hover) -->
             <div class="absolute bottom-8 left-8 group-hover/card:opacity-0 transition-opacity duration-300">
               <span class="text-white/80 text-sm uppercase tracking-wider">Ver Proyecto</span>
             </div>

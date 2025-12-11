@@ -4,7 +4,7 @@ import { socials } from "@/data/socials";
 ---
 
 <header
-  class="fixed z-[1000] transition-all duration-300 w-full max-w-full"
+  class="fixed z-1000 transition-all duration-300 w-full max-w-full"
   id="main-header"
 >
   <!-- Top Bar: Dark Slate for high contrast -->
@@ -48,7 +48,7 @@ import { socials } from "@/data/socials";
     <div class="w-full max-w-full lg:max-w-7xl mx-auto px-4 lg:px-8">
       <div class="flex justify-between items-center h-20 w-full">
         <!-- Logo -->
-        <a href="/" class="header-logo flex-shrink-0 flex items-center">
+        <a href="/" class="header-logo shrink-0 flex items-center">
           <img
             src="/img/logo/logo-gvolts.png"
             alt="G-Volts Logo"
@@ -62,6 +62,11 @@ import { socials } from "@/data/socials";
             href="/"
             class="nav-link header-nav-item text-gray-800 font-medium hover:text-indian-red-500 transition-colors relative py-2"
             >Inicio</a
+          >
+          <a
+            href="/about"
+            class="nav-link header-nav-item text-gray-800 font-medium hover:text-indian-red-500 transition-colors relative py-2"
+            >Como funciona</a
           >
           <!-- Services Dropdown -->
           <div class="relative group">
@@ -143,11 +148,7 @@ import { socials } from "@/data/socials";
             class="nav-link header-nav-item text-gray-800 font-medium hover:text-indian-red-500 transition-colors relative py-2"
             >Proyectos</a
           >
-          <a
-            href="#how-to-work"
-            class="nav-link header-nav-item text-gray-800 font-medium hover:text-indian-red-500 transition-colors relative py-2"
-            >Como funciona</a
-          >
+          
 
           <a
             href="/contact"
@@ -311,66 +312,10 @@ import { socials } from "@/data/socials";
 </style>
 
 <script>
-  import { gsap } from "gsap";
 
   document.addEventListener("DOMContentLoaded", () => {
-    // Initial Animation
-    // Initial Animation
-    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-    tl.from("#main-header", {
-      y: "-100%",
-      opacity: 0,
-      duration: 0.5,
-    })
-      .from(
-        ".header-top-bar",
-        {
-          y: "-100%",
-          opacity: 0,
-          duration: 1,
-        },
-        "-=0.5"
-      )
-      .from(
-        ".header-second-bar",
-        {
-          x: "-100%",
-          opacity: 0,
-          duration: 0.5,
-        },
-        "-=0.3"
-      )
-      .from(
-        ".header-nav-item",
-        {
-          y: -10,
-          opacity: 0,
-          duration: 1,
-          stagger: 0.1,
-        },
-        "-=0.1"
-      )
-      .from(
-        ".header-cta",
-        {
-          scale: 0.8,
-          autoAlpha: 0,
-          duration: 0.5,
-          ease: "back.out(1.1)",
-        },
-        "-=0.3"
-      )
-      .from(
-        "#mobile-menu-btn",
-        {
-          scale: 0.8,
-          opacity: 0,
-          duration: 0.5,
-        },
-        "<"
-      );
-
+    
     // Mobile Menu Toggle
     const menuBtn = document.getElementById("mobile-menu-btn");
     const mobileMenu = document.getElementById("mobile-menu");
