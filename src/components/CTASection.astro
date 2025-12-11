@@ -1,0 +1,69 @@
+---
+import Icon from "@/components/Icon.astro";
+import CTAButton from "@/components/CTAButton.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  primaryButtonText: string;
+  icon: string;
+  size?: string;
+  secondaryButtonText?: string;
+  guarantees?: string[];
+  className?: string;
+}
+
+const {
+  title,
+  description,
+  primaryButtonText,
+  secondaryButtonText,
+  icon,
+  size,
+  guarantees = [],
+  className = "",
+} = Astro.props;
+---
+
+<section class:list={["py-20 bg-slate-900 text-white relative overflow-hidden", className]}>
+  <!-- Grid pattern background -->
+  <div class="absolute inset-0 opacity-50">
+    <div
+      class="absolute inset-0"
+      style="background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px); background-size: 50px 50px;"
+    />
+  </div>
+
+  <div class="container mx-auto px-4 relative z-10">
+    <div class="max-w-4xl mx-auto text-center">
+      <!-- Title -->
+      <h2 class="cta-title font-display text-4xl md:text-6xl font-bold mb-6">
+        {title}
+      </h2>
+
+      <!-- Description -->
+      <p class="cta-description text-xl text-slate-300 mb-12 max-w-2xl mx-auto">
+        {description}
+      </p>
+
+      <!-- Buttons -->
+      <div class="flex flex-wrap justify-center gap-4 mb-12">
+        <CTAButton text={primaryButtonText} variant="primary" icon={icon} size={size} />
+        {secondaryButtonText && (
+          <CTAButton text={secondaryButtonText} variant="secondary" icon={icon} size={size} />
+        )}
+      </div>
+
+      <!-- Guarantees -->
+      {guarantees.length > 0 && (
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {guarantees.map((guarantee) => (
+            <div class="flex items-center justify-center gap-2 text-slate-300">
+              <span class="text-sm">{guarantee}</span>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
+</section>

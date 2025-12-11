@@ -1,0 +1,41 @@
+---
+import Benefits from "@components/Benefits.astro";
+import CTASection from "@components/CTASection.astro";
+import Footer from "@components/Footer.astro";
+import Header from "@components/Header.astro";
+import HowToWork from "@components/HowToWork.astro";
+import PageHero from "@components/PageHero.astro";
+import Layout from "@layouts/Layout.astro";
+---
+
+<Layout title="Conócenos | GVolts">
+  <!-- <Loader /> -->
+  <Header />
+  <PageHero
+    title="Conócenos"
+    description="Estamos listos para ayudarte con tu próximo proyecto de seguridad o electricidad."
+    badge="Conócenos"
+    backgroundImage="/img/gvolts/about.jpg"
+    icon="magnifer"
+  />
+  <main>
+    <section class="container mx-auto px-4">
+      <div class="max-w-6xl mx-auto">
+        <Benefits />
+        <HowToWork />
+      </div>
+    </section>
+  </main>
+  <CTASection
+    icon="forward"
+    title="Ve tu Propiedad como Nunca Antes"
+    description="Agenda una demo en vivo donde te mostramos el sistema funcionando con TUS necesidades específicas."
+    primaryButtonText="Agendar"
+    guarantees={[
+      "Evaluación sin compromiso en 24 horas",
+      "Cotización detallada con opciones de financiamiento",
+      "Instalación garantizada en menos de 1 semana",
+    ]}
+  />
+  <Footer />
+</Layout>
