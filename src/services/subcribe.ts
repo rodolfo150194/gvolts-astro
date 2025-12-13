@@ -1,4 +1,5 @@
-import { supabase } from "../supabase";
+import { supabase } from "@/supabase";
+import { sendWelcomeEmail } from "@/services/sendgrid";
 
 const ERROR_CODE_ALREADY_EXISTS = "23505";
 
@@ -21,9 +22,18 @@ export const saveSubcribe = async (email: string) => {
         };
     }
 
+    // Enviar email de bienvenida en segundo plano
+    // No bloqueamos la respuesta si falla el envío del email
+    sendWelcomeEmail({ to: 'rodolfogarciamaeso@gmail.com' }).catch((err) => {
+        console.error("Error al enviar email de bienvenida:", err);
+    });
+    // sendWelcomeEmail({ to: email }).catch((err) => {
+    //     console.error("Error al enviar email de bienvenida (no crítico):", err);
+    // });
+
     return {
         success: true,
         error: null,
-        message: "Suscriptor guardado exitosamente"
+        message: "¡Suscripción exitosa! Revisa tu correo para confirmar."
     };
 }

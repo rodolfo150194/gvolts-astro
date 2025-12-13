@@ -1,6 +1,15 @@
 [build]
-  command = "npm run build"
+  command = "pnpm run build"
   publish = "dist"
 
 [functions]
   node_bundler = "esbuild"
+
+# Redirect www to non-www (or vice versa)
+[[redirects]]
+  from = "https://gvoltscorp.com/*"
+  to = "https://www.gvoltscorp.com/:splat"
+  status = 301
+  force = true
+
+# Netlify will automatically apply the _headers file

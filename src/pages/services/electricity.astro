@@ -6,12 +6,33 @@ import Icon from "@/components/Icon.astro";
 import PageHero from "@components/PageHero.astro";
 import Timeline from "@/components/Timeline.astro";
 import ScrollToTop from "@components/ScrollToTop.astro";
+import { generateServiceSchema, generateBreadcrumbSchema } from "@/utils/schemas";
 // Import service content
 import serviceContent from "@/data/electricity-content.json";
 const content = serviceContent.servicesPages.electricity;
+
+// Generate schemas for SEO
+const serviceSchema = generateServiceSchema(
+  "Servicios Eléctricos Profesionales",
+  "Instalaciones eléctricas residenciales y comerciales, actualización de paneles, cargadores para vehículos eléctricos y automatización. Electricistas maestros licenciados con cumplimiento NEC.",
+  "https://www.gvoltscorp.com/services/electricity"
+);
+
+const breadcrumbSchema = generateBreadcrumbSchema([
+  { name: "Inicio", url: "https://www.gvoltscorp.com" },
+  { name: "Servicios", url: "https://www.gvoltscorp.com/#services" },
+  { name: "Servicios Eléctricos", url: "https://www.gvoltscorp.com/services/electricity" }
+]);
+
+const schemas = [serviceSchema, breadcrumbSchema];
 ---
 
-<Layout title="Electricidad | GVolts">
+<Layout
+  title="Servicios Eléctricos Certificados Residencial y Comercial | GVoltsCorp"
+  description="Electricistas maestros licenciados. Instalaciones eléctricas, actualización de paneles, cargadores EV y automatización. Cumplimiento NEC garantizado."
+  ogImage="/img/og/electricity-og.png"
+  schema={schemas}
+>
   <Header />
   <PageHero
     title={content.hero.title.main}

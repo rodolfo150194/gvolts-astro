@@ -2,47 +2,128 @@
 import Icon from "@/components/Icon.astro";
 ---
 
-<section class="py-12 border-t border-slate-200">
-  <div class="container mx-auto px-4">
-    <div class="flex flex-col md:flex-row items-center justify-between gap-8">
-      <!-- License Info -->
-      <div class="flex items-center gap-4">
-        <div
-          class="w-16 h-16 bg-white rounded-full shadow-md flex items-center justify-center border border-slate-100"
-        >
-          <Icon name="shield-check" size={32} class="text-indian-red-500" />
-        </div>
-        <div>
-          <h3 class="text-lg font-bold text-slate-900">Licencia Estatal</h3>
-          <p class="text-slate-600 font-mono">ER13016417</p>
-          <p class="text-xs text-slate-500 mt-1">Certificado y Asegurado</p>
+<section class="py-5 border-t border-slate-200 relative overflow-hidden">
+  <!-- Background Pattern -->
+  <div class="absolute inset-0 opacity-[0.02]"></div>
+
+  <div class="container mx-auto px-4 relative z-10">
+    <!-- Section Header -->
+    <div class="text-center mb-12">
+      <div class="hero-badge inline-flex items-center gap-2 mt-5 bg-indian-red-500 border border-indian-red-500 px-6 py-2 rounded-full text-white text-sm font-semibold mb-8">
+        <Icon name="shield-check" size={16} />
+        <span class="text-sm font-bold uppercase tracking-wider">Certificado & Asegurado</span>
+      </div>
+      <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
+        Credenciales Oficiales
+      </h2>
+    </div>
+
+    <!-- Certifications Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+
+      <!-- State License (Featured) -->
+      <div class="lg:col-span-2 group relative">
+        <div class="h-full bg-white border-2 border-slate-900 shadow-[6px_6px_0px_0px_rgba(15,23,42,1)] hover:shadow-[8px_8px_0px_0px_rgba(220,38,38,0.3)] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-300 p-6">
+          <!-- Badge Header -->
+          <div class="flex items-start justify-between mb-4">
+            <div class="w-14 h-14 bg-indian-red-500 rounded-full flex items-center justify-center rotate-12 group-hover:rotate-0 transition-transform duration-500">
+              <Icon name="shield-check" size={28} class="text-white" />
+            </div>
+            <div class="px-3 py-1 bg-green-500 text-white text-xs font-black uppercase tracking-wider rounded">
+              Verificado
+            </div>
+          </div>
+
+          <!-- License Info -->
+          <h3 class="text-2xl font-black text-slate-900 mb-2 tracking-tight">
+            Licencia Estatal
+          </h3>
+          <div class="font-mono text-3xl font-black text-indian-red-500 mb-3 tracking-tighter">
+            ER13016417
+          </div>
+          <p class="text-sm text-slate-600 mb-4">
+            State of Florida Licensed & Insured Contractor
+          </p>
+
+          <!-- Verify Link -->
+          <a
+            href="https://www.myfloridalicense.com/LicenseDetail.asp?SID=&id=3FBDAA616905C8046A4E3EDED073B898"
+            target="_blank"
+            class="inline-flex items-center gap-2 text-sm font-bold text-slate-900 hover:text-indian-red-500 transition-colors group/link"
+          >
+            <Icon name="shield-keyhole" size={18} class="group-hover/link:scale-110 transition-transform" />
+            <span class="border-b-2 border-slate-900 group-hover/link:border-indian-red-500">Verificar Licencia</span>
+          </a>
         </div>
       </div>
 
-      <!-- Trust Badges -->
-      <div
-        class="flex flex-wrap justify-center gap-6 opacity-70 grayscale hover:grayscale-0 transition-all duration-300"
-      >
-        <!-- Placeholder for partner/cert logos - using text for now as per instructions -->
-        <div
-          class="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-slate-200 shadow-sm"
-        >
-          <Icon name="shield-keyhole" size={20} class="text-green-500" />
-          <a href="https://www.myfloridalicense.com/LicenseDetail.asp?SID=&id=3FBDAA616905C8046A4E3EDED073B898" target="_blank" class="font-semibold text-slate-700">Verificar</a>
-        </div>
-        <div
-          class="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-slate-200 shadow-sm"
-        >
-          <Icon name="notes" size={20} class="text-green-500" />
-          <span class="font-semibold text-slate-700">OSHA Certified</span>
-        </div>
-        <div
-          class="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-slate-200 shadow-sm"
-        >
-          <Icon name="lightbulb-bolt" size={20} class="text-green-500" />
-          <a href="https://nicet.useclarus.com/view/verify/" target="_blank" class="font-semibold text-slate-700">NICET III Certified</a>
+      <!-- OSHA Certification -->
+      <div class="group relative cert-badge" style="animation-delay: 0.1s">
+        <div class="h-full bg-white border-2 border-slate-900 shadow-[6px_6px_0px_0px_rgba(15,23,42,1)] hover:shadow-[8px_8px_0px_0px_rgba(220,38,38,0.3)] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-300 p-6">
+          <div class="w-12 h-12 bg-indian-red-500 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+            <Icon name="notes" size={24} class="text-slate-900" />
+          </div>
+          <h3 class="text-lg font-black text-slate-900 mb-2">
+            OSHA
+          </h3>
+          <p class="text-sm font-bold text-indian-red mb-2">Certified</p>
+          <p class="text-xs text-slate-600">
+            Occupational Safety Standards
+          </p>
         </div>
       </div>
+
+      <!-- NICET Certification -->
+      <div class="group relative cert-badge" style="animation-delay: 0.2s">
+        <div class="h-full bg-white border-2 border-slate-900 shadow-[6px_6px_0px_0px_rgba(15,23,42,1)] hover:shadow-[8px_8px_0px_0px_rgba(220,38,38,0.3)] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-300 p-6">
+          <div class="w-12 h-12 bg-indian-red-500 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+            <Icon name="lightbulb-bolt" size={24} class="text-white" />
+          </div>
+          <h3 class="text-lg font-black text-slate-900 mb-2">
+            NICET III
+          </h3>
+          <p class="text-sm font-bold text-indian-red mb-2">Certificado</p>
+          <p class="text-xs font-mono text-slate-900 mb-3 font-semibold">
+            #161772
+          </p>
+          <div class="flex flex-col gap-2">
+            <a
+              href="/path/to/nicet-certificate.pdf"
+              target="_blank"
+              class="inline-flex items-center gap-1 text-xs text-slate-600 hover:text-indian-red transition-colors border-b border-dotted border-slate-400 w-fit"
+            >
+              <Icon name="notes" size={14} />
+              Ver documento →
+            </a>
+            <a
+              href="https://nicet.useclarus.com/view/verify/"
+              target="_blank"
+              class="inline-flex items-center gap-2 text-sm font-bold text-slate-900 hover:text-indian-red-500 transition-colors group/link"
+            >
+              Verificar online ↗
+            </a>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
+
+<style>
+  @keyframes badge-float-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .cert-badge {
+    animation: badge-float-in 0.6s ease-out forwards;
+    opacity: 0;
+  }
+</style>

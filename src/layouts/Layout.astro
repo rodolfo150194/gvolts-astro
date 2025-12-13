@@ -1,26 +1,50 @@
 ---
 import "@/styles/global.css";
+import StructuredData from "@/components/StructuredData.astro";
+import { generateOrganizationSchema } from "@/utils/schemas";
 
 interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
+  canonical?: string;
+  schema?: object | object[];
 }
 
 const {
   title = "GVOLTS | Advanced Protection Systems - Fire Alarm & Surveillance Installation",
   description = "Professional fire alarm and surveillance system installation for residential and commercial properties. ISO certified technology with 24/7 monitoring and absolute peace of mind.",
-  ogImage = "/og-image.png",
+  ogImage = "/img/og/og-default.png",
+  canonical,
+  schema
 } = Astro.props;
+
+const canonicalURL = canonical || new URL(Astro.url.pathname, Astro.site).href;
+
+const organizationSchema = generateOrganizationSchema({
+  name: "GVolts",
+  url: "https://www.gvoltscorp.com",
+  logo: "https://www.gvoltscorp.com/img/logo/gvolts-logo.png",
+  description: "Sistemas profesionales de protección: alarmas contra incendios, videovigilancia inteligente y servicios eléctricos certificados.",
+  telephone: "+1-555-123-4567",
+  email: "cgonzalezdiaz@gvoltscorp.com",
+  socialMedia: [
+    "https://facebook.com/gvolts",
+    "https://instagram.com/gvolts",
+  ]
+});
 ---
 
 <!doctype html>
-<html lang="en" class="min-h-full w-full">
+<html lang="es" class="min-h-full w-full">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalURL} />
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -28,6 +52,8 @@ const {
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:locale" content="es_ES" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
@@ -47,6 +73,13 @@ const {
       href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Science+Gothic:wght@100..900&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Structured Data -->
+    <StructuredData schema={organizationSchema} />
+    {schema && <StructuredData schema={schema} />}
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#DC2626" />
 
     <title>{title}</title>
   </head>

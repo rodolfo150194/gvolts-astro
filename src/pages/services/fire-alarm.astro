@@ -5,13 +5,34 @@ import Footer from "@/components/Footer.astro";
 import Icon from "@/components/Icon.astro";
 import PageHero from "@components/PageHero.astro";
 import Timeline from "@/components/Timeline.astro";
+import ScrollToTop from "@components/ScrollToTop.astro";
+import { generateServiceSchema, generateBreadcrumbSchema } from "@/utils/schemas";
 // Import service content
 import serviceContent from "@/data/fire-alarm-content.json";
-import ScrollToTop from "@components/ScrollToTop.astro";
 const content = serviceContent.servicesPages.fireAlarm;
+
+// Generate schemas for SEO
+const serviceSchema = generateServiceSchema(
+  "Instalación de Alarmas Contra Incendios",
+  "Sistemas de detección y alarma contra incendios con certificación NFPA 72. Monitoreo 24/7, instalación profesional y mantenimiento preventivo.",
+  "https://www.gvoltscorp.com/services/fire-alarm"
+);
+
+const breadcrumbSchema = generateBreadcrumbSchema([
+  { name: "Inicio", url: "https://www.gvoltscorp.com" },
+  { name: "Servicios", url: "https://www.gvoltscorp.com/#services" },
+  { name: "Alarmas Contra Incendios", url: "https://www.gvoltscorp.com/services/fire-alarm" }
+]);
+
+const schemas = [serviceSchema, breadcrumbSchema];
 ---
 
-<Layout title="Alarmas de Incendio | GVolts">
+<Layout
+  title="Sistemas de Alarmas Contra Incendios Certificados | GVoltsCorp"
+  description="Instalación profesional de alarmas contra incendios con certificación NFPA 72. Detección multi-sensor inteligente, monitoreo 24/7 y respuesta en menos de 30 segundos."
+  ogImage="/img/og/fire-alarm-og.png"
+  schema={schemas}
+>
   <Header />
   <PageHero
       title={content.hero.title.main}
@@ -82,7 +103,8 @@ const content = serviceContent.servicesPages.fireAlarm;
                   <div class="relative rounded-3xl overflow-hidden shadow-2xl">
                     <img
                       src={feature.image}
-                      alt={feature.title}
+                      alt={`${feature.title} - Sistema profesional de alarmas contra incendios de GVolts`}
+                      loading="lazy"
                       class="w-full object-cover aspect-[4/3] shadow-lg"
                     />
                     <div class="absolute inset-0 bg-slate-900/40"></div>

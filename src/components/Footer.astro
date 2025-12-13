@@ -3,52 +3,56 @@ import Icon from "@/components/Icon.astro";
 import { socials } from "@/data/socials";
 import Certifications from "@/components/Certifications.astro";
 ---
-  <Certifications />
+
+<Certifications />
+
 <footer class="relative bg-slate-900 mt-20 pt-0 pb-10">
-
-
-  <div class="pt-20 relative">
+  <div class="pt-5 relative">
     <!-- Creative Wave Divider -->
     <div class="absolute corner-shape rounded-[50px] -top-[50px] left-1/2 -translate-x-1/2 w-[70%] bg-indian-red-500 h-[60px] md:h-[100px] z-10"></div>
 
     <div class="max-w-7xl mx-auto px-4 mt-32 lg:px-8">
       <!-- Logo Centered -->
-      <div class="flex justify-center mb-16">
-        <div
-          class="bg-slate-800 p-4 rounded-2xl shadow-sm border border-slate-700"
-        >
+      <div class="flex justify-center mb-12">
+        <div class="bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-700">
           <img
             src="/img/logo/logo-gvolts.png"
             alt="GVolts"
-            class="h-12 w-auto brightness-0 invert"
+            class="h-16 brightness-0 invert"
           />
         </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+      <!-- Main Footer Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+
         <!-- Address Column -->
         <div class="space-y-6">
           <h3 class="font-display text-2xl font-bold text-white">Dirección</h3>
           <ul class="space-y-4">
             <li class="flex items-start gap-3">
-              <div class="mt-1 text-indian-red-500">
-                <Icon name="map-point-rotate" size="20" />
+              <div class="mt-1 text-indian-red-500 shrink-0">
+                <Icon name="map-point-rotate" size={20} />
               </div>
-              <span class="text-slate-400 font-body"
-                >Av. Tecnológica 123<br />Ciudad Innovación, CP 12345</span
-              >
+              <span class="text-slate-400 font-body leading-relaxed">
+                Av. Tecnológica 123<br />Ciudad Innovación, CP 12345
+              </span>
             </li>
             <li class="flex items-center gap-3">
-              <div class="text-indian-red-500">
-                <Icon name="phone" size="20" />
+              <div class="text-indian-red-500 shrink-0">
+                <Icon name="phone" size={20} />
               </div>
-              <span class="text-slate-400 font-body">+1 (555) 123-4567</span>
+              <a href="tel:+15551234567" class="text-slate-400 hover:text-indian-red-500 transition-colors font-body">
+                +1 (555) 123-4567
+              </a>
             </li>
             <li class="flex items-center gap-3">
-              <div class="text-indian-red-500">
-                <Icon name="mail" size="20" />
+              <div class="text-indian-red-500 shrink-0">
+                <Icon name="mail" size={20} />
               </div>
-              <span class="text-slate-400 font-body">info@gvolts.com</span>
+              <a href="mailto:info@gvolts.com" class="text-slate-400 hover:text-indian-red-500 transition-colors font-body">
+                info@gvolts.com
+              </a>
             </li>
           </ul>
         </div>
@@ -60,37 +64,47 @@ import Certifications from "@/components/Certifications.astro";
             <li>
               <a
                 href="/services/security"
-                class="text-slate-400 hover:text-indian-red-500 transition-colors font-body"
-                >Videovigilancia</a
+                class="text-slate-400 hover:text-indian-red-500 transition-colors font-body inline-flex items-center gap-2 group"
               >
+                <span class="w-1.5 h-1.5 bg-indian-red-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                Videovigilancia
+              </a>
             </li>
             <li>
               <a
                 href="/services/fire-alarm"
-                class="text-slate-400 hover:text-indian-red-500 transition-colors font-body"
-                >Alarmas contra Incendios</a
+                class="text-slate-400 hover:text-indian-red-500 transition-colors font-body inline-flex items-center gap-2 group"
               >
+                <span class="w-1.5 h-1.5 bg-indian-red-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                Alarmas contra Incendios
+              </a>
             </li>
             <li>
               <a
                 href="/services/security"
-                class="text-slate-400 hover:text-indian-red-500 transition-colors font-body"
-                >Control de Acceso</a
+                class="text-slate-400 hover:text-indian-red-500 transition-colors font-body inline-flex items-center gap-2 group"
               >
+                <span class="w-1.5 h-1.5 bg-indian-red-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                Control de Acceso
+              </a>
             </li>
             <li>
               <a
                 href="/services/security"
-                class="text-slate-400 hover:text-indian-red-500 transition-colors font-body"
-                >Monitoreo 24/7</a
+                class="text-slate-400 hover:text-indian-red-500 transition-colors font-body inline-flex items-center gap-2 group"
               >
+                <span class="w-1.5 h-1.5 bg-indian-red-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                Monitoreo 24/7
+              </a>
             </li>
             <li>
               <a
                 href="/services/electricity"
-                class="text-slate-400 hover:text-indian-red-500 transition-colors font-body"
-                >Mantenimiento</a
+                class="text-slate-400 hover:text-indian-red-500 transition-colors font-body inline-flex items-center gap-2 group"
               >
+                <span class="w-1.5 h-1.5 bg-indian-red-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                Mantenimiento
+              </a>
             </li>
           </ul>
         </div>
@@ -102,37 +116,47 @@ import Certifications from "@/components/Certifications.astro";
             <li>
               <a
                 href="#"
-                class="text-slate-400 hover:text-indian-red-500 transition-colors font-body"
-                >Preguntas Frecuentes</a
+                class="text-slate-400 hover:text-indian-red-500 transition-colors font-body inline-flex items-center gap-2 group"
               >
+                <span class="w-1.5 h-1.5 bg-indian-red-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                Preguntas Frecuentes
+              </a>
             </li>
             <li>
               <a
                 href="/contact"
-                class="text-slate-400 hover:text-indian-red-500 transition-colors font-body"
-                >Contacto</a
+                class="text-slate-400 hover:text-indian-red-500 transition-colors font-body inline-flex items-center gap-2 group"
               >
+                <span class="w-1.5 h-1.5 bg-indian-red-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                Contacto
+              </a>
             </li>
             <li>
               <a
                 href="#"
-                class="text-slate-400 hover:text-indian-red-500 transition-colors font-body"
-                >Soporte Técnico</a
+                class="text-slate-400 hover:text-indian-red-500 transition-colors font-body inline-flex items-center gap-2 group"
               >
+                <span class="w-1.5 h-1.5 bg-indian-red-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                Soporte Técnico
+              </a>
             </li>
             <li>
               <a
                 href="#"
-                class="text-slate-400 hover:text-indian-red-500 transition-colors font-body"
-                >Política de Privacidad</a
+                class="text-slate-400 hover:text-indian-red-500 transition-colors font-body inline-flex items-center gap-2 group"
               >
+                <span class="w-1.5 h-1.5 bg-indian-red-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                Política de Privacidad
+              </a>
             </li>
             <li>
               <a
                 href="#"
-                class="text-slate-400 hover:text-indian-red-500 transition-colors font-body"
-                >Términos de Servicio</a
+                class="text-slate-400 hover:text-indian-red-500 transition-colors font-body inline-flex items-center gap-2 group"
               >
+                <span class="w-1.5 h-1.5 bg-indian-red-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                Términos de Servicio
+              </a>
             </li>
           </ul>
         </div>
@@ -140,35 +164,38 @@ import Certifications from "@/components/Certifications.astro";
         <!-- Newsletter Column -->
         <div class="space-y-6">
           <h3 class="font-display text-2xl font-bold text-white">Newsletter</h3>
-          <p class="text-slate-400 font-body">
-            Suscríbete para recibir las últimas novedades y consejos de
-            seguridad.
+          <p class="text-slate-400 font-body leading-relaxed">
+            Suscríbete para recibir las últimas novedades y consejos de seguridad.
           </p>
 
-          <form class="flex flex-col gap-3">
+          <form id="newsletter-form-footer" class="flex flex-col gap-3">
             <div class="relative">
               <input
+                id="email-input-footer"
+                name="email"
                 type="email"
                 placeholder="Tu correo"
-                class="w-full px-4 py-3 rounded-xl border border-slate-700 focus:outline-none focus:border-indian-red-500 focus:ring-2 focus:ring-indian-red-500/20 bg-slate-800 text-white placeholder-slate-500"
+                class="w-full px-4 py-3 rounded-xl border border-slate-700 focus:outline-none focus:border-indian-red-500 focus:ring-2 focus:ring-indian-red-500/20 bg-slate-800 text-white placeholder-slate-500 transition-all"
               />
               <button
+                id="submit-btn-footer"
                 type="submit"
-                class="absolute right-1 top-1 bottom-1 bg-indian-red-500 hover:bg-indian-red-600 text-white px-4 rounded-lg transition-colors font-bold text-sm"
+                class="absolute cursor-pointer right-1 top-1 bottom-1 bg-indian-red-500 hover:bg-indian-red-600 text-white px-5 rounded-lg transition-all font-bold text-sm hover:shadow-lg hover:shadow-indian-red-500/30"
               >
                 Suscribir
               </button>
             </div>
+            <div id="form-message-footer" class="mt-3 text-sm font-medium hidden"></div>
           </form>
 
           <!-- Social Icons -->
-          <div class="flex gap-4 pt-4">
+          <div class="flex justify-center gap-3 pt-4">
             {
               socials.map((social) => (
                 <a
                   href={social.url}
                   aria-label={social.ariaLabel}
-                  class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center text-slate-400 hover:bg-indian-red-500 hover:text-white transition-all duration-300 shadow-sm border border-slate-700 hover:border-indian-red-500"
+                  class="w-11 h-11 bg-slate-800 rounded-full flex items-center justify-center text-slate-400 hover:bg-indian-red-500 hover:text-white transition-all duration-300 shadow-sm border border-slate-700 hover:border-indian-red-500 hover:scale-110"
                   target="_blank"
                   rel="noopener noreferrer"
                   set:html={social.icon}
@@ -180,18 +207,73 @@ import Certifications from "@/components/Certifications.astro";
       </div>
 
       <!-- Copyright -->
-      <div
-        class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4"
-      >
+      <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
         <p class="text-slate-500 font-body text-sm">
           © {new Date().getFullYear()} GVolts. Todos los derechos reservados.
         </p>
-        <p class="text-slate-500 font-body text-sm flex items-center gap-1">
-          Diseñado por <span class="font-bold text-indian-red-500"
-            >Ing. Rody</span
-          >
+        <p class="text-slate-500 font-body text-sm flex items-center gap-2">
+          Diseñado con
+          <span class="text-indian-red-500 animate-pulse">♥</span>
+          por
+          <span class="font-bold text-indian-red-500">Ing. Rody</span>
         </p>
       </div>
     </div>
   </div>
 </footer>
+
+<script>
+  import { actions } from "astro:actions";
+
+  const form = document.getElementById("newsletter-form-footer") as HTMLFormElement;
+  const emailInput = document.getElementById("email-input-footer") as HTMLInputElement;
+  const submitBtn = document.getElementById("submit-btn-footer") as HTMLButtonElement;
+  const messageDiv = document.getElementById("form-message-footer") as HTMLDivElement;
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    // Limpiar mensaje anterior
+    messageDiv.classList.add("hidden");
+    messageDiv.textContent = "";
+
+    // Validar email
+    const email = emailInput.value.trim();
+    if (!email) {
+      showMessage("Por favor, ingresa tu correo electrónico", "error");
+      return;
+    }
+
+    // Deshabilitar el botón durante el envío
+    submitBtn.disabled = true;
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = "Enviando...";
+
+    try {
+      const { data, error } = await actions.newsletter({ email });
+
+      if (error) {
+        showMessage(
+          error.message || "Error al suscribirse. Intenta nuevamente.",
+          "error"
+        );
+      } else if (data) {
+        showMessage(data.message, "success");
+        form.reset();
+      }
+    } catch (err) {
+      showMessage("Error de conexión. Por favor, intenta nuevamente.", "error");
+      console.error("Error al enviar el formulario:", err);
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+    }
+  });
+
+  function showMessage(message: string, type: "success" | "error") {
+    messageDiv.textContent = message;
+    messageDiv.classList.remove("hidden", "text-green-600", "text-red-600");
+    messageDiv.classList.add(
+      type === "success" ? "text-green-600" : "text-red-600"
+    );
+  }

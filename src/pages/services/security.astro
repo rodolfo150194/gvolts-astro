@@ -6,12 +6,33 @@ import Icon from "@/components/Icon.astro";
 import PageHero from "@components/PageHero.astro";
 import Timeline from "@/components/Timeline.astro";
 import ScrollToTop from "@components/ScrollToTop.astro";
+import { generateServiceSchema, generateBreadcrumbSchema } from "@/utils/schemas";
 // Import service content
 import serviceContent from "@/data/security-content.json";
 const content = serviceContent.servicesPages.security;
+
+// Generate schemas for SEO
+const serviceSchema = generateServiceSchema(
+  "Videovigilancia y Sistemas de Seguridad",
+  "Sistemas de seguridad con cámaras 4K, inteligencia artificial, control de acceso biométrico y almacenamiento en nube. Monitoreo remoto 24/7.",
+  "https://www.gvoltscorp.com/services/security"
+);
+
+const breadcrumbSchema = generateBreadcrumbSchema([
+  { name: "Inicio", url: "https://www.gvoltscorp.com" },
+  { name: "Servicios", url: "https://www.gvoltscorp.com/#services" },
+  { name: "Seguridad Integral", url: "https://www.gvoltscorp.com/services/security" }
+]);
+
+const schemas = [serviceSchema, breadcrumbSchema];
 ---
 
-<Layout title="Seguridad Integral | GVolts">
+<Layout
+  title="Videovigilancia Inteligente y Control de Acceso | GVoltsCorp"
+  description="Sistemas de seguridad con cámaras 4K, IA de detección, control de acceso biométrico y almacenamiento en nube. Monitorea tu propiedad desde cualquier lugar."
+  ogImage="/img/og/security-og.png"
+  schema={schemas}
+>
   <Header />
   <PageHero
       title="Energía Segura y"
@@ -108,7 +129,8 @@ const content = serviceContent.servicesPages.security;
                   <div class="relative h-64 lg:h-auto">
                     <img
                       src={solution.image}
-                      alt={solution.name}
+                      alt={`${solution.name} - Sistema de seguridad y videovigilancia profesional de GVolts`}
+                      loading="lazy"
                       class="absolute inset-0 w-full h-full object-cover"
                     />
                     <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>

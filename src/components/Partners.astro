@@ -1,34 +1,34 @@
 ---
 const partners = [
   {
-    name: "Partner 1",
-    logo: "/img/gvolts/logo-1.png",
-    url: "https://example.com",
+    name: "Honeywell",
+    logo: "/img/brands/hbt-honeywell-logo.avif",
+    url: "https://www.honeywell.com/us/en",
   },
   {
-    name: "Partner 2",
-    logo: "/img/gvolts/logo-2.png",
-    url: "https://example.com",
+    name: "Hikvision",
+    logo: "/img/brands/hikvision.png",
+    url: "https://www.hikvision.com/us-en/",
   },
   {
-    name: "Partner 3",
-    logo: "/img/gvolts/logo-3.png",
-    url: "https://example.com",
+    name: "Ademco",
+    logo: "/img/brands/ademco.png",
+    url: "https://ademcosecurity.com/",
   },
   {
-    name: "Partner 4",
-    logo: "/img/gvolts/logo-4.png",
-    url: "https://example.com",
+    name: "Keyscan",
+    logo: "/img/brands/keyscan.png",
+    url: "https://www.dormakaba.com/us-en",
   },
   {
-    name: "Partner 5",
-    logo: "/img/gvolts/logo-5.png",
-    url: "https://example.com",
+    name: "Potter",
+    logo: "/img/brands/potter.svg",
+    url: "https://www.pottersignal.com/",
   },
    {
-    name: "Partner 6",
-    logo: "/img/gvolts/logo-1.png",
-    url: "https://example.com",
+    name: "Napco",
+    logo: "/img/brands/napco.png",
+    url: "https://napcosecurity.com/",
   },
 ];
 
@@ -41,11 +41,11 @@ const allPartners = [...partners, ...partners];
   <div class="relative w-full overflow-hidden">
     <!-- Gradient Masks -->
     <div
-      class="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-slate-50 to-transparent z-10"
+      class="absolute left-0 top-0 bottom-0 w-20 bg-linear-to-r from-slate-50 to-transparent z-10"
     >
     </div>
     <div
-      class="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-slate-50 to-transparent z-10"
+      class="absolute right-0 top-0 bottom-0 w-20 bg-linear-to-l from-slate-50 to-transparent z-10"
     >
     </div>
 
@@ -63,11 +63,7 @@ const allPartners = [...partners, ...partners];
             >
               <!-- Placeholder for logo if image is missing, otherwise use img -->
               <div class="h-12 md:h-16 w-auto grayscale group-hover:grayscale-0 transition-all duration-300 opacity-60 group-hover:opacity-100 flex items-center justify-center text-slate-400 font-bold text-xl group-hover:text-indian-red-500">
-                 {/* Using text as placeholder since we might not have images yet. 
-                     If images exist, replace this div content with:
-                     <img src={partner.logo} alt={partner.name} class="h-full w-auto object-contain" />
-                 */}
-                 <span class="whitespace-nowrap">{partner.name}</span>
+                 <img src={partner.logo} alt={partner.name} class="h-full w-auto object-contain" />
               </div>
             </a>
           </div>
