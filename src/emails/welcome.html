@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Bienvenido a GVolts</title>
+  <!--[if mso]>
+  <style type="text/css">
+    table {border-collapse: collapse;}
+  </style>
+  <![endif]-->
+</head>
+<body class="bg-gray-100">
+  <table class="w-full bg-gray-100" role="presentation">
+    <tr>
+      <td class="py-10 px-4">
+
+        <!-- Container -->
+        <table class="max-w-[600px] mx-auto bg-white rounded-2xl shadow-xl overflow-hidden" role="presentation">
+
+          <!-- Header con gradiente -->
+          <tr>
+            <td class="bg-gradient-to-r from-slate-800 to-slate-700 py-12 px-8 text-center">
+              <img
+                src="https://gvolts.com/img/logo/logo-gvolts.png"
+                alt="GVolts Logo"
+                class="h-20 mx-auto brightness-0 invert"
+                width="160"
+              />
+            </td>
+          </tr>
+
+          <!-- Separador wave -->
+          <tr>
+            <td class="bg-white p-0">
+              <div class="h-8 bg-gradient-to-b from-slate-800/10 to-transparent"></div>
+            </td>
+          </tr>
+
+          <!-- Contenido principal -->
+          <tr>
+            <td class="px-8 md:px-12 py-10">
+
+              <!-- Título -->
+              <h1 class="text-3xl md:text-4xl font-black text-slate-900 text-center mb-5">
+                ¡Bienvenido a GVolts!
+              </h1>
+
+              <p class="text-base text-slate-600 text-center mb-8 leading-relaxed">
+                Gracias por suscribirte a nuestro boletín. Estamos emocionados de tenerte en nuestra comunidad.
+              </p>
+
+              <!-- Feature boxes -->
+              <table class="w-full mb-8" role="presentation">
+                <!-- Sistemas contra Incendios -->
+                <tr>
+                  <td class="pb-4">
+                    <table class="w-full bg-slate-50 border-l-4 border-indian-red-500 rounded-lg" role="presentation">
+                      <tr>
+                        <td class="p-5">
+                          <h3 class="text-lg font-bold text-slate-900 mb-2">
+                            🔥 Sistemas contra Incendios
+                          </h3>
+                          <p class="text-sm text-slate-600 leading-relaxed m-0">
+                            Protección avanzada con tecnología de punta
+                          </p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+
+                <!-- Videovigilancia -->
+                <tr>
+                  <td class="pb-4">
+                    <table class="w-full bg-slate-50 border-l-4 border-indian-red-500 rounded-lg" role="presentation">
+                      <tr>
+                        <td class="p-5">
+                          <h3 class="text-lg font-bold text-slate-900 mb-2">
+                            📹 Videovigilancia Profesional
+                          </h3>
+                          <p class="text-sm text-slate-600 leading-relaxed m-0">
+                            Monitoreo 24/7 para tu seguridad
+                          </p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+
+                <!-- Servicios Eléctricos -->
+                <tr>
+                  <td>
+                    <table class="w-full bg-slate-50 border-l-4 border-indian-red-500 rounded-lg" role="presentation">
+                      <tr>
+                        <td class="p-5">
+                          <h3 class="text-lg font-bold text-slate-900 mb-2">
+                            ⚡ Servicios Eléctricos
+                          </h3>
+                          <p class="text-sm text-slate-600 leading-relaxed m-0">
+                            Instalaciones profesionales certificadas
+                          </p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- CTA Button -->
+              <table class="w-full mb-10" role="presentation">
+                <tr>
+                  <td class="text-center">
+                    <a
+                      href="https://gvolts.com/contact"
+                      class="inline-block bg-indian-red-500 hover:bg-indian-red-600 text-white font-bold py-4 px-8 rounded-xl text-base no-underline"
+                    >
+                      Contáctanos Ahora
+                    </a>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Información de contacto -->
+              <table class="w-full border-t border-slate-200 pt-8" role="presentation">
+                <tr>
+                  <td class="pb-3">
+                    <p class="text-sm text-slate-600 m-0">
+                      <span class="font-bold text-slate-900">📞 Teléfono:</span> +1 (555) 123-4567
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="pb-3">
+                    <p class="text-sm text-slate-600 m-0">
+                      <span class="font-bold text-slate-900">📧 Email:</span> info@gvolts.com
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p class="text-sm text-slate-600 m-0">
+                      <span class="font-bold text-slate-900">🌐 Web:</span>
+                      <a href="https://gvolts.com" class="text-indian-red-500 no-underline">gvolts.com</a>
+                    </p>
+                  </td>
+                </tr>
+              </table>
+
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td class="bg-slate-50 px-8 md:px-12 py-8 text-center">
+              <p class="text-xs text-slate-500 leading-relaxed mb-3">
+                Recibiste este email porque te suscribiste a nuestro boletín en <strong>gvolts.com</strong>
+              </p>
+              <p class="text-xs text-slate-500 leading-relaxed mb-4">
+                <strong>Tu email:</strong> {{ email }}
+              </p>
+              <p class="text-xs text-slate-400 m-0">
+                &copy; {{ year }} GVolts. Todos los derechos reservados.
+              </p>
+            </td>
+          </tr>
+
+        </table>
+        <!-- End Container -->
+
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
