@@ -4,7 +4,8 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && pnpm run copy:emails",
+    "copy:emails": "node -e \"const fs = require('fs'); const path = require('path'); const src = path.join('src', 'emails'); const dest = path.join('dist', 'emails'); if (!fs.existsSync(dest)) fs.mkdirSync(dest, {recursive: true}); fs.readdirSync(src).forEach(file => fs.copyFileSync(path.join(src, file), path.join(dest, file)));\"",
     "preview": "astro preview",
     "start": "node ./dist/server/entry.mjs",
     "astro": "astro"

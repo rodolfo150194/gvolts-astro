@@ -29,7 +29,14 @@ async function compileEmailTemplate(variables: Record<string, any>): Promise<str
     // Leer el template
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = dirname(__filename);
-    const templatePath = join(__dirname, '../emails/welcome.html');
+
+    // En producción, los templates están en dist/emails/
+    // En desarrollo, están en src/emails/
+    const isProduction = import.meta.env.PROD;
+    const templatePath = isProduction
+      ? join(process.cwd(), 'dist', 'emails', 'welcome.html')
+      : join(__dirname, '../emails/welcome.html');
+
     const template = await readFile(templatePath, 'utf-8');
 
     // Compilar con Maizzle
