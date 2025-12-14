@@ -1,6 +1,6 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
-import netlify from '@astrojs/netlify';
+import node from '@astrojs/node';
 import sitemap from '@astrojs/sitemap';
 import { fileURLToPath } from 'url'
 
@@ -8,7 +8,9 @@ import { fileURLToPath } from 'url'
 export default defineConfig({
   site: 'https://www.gvoltscorp.com',
   output:"server",
-  adapter: netlify(),
+  adapter: node({
+    mode: 'standalone'
+  }),
   integrations: [
     sitemap({
       i18n: {

@@ -1,7 +1,7 @@
 ---
 import Icon from "@/components/Icon.astro";
 import CTAButton from "./CTAButton.astro";
-
+import { Flame } from "@lucide/astro";
 // Configuración del Hero
 const heroData = {
   // Badge superior
@@ -189,7 +189,7 @@ const typewriterWords = [
           heroData.stats.map((stat, index) => (
             <>
               {index > 0 && (
-                <div class="w-px h-[60px] bg-linear-to-b from-transparent via-white/20 to-transparent hidden md:block" />
+                <div class="w-px h-15 bg-linear-to-b from-transparent via-white/20 to-transparent hidden md:block" />
               )}
               <div class="text-center group hover:-translate-y-1 transition-transform duration-300">
                 <div class="text-[clamp(2.5rem,5vw,3.5rem)] font-extrabold text-white leading-none mb-2 group-hover:text-indian-red-200 transition-colors">
@@ -219,7 +219,7 @@ const typewriterWords = [
         >
           <div class="bg-white/10 backdrop-blur-[20px] border border-white/20 rounded-[20px] p-6 w-[260px] shadow-[0_20px_60px_rgba(0,0,0,0.3)]">
             <div class="w-12 h-12 bg-indian-red-500 text-white rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-indian-red-500/40">
-              <Icon name={card.icon} size="24" />
+              <Flame name={card.icon} size="24" />
             </div>
             <h3 class="text-lg font-bold text-white mb-1">{card.title}</h3>
             <p class="text-sm text-white/70">{card.description}</p>
