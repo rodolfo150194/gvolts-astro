@@ -1,0 +1,915 @@
+{
+  "servicesPages": {
+    "fireAlarm": {
+      "slug": "fire-alarm",
+      "hero": {
+        "badge": "Protección Contra Incendios",
+        "title": {
+          "main": "Sistemas de Alarmas",
+          "highlight": "Contra Incendios"
+        },
+        "description": "Detecta, alerta y protege. Tecnología certificada que puede salvar vidas y patrimonio antes de que sea demasiado tarde.",
+        "image": "/img/gvolts/fire-hero.jpg",
+        "cta": {
+          "primary": {
+            "label": "Cotización Gratuita",
+            "href": "/contact?service=fire-alarm"
+          },
+          "secondary": {
+            "label": "Ver Proyectos",
+            "href": "/projects?category=fire-alarm"
+          }
+        },
+        "stats": [
+          {
+            "value": "99.8%",
+            "label": "Tasa de Detección"
+          },
+          {
+            "value": "<30s",
+            "label": "Tiempo de Respuesta"
+          },
+          {
+            "value": "NFPA",
+            "label": "Certificación"
+          }
+        ]
+      },
+      "introduction": {
+        "title": "Prevención que Marca la Diferencia",
+        "subtitle": "Cada segundo cuenta cuando se trata de incendios",
+        "description": "Nuestros sistemas de alarmas contra incendios no solo cumplen con las normativas más exigentes, sino que van más allá: utilizan tecnología de detección multi-sensor que identifica amenazas invisibles antes de que se conviertan en tragedia. Desde pequeños negocios hasta complejos industriales, protegemos lo que más importa.",
+        "highlights": [
+          {
+            "icon": "shield-check",
+            "text": "Certificación NFPA 72 y códigos locales"
+          },
+          {
+            "icon": "clock",
+            "text": "Instalación en 48-72 horas"
+          },
+          {
+            "icon": "headset",
+            "text": "Monitoreo 24/7 por central certificada"
+          }
+        ]
+      },
+      "features": {
+        "title": "Tecnología que Salva Vidas",
+        "description": "Componentes de última generación que trabajan en perfecta sincronía",
+        "items": [
+          {
+            "number": "01",
+            "icon": "flame-detector",
+            "title": "Detección Multi-Sensor Inteligente",
+            "description": "Combinamos detectores de humo fotoeléctricos, sensores de calor y análisis de CO para identificar amenazas reales y eliminar falsas alarmas. Nuestra tecnología distingue entre el humo de una tostada y un incendio real.",
+            "benefits": [
+              "Reducción del 95% en falsas alarmas",
+              "Detección temprana de fuegos lentos",
+              "Análisis de patrones con IA"
+            ],
+            "image": "/img/gvolts/multi-sensor.jpg"
+          },
+          {
+            "number": "02",
+            "icon": "bell-alert",
+            "title": "Sistema de Notificación Masiva",
+            "description": "Cuando cada segundo cuenta, nuestras sirenas estroboscópicas sincronizadas alertan a todos instantáneamente. Cumplimos con ADA para personas con discapacidad auditiva, garantizando que nadie se quede atrás.",
+            "benefits": [
+              "Alertas visuales y sonoras simultáneas",
+              "Mensajes de voz pregrabados claros",
+              "Integración con sistemas de evacuación"
+            ],
+            "image": "/img/gvolts/notification-system.jpg"
+          },
+          {
+            "number": "03",
+            "icon": "network",
+            "title": "Panel de Control Inteligente",
+            "description": "El cerebro de tu sistema. Paneles direccionables que identifican la ubicación exacta del incendio en segundos, permitiendo respuesta quirúrgica y evacuación eficiente de áreas específicas.",
+            "benefits": [
+              "Mapeo visual en tiempo real",
+              "Diagnóstico automático de fallos",
+              "Backup de batería por 72 horas"
+            ],
+            "image": "/img/gvolts/control-panel.jpg"
+          },
+          {
+            "number": "04",
+            "icon": "spray",
+            "title": "Integración con Supresión",
+            "description": "Más que detectar, actuamos. Integramos con sistemas de rociadores, supresión de gas limpio FM-200 y control de humo para una respuesta automatizada que minimiza daños.",
+            "benefits": [
+              "Activación automática de rociadores",
+              "Liberación controlada de agentes supresores",
+              "Cierre de compuertas contra humo"
+            ],
+            "image": "/img/gvolts/suppression-system.jpg"
+          }
+        ]
+      },
+      "process": {
+        "title": "Nuestro Proceso de Implementación",
+        "subtitle": "De la evaluación a la protección total",
+        "steps": [
+          {
+            "number": 1,
+            "title": "Evaluación de Riesgos",
+            "description": "Inspeccionamos tu propiedad identificando puntos críticos, materiales inflamables, rutas de evacuación y requisitos específicos según tu industria.",
+            "duration": "1-2 días",
+            "deliverable": "Informe detallado de riesgos y recomendaciones"
+          },
+          {
+            "number": 2,
+            "title": "Diseño Personalizado",
+            "description": "Creamos un plano técnico que cumple código y optimiza cobertura. Seleccionamos equipos específicos basados en tu ambiente: polvo, humedad, temperatura, interferencias.",
+            "duration": "3-5 días",
+            "deliverable": "Planos CAD y especificaciones técnicas"
+          },
+          {
+            "number": 3,
+            "title": "Instalación Certificada",
+            "description": "Técnicos NICET realizan el montaje con mínima interrupción. Cableado oculto, ubicación estratégica de detectores según flujo de aire y patrones de calor.",
+            "duration": "2-5 días",
+            "deliverable": "Sistema instalado y probado"
+          },
+          {
+            "number": 4,
+            "title": "Pruebas y Certificación",
+            "description": "Simulamos condiciones de incendio, verificamos cobertura de alarmas, comunicación con central de monitoreo y tiempos de respuesta. Emitimos certificado de cumplimiento.",
+            "duration": "1 día",
+            "deliverable": "Certificado oficial y manual de operación"
+          },
+          {
+            "number": 5,
+            "title": "Capacitación y Monitoreo",
+            "description": "Entrenamos a tu equipo en operación, interpretación de señales y protocolos de evacuación. Activamos monitoreo 24/7 con nuestra central UL certificada.",
+            "duration": "Medio día",
+            "deliverable": "Personal capacitado y monitoreo activo"
+          }
+        ]
+      },
+      "applications": {
+        "title": "Soluciones para Cada Industria",
+        "items": [
+          {
+            "industry": "Comercial",
+            "icon": "building",
+            "description": "Oficinas, centros comerciales, restaurantes",
+            "features": [
+              "Detección direccionable por zona",
+              "Integración con control de acceso",
+              "Protocolos de evacuación personalizados"
+            ],
+            "image": "/img/gvolts/commercial-fire.jpg"
+          },
+          {
+            "industry": "Industrial",
+            "icon": "factory",
+            "description": "Fábricas, almacenes, plantas de producción",
+            "features": [
+              "Detección para ambientes hostiles",
+              "Supresión con agentes especiales",
+              "Zonas de alto riesgo monitoreadas"
+            ],
+            "image": "/img/gvolts/industrial-fire.jpg"
+          },
+          {
+            "industry": "Residencial",
+            "icon": "home",
+            "description": "Condominios, edificios de apartamentos",
+            "features": [
+              "Sistema interconectado inalámbrico",
+              "Notificación a todos los residentes",
+              "Cumplimiento con códigos residenciales"
+            ],
+            "image": "/img/gvolts/residential-fire.jpg"
+          },
+          {
+            "industry": "Institucional",
+            "icon": "hospital",
+            "description": "Hospitales, escuelas, hoteles",
+            "features": [
+              "Evacuación asistida inteligente",
+              "Zonas de refugio monitoreadas",
+              "Integración con sistemas médicos"
+            ],
+            "image": "/img/gvolts/institutional-fire.jpg"
+          }
+        ]
+      },
+      "compliance": {
+        "title": "Certificaciones y Cumplimiento Normativo",
+        "description": "No solo instalamos sistemas, garantizamos cumplimiento total con regulaciones locales e internacionales",
+        "standards": [
+          {
+            "code": "NFPA 72",
+            "name": "Código Nacional de Alarmas de Incendio",
+            "description": "Estándar para instalación, prueba y mantenimiento de sistemas de alarma"
+          },
+          {
+            "code": "NFPA 101",
+            "name": "Código de Seguridad Humana",
+            "description": "Requisitos de evacuación y sistemas de notificación"
+          },
+          {
+            "code": "UL 864",
+            "name": "Unidades de Control Certificadas",
+            "description": "Paneles de control listados y aprobados por UL"
+          },
+          {
+            "code": "ADA",
+            "name": "Accesibilidad para Personas con Discapacidad",
+            "description": "Dispositivos de notificación visual certificados"
+          }
+        ],
+        "certifications": [
+          "Técnicos certificados NICET nivel III y IV",
+          "Licencia estatal de contratista de alarmas contra incendios",
+          "Central de monitoreo certificada UL",
+          "Membresía activa en NFPA"
+        ]
+      },
+      "benefits": {
+        "title": "Por Qué Elegir GVolts para tu Protección Contra Incendios",
+        "items": [
+          {
+            "icon": "award",
+            "title": "Experiencia Certificada",
+            "description": "Más de 10 años protegiendo propiedades. Técnicos con certificaciones NICET y capacitación continua en las últimas tecnologías de detección y supresión."
+          },
+          {
+            "icon": "clock-fast",
+            "title": "Respuesta Ultra-Rápida",
+            "description": "Nuestra central de monitoreo UL certifica tiempos de respuesta menores a 30 segundos. En caso de alarma, despachamos ayuda mientras verificamos la emergencia."
+          },
+          {
+            "icon": "tools",
+            "title": "Soporte Vitalicio",
+            "description": "Mantenimiento preventivo semestral incluido, inspecciones anuales con reporte certificado, actualizaciones de firmware sin costo y soporte técnico 24/7."
+          },
+          {
+            "icon": "shield-dollar",
+            "title": "Garantía Total",
+            "description": "Garantía de 5 años en equipos, 2 años en mano de obra. Si falla, lo reparamos o reemplazamos sin preguntas. Tu inversión está protegida."
+          },
+          {
+            "icon": "chart-line",
+            "title": "ROI Comprobado",
+            "description": "Clientes reportan reducción de hasta 30% en primas de seguros. Evita multas por incumplimiento normativo y minimiza tiempos de inactividad por falsos positivos."
+          },
+          {
+            "icon": "leaf",
+            "title": "Tecnología Sustentable",
+            "description": "Equipos de bajo consumo con baterías de litio de larga duración. Sensores con vida útil de 10+ años que reducen residuos electrónicos."
+          }
+        ]
+      },
+      "cta": {
+        "title": "Protege lo que Construiste con Tanto Esfuerzo",
+        "description": "No esperes a que sea demasiado tarde. Una evaluación gratuita puede marcar la diferencia entre pérdida total y protección garantizada.",
+        "primary": {
+          "label": "Agenda tu Evaluación Gratuita",
+          "href": "/contact?service=fire-alarm"
+        },
+        "secondary": {
+          "label": "Descarga Guía de Prevención",
+          "href": "/resources/fire-prevention-guide.pdf"
+        },
+        "guarantees": [
+          "Evaluación sin compromiso en 24 horas",
+          "Cotización detallada con opciones de financiamiento",
+          "Instalación garantizada en menos de 1 semana"
+        ]
+      }
+    },
+    "security": {
+      "slug": "security",
+      "hero": {
+        "badge": "Seguridad Electrónica Integral",
+        "title": {
+          "main": "Vigilancia Inteligente",
+          "highlight": "Control Total"
+        },
+        "description": "Videovigilancia 4K con IA, control de acceso biométrico y alarmas perimetrales. Ve, controla y protege desde cualquier lugar del mundo.",
+        "image": "/img/gvolts/security-hero.jpg",
+        "cta": {
+          "primary": {
+            "label": "Demo en Vivo",
+            "href": "/contact?service=security"
+          },
+          "secondary": {
+            "label": "Ver Soluciones",
+            "href": "#solutions"
+          }
+        },
+        "stats": [
+          {
+            "value": "4K",
+            "label": "Ultra HD"
+          },
+          {
+            "value": "30 días",
+            "label": "Grabación en Nube"
+          },
+          {
+            "value": "99.9%",
+            "label": "Uptime Garantizado"
+          }
+        ]
+      },
+      "introduction": {
+        "title": "Seguridad que Piensa y Actúa por Ti",
+        "subtitle": "Más que cámaras, inteligencia artificial que protege proactivamente",
+        "description": "Olvídate de grabar horas de video que nadie revisa. Nuestros sistemas usan IA para detectar comportamientos sospechosos, reconocer caras, leer placas y alertarte solo cuando importa. Integración total: cámaras, control de acceso, alarmas perimetrales y automatización en una sola plataforma.",
+        "highlights": [
+          {
+            "icon": "magic",
+            "text": "IA que aprende patrones y detecta anomalías"
+          },
+          {
+            "icon": "smartphone",
+            "text": "Control desde tu móvil iOS/Android"
+          },
+          {
+            "icon": "cloud-check",
+            "text": "Almacenamiento redundante local + nube"
+          }
+        ]
+      },
+      "solutions": {
+        "title": "Soluciones de Seguridad a Medida",
+        "items": [
+          {
+            "id": "video-surveillance",
+            "name": "Videovigilancia Inteligente",
+            "tagline": "Ojos que nunca duermen, cerebro que siempre piensa",
+            "description": "Sistema completo de cámaras IP de última generación con analíticas de video integradas",
+            "icon": "camera",
+            "image": "/img/gvolts/instalacion2.jpg",
+            "features": [
+              {
+                "title": "Cámaras 4K con Visión Nocturna",
+                "description": "Imagen ultra nítida hasta 30 metros en oscuridad total. Lentes varifocales motorizados con zoom óptico 4x y enfoque automático. Resistencia IP67 para exteriores extremos.",
+                "specs": [
+                  "Resolución 8MP (3840x2160)",
+                  "WDR 120dB para contraluz",
+                  "H.265+ compresión eficiente"
+                ]
+              },
+              {
+                "title": "Analíticas con IA Incorporada",
+                "description": "Detección de personas, vehículos, intrusión perimetral, objetos abandonados, multitudes y comportamiento anormal. Reduce eventos falsos en 99%.",
+                "specs": [
+                  "Reconocimiento facial 1:N",
+                  "Lectura de placas LPR/ANPR",
+                  "Conteo de personas con heatmap"
+                ]
+              },
+              {
+                "title": "Grabación Inteligente Multi-Nivel",
+                "description": "Graba continuamente en calidad estándar, pero cambia a 4K cuando detecta movimiento. Almacenamiento local redundante con RAID 5 + backup en nube cifrado.",
+                "specs": [
+                  "NVR con 32 canales 4K",
+                  "Hasta 30 días de grabación",
+                  "Acceso remoto seguro SSL"
+                ]
+              }
+            ],
+            "benefits": [
+              "Búsqueda de eventos en segundos con IA",
+              "Alertas personalizadas por zona y tipo",
+              "Integración con POS para retail"
+            ],
+            "pricing": {
+              "starting": "desde $2,499",
+              "note": "Paquete básico 4 cámaras + NVR"
+            }
+          },
+          {
+            "id": "access-control",
+            "name": "Control de Acceso Biométrico",
+            "tagline": "Solo quien tú decidas, cuando tú decidas",
+            "description": "Reemplaza llaves y tarjetas por autenticación multi-factor imposible de duplicar",
+            "icon": "fingerprint",
+            "image": "/img/gvolts/control-de-acceso2.jpg",
+            "features": [
+              {
+                "title": "Lectores Multi-Tecnología",
+                "description": "Huella dactilar, reconocimiento facial, tarjeta RFID, teclado PIN y móvil Bluetooth. Elige la combinación perfecta para cada entrada.",
+                "specs": [
+                  "Sensor óptico 500dpi anti-falsificación",
+                  "Facial 3D resistente a fotos",
+                  "NFC/RFID 13.56MHz"
+                ]
+              },
+              {
+                "title": "Software de Gestión en la Nube",
+                "description": "Panel web intuitivo para gestionar usuarios, horarios, áreas restringidas y reportes de actividad en tiempo real desde cualquier lugar.",
+                "specs": [
+                  "Hasta 10,000 usuarios",
+                  "Horarios personalizados por usuario",
+                  "Integración con directorio activo"
+                ]
+              },
+              {
+                "title": "Cerraduras Electrónicas Inteligentes",
+                "description": "Desde simples puertas hasta torniquetes y barreras vehiculares. Control centralizado de toda tu propiedad.",
+                "specs": [
+                  "Failsafe o Failsecure según código",
+                  "Apertura remota por emergencia",
+                  "Monitoreo de estado de puerta"
+                ]
+              }
+            ],
+            "benefits": [
+              "Elimina llaves perdidas y tarjetas clonadas",
+              "Auditoría completa de entradas/salidas",
+              "Acceso temporal para visitantes por app"
+            ],
+            "pricing": {
+              "starting": "desde $1,899",
+              "note": "2 puertas con lectores biométricos"
+            }
+          }
+        ]
+      },
+      "integration": {
+        "title": "Un Ecosistema, Control Total",
+        "description": "Todos nuestros sistemas se integran en una plataforma unificada para gestión simplificada",
+        "features": [
+          {
+            "title": "App Móvil Única",
+            "description": "Control total desde tu smartphone: ver cámaras en vivo, abrir puertas, armar/desarmar alarmas, recibir notificaciones inteligentes.",
+            "platforms": ["iOS", "Android", "Web"]
+          },
+          {
+            "title": "Automatización Inteligente",
+            "description": "Crea escenarios: 'Al salir' arma alarma, cierra puertas y activa cámaras. 'Al llegar' desarma todo automáticamente por geolocalización.",
+            "examples": [
+              "Enciende luces cuando cámara detecta movimiento",
+              "Bloquea puertas si alarma se activa",
+              "Graba 4K cuando perímetro se rompe"
+            ]
+          },
+          {
+            "title": "Integraciones Enterprise",
+            "description": "APIs abiertas para conectar con tu ERP, RH, CRM. Sincroniza empleados, genera reportes de asistencia, integra con nómina.",
+            "platforms": ["Active Directory", "Google Workspace", "Azure AD"]
+          }
+        ]
+      },
+      "benefits": {
+        "title": "Ventajas de Elegir GVolts",
+        "items": [
+          {
+            "number": "01",
+            "title": "Instalación Rápida sin Interrupciones",
+            "description": "Trabajamos en horarios flexibles, incluso fines de semana. Instalaciones comerciales típicas en 3-5 días sin afectar operaciones. Cableado oculto profesional."
+          },
+          {
+            "number": "02",
+            "title": "Capacitación Completa Incluida",
+            "description": "Entrenamos a tu equipo en uso del sistema, interpretación de alertas y mejores prácticas. Manuales personalizados y videos de referencia."
+          },
+          {
+            "number": "03",
+            "title": "Migración sin Dolor",
+            "description": "¿Ya tienes un sistema antiguo? Lo evaluamos, aprovechamos lo que sirve y migramos a tecnología moderna sin desprotegerte."
+          },
+          {
+            "number": "04",
+            "title": "Escalabilidad Garantizada",
+            "description": "Comienza con lo básico y crece sin límites. Arquitectura modular que se expande con tu negocio. Sin renovaciones costosas de infraestructura."
+          },
+          {
+            "number": "05",
+            "title": "Mantenimiento Preventivo",
+            "description": "Visitas trimestrales incluidas: limpieza de lentes, ajuste de ángulos, actualización de firmware, verificación de almacenamiento. Sistema siempre óptimo."
+          },
+          {
+            "number": "06",
+            "title": "Seguridad Cibernética",
+            "description": "Cifrado AES-256, VPN dedicada, autenticación de dos factores, actualizaciones de seguridad automáticas. Tus videos no caen en manos equivocadas."
+          }
+        ]
+      },
+      "cta": {
+        "title": "Ve tu Propiedad como Nunca Antes",
+        "description": "Agenda una demo en vivo donde te mostramos el sistema funcionando con TUS necesidades específicas. Sin compromisos, solo soluciones reales.",
+        "primary": {
+          "label": "Agendar",
+          "href": "/contact"
+        }
+    },
+    "electricity": {
+      "slug": "electricity",
+      "hero": {
+        "badge": "Servicios Eléctricos Profesionales",
+        "title": {
+          "main": "Instalaciones Eléctricas",
+          "highlight": "Seguras y Eficientes"
+        },
+        "description": "Desde circuitos residenciales hasta subestaciones comerciales. Potencia confiable, instalaciones al código, eficiencia energética máxima.",
+        "image": "/img/gvolts/electrical-hero.jpg",
+        "cta": {
+          "primary": {
+            "label": "Inspección Gratuita",
+            "href": "/contact?service=electricity"
+          }
+        },
+        "stats": [
+          {
+            "value": "NEC",
+            "label": "Código Actualizado"
+          },
+          {
+            "value": "15 min",
+            "label": "Respuesta Emergencias"
+          },
+          {
+            "value": "100%",
+            "label": "Garantía de Trabajo"
+          }
+        ]
+      },
+      "introduction": {
+        "title": "Energía que Impulsa tu Vida y Negocio",
+        "subtitle": "Electricistas maestros con licencia estatal y seguro completo",
+        "description": "No arriesgues con improvisados. Nuestros electricistas certificados garantizan instalaciones seguras, eficientes y 100% al código. Ya sea renovar tu hogar, expandir tu negocio o actualizar a sistemas inteligentes, tenemos la experiencia y equipo para hacerlo bien la primera vez.",
+        "highlights": [
+          {
+            "icon": "certificate",
+            "text": "Licencia estatal Master Electrician"
+          },
+          {
+            "icon": "shield-check",
+            "text": "Seguro de responsabilidad $2M"
+          },
+          {
+            "icon": "leaf-electricity",
+            "text": "Especialistas en eficiencia energética"
+          }
+        ]
+      },
+      "services": {
+        "title": "Servicios Eléctricos Completos",
+        "residential": {
+          "name": "Servicios Residenciales",
+          "tagline": "Tu hogar merece instalaciones eléctricas seguras y modernas",
+          "image": "/img/gvolts/residential-electrical.jpg",
+          "items": [
+            {
+              "title": "Actualización de Panel Eléctrico",
+              "description": "¿Panel de 100A saturado? Actualizamos a 200A o 400A con espacio para crecimiento futuro. Incluye reemplazo de breakers obsoletos, reorganización de circuitos y puesta a tierra moderna.",
+              "includes": [
+                "Evaluación de carga eléctrica total",
+                "Panel residencial con breakers AFCI/GFCI",
+                "Transferencia sin interrupción del servicio",
+                "Inspección y permiso municipal incluidos"
+              ],
+              "ideal_for": [
+                "Homes añadiendo vehículos eléctricos",
+                "Ampliaciones con nuevos circuitos",
+                "Reemplazo de paneles Federal Pacific o Zinsco"
+              ]
+            },
+            {
+              "title": "Instalación de Circuitos Dedicados",
+              "description": "Electrodomésticos de alto consumo necesitan circuitos propios. Instalamos líneas dedicadas desde el panel hasta el equipo con calibre correcto y protecciones adecuadas.",
+              "includes": [
+                "Cálculo de calibre de cable según NEC",
+                "Canalización oculta o superficial",
+                "Tomas con protección GFCI donde requiere código",
+                "Etiquetado claro en panel"
+              ],
+              "ideal_for": [
+                "Cargadores de vehículos eléctricos (Nivel 2, 240V)",
+                "Aires acondicionados centrales o mini-split",
+                "Calentadores de agua, secadoras, hornos",
+                "Talleres con herramientas de alto amperaje"
+              ]
+            },
+            {
+              "title": "Iluminación Interior y Exterior",
+              "description": "Transforma tus espacios con iluminación LED moderna, dimeable e inteligente. Diseñamos esquemas de iluminación funcionales y estéticos.",
+              "includes": [
+                "Diseño de iluminación por ambiente",
+                "Instalación de fixtures LED de alta eficiencia",
+                "Dimmers compatibles con LED",
+                "Iluminación de acento, trabajo y ambiente"
+              ],
+              "ideal_for": [
+                "Renovaciones de cocina y baños",
+                "Iluminación de seguridad exterior",
+                "Sistemas de iluminación arquitectónica",
+                "Conversión de halógeno a LED"
+              ]
+            },
+            {
+              "title": "Automatización y Domótica",
+              "description": "Convierte tu casa en un hogar inteligente. Instalamos switches, tomas y termostatos conectados que controlas desde tu móvil o voz.",
+              "includes": [
+                "Switches inteligentes WiFi (Lutron, Leviton)",
+                "Tomas controladas remotamente",
+                "Termostatos inteligentes (Nest, Ecobee)",
+                "Integración con Alexa, Google, HomeKit"
+              ],
+              "ideal_for": [
+                "Control de luces por voz o app",
+                "Programación de horarios de iluminación",
+                "Optimización de aire acondicionado/calefacción",
+                "Simulación de presencia cuando viajas"
+              ]
+            }
+          ]
+        },
+        "commercial": {
+          "name": "Servicios Comerciales",
+          "tagline": "Potencia y confiabilidad para tu operación empresarial",
+          "image": "/img/gvolts/commercial-electrical.jpg",
+          "items": [
+            {
+              "title": "Diseño e Instalación Eléctrica Completa",
+              "description": "Para construcciones nuevas o renovaciones mayores, diseñamos sistemas eléctricos trifásicos completos desde la acometida hasta el último tomacorriente.",
+              "includes": [
+                "Cálculo de demanda eléctrica total",
+                "Planos eléctricos sellados por ingeniero",
+                "Subestación y transformadores si requerido",
+                "Tableros de distribución y sub-paneles",
+                "Coordinación con compañía eléctrica"
+              ],
+              "ideal_for": [
+                "Oficinas, consultorios, restaurantes nuevos",
+                "Expansiones de naves industriales",
+                "Centros comerciales y retail",
+                "Remodelaciones que requieren más capacidad"
+              ]
+            },
+            {
+              "title": "Iluminación Comercial LED",
+              "description": "Reduce tu factura eléctrica hasta 70% con conversión a LED. Luces más brillantes, menos calor, vida útil 10x mayor que fluorescentes.",
+              "includes": [
+                "Auditoría de iluminación actual",
+                "Cálculo de ROI y ahorro proyectado",
+                "Fixtures LED comerciales UL listados",
+                "Controles de iluminación ocupacional",
+                "Reciclaje responsable de lámparas viejas"
+              ],
+              "ideal_for": [
+                "Almacenes con techos altos",
+                "Oficinas con cubículos",
+                "Estacionamientos y áreas exteriores",
+                "Retail con necesidades de alto CRI"
+              ]
+            },
+            {
+              "title": "Sistemas de Respaldo y UPS",
+              "description": "No pierdas ventas ni datos por apagones. Instalamos generadores automáticos y sistemas UPS que mantienen tu negocio funcionando.",
+              "includes": [
+                "Transfer switch automático",
+                "Generadores diésel o gas natural",
+                "UPS para servidores y equipos críticos",
+                "Mantenimiento preventivo programado"
+              ],
+              "ideal_for": [
+                "Data centers y salas de servidores",
+                "Clínicas y consultorios médicos",
+                "Restaurantes con cámaras frías",
+                "Retail con sistemas POS críticos"
+              ]
+            },
+            {
+              "title": "Mantenimiento Preventivo",
+              "description": "Evita paros costosos con inspecciones programadas. Detectamos problemas antes de que causen fallos o incendios.",
+              "includes": [
+                "Termografía infrarroja de conexiones",
+                "Pruebas de carga en paneles principales",
+                "Limpieza y ajuste de conexiones",
+                "Reemplazo de breakers desgastados",
+                "Reporte con recomendaciones"
+              ],
+              "ideal_for": [
+                "Edificios con instalaciones +10 años",
+                "Cumplimiento de requisitos de seguro",
+                "Reducción de prima de póliza",
+                "Prevención de incendios eléctricos"
+              ]
+            }
+          ]
+        }
+      },
+      "specialties": {
+        "title": "Especialidades Técnicas",
+        "items": [
+          {
+            "icon": "car-charging",
+            "title": "Estaciones de Carga para Vehículos Eléctricos",
+            "description": "Instalación certificada de cargadores Nivel 2 (240V) para Tesla, Chevrolet, Nissan y todas las marcas. Desde 16A hasta 80A según tu vehículo.",
+            "details": [
+              "Evaluación de capacidad de panel existente",
+              "Circuito dedicado con breaker apropiado",
+              "Montaje de estación en pared o pedestal",
+              "Compatibilidad con redes inteligentes",
+              "Certificado para créditos fiscales EV"
+            ]
+          },
+          {
+            "icon": "sun-energy",
+            "title": "Preparación para Energía Solar",
+            "description": "Optimizamos tu sistema eléctrico para futuras instalaciones solares. Paneles listos para conexión bidireccional y net metering.",
+            "details": [
+              "Upgrade de panel principal si necesario",
+              "Espacio reservado para breaker solar",
+              "Canalización para futuro cableado DC",
+              "Coordinación con instalador solar",
+              "Main Breaker adecuado para back-feed"
+            ]
+          },
+          {
+            "icon": "factory-smoke",
+            "title": "Instalaciones Industriales Especializadas",
+            "description": "Experiencia en motores trifásicos, controles industriales, transformadores de potencia y sistemas de fuerza.",
+            "details": [
+              "Motores de 1HP hasta 500HP",
+              "Arrancadores suaves y VFDs",
+              "Centros de control de motores MCC",
+              "Bancos de transformadores",
+              "Corrección de factor de potencia"
+            ]
+          },
+          {
+            "icon": "fire-extinguisher",
+            "title": "Sistemas de Emergencia y Salida",
+            "description": "Iluminación de emergencia, señalización de salida y sistemas de alimentación ininterrumpida según código de incendios.",
+            "details": [
+              "Luces de emergencia con batería",
+              "Letreros EXIT iluminados",
+              "Circuitos de iluminación de vida",
+              "Pruebas mensuales documentadas",
+              "Cumplimiento NFPA 101 y NEC 700"
+            ]
+          }
+        ]
+      },
+      "process": {
+        "title": "Cómo Trabajamos Contigo",
+        "steps": [
+          {
+            "number": 1,
+            "title": "Consulta y Evaluación",
+            "description": "Visitamos tu propiedad sin costo. Inspeccionamos panel actual, medimos cargas, identificamos deficiencias de código y escuchamos tus necesidades.",
+            "deliverable": "Reporte fotográfico con diagnóstico honesto"
+          },
+          {
+            "number": 2,
+            "title": "Propuesta Detallada",
+            "description": "No sorpresas. Cotización desglosada con materiales específicos, mano de obra, permisos y tiempo estimado. Opciones de bueno/mejor/óptimo.",
+            "deliverable": "Propuesta escrita con garantías y términos claros"
+          },
+          {
+            "number": 3,
+            "title": "Permisos y Planificación",
+            "description": "Gestionamos permisos municipales, coordinamos con HOA si aplica, y programamos trabajo minimizando interrupciones.",
+            "deliverable": "Permisos aprobados y cronograma acordado"
+          },
+          {
+            "number": 4,
+            "title": "Ejecución Profesional",
+            "description": "Electricistas uniformados llegan puntuales con camión equipado. Trabajo limpio con protección de pisos y retiro de escombros diario.",
+            "deliverable": "Instalación completada al código NEC"
+          },
+          {
+            "number": 5,
+            "title": "Inspección y Certificación",
+            "description": "Inspector municipal verifica trabajo. Corregimos cualquier observación inmediatamente. No terminamos hasta obtener aprobación final.",
+            "deliverable": "Certificado de inspección aprobado"
+          }
+        ]
+      },
+      "safety": {
+        "title": "Seguridad es Nuestra Prioridad #1",
+        "description": "No cortamos caminos. Cada instalación cumple o supera NEC y códigos locales",
+        "practices": [
+          {
+            "icon": "hard-hat",
+            "title": "Capacitación Continua",
+            "description": "Electricistas certifican NEC actualizado cada 3 años. OSHA 30 horas en seguridad de construcción obligatorio para todo el equipo."
+          },
+          {
+            "icon": "test-tube",
+            "title": "Pruebas Exhaustivas",
+            "description": "Antes de energizar, probamos continuidad, aislamiento, polaridad correcta y conexión a tierra. Medimos voltaje bajo carga para asegurar caída aceptable."
+          },
+          {
+            "icon": "file-certificate",
+            "title": "Documentación Completa",
+            "description": "Diagramas unifilares actualizados, etiquetado de breakers claro, especificaciones de equipos y certificados de garantía. Todo en tu carpeta de proyecto."
+          },
+          {
+            "icon": "shield-dollar",
+            "title": "Seguro Robusto",
+            "description": "$2,000,000 en responsabilidad general, $5,000,000 umbrella, compensación a trabajadores. Tu propiedad está protegida ante cualquier eventualidad."
+          }
+        ]
+      },
+      "benefits": {
+        "title": "La Diferencia GVolts en Eléctrica",
+        "items": [
+          {
+            "icon": "piggy-bank",
+            "title": "Precios Transparentes, Sin Sorpresas",
+            "description": "Cotizaciones fijas por proyecto, no por hora. Lo que acordamos es lo que pagas. Garantizamos precio por escrito."
+          },
+          {
+            "icon": "clock-check",
+            "title": "Respetamos tu Tiempo",
+            "description": "Llegamos en ventana de 2 horas prometida. Trabajo eficiente sin sacrificar calidad. Proyectos terminados en plazo comprometido."
+          },
+          {
+            "icon": "sparkles",
+            "title": "Trabajo Limpio Garantizado",
+            "description": "Cubrimos muebles, protegemos pisos, perforamos sin ensuciar. Limpieza diaria y final con aspiradora. Dejamos tu espacio como lo encontramos."
+          },
+          {
+            "icon": "award-star",
+            "title": "Garantía de Satisfacción Total",
+            "description": "Si no estás 100% satisfecho con nuestro trabajo, lo corregimos sin costo o te devolvemos tu dinero. Sin letra pequeña."
+          },
+          {
+            "icon": "receipt-percent",
+            "title": "Opciones de Pago Flexibles",
+            "description": "Aceptamos efectivo, cheques, tarjetas y financiamiento 12 meses sin intereses para proyectos mayores. Descuentos para veteranos y seniors."
+          },
+          {
+            "icon": "phone-24",
+            "title": "Servicio de Emergencia Real",
+            "description": "Electricista en camino 24/7/365. Sin recargos nocturnos o de fin de semana. Problemas eléctricos no esperan, nosotros tampoco."
+          }
+        ]
+      },
+      "cta": {
+        "title": "Energiza tu Proyecto con Profesionales",
+        "description": "Ya sea pequeño o grande, residencial o comercial, lo hacemos bien. Llama hoy y experimenta el servicio eléctrico que debería ser el estándar.",
+        "primary": {
+          "label": "Solicita tu Inspección Gratuita",
+          "href": "/contact?service=electricity"
+        },
+        "secondary": {
+          "label": "Emergencias: Llama Ahora",
+          "href": "tel:+15551234567"
+        },
+        "guarantees": [
+          "Inspección y cotización sin compromiso",
+          "Respuesta de emergencias en 15 minutos",
+          "Garantía de 2 años en mano de obra"
+        ]
+      }
+    }
+  },
+  "commonElements": {
+    "trustSignals": {
+      "title": "Confían en Nosotros",
+      "items": [
+        "Certificación UL y ETL",
+        "Licencia estatal activa",
+        "Seguro de responsabilidad completo",
+        "Miembro BBB con rating A+",
+        "10+ años en el mercado",
+        "+500 proyectos completados"
+      ]
+    },
+    "testimonials": {
+      "title": "Lo Que Dicen Nuestros Clientes",
+      "items": [
+        {
+          "name": "María González",
+          "role": "Propietaria de Restaurante",
+          "service": "fire-alarm",
+          "content": "Instalaron nuestro sistema de alarmas contra incendios en 3 días sin interrumpir operaciones. Pasamos inspección de bomberos a la primera. Profesionales de principio a fin.",
+          "rating": 5
+        },
+        {
+          "name": "Carlos Hernández",
+          "role": "Gerente de Operaciones",
+          "service": "security",
+          "content": "Las cámaras con IA han reducido nuestros robos internos dramáticamente. Ver todo desde mi celular mientras viajo me da tranquilidad total. Inversión que se paga sola.",
+          "rating": 5
+        },
+        {
+          "name": "Ana Rodríguez",
+          "role": "Dueña de Casa",
+          "service": "electricity",
+          "content": "Actualizaron nuestro panel de 100A a 200A para poder cargar mi Tesla. Trabajo impecable, dejaron todo limpio y el inspector aprobó sin observaciones. Altamente recomendados.",
+          "rating": 5
+        }
+      ]
+    },
+    "emergencyBanner": {
+      "text": "¿Emergencia eléctrica o de seguridad? Estamos disponibles 24/7",
+      "phone": "+1 (555) 123-4567",
+      "buttonLabel": "Llamar Ahora"
+    }
+  }
+}
+}
