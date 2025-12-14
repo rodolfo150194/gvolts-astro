@@ -1,5 +1,5 @@
 import { supabase } from "@/supabase";
-import { sendWelcomeEmail } from "@/services/sendgrid";
+import { sendWelcomeEmail } from "@/services/mailer";
 
 const ERROR_CODE_ALREADY_EXISTS = "23505";
 

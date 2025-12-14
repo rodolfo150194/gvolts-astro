@@ -2,7 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
-import Icon from "@/components/Icon.astro";
+import { Check, CheckCircle } from "@lucide/astro";
 import PageHero from "@components/PageHero.astro";
 import Timeline from "@/components/Timeline.astro";
 import ScrollToTop from "@components/ScrollToTop.astro";
@@ -91,7 +91,7 @@ const schemas = [serviceSchema, breadcrumbSchema];
                     {feature.benefits.map((benefit) => (
                       <li class="flex items-start gap-3">
                         <div class="w-6 h-6 bg-indian-red-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                          <Icon name="check" size="14" class="text-white" />
+                          <Check size={14} class="text-white" />
                         </div>
                         <span class="text-slate-700">{benefit}</span>
                       </li>
@@ -160,7 +160,7 @@ const schemas = [serviceSchema, breadcrumbSchema];
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             {content.cta.guarantees.map((guarantee) => (
               <div class="flex items-center justify-center gap-2 text-slate-300">
-                <Icon name="check-circle" size="20" class="text-indian-red-400" />
+                <CheckCircle size={20} class="text-indian-red-400" />
                 <span class="text-sm">{guarantee}</span>
               </div>
             ))}

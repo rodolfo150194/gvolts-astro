@@ -1,29 +1,29 @@
 ---
-import Icon from "@/components/Icon.astro";
+import { Mail, Phone, MapPin, Clock, Folder, ShieldCheck } from "@lucide/astro";
 
 const contactInfo = [
   {
-    icon: "mail",
+    icon: Mail,
     title: "Correo Electrónico",
     info: ["info@gvolts.com", "soporte@gvolts.com"],
   },
   {
-    icon: "phone",
+    icon: Phone,
     title: "Teléfono",
     info: ["+1 (555) 123-4567", "+1 (555) 987-6543"],
   },
   {
-    icon: "map-point-rotate",
+    icon: MapPin,
     title: "Oficina Principal",
     info: ["Av. Tecnológica 123", "Ciudad Innovación, CP 12345"],
   },
   {
-    icon: "clock",
+    icon: Clock,
     title: "Horario Laboral",
     info: ["Lun - Vie: 09:00 - 18:00", "Sab: 09:00 - 13:00"],
   },
   {
-    icon: "folder",
+    icon: Folder,
     title: "Licencia",
     info: ["ER13016417"],
   }
@@ -34,21 +34,24 @@ const contactInfo = [
   <div class="max-w-9/10 mx-auto px-4 lg:px-8">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5 mb-20">
       {
-        contactInfo.map((item, index) => (
-          <div class="info-card relative group p-8 rounded-[30px] bg-white border-indian-red-500 hover:shadow-xl hover:shadow-indian-red-500/10 transition-all duration-300 text-center overflow-visible">
-            <div class="relative z-10 w-16 h-16 mx-auto bg-indian-red-100 text-indian-red-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-md">
-              <Icon name={item.icon} size="32" />
+        contactInfo.map((item, index) => {
+          const IconComponent = item.icon;
+          return (
+            <div class="info-card relative group p-8 rounded-[30px] bg-white border-indian-red-500 hover:shadow-xl hover:shadow-indian-red-500/10 transition-all duration-300 text-center overflow-visible">
+              <div class="relative z-10 w-16 h-16 mx-auto bg-indian-red-100 text-indian-red-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-md">
+                <IconComponent size="32" />
+              </div>
+              <h3 class="relative z-10 font-display text-xl font-bold text-slate-900 mb-4">
+                {item.title}
+              </h3>
+              <div class="relative z-10 space-y-1">
+                {item.info.map((line) => (
+                  <p class="font-body text-slate-600 text-sm">{line}</p>
+                ))}
+              </div>
             </div>
-            <h3 class="relative z-10 font-display text-xl font-bold text-slate-900 mb-4">
-              {item.title}
-            </h3>
-            <div class="relative z-10 space-y-1">
-              {item.info.map((line) => (
-                <p class="font-body text-slate-600 text-sm">{line}</p>
-              ))}
-            </div>
-          </div>
-        ))
+          );
+        })
       }
     </div>
 
@@ -209,7 +212,7 @@ const contactInfo = [
               <div
                 class="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center"
               >
-                <Icon name="shield-check" size="24" />
+                <ShieldCheck size="24" />
               </div>
               <div>
                 <h4 class="font-bold text-slate-900">Soporte Certificado</h4>

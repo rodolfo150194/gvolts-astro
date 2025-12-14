@@ -2,7 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
-import Icon from "@/components/Icon.astro";
+import { Home, Building2, Check, ArrowRight, Phone, CheckCircle } from "@lucide/astro";
 import PageHero from "@components/PageHero.astro";
 import Timeline from "@/components/Timeline.astro";
 import ScrollToTop from "@components/ScrollToTop.astro";
@@ -94,7 +94,7 @@ const schemas = [serviceSchema, breadcrumbSchema];
                     </svg>
                   </div>
               <div class="w-16 h-16 bg-indian-red-500 rounded-2xl text-white flex items-center justify-center shadow-lg shadow-indian-red-500/30">
-                <Icon name="home-1" size="32" />
+                <Home size={32} />
               </div>
               <div>
                 <h3 class="text-3xl font-bold text-slate-900">{content.services.residential.name}</h3>
@@ -120,7 +120,7 @@ const schemas = [serviceSchema, breadcrumbSchema];
                         <ul class="space-y-2">
                           {service.includes.map((item: string) => (
                             <li class="flex items-start gap-2 text-sm text-slate-700">
-                              <Icon name="check" size="16" class="text-indian-red-500 mt-0.5 flex-shrink-0" />
+                              <Check size={16} class="text-indian-red-500 mt-0.5 flex-shrink-0" />
                               <span>{item}</span>
                             </li>
                           ))}
@@ -146,7 +146,7 @@ const schemas = [serviceSchema, breadcrumbSchema];
           <div>
             <div class="flex items-center gap-4 mb-10">
               <div class="w-16 h-16 text-white bg-slate-900 rounded-2xl flex items-center justify-center shadow-lg">
-                <Icon name="city" size="32" />
+                <Building2 size={32} />
               </div>
               <div>
                 <h3 class="text-3xl font-bold text-slate-900">{content.services.commercial.name}</h3>
@@ -176,7 +176,7 @@ const schemas = [serviceSchema, breadcrumbSchema];
                         <ul class="space-y-2">
                           {service.includes.map((item: string) => (
                             <li class="flex items-start gap-2 text-sm text-slate-300">
-                              <Icon name="check" size="16" class="text-lemon-chiffon-400 mt-0.5 flex-shrink-0" />
+                              <Check size={16} class="text-lemon-chiffon-400 mt-0.5 flex-shrink-0" />
                               <span>{item}</span>
                             </li>
                           ))}
@@ -229,14 +229,14 @@ const schemas = [serviceSchema, breadcrumbSchema];
               class="group relative inline-flex items-center gap-2 bg-gradient-to-r from-indian-red-500 to-indian-red-600 text-white px-8 py-4 rounded-xl font-bold overflow-hidden transition-all transform hover:-translate-y-1"
             >
               <span class="relative z-10">{content.cta.primary.label}</span>
-              <Icon name="arrow-right" size="20" class="relative z-10 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight size={20} class="relative z-10 group-hover:translate-x-1 transition-transform" />
               <div class="absolute inset-0 bg-gradient-to-r from-indian-red-600 to-indian-red-700 opacity-0 group-hover:opacity-100 transition-opacity"></div>
             </a>
             <a
               href={content.cta.secondary.href}
               class="inline-flex items-center gap-2 bg-white/10 text-white px-8 py-4 rounded-xl font-bold hover:bg-white/20 transition-all backdrop-blur-sm border border-white/20"
             >
-              <Icon name="phone" size="20" />
+              <Phone size={20} />
               <span>{content.cta.secondary.label}</span>
             </a>
           </div>
@@ -245,7 +245,7 @@ const schemas = [serviceSchema, breadcrumbSchema];
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             {content.cta.guarantees.map((guarantee: string) => (
               <div class="flex items-center justify-center gap-2 text-slate-400">
-                <Icon name="check-circle" size="20" class="text-lemon-chiffon-400" />
+                <CheckCircle size={20} class="text-lemon-chiffon-400" />
                 <span class="text-sm">{guarantee}</span>
               </div>
             ))}

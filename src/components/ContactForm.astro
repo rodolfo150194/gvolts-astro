@@ -1,4 +1,5 @@
 ---
+import { Phone, Mail, MapPin } from '@lucide/astro';
 ---
 
 <section class="contact-section" id="contact">
@@ -9,23 +10,29 @@
 
         <div class="info-items">
           <div class="info-item">
-            <div class="item-icon">📋</div>
+            <div class="item-icon">
+              <Phone size={24} />
+            </div>
             <div class="item-content">
-              <h3 class="item-title">Texto descripción</h3>
+              <h3 class="item-title">+1 (555) 123-4567</h3>
             </div>
           </div>
 
           <div class="info-item">
-            <div class="item-icon">📋</div>
+            <div class="item-icon">
+              <Mail size={24} />
+            </div>
             <div class="item-content">
-              <h3 class="item-title">Texto descripción</h3>
+              <h3 class="item-title">info@gvolts.com</h3>
             </div>
           </div>
 
           <div class="info-item">
-            <div class="item-icon">📋</div>
+            <div class="item-icon">
+              <MapPin size={24} />
+            </div>
             <div class="item-content">
-              <h3 class="item-title">Texto descripción</h3>
+              <h3 class="item-title">123 Main Street, City, State 12345</h3>
             </div>
           </div>
         </div>

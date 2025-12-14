@@ -1,5 +1,5 @@
 ---
-import Icon from "./Icon.astro";
+import { ShieldCheck, Zap } from "@lucide/astro";
 
 interface Props {
   title: string;
@@ -12,6 +12,14 @@ interface Props {
 
 const { title, highlightedTitle, description, badge, backgroundImage, icon } =
   Astro.props;
+
+// Icon mapping for JSON data compatibility
+const iconComponents = {
+  "shield-check": ShieldCheck,
+  "thunder": Zap,
+};
+
+const IconComponent = icon ? iconComponents[icon] : null;
 ---
 
 {
@@ -28,7 +36,7 @@ const { title, highlightedTitle, description, badge, backgroundImage, icon } =
 
       <div class="z-10 container mx-auto px-4 py-12 text-center text-white">
         <span class="hero-badge inline-flex items-center gap-2 bg-white/10 border border-white/20 px-6 py-2 rounded-full text-white text-sm font-semibold mb-8 backdrop-blur-md">
-          {icon && <Icon name={icon} size="16" />}
+          {IconComponent && <IconComponent size={16} />}
           {badge}
         </span>
         <h1 class="text-5xl md:text-7xl font-bold font-display leading-tight">

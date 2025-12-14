@@ -6,16 +6,19 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "start": "node ./dist/server/entry.mjs",
     "astro": "astro"
   },
   "dependencies": {
     "@astrojs/netlify": "^6.6.3",
+    "@astrojs/node": "^9.5.1",
     "@astrojs/sitemap": "^3.6.0",
-    "@sendgrid/mail": "^8.1.6",
+    "@lucide/astro": "^0.561.0",
     "@supabase/supabase-js": "^2.86.0",
     "@tailwindcss/vite": "^4.1.17",
     "astro": "^5.15.8",
-    "gsap": "^3.13.0"
+    "gsap": "^3.13.0",
+    "resend": "^6.6.0"
   },
   "packageManager": "pnpm@10.24.0+sha512.01ff8ae71b4419903b65c60fb2dc9d34cf8bb6e06d03bde112ef38f7a34d6904c424ba66bea5cdcf12890230bf39f9580473140ed9c946fef328b6e5238a345a",
   "devDependencies": {

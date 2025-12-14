@@ -1,5 +1,5 @@
 ---
-import Icon from "@/components/Icon.astro";
+import { MapPin, Phone, Mail } from '@lucide/astro';
 import { socials } from "@/data/socials";
 import Certifications from "@/components/Certifications.astro";
 ---
@@ -32,7 +32,7 @@ import Certifications from "@/components/Certifications.astro";
           <ul class="space-y-4">
             <li class="flex items-start gap-3">
               <div class="mt-1 text-indian-red-500 shrink-0">
-                <Icon name="map-point-rotate" size={20} />
+                <MapPin size={20} />
               </div>
               <span class="text-slate-400 font-body leading-relaxed">
                 Av. Tecnológica 123<br />Ciudad Innovación, CP 12345
@@ -40,7 +40,7 @@ import Certifications from "@/components/Certifications.astro";
             </li>
             <li class="flex items-center gap-3">
               <div class="text-indian-red-500 shrink-0">
-                <Icon name="phone" size={20} />
+                <Phone size={20} />
               </div>
               <a href="tel:+15551234567" class="text-slate-400 hover:text-indian-red-500 transition-colors font-body">
                 +1 (555) 123-4567
@@ -48,7 +48,7 @@ import Certifications from "@/components/Certifications.astro";
             </li>
             <li class="flex items-center gap-3">
               <div class="text-indian-red-500 shrink-0">
-                <Icon name="mail" size={20} />
+                <Mail size={20} />
               </div>
               <a href="mailto:info@gvolts.com" class="text-slate-400 hover:text-indian-red-500 transition-colors font-body">
                 info@gvolts.com

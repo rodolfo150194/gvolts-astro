@@ -1,5 +1,5 @@
 ---
-import Icon from "@/components/Icon.astro";
+import { Phone, Mail, ChevronDown, Flame, ShieldCheck, Lightbulb, Menu, X } from '@lucide/astro';
 import { socials } from "@/data/socials";
 ---
 
@@ -16,13 +16,13 @@ import { socials } from "@/data/socials";
         <div
           class="flex items-center gap-2 hover:text-indian-red-500 transition-colors cursor-pointer"
         >
-          <Icon name="phone" size={16} />
+          <Phone size={16} />
           <span>+1 (555) 123-4567</span>
         </div>
         <div
           class="flex items-center gap-2 hover:text-indian-red-500 transition-colors cursor-pointer"
         >
-          <Icon name="mail" size={16} />
+          <Mail size={16} />
           <span>info@gvolts.com</span>
         </div>
       </div>
@@ -71,11 +71,10 @@ import { socials } from "@/data/socials";
           <!-- Services Dropdown -->
           <div class="relative group">
             <button
-              class="nav-link header-nav-item text-gray-800 font-medium hover:text-indian-red-500 transition-colors relative py-2 flex items-center gap-1"
+              class="nav-link cursor-pointer header-nav-item text-gray-800 font-medium hover:text-indian-red-500 transition-colors relative py-2 flex items-center gap-1"
             >
               Servicios
-              <Icon
-                name="chevron-down"
+              <ChevronDown
                 size={16}
                 class="transition-transform group-hover:rotate-180"
               />
@@ -93,7 +92,7 @@ import { socials } from "@/data/socials";
                   <div
                     class="w-8 h-8 rounded-lg bg-indian-red-50 text-indian-red-500 flex items-center justify-center group-hover/item:bg-indian-red-500 group-hover/item:text-white transition-colors"
                   >
-                    <Icon name="flame" size={16} />
+                    <Flame size={16} />
                   </div>
                   <div>
                     <span class="block text-sm font-bold text-slate-900"
@@ -111,7 +110,7 @@ import { socials } from "@/data/socials";
                   <div
                     class="w-8 h-8 rounded-lg bg-indian-red-50 text-indian-red-500 flex items-center justify-center group-hover/item:bg-indian-red-500 group-hover/item:text-white transition-colors"
                   >
-                    <Icon name="shield-check" size={16} />
+                    <ShieldCheck size={16} />
                   </div>
                   <div>
                     <span class="block text-sm font-bold text-slate-900"
@@ -129,7 +128,7 @@ import { socials } from "@/data/socials";
                   <div
                     class="w-8 h-8 rounded-lg bg-indian-red-50 text-indian-red-500 flex items-center justify-center group-hover/item:bg-indian-red-500 group-hover/item:text-white transition-colors"
                   >
-                    <Icon name="lightbulb-bolt" size={16} />
+                    <Lightbulb size={16} />
                   </div>
                   <div>
                     <span class="block text-sm font-bold text-slate-900"
@@ -162,36 +161,8 @@ import { socials } from "@/data/socials";
           class="md:hidden text-gray-800 hover:text-indian-red-500 focus:outline-none p-2"
           aria-label="Toggle menu"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="menu-icon"
-            ><line x1="4" x2="20" y1="12" y2="12"></line><line
-              x1="4"
-              x2="20"
-              y1="6"
-              y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg
-          >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="close-icon hidden"
-            ><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg
-          >
+          <Menu size={24} class="menu-icon" />
+          <X size={24} class="close-icon hidden" />
         </button>
       </div>
     </div>
