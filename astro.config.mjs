@@ -31,28 +31,5 @@ export default defineConfig({
     },
     plugins: [tailwindcss()],
   },
-  integrations: [
-    {
-      name: 'copy-email-templates',
-      hooks: {
-        'astro:build:done': () => {
-          // Copiar templates de email al directorio dist
-          const srcDir = 'src/emails';
-          const destDir = 'dist/emails';
-
-          if (!existsSync(destDir)) {
-            mkdirSync(destDir, { recursive: true });
-          }
-
-          const files = readdirSync(srcDir);
-          files.forEach(file => {
-            copyFileSync(join(srcDir, file), join(destDir, file));
-          });
-
-          console.log('✓ Email templates copiados a dist/emails');
-        }
-      }
-    }
-  ]
 });
 
