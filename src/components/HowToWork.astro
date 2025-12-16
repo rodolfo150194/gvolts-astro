@@ -1,5 +1,5 @@
 ---
-import { Flame, Camera, Zap } from '@lucide/astro';
+import Icon from "@components/Icon.astro";
 
 // Mapeo de iconos del sprite
 const iconNames = {
@@ -27,7 +27,7 @@ const steps = [
     id: 1,
     label: 'Diagnóstico',
     description: 'Identificación de riesgos y necesidades reales',
-    iconName: iconNames.fire,
+    iconName: 'Flame',
     x: 10,
     y: 0,
     badgeAngle: 45,
@@ -37,7 +37,7 @@ const steps = [
     id: 2,
     label: 'Diseño',
     description: 'Planificación del sistema',
-    iconName: iconNames.ruler,
+    iconName: 'Ruler',
     x: 30,
     y: 50,
     badgeAngle: 285,
@@ -47,7 +47,7 @@ const steps = [
     id: 3,
     label: 'Instalación',
     description: 'Montaje profesional de sensores y dispositivos',
-    iconName: iconNames.wrench,
+    iconName: 'Wrench',
     x: 50,
     y: 20,
     badgeAngle: 90,
@@ -57,7 +57,7 @@ const steps = [
     id: 4,
     label: 'Configuración y pruebas',
     description: 'Ajuste del sistema y verificación total de funcionamiento',
-    iconName: iconNames.gear,
+    iconName: 'Settings',
     x: 70,
     y: 50,
     badgeAngle: 225,
@@ -67,7 +67,7 @@ const steps = [
     id: 5,
     label: 'Monitoreo',
     description: 'Supervisión continua y asistencia cuando la necesite',
-    iconName: iconNames.shield,
+    iconName: 'ShieldCheck',
     x: 90,
     y: 0,
     badgeAngle: 135,
@@ -114,28 +114,28 @@ for (let i = 0; i < pathPoints.length - 1; i++) {
           class="tab-btn active px-8 py-2 rounded-[20px] cursor-pointer font-bold text-lg transition-all duration-300 border-2 border-indian-red-500 bg-indian-red-500 text-white shadow-lg hover:border-indian-red-500 hover:text-indian-red-500 flex items-center gap-2"
           data-type="fire"
         >
-          <Flame size={20} />
+          <Icon name='Flame' size={20} />
           <span>Alarmas de Fuego</span>
         </button>
         <button
           class="tab-btn px-8 py-2 rounded-[20px] cursor-pointer font-bold text-lg transition-all duration-300 border-2 border-gray-200 bg-white text-gray-500 hover:border-indian-red-500 hover:text-indian-red-500 flex items-center gap-2"
           data-type="seguridad"
         >
-          <Camera size={20} />
+          <Icon name="ShieldCheck" size={20} />
           <span>Seguridad</span>
         </button>
         <button
           class="tab-btn px-8 py-2 rounded-[20px] cursor-pointer font-bold text-lg transition-all duration-300 border-2 border-gray-200 bg-white text-gray-500 hover:border-indian-red-500 hover:text-indian-red-500 flex items-center gap-2"
           data-type="electricidad"
         >
-          <Zap size={20} />
+          <Icon name="Zap" size={20} />
           <span>Electricidad</span>
         </button>
       </div>
     </div>
 
     <!-- Diagram Container -->
-    <div class="relative md:h-[600px] md:p-24 xs:hidden md:block w-full max-w-[1200px] mx-auto">
+    <div class="relative md:h-150 md:p-24 xs:hidden md:block w-full max-w-300 mx-auto">
 
       <!-- SVG Connecting Line -->
       <svg class="absolute top-0 left-0 w-full h-full z-0 pointer-events-none" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid meet">
@@ -231,7 +231,7 @@ for (let i = 0; i < pathPoints.length - 1; i++) {
 
       {steps.map((step) => (
         <div class="flex items-center gap-8 step-item-mobile">
-          <div class="relative flex-shrink-0 w-16 h-16 bg-white border-2 border-gray-900 rounded-full flex items-center justify-center z-10 shadow-md">
+          <div class="relative shrink-0 w-16 h-16 bg-white border-2 border-gray-900 rounded-full flex items-center justify-center z-10 shadow-md">
              <div class="step-icon-mobile text-gray-700" data-icon={step.iconName}>
                <Icon name={step.iconName} size="32" />
              </div>
@@ -251,53 +251,47 @@ for (let i = 0; i < pathPoints.length - 1; i++) {
 </section>
 
 <script>
-  import { gsap } from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-  gsap.registerPlugin(ScrollTrigger);
-
-  // Mapeo de iconos del sprite
-  const iconNames = {
-    fire: 'flame',
-    ruler: 'ruler',
-    wrench: 'corkscrew',
-    gear: 'settings',
-    shield: 'shield-check',
-    camera: 'clapperboard-play',
-    map: 'point-on-map',
-    ladder: 'alt-arrow-up',
-    signal: 'heart-pulse',
-    eye: 'eye',
-    thunder: 'thunder',
-  };
+  import { createIcons, Flame, Ruler, Wrench, Settings, ShieldCheck, Video, MapPin, ArrowUp, HeartPulse, Eye, Zap } from 'lucide';
 
   // Data for the tabs
   const workflows = {
     fire: [
-      { label: 'Diagnóstico', description: 'Identificación de riesgos y necesidades reales', iconName: iconNames.fire },
-      { label: 'Diseño del Sistema', description: 'Creación del plan óptimo según la normativa', iconName: iconNames.ruler },
-      { label: 'Instalación Técnica', description: 'Montaje profesional de sensores y dispositivos', iconName: iconNames.wrench },
-      { label: 'Configuración y Pruebas', description: 'Ajuste del sistema y verificación total de funcionamiento', iconName: iconNames.gear },
-      { label: 'Monitoreo y Soporte', description: 'Supervisión continua y asistencia cuando la necesite', iconName: iconNames.shield }
+      { label: 'Diagnóstico', description: 'Identificación de riesgos y necesidades reales', iconName: 'flame' },
+      { label: 'Diseño del Sistema', description: 'Creación del plan óptimo según la normativa', iconName: 'ruler' },
+      { label: 'Instalación Técnica', description: 'Montaje profesional de sensores y dispositivos', iconName: 'wrench' },
+      { label: 'Configuración y Pruebas', description: 'Ajuste del sistema y verificación total de funcionamiento', iconName: 'settings' },
+      { label: 'Monitoreo y Soporte', description: 'Supervisión continua y asistencia cuando la necesite', iconName: 'shield-check' }
     ],
     seguridad: [
-    { label: 'Evaluación del Sitio', description: 'Análisis del entorno y puntos críticos', iconName: iconNames.camera },
-    { label: 'Plan de Cobertura', description: 'Definición estratégica de zonas y ángulos de vigilancia', iconName: iconNames.map },
-    { label: 'Instalación de Equipos', description: 'Montaje preciso de cámaras y cableado', iconName: iconNames.ladder },
-    { label: 'Integración de Red', description: 'Conexión, configuración y enlace con el sistema central', iconName: iconNames.signal },
-    { label: 'Vigilancia Activa', description: 'Monitoreo 24/7 y respuesta inmediata', iconName: iconNames.eye }
+      { label: 'Evaluación del Sitio', description: 'Análisis del entorno y puntos críticos', iconName: 'video' },
+      { label: 'Plan de Cobertura', description: 'Definición estratégica de zonas y ángulos de vigilancia', iconName: 'map-pin' },
+      { label: 'Instalación de Equipos', description: 'Montaje preciso de cámaras y cableado', iconName: 'arrow-up' },
+      { label: 'Integración de Red', description: 'Conexión, configuración y enlace con el sistema central', iconName: 'heart-pulse' },
+      { label: 'Vigilancia Activa', description: 'Monitoreo 24/7 y respuesta inmediata', iconName: 'eye' }
     ],
     electricidad: [
-      { label: 'Inspección Inicial', description: 'Revisión del estado eléctrico y detección de necesidades', iconName: iconNames.thunder },
-      { label: 'Planificación', description: 'Diseño del sistema o mejora según normas y seguridad', iconName: iconNames.map },
-      { label: 'Instalación y Cableado', description: 'Montaje de líneas, paneles y dispositivos eléctricos', iconName: iconNames.ladder },
-      { label: 'Pruebas y Certificación', description: 'Verificación completa del sistema y aseguramiento de calidad', iconName: iconNames.gear },
-      { label: 'Mantenimiento', description: 'Revisión periódica y soporte ante fallas', iconName: iconNames.shield }
+      { label: 'Inspección Inicial', description: 'Revisión del estado eléctrico y detección de necesidades', iconName: 'zap' },
+      { label: 'Planificación', description: 'Diseño del sistema o mejora según normas y seguridad', iconName: 'map-pin' },
+      { label: 'Instalación y Cableado', description: 'Montaje de líneas, paneles y dispositivos eléctricos', iconName: 'arrow-up' },
+      { label: 'Pruebas y Certificación', description: 'Verificación completa del sistema y aseguramiento de calidad', iconName: 'settings' },
+      { label: 'Mantenimiento', description: 'Revisión periódica y soporte ante fallas', iconName: 'shield-check' }
     ],
-
   };
 
-  document.addEventListener('DOMContentLoaded', () => {
+  // Helper function to create Lucide icon usando data-lucide
+  function createIcon(iconName: string, size = 48) {
+    const iconElement = document.createElement('i');
+    iconElement.setAttribute('data-lucide', iconName);
+    iconElement.setAttribute('width', size.toString());
+    iconElement.setAttribute('height', size.toString());
+    iconElement.setAttribute('stroke-width', '2');
+    return iconElement;
+  }
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    const { gsap } = await import('gsap');
+    const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+    gsap.registerPlugin(ScrollTrigger);
 
     // Tab Logic
     const tabs = document.querySelectorAll('.tab-btn');
@@ -330,25 +324,40 @@ for (let i = 0; i < pathPoints.length - 1; i++) {
             onComplete: () => {
                 // Update content
                 data.forEach((item, index) => {
-                    // Actualizar iconos del sprite (desktop)
+                    // Update desktop icons
                     if(stepIcons[index]) {
-                        const useElement = stepIcons[index].querySelector('use');
-                        if (useElement) {
-                            useElement.setAttribute('href', `/sprite.svg#${item.iconName}`);
-                        }
+                        stepIcons[index].innerHTML = '';
+                        const icon = createIcon(item.iconName, 48);
+                        stepIcons[index].appendChild(icon);
                     }
                     if(stepLabels[index]) stepLabels[index].textContent = item.label;
                     if(stepDescriptions[index]) stepDescriptions[index].textContent = item.description;
 
-                    // Actualizar iconos del sprite (mobile)
+                    // Update mobile icons
                     if(stepIconsMobile[index]) {
-                        const useElement = stepIconsMobile[index].querySelector('use');
-                        if (useElement) {
-                            useElement.setAttribute('href', `/sprite.svg#${item.iconName}`);
-                        }
+                        stepIconsMobile[index].innerHTML = '';
+                        const icon = createIcon(item.iconName, 32);
+                        stepIconsMobile[index].appendChild(icon);
                     }
                     if(stepLabelsMobile[index]) stepLabelsMobile[index].textContent = item.label;
                     if(stepDescriptionsMobile[index]) stepDescriptionsMobile[index].textContent = item.description;
+                });
+
+                // Renderizar los iconos de Lucide
+                createIcons({
+                  icons: {
+                    Flame,
+                    Ruler,
+                    Wrench,
+                    Settings,
+                    ShieldCheck,
+                    Video,
+                    MapPin,
+                    ArrowUp,
+                    HeartPulse,
+                    Eye,
+                    Zap
+                  }
                 });
 
                 // Reset and Replay Sequence
@@ -370,7 +379,7 @@ for (let i = 0; i < pathPoints.length - 1; i++) {
     function playSequence(withScroll = false) {
       const steps = document.querySelectorAll('.step-item');
       const masks = document.querySelectorAll('.mask-path');
-      
+
       // Kill existing tweens
       gsap.killTweensOf(steps);
       gsap.killTweensOf(masks);
@@ -388,11 +397,11 @@ for (let i = 0; i < pathPoints.length - 1; i++) {
 
       steps.forEach((step, index) => {
         // Animate Step
-        tl.to(step, { 
-            scale: 1, 
-            opacity: 1, 
-            duration: 0.5, 
-            ease: 'back.out(1.7)' 
+        tl.to(step, {
+            scale: 1,
+            opacity: 1,
+            duration: 0.5,
+            ease: 'back.out(1.7)'
         });
 
         // Animate Line to next step
@@ -408,6 +417,23 @@ for (let i = 0; i < pathPoints.length - 1; i++) {
         }
       });
     }
+
+    // Inicializar iconos de Lucide al cargar la página
+    createIcons({
+      icons: {
+        Flame,
+        Ruler,
+        Wrench,
+        Settings,
+        ShieldCheck,
+        Video,
+        MapPin,
+        ArrowUp,
+        HeartPulse,
+        Eye,
+        Zap
+      }
+    });
 
     // Initial Play
     playSequence(true);

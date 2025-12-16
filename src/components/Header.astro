@@ -4,7 +4,7 @@ import { socials } from "@/data/socials";
 ---
 
 <header
-  class="fixed z-1000 transition-all duration-300 w-full max-w-full"
+  class="fixed z-50 transition-all duration-300 w-full max-w-full"
   id="main-header"
 >
   <!-- Top Bar: Dark Slate for high contrast -->
@@ -82,7 +82,7 @@ import { socials } from "@/data/socials";
 
             <!-- Dropdown Menu -->
             <div
-              class="absolute top-full left-0 w-64 bg-white shadow-xl rounded-xl overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 border border-gray-100"
+              class="absolute top-full left-0 w-64 bg-white shadow-xl rounded-xl overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 border border-gray-100 z-50"
             >
               <div class="p-2">
                 <a
@@ -171,16 +171,16 @@ import { socials } from "@/data/socials";
   <!-- Mobile Menu (Hidden by default) -->
   <div
     id="mobile-menu"
-    class="md:hidden bg-white border-t border-gray-100 absolute w-full left-0 shadow-lg transform -translate-y-[150%] transition-transform duration-300 -z-10"
+    class="md:hidden bg-white border-t border-gray-100 fixed w-full left-0 top-20 shadow-lg transform translate-x-full transition-transform duration-300 z-40 h-[calc(100vh-5rem)] overflow-y-auto"
   >
-    <div class="px-4 py-6 space-y-4 flex flex-col items-center">
+    <div class="px-4 py-6 space-y-4 flex flex-col items-center min-h-full">
       <a
-        href="#home"
+        href="/"
         class="text-gray-800 font-medium hover:text-indian-red-500 text-lg"
         >Inicio</a
       >
       <a
-        href="#about"
+        href="/about"
         class="text-gray-800 font-medium hover:text-indian-red-500 text-lg"
         >Nosotros</a
       >
@@ -207,11 +207,6 @@ import { socials } from "@/data/socials";
           >
         </div>
       </div>
-      <!-- <a
-        href="/projects"
-        class="text-gray-800 font-medium hover:text-indian-red-500 text-lg"
-        >Proyectos</a
-      > -->
       <a
         href="/contact"
         class="text-gray-800 font-medium hover:text-indian-red-500 text-lg"
@@ -281,10 +276,7 @@ import { socials } from "@/data/socials";
 </style>
 
 <script>
-
   document.addEventListener("DOMContentLoaded", () => {
-
-    
     // Mobile Menu Toggle
     const menuBtn = document.getElementById("mobile-menu-btn");
     const mobileMenu = document.getElementById("mobile-menu");
@@ -296,32 +288,19 @@ import { socials } from "@/data/socials";
       isMenuOpen = !isMenuOpen;
 
       if (isMenuOpen) {
-        // Open Menu
-        mobileMenu?.classList.remove("-translate-y-[150%]", "-z-10");
-        mobileMenu?.classList.add("translate-y-0", "top-20"); // top-20 matches header height
+        // Open Menu - slide from right
+        mobileMenu?.classList.remove("translate-x-full");
+        mobileMenu?.classList.add("translate-x-0");
         menuIcon?.classList.add("hidden");
         closeIcon?.classList.remove("hidden");
-
-        // Animate items
-        if (mobileMenu && mobileMenu.children[0]) {
-          gsap.fromTo(
-            mobileMenu.children[0].children,
-            { y: -20, opacity: 0 },
-            {
-              y: 0,
-              opacity: 1,
-              duration: 0.4,
-              stagger: 0.1,
-              ease: "power2.out",
-            }
-          );
-        }
+        document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
       } else {
-        // Close Menu
-        mobileMenu?.classList.remove("translate-y-0", "top-20");
-        mobileMenu?.classList.add("-translate-y-[150%]", "-z-10");
+        // Close Menu - slide to right
+        mobileMenu?.classList.remove("translate-x-0");
+        mobileMenu?.classList.add("translate-x-full");
         menuIcon?.classList.remove("hidden");
         closeIcon?.classList.add("hidden");
+        document.body.style.overflow = ''; // Restore scrolling
       }
     });
 
@@ -330,10 +309,11 @@ import { socials } from "@/data/socials";
     mobileLinks?.forEach((link) => {
       link.addEventListener("click", () => {
         isMenuOpen = false;
-        mobileMenu?.classList.remove("translate-y-0", "top-20");
-        mobileMenu?.classList.add("-translate-y-[150%]", "-z-10");
+        mobileMenu?.classList.remove("translate-x-0");
+        mobileMenu?.classList.add("translate-x-full");
         menuIcon?.classList.remove("hidden");
         closeIcon?.classList.add("hidden");
+        document.body.style.overflow = '';
       });
     });
   });

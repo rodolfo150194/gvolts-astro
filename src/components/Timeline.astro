@@ -3,7 +3,7 @@ interface Step {
   number: number;
   title: string;
   description: string;
-  duration: string;
+  duration?: string;
   deliverable: string;
 }
 
@@ -64,9 +64,11 @@ const { title, subtitle, steps, className = "" } = Astro.props;
                         <h3 class="text-2xl font-bold text-slate-900">
                           {step.title}
                         </h3>
-                        <span class="text-sm text-indian-red-500 font-semibold">
-                          {step.duration}
-                        </span>
+                        {step.duration && (
+                          <span class="text-sm text-indian-red-500 font-semibold">
+                            {step.duration}
+                          </span>
+                        )}
                       </div>
                     </div>
                     <p class="text-slate-600 mb-4">{step.description}</p>
@@ -95,12 +97,10 @@ const { title, subtitle, steps, className = "" } = Astro.props;
 </section>
 
 <script>
-  import { gsap } from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-  gsap.registerPlugin(ScrollTrigger);
-
-  document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("DOMContentLoaded", async () => {
+    const { gsap } = await import("gsap");
+    const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+    gsap.registerPlugin(ScrollTrigger);
     // Timeline Line Animation
     gsap.fromTo(
       ".timeline-line",

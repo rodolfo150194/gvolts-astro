@@ -3,6 +3,8 @@ import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import { Check, Phone } from "@lucide/astro";
+import Icon from "@/components/Icon.astro";
+import CTAButton from "@/components/CTAButton.astro";
 import PageHero from "@components/PageHero.astro";
 import Timeline from "@/components/Timeline.astro";
 import ScrollToTop from "@components/ScrollToTop.astro";
@@ -99,7 +101,7 @@ const schemas = [serviceSchema, breadcrumbSchema];
                           <ul class="space-y-1">
                             {feature.specs.map((spec) => (
                               <li class="flex items-start gap-2 text-sm text-slate-700">
-                                <Check size={14} class="text-indian-red-500 mt-0.5 flex-shrink-0" />
+                                <Check size={14} class="text-indian-red-500 mt-0.5 shrink-0" />
                                 <span>{spec}</span>
                               </li>
                             ))}
@@ -108,17 +110,15 @@ const schemas = [serviceSchema, breadcrumbSchema];
                       ))}
                     </div>
 
-                    {/* Pricing */}
+                    <!-- Pricing -->
                     {solution.pricing && (
-                      <div class="bg-gradient-to-r from-indian-red-50 to-orange-50 p-4 rounded-xl border-2 border-indian-red-200">
+                      <div class="bg-linear-to-r from-indian-red-50 to-orange-50 p-4 rounded-xl border-2 border-indian-red-200">
                         <div class="flex items-center justify-between">
                           <div>
                             <span class="text-2xl font-bold text-indian-red-600">{solution.pricing.starting}</span>
                             <p class="text-sm text-slate-600">{solution.pricing.note}</p>
                           </div>
-                          <a href="/contact" class="bg-indian-red-500 text-white px-6 py-3 rounded-lg font-bold hover:bg-indian-red-600 transition-colors">
-                            Cotizar
-                          </a>
+                          <CTAButton text="Cotizar" href="/contact" className="px-6 py-3" />
                         </div>
                       </div>
                     )}
@@ -132,7 +132,7 @@ const schemas = [serviceSchema, breadcrumbSchema];
                       loading="lazy"
                       class="absolute inset-0 w-full h-full object-cover"
                     />
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                    <div class="absolute inset-0 bg-linear-to-t from-black/50 to-transparent"></div>
                   </div>
                 </div>
               </div>
@@ -171,7 +171,7 @@ const schemas = [serviceSchema, breadcrumbSchema];
           <div class="flex flex-wrap justify-center gap-4 mb-12">
             <a
               href={content.cta.primary.href}
-              class="group bg-gradient-to-r from-indian-red-500 to-indian-red-600 text-white px-8 py-4 rounded-xl font-bold hover:shadow-2xl hover:shadow-indian-red-500/50 transition-all transform hover:-translate-y-1"
+              class="group bg-linear-to-r from-indian-red-500 to-indian-red-600 text-white px-8 py-4 rounded-xl font-bold hover:shadow-2xl hover:shadow-indian-red-500/50 transition-all transform hover:-translate-y-1"
             >
               {content.cta.primary.label}
             </a>
@@ -193,99 +193,11 @@ const schemas = [serviceSchema, breadcrumbSchema];
 </Layout>
 
 <script>
-  import { gsap } from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  // document.addEventListener("DOMContentLoaded", async () => {
+  //   const { gsap } = await import("gsap");
+  //   const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+  //   gsap.registerPlugin(ScrollTrigger);
 
-  gsap.registerPlugin(ScrollTrigger);
-
-  // document.addEventListener("DOMContentLoaded", () => {
-  //   // Hero animations with stagger
-  //   const heroElements = [".hero-badge", ".hero-title", ".hero-description"];
-  //   gsap.from(heroElements, {
-  //     opacity: 0,
-  //     y: 30,
-  //     duration: 1,
-  //     stagger: 0.2,
-  //     ease: "power3.out"
-  //   });
-
-  //   gsap.from(".stat-item", {
-  //     opacity: 0,
-  //     scale: 0.5,
-  //     duration: 0.8,
-  //     stagger: 0.15,
-  //     delay: 0.8,
-  //     ease: "back.out(1.7)"
-  //   });
-
-  //   // Highlights with rotation
-  //   ScrollTrigger.batch(".highlight-card", {
-  //     onEnter: (elements) => {
-  //       gsap.from(elements, {
-  //         opacity: 0,
-  //         y: 50,
-  //         rotation: -5,
-  //         stagger: 0.1,
-  //         duration: 0.8,
-  //         ease: "power3.out"
-  //       });
-  //     },
-  //     start: "top 80%"
-  //   });
-
-  //   // Solutions with slide
-  //   ScrollTrigger.batch(".solution-card", {
-  //     onEnter: (elements) => {
-  //       gsap.from(elements, {
-  //         opacity: 0,
-  //         x: -100,
-  //         duration: 1,
-  //         ease: "power3.out"
-  //       });
-  //     },
-  //     start: "top 75%"
-  //   });
-
-  //   // Integration cards
-  //   ScrollTrigger.batch(".integration-card", {
-  //     onEnter: (elements) => {
-  //       gsap.from(elements, {
-  //         opacity: 0,
-  //         y: 60,
-  //         stagger: 0.15,
-  //         duration: 0.8,
-  //         ease: "power3.out"
-  //       });
-  //     },
-  //     start: "top 80%"
-  //   });
-
-  //   // Industry cards with scale
-  //   ScrollTrigger.batch(".industry-card", {
-  //     onEnter: (elements) => {
-  //       gsap.from(elements, {
-  //         opacity: 0,
-  //         scale: 0.9,
-  //         stagger: 0.2,
-  //         duration: 0.8,
-  //         ease: "power3.out"
-  //       });
-  //     },
-  //     start: "top 80%"
-  //   });
-
-  //   // Benefits grid
-  //   ScrollTrigger.batch(".benefit-card", {
-  //     onEnter: (elements) => {
-  //       gsap.from(elements, {
-  //         opacity: 0,
-  //         y: 60,
-  //         stagger: 0.1,
-  //         duration: 0.8,
-  //         ease: "power3.out"
-  //       });
-  //     },
-  //     start: "top 80%"
-  //   });
+  //   // Animations can be added here if needed
   // });
 </script>

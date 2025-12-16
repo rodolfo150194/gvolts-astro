@@ -53,21 +53,22 @@ const features = [
       {
         features.map((feature, index) => (
           <div
-            class={`feature-item w-full h-auto min-h-screen lg:w-screen lg:h-screen flex-shrink-0 flex items-center justify-center relative overflow-hidden`}
+            class={`feature-item w-full h-auto min-h-screen lg:w-screen lg:h-screen shrink-0 flex items-center justify-center relative overflow-hidden`}
           >
             {feature.decoration && (
               <img
                 src={feature.decoration}
                 alt=""
-                class="feature-decoration absolute bottom-10 left-10 w-[400px] h-[400px] object-contain opacity-60 pointer-events-none z-0"
+                class="feature-decoration absolute bottom-10 left-10 w-100 h-100 object-contain opacity-60 pointer-events-none z-0"
+                loading="lazy"
               />
             )}
 
-            <div class="max-w-[1400px] w-full mx-auto px-12 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center relative z-10">
+            <div class="max-w-350 w-full mx-auto px-12 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center relative z-10">
               <div class="space-y-5 feature-content">
-                <div class="feature-number inline-flex items-center gap-3 px-6 py-3 rounded-[24px] bg-gradient-to-br from-indian-red-100 to-indian-red-50 border-2 border-indian-red-200 text-indian-red-700 font-bold text-[48px] md:text-[56px] lg:text-[48px] shadow-lg backdrop-blur-sm relative overflow-hidden">
+                <div class="feature-number inline-flex items-center gap-3 px-6 py-3 rounded-3xl bg-linear-to-br from-indian-red-100 to-indian-red-50 border-2 border-indian-red-200 text-indian-red-700 font-bold text-[48px] md:text-[56px] lg:text-[48px] shadow-lg backdrop-blur-sm relative overflow-hidden">
                   <span class="relative z-10">{feature.number}</span>
-                  <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent shine-effect" />
+                  <div class="absolute inset-0 bg-linear-to-r from-transparent via-white/30 to-transparent shine-effect" />
                 </div>
 
                 <h2 class="feature-title text-5xl md:text-7xl lg:text-8xl font-bold text-slate-900 leading-tight">
@@ -127,12 +128,10 @@ const features = [
   }
 </style>
 <script>
-  import { gsap } from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-  gsap.registerPlugin(ScrollTrigger);
-
-  document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("DOMContentLoaded", async () => {
+    const { gsap } = await import("gsap");
+    const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+    gsap.registerPlugin(ScrollTrigger);
     const section = document.getElementById("features-section");
     const wrapper = document.querySelector(".features-wrapper");
     const indicators = document.querySelectorAll(".scroll-indicator");

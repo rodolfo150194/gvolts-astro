@@ -1,5 +1,22 @@
 @import "tailwindcss";
 
+/* Local Fonts - Roboto Mono Variable Font */
+@font-face {
+  font-family: 'Roboto Mono';
+  src: url('/fonts/RobotoMono-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto Mono';
+  src: url('/fonts/RobotoMono-Italic-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
 @theme {
   /* Indian Red - Tonalidades */
   --color-indian-red-50: #FFF5F5;

@@ -1,5 +1,5 @@
 ---
-import { HelpCircle } from "@lucide/astro";
+import Icon from "@components/Icon.astro";
 
 const faqs = [
   {
@@ -29,11 +29,14 @@ const faqs = [
   <div class="max-w-7xl mx-auto px-4 lg:px-8">
     <div class="text-center mb-16">
       
-      <span
-        class="hero-badge uppercase inline-flex items-center gap-2 mt-5 bg-indian-red-500 border border-indian-red-500 px-6 py-2 rounded-full text-white text-sm font-semibold mb-8"
-        ><HelpCircle size={24} />
-         Ayuda y Soporte</span
-      >
+      <div class="flex justify-center items-center gap-2 mb-4">
+            <span class="w-8 h-0.5 bg-indian-red-500"></span>
+            <Icon name="HelpCircle" class="text-indian-red" />
+            <span
+              class="text-indian-red-500 font-bold tracking-widest text-sm"
+              > Ayuda y Soporte</span
+            >
+          </div>
       <h2 class="font-display text-4xl md:text-5xl font-bold text-slate-900">
         Preguntas Frecuentes
       </h2>
@@ -64,12 +67,10 @@ const faqs = [
 </section>
 
 <script>
-  import { gsap } from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-  gsap.registerPlugin(ScrollTrigger);
-
-  document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("DOMContentLoaded", async () => {
+    const { gsap } = await import("gsap");
+    const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+    gsap.registerPlugin(ScrollTrigger);
     // Animate FAQ items on scroll
     gsap.from(".faq-item", {
       y: 50,

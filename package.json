@@ -4,14 +4,12 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && pnpm run copy:emails",
-    "copy:emails": "node -e \"const fs = require('fs'); const path = require('path'); const src = path.join('src', 'emails'); const dest = path.join('dist', 'emails'); if (!fs.existsSync(dest)) fs.mkdirSync(dest, {recursive: true}); fs.readdirSync(src).forEach(file => fs.copyFileSync(path.join(src, file), path.join(dest, file)));\"",
+    "build": "astro build",
     "preview": "astro preview",
     "start": "node ./dist/server/entry.mjs",
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/netlify": "^6.6.3",
     "@astrojs/node": "^9.5.1",
     "@astrojs/sitemap": "^3.6.0",
     "@lucide/astro": "^0.561.0",
@@ -19,14 +17,11 @@
     "@tailwindcss/vite": "^4.1.17",
     "astro": "^5.15.8",
     "gsap": "^3.13.0",
+    "lucide": "^0.561.0",
     "resend": "^6.6.0"
   },
   "packageManager": "pnpm@10.24.0+sha512.01ff8ae71b4419903b65c60fb2dc9d34cf8bb6e06d03bde112ef38f7a34d6904c424ba66bea5cdcf12890230bf39f9580473140ed9c946fef328b6e5238a345a",
   "devDependencies": {
-    "@maizzle/framework": "^5.3.1",
-    "html-minifier-terser": "^7.2.0",
-    "posthtml": "^0.16.7",
-    "posthtml-content": "^2.1.2",
     "tailwindcss": "^4.1.17"
   }
 }

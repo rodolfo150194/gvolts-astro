@@ -30,6 +30,8 @@ const IconComponent = icon ? iconComponents[icon] : null;
           src={backgroundImage}
           alt={title}
           class="w-full h-full object-cover"
+          loading="eager"
+          fetchpriority="high"
         />
         <div class="absolute inset-0 bg-slate-900/80" />
       </div>

@@ -1,16 +1,17 @@
 ---
 import { Mail, Phone, MapPin, Clock, Folder, ShieldCheck } from "@lucide/astro";
+import ContactForm from "@/components/ContactForm.astro";
 
 const contactInfo = [
   {
     icon: Mail,
     title: "Correo Electrónico",
-    info: ["info@gvolts.com", "soporte@gvolts.com"],
+    info: ["cgonzalesdiaz@gvoltscorp.com"],
   },
   {
     icon: Phone,
     title: "Teléfono",
-    info: ["+1 (555) 123-4567", "+1 (555) 987-6543"],
+    info: ["+1 (786) 612-9684"],
   },
   {
     icon: MapPin,
@@ -21,23 +22,18 @@ const contactInfo = [
     icon: Clock,
     title: "Horario Laboral",
     info: ["Lun - Vie: 09:00 - 18:00", "Sab: 09:00 - 13:00"],
-  },
-  {
-    icon: Folder,
-    title: "Licencia",
-    info: ["ER13016417"],
   }
 ];
 ---
 
 <section class="contact-page py-20" id="contact-page">
   <div class="max-w-9/10 mx-auto px-4 lg:px-8">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5 mb-20">
+    <div class="flex flex-wrap justify-center gap-5 mb-20">
       {
         contactInfo.map((item, index) => {
           const IconComponent = item.icon;
           return (
-            <div class="info-card relative group p-8 rounded-[30px] bg-white border-indian-red-500 hover:shadow-xl hover:shadow-indian-red-500/10 transition-all duration-300 text-center overflow-visible">
+            <div class="info-card relative group p-8 rounded-[30px] bg-white border-indian-red-500 hover:shadow-xl hover:shadow-indian-red-500/10 transition-all duration-300 text-center overflow-visible w-full md:w-[calc(50%-0.625rem)] lg:w-[calc(25%-0.9375rem)]">
               <div class="relative z-10 w-16 h-16 mx-auto bg-indian-red-100 text-indian-red-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-md">
                 <IconComponent size="32" />
               </div>
@@ -75,132 +71,27 @@ const contactInfo = [
           </p>
         </div>
 
-        
-
-        <form class="space-y-6">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="space-y-2">
-              <label for="name" class="text-sm font-semibold text-slate-700"
-                >Nombre</label
-              >
-              <input
-                type="text"
-                id="name"
-                placeholder="Tu nombre"
-                class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-indian-red-500 focus:ring-2 focus:ring-indian-red-200 outline-none transition-all"
-              />
-            </div>
-            <div class="space-y-2">
-              <label for="email" class="text-sm font-semibold text-slate-700"
-                >Email</label
-              >
-              <input
-                type="email"
-                id="email"
-                placeholder="tucorreo@ejemplo.com"
-                class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-indian-red-500 focus:ring-2 focus:ring-indian-red-200 outline-none transition-all"
-              />
-            </div>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="space-y-2">
-              <label for="phone" class="text-sm font-semibold text-slate-700"
-                >Teléfono</label
-              >
-              <input
-                type="tel"
-                id="phone"
-                placeholder="+1 (555) 000-0000"
-                class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-indian-red-500 focus:ring-2 focus:ring-indian-red-200 outline-none transition-all"
-              />
-            </div>
-            <div class="space-y-2">
-              <label for="service" class="text-sm font-semibold text-slate-700"
-                >Servicio de interés</label
-              >
-              <div class="relative">
-                <select
-                  id="service"
-                  class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-indian-red-500 focus:ring-2 focus:ring-indian-red-200 outline-none transition-all appearance-none text-slate-600 cursor-pointer"
-                >
-                  <option value="" disabled selected
-                    >Selecciona un servicio</option
-                  >
-                  <option value="videovigilancia">Videovigilancia</option>
-                  <option value="incendios">Alarmas contra Incendios</option>
-                  <option value="acceso">Control de Acceso</option>
-                  <option value="monitoreo">Monitoreo 24/7</option>
-                  <option value="mantenimiento">Mantenimiento</option>
-                  <option value="otro">Otro</option>
-                </select>
-                <div
-                  class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-slate-500"
-                >
-                  <svg
-                    class="w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M19 9l-7 7-7-7"></path>
-                  </svg>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="space-y-2">
-            <label for="subject" class="text-sm font-semibold text-slate-700"
-              >Asunto</label
-            >
-            <input
-              type="text"
-              id="subject"
-              placeholder="Consulta general"
-              class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-indian-red-500 focus:ring-2 focus:ring-indian-red-200 outline-none transition-all"
-            />
-          </div>
-
-          <div class="space-y-2">
-            <label for="message" class="text-sm font-semibold text-slate-700"
-              >Mensaje</label
-            >
-            <textarea
-              id="message"
-              rows="4"
-              placeholder="¿Cómo podemos ayudarte?"
-              class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-indian-red-500 focus:ring-2 focus:ring-indian-red-200 outline-none transition-all resize-none"
-            ></textarea>
-          </div>
-
-          <button
-            type="submit"
-            class="w-full cursor-pointer bg-indian-red-500 text-white font-bold py-4 rounded-xl hover:bg-indian-red-600 transition-colors shadow-lg shadow-indian-red-500/30"
-          >
-            Enviar Mensaje
-          </button>
-        </form>
+        <ContactForm />
       </div>
 
       <!-- Image Side -->
-      <div class="w-full lg:w-1/2 relative z-1">
+      <div class="w-full lg:w-1/2 relative z-10">
         <div
-          class="relative rounded-[40px] overflow-hidden aspect-[4/5] shadow-2xl"
+          class="relative rounded-[40px] overflow-hidden aspect-4/5 shadow-2xl"
         >
-          <img
-            src="/img/gvolts/planing-project.png"
-            alt="Equipo GVolts"
-            class="w-full h-full object-cover"
-          />
+          <picture>
+            <source srcset="/img/gvolts/planing-project.webp" type="image/webp" />
+            <img
+              src="/img/gvolts/planing-project.png"
+              alt="Equipo GVolts"
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </picture>
 
           <!-- Decorative Overlay -->
           <div
-            class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"
+            class="absolute inset-0 bg-linear-to-t from-slate-900/60 to-transparent"
           >
           </div>
 
@@ -226,7 +117,7 @@ const contactInfo = [
 
         <!-- SVG Decorativo: Rectángulo con puntos (esquina inferior izquierda) -->
         <svg
-          class="absolute bottom-0 left-0 w-[320px] h-28 text-indian-red-500 opacity-60 z-1 pointer-events-none"
+          class="absolute bottom-0 left-0 w-[320px] h-28 text-indian-red-500 opacity-60 z-0 pointer-events-none"
           viewBox="0 0 120 120"
           xmlns="http://www.w3.org/2000/svg"
           style="transform: translate(-50%, 50%);"
@@ -285,12 +176,10 @@ const contactInfo = [
  
 
 <script>
-  import { gsap } from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-  gsap.registerPlugin(ScrollTrigger);
-
-  document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("DOMContentLoaded", async () => {
+    const { gsap } = await import("gsap");
+    const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+    gsap.registerPlugin(ScrollTrigger);
     // Form Animation
     gsap.from("form", {
       scrollTrigger: {

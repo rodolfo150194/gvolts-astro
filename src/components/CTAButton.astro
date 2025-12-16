@@ -3,23 +3,24 @@ import Icon from "@/components/Icon.astro";
 
 interface Props {
   text: string;
+  href?: string;
   variant?: "primary" | "secondary";
   icon?: string;
   size?: string;
   className?: string;
-
 }
 
 const {
   text,
+  href = "/contact",
   variant = "primary",
-  icon ="",
-  size ="20",
+  icon = "",
+  size = "20",
   className = "",
 } = Astro.props;
 
 const baseClasses =
-  "inline-flex items-center gap-3 px-10 py-4 rounded-xl text-lg font-bold cursor-pointer transition-all duration-300 hover:-translate-y-1";
+  "inline-flex items-center gap-3 px-8 py-3.5 rounded-lg font-bold cursor-pointer transition-all duration-300 hover:-translate-y-1";
 
 const variantClasses = {
   primary:
@@ -30,13 +31,15 @@ const variantClasses = {
 ---
 
 <a
-  href="/contact"
+  href={href}
   class:list={[baseClasses, variantClasses[variant], className, "cta-button"]}
 >
   <span>{text}</span>
-  <div class="cta-arrow transition-transform duration-300 group-hover:translate-x-1">
-    <Icon name={icon} size={size} />
-  </div>
+  {icon && (
+    <div class="cta-arrow transition-transform duration-300 group-hover:translate-x-1">
+      <Icon name={icon} size={size} />
+    </div>
+  )}
 </a>
 
 <style>

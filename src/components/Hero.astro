@@ -1,12 +1,11 @@
 ---
 import Icon from "@/components/Icon.astro";
 import CTAButton from "./CTAButton.astro";
-import { Flame } from "@lucide/astro";
 // Configuración del Hero
 const heroData = {
   // Badge superior
   badge: {
-    icon: "shield-check",
+    icon: "ShieldCheck",
     text: "Soluciones de Seguridad Confiables",
   },
 
@@ -29,7 +28,7 @@ const heroData = {
     },
     secondary: {
       text: "Ver",
-      icon: "play",
+      icon: "Play",
     },
   },
 
@@ -57,14 +56,14 @@ const heroData = {
     {
       position: "right",
       speed: "0.05",
-      icon: "eye",
+      icon: "Cctv",
       title: "Vigilancia IA",
       description: "Reconocimiento facial inteligente",
     },
     {
       position: "left",
       speed: "0.08",
-      icon: "flame",
+      icon: "Flame",
       title: "Detección de Incendios",
       description: "Sensores de calor avanzados",
     },
@@ -74,14 +73,17 @@ const heroData = {
   sliderImages: [
     {
       src: "/img/gvolts/planing-project.png",
+      srcWebp: "/img/gvolts/planing-project.webp",
       alt: "Professional Security Installation",
     },
     {
       src: "/img/gvolts/extintor.jpg",
+      srcWebp: "/img/gvolts/extintor.webp",
       alt: "Security Camera Installation",
     },
     {
       src: "/img/gvolts/camara-bosque.jpg",
+      srcWebp: "/img/gvolts/camara-bosque.webp",
       alt: "Security Systems",
     },
   ],
@@ -112,26 +114,30 @@ const typewriterWords = [
       {
         heroData.sliderImages.map((image, index) => (
           <div class={`slider-slide ${index === 0 ? "active" : ""}`}>
-            <img
-              src={image.src}
-              alt={image.alt}
-              class="background-image w-full h-full object-cover object-center will-change-transform"
-              loading={index === 0 ? "eager" : "lazy"}
-            />
+            <picture>
+              <source srcset={image.srcWebp} type="image/webp" />
+              <img
+                src={image.src}
+                alt={image.alt}
+                class="background-image w-full h-full object-cover object-center will-change-transform"
+                loading={index === 0 ? "eager" : "lazy"}
+                fetchpriority={index === 0 ? "high" : "auto"}
+              />
+            </picture>
           </div>
         ))
       }
     </div>
 
     <!-- Overlay siempre visible encima del slider -->
-    <div class="hero-overlay absolute top-0 left-0 w-full h-full z-2"></div>
+    <div class="hero-overlay absolute top-0 left-0 w-full h-full z-10"></div>
   </div>
 
   <!-- Hero Content -->
   <div
-    class="relative z-3 w-full px-4 pt-32 pb-12 md:px-8 md:pt-32 md:pb-16 flex flex-col justify-center min-h-dvh"
+    class="relative z-20 w-full px-4 pt-32 pb-12 md:px-8 md:pt-32 md:pb-16 flex flex-col justify-center min-h-dvh"
   >
-    <div class="max-w-[1400px] mx-auto flex flex-col items-center text-center">
+    <div class="max-w-350 mx-auto flex flex-col items-center text-center">
       <!-- Badge -->
       <div
         class="hero-badge inline-flex items-center gap-2 mt-5 bg-white/10 border border-white/20 px-6 py-2 rounded-full text-white text-sm font-semibold mb-8 backdrop-blur-md"
@@ -149,7 +155,7 @@ const typewriterWords = [
 
       <!-- Main Title -->
       <h1
-        class="hero-title text-[clamp(3rem,8vw,4rem)] font-extrabold leading-[1.1] mb-8 max-w-[1100px] tracking-tight"
+        class="hero-title text-[clamp(3rem,8vw,4rem)] font-extrabold leading-[1.1] mb-8 max-w-275 tracking-tight"
       >
         <span class="block text-white drop-shadow-sm"
           >{heroData.title.line1}</span
@@ -170,7 +176,7 @@ const typewriterWords = [
 
       <!-- Description -->
       <p
-        class="hero-description text-[clamp(1.1rem,2.5vw,1.35rem)] leading-[1.8] text-lemon-chiffon-50/90 max-w-[800px] mb-12 font-medium"
+        class="hero-description text-[clamp(1.1rem,2.5vw,1.35rem)] leading-[1.8] text-lemon-chiffon-50/90 max-w-200 mb-12 font-medium"
       >
         {heroData.description}
       </p>
@@ -214,12 +220,12 @@ const typewriterWords = [
     {
       heroData.floatingCards.map((card) => (
         <div
-          class={`hidden xl:block absolute ${card.position === "right" ? "right-[5%]" : "left-[5%]"} bottom-[20%] z-3 parallax-card`}
+          class={`hidden xl:block absolute ${card.position === "right" ? "right-[5%]" : "left-[5%]"} bottom-[20%] z-20 parallax-card`}
           data-speed={card.speed}
         >
-          <div class="bg-white/10 backdrop-blur-[20px] border border-white/20 rounded-[20px] p-6 w-[260px] shadow-[0_20px_60px_rgba(0,0,0,0.3)]">
+          <div class="bg-white/10 backdrop-blur-[20px] border border-white/20 rounded-[20px] p-6 w-65 shadow-[0_20px_60px_rgba(0,0,0,0.3)]">
             <div class="w-12 h-12 bg-indian-red-500 text-white rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-indian-red-500/40">
-              <Flame name={card.icon} size="24" />
+              <Icon name={card.icon} size="24" />
             </div>
             <h3 class="text-lg font-bold text-white mb-1">{card.title}</h3>
             <p class="text-sm text-white/70">{card.description}</p>
@@ -232,7 +238,7 @@ const typewriterWords = [
   <!-- Video Modal -->
   <div
     id="video-modal"
-    class="fixed inset-0 z-9999 hidden opacity-0 transition-opacity duration-300"
+    class="fixed inset-0 z-50 hidden opacity-0 transition-opacity duration-300"
   >
     <!-- Backdrop -->
     <div class="absolute inset-0 bg-black/80 backdrop-blur-sm js-modal-close">
@@ -448,12 +454,12 @@ const typewriterWords = [
 </style>
 
 <script>
-  import { gsap } from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  document.addEventListener("DOMContentLoaded", async () => {
+    // Load GSAP lazily to avoid increasing initial JS bundle and parse time
+    const { gsap } = await import("gsap");
+    const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+    gsap.registerPlugin(ScrollTrigger);
 
-  gsap.registerPlugin(ScrollTrigger);
-
-  document.addEventListener("DOMContentLoaded", () => {
     // Entrance Animations
     const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 

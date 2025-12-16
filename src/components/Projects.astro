@@ -38,10 +38,11 @@ const projects = [
     >
       {projects.map((project, index) => (
         <div class="min-w-full md:min-w-[33.333%] lg:min-w-[25%] h-full snap-start relative border-r border-black last:border-r-0 group/card cursor-pointer">
-          <img 
-            src={project.image} 
-            alt={project.title} 
+          <img
+            src={project.image}
+            alt={project.title}
             class="w-full h-full object-cover grayscale group-hover/card:grayscale-0 transition-all duration-500"
+            loading="lazy"
           />
           
           <div class="absolute inset-0 bg-black/20 group-hover/card:bg-black/40 transition-colors duration-300 flex flex-col justify-end p-8">

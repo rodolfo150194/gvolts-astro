@@ -1,4 +1,7 @@
 ---
+import CTAButton from "@/components/CTAButton.astro";
+import { Flame, Camera, Zap } from "@lucide/astro";
+
 const services = [
   {
     image: "/img/gvolts/extintor.jpg",
@@ -6,116 +9,160 @@ const services = [
     description:
       "Sistemas avanzados de detección y alerta temprana contra incendios.",
     href: "/services/fire-alarm",
+    icon: Flame,
+    color: "from-orange-500 to-indian-red-600",
   },
   {
     image: "/img/gvolts/camara-casa.jpg",
     title: "Seguridad",
     description: "Cámaras de alta definición con monitoreo remoto 24/7.",
     href: "/services/security",
+    icon: Camera,
+    color: "from-blue-500 to-indian-red-600",
   },
   {
     image: "/img/gvolts/instalacion.jpg",
     title: "Electricidad",
     description: "Configuración y gestión centralizada de todos tus sistemas.",
     href: "/services/electricity",
+    icon: Zap,
+    color: "from-yellow-500 to-indian-red-600",
   },
 ];
 ---
 
 <section
-  class="relative py-20 px-4 md:px-6 lg:px-8 services-section z-0 bg-[url('/img/gvolts/camara-bosque.jpg')] min-h-screen bg-cover bg-center bg-no-repeat bg-fixed w-full max-w-full"
+  class="relative py-12 sm:py-16 md:py-20 px-4 md:px-6 lg:px-8 services-section z-0 bg-[url('/img/gvolts/camara-bosque.jpg')] min-h-screen bg-cover bg-center bg-no-repeat bg-fixed w-full max-w-full"
   id="services"
 >
   <!-- Overlay background que cubre el 100% de la sección -->
   <div
-    class="absolute inset-0 bg-gradient-to-b from-[#3D1F1D]/85 via-[#3D1F1D]/70 to-[#3D1F1D]/60 z-[1] pointer-events-none"
+    class="absolute inset-0 bg-linear-to-b from-[#3D1F1D]/85 via-[#3D1F1D]/70 to-[#3D1F1D]/60 z-0 pointer-events-none"
   >
   </div>
 
   <!-- Línea decorativa superior -->
   <div
-    class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-indian-red-500 to-transparent z-[2]"
+    class="absolute top-0 left-0 right-0 h-0.5 bg-linear-to-r from-transparent via-indian-red-500 to-transparent z-10"
   >
   </div>
 
-  <div class="max-w-[1400px] mx-auto relative z-10 h-auto">
-    <div class="text-center mb-12 md:mb-20 section-header">
+  <div class="w-full max-w-7xl mx-auto relative z-10">
+    <div class="text-center mb-8 md:mb-12 lg:mb-20 section-header">
+
       <span
-        class="hero-badge inline-flex justify-center items-center gap-2 mt-5 bg-white border border-indian-red-500 px-6 py-2 rounded-full text-indian-red-500 text-sm font-semibold mb-8"
+        class="hero-badge inline-flex items-center gap-2 bg-white/10 border border-white/20 px-6 py-2 rounded-full text-white text-sm font-semibold mb-8 backdrop-blur-md"
         >Servicios</span
       >
       <h2
-        class="section-title font-display text-[clamp(2.5rem,5vw,3rem)] font-extrabold text-white mb-4 leading-tight"
+        class="section-title font-display text-[clamp(2rem,5vw,3rem)] font-extrabold text-white mb-3 md:mb-4 leading-tight"
       >
         Protección Integral para tu Seguridad
       </h2>
       <p
-        class="section-subtitle font-body text-lg text-white/60 max-w-[600px] mx-auto"
+        class="section-subtitle font-body text-base md:text-lg text-white/60 max-w-2xl mx-auto"
       >
         Soluciones completas de alarmas contra incendios y videovigilancia
       </p>
     </div>
 
-    <div class="flex flex-wrap justify-center gap-6 md:gap-8 services-grid">
+    <div class="w-full flex flex-wrap justify-center gap-4 md:gap-6 lg:gap-8">
       {
         services.map((service, index) => (
-            <div class="group bg-gray-50 rounded-[30px] border-2  shadow-xl transition-all duration-700 hover:shadow-2xl hover:shadow-indian-red-500/30 hover:-translate-y-3 hover:scale-[1.02] service-card relative flex flex-col w-full md:w-[calc(50%-1rem)] lg:w-[25%]" data-index={index} style="transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);">
+          <div
+            class="service-card group relative bg-white rounded-xl md:rounded-2xl overflow-hidden shadow-lg md:hover:shadow-2xl transition-all duration-500 md:hover:-translate-y-2 w-full sm:w-[calc(50%-0.5rem)] md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1.334rem)]"
+            data-index={index}
+          >
+            {/* Image Container */}
+            <div class="relative h-48 sm:h-56 md:h-64 overflow-hidden">
+              <img
+                src={service.image}
+                alt={service.title}
+                class="w-full h-full object-cover transition-transform duration-700 md:group-hover:scale-110"
+                loading="lazy"
+              />
+              {/* Gradient Overlay */}
+              <div class={`absolute inset-0 bg-linear-to bg-slate-950/70 opacity-60 md:group-hover:opacity-75 transition-opacity duration-500`}></div>
 
-      <div class="relative h-[280px] md:h-[240px] overflow-hidden rounded-t-[30px]">
-      <img
-          src={service.image}
-          alt={service.title}
-          class="w-30% object-cover transition-transform duration-700 group-hover:scale-110"
-          loading="lazy"
-      />
-      <div class="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
-    </div>
+              {/* Icon Badge */}
+              <div class="absolute top-3 right-3 md:top-4 md:right-4 w-12 h-12 md:w-14 md:h-14 bg-white rounded-full flex items-center justify-center shadow-lg transform transition-transform duration-500 md:group-hover:scale-110 md:group-hover:rotate-12">
+                <service.icon size={24} class="md:hidden text-indian-red-600" />
+                <service.icon size={28} class="hidden md:block text-indian-red-600" />
+              </div>
+            </div>
 
-    {/* La HR no es necesaria si el diseño es limpio, pero se puede simular con padding/margin */}
+            {/* Content */}
+            <div class="p-4 sm:p-5 md:p-6 flex flex-col h-auto min-h-52 sm:min-h-56 md:min-h-60">
+              <h3 class="font-display text-xl sm:text-2xl font-bold text-slate-900 mb-2 md:mb-3 leading-tight md:group-hover:text-indian-red-600 transition-colors duration-300">
+                {service.title}
+              </h3>
 
-    <div class="p-6 md:p-8 flex flex-col flex-grow">
-      <h3 class="font-display text-2xl md:text-3xl font-extrabold text-[#3D1F1D] mb-2 leading-tight"
-      >
-      {service.title}
-      </h3>
-      <p class="font-body text-base leading-snug text-[#3D1F1D]/80 mb-6 md:mb-8 flex-grow"
-      >
-      {service.description}
-      </p>
+              <p class="font-body text-sm sm:text-base text-slate-600 leading-relaxed mb-4 md:mb-6 grow">
+                {service.description}
+              </p>
 
-      <div class="mt-auto text-center">
-        <a href={service.href} class=" bg-indian-red-600 cursor-pointer text-white px-8 py-3 rounded-xl font-bold uppercase tracking-wider text-sm transition-all duration-300 shadow-lg shadow-indian-red-600/40 hover:bg-indian-red-700 hover:shadow-xs hover:shadow-indian-red-600/50 hover:-translate-y-1 active:translate-y-0 active:shadow-md">
-        Ver más detalles
-        </a>
-      </div>
-    </div>
-  </div>
-  ))
-  }
+              <div class="mt-auto">
+                <CTAButton
+                  text="Ver más detalles"
+                  href={service.href}
+                  variant="primary"
+                  className="w-full justify-center text-xs sm:text-sm"
+                />
+              </div>
+            </div>
+
+            {/* Decorative corner */}
+            <div class="absolute top-0 left-0 w-16 h-16 md:w-20 md:h-20 bg-indian-red-500/10 rounded-br-full transform -translate-x-8 -translate-y-8 md:-translate-x-10 md:-translate-y-10 md:group-hover:scale-150 transition-transform duration-500"></div>
+          </div>
+        ))
+      }
     </div>
   </div>
 </section>
 
 <script>
-  import { gsap } from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  document.addEventListener("DOMContentLoaded", async () => {
+    // Solo ejecutar animaciones en desktop (≥768px)
+    if (window.innerWidth < 768) return;
 
-  gsap.registerPlugin(ScrollTrigger);
+    const { gsap } = await import("gsap");
+    const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+    gsap.registerPlugin(ScrollTrigger);
 
-  document.addEventListener("DOMContentLoaded", () => {
     const cards = document.querySelectorAll(".service-card");
+
     cards.forEach((card, index) => {
+      // Animate card entrance
       gsap.from(card, {
         scrollTrigger: {
           trigger: card,
           start: "top 85%",
           toggleActions: "play none none reverse",
         },
-        y: 80,
+        y: 60,
+        opacity: 0,
+        scale: 0.95,
         duration: 0.8,
-        delay: index * 0.1,
+        delay: index * 0.15,
         ease: "power3.out",
       });
+
+      // Animate icon badge
+      const icon = card.querySelector(".absolute.top-3, .absolute.top-4");
+      if (icon) {
+        gsap.from(icon, {
+          scrollTrigger: {
+            trigger: card,
+            start: "top 85%",
+            toggleActions: "play none none reverse",
+          },
+          scale: 0,
+          rotation: -180,
+          duration: 0.6,
+          delay: index * 0.15 + 0.3,
+          ease: "back.out(1.7)",
+        });
+      }
     });
   });
 </script>

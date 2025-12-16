@@ -53,7 +53,7 @@ const allPartners = [...partners, ...partners];
     <div class="flex w-[200%] animate-scroll hover:pause">
       {
         allPartners.map((partner, index) => (
-          <div class="flex-1 flex justify-center items-center min-w-[150px] md:min-w-[200px] px-8">
+          <div class="flex-1 flex justify-center items-center min-w-37.5 md:min-w-50 px-8">
             <a
               href={partner.url}
               target="_blank"
@@ -63,7 +63,7 @@ const allPartners = [...partners, ...partners];
             >
               <!-- Placeholder for logo if image is missing, otherwise use img -->
               <div class="h-12 md:h-16 w-auto grayscale group-hover:grayscale-0 transition-all duration-300 opacity-60 group-hover:opacity-100 flex items-center justify-center text-slate-400 font-bold text-xl group-hover:text-indian-red-500">
-                 <img src={partner.logo} alt={partner.name} class="h-full w-auto object-contain" />
+                 <img src={partner.logo} alt={partner.name} class="h-full w-auto object-contain" loading="lazy" />
               </div>
             </a>
           </div>
