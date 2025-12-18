@@ -47,5 +47,40 @@ const {
   </head>
   <body class="min-h-screen w-full" id="background-mask">
     <slot />
+
+    <!-- Global Hash Scroll Handler -->
+    <script>
+      // Handle hash navigation on page load
+      document.addEventListener('DOMContentLoaded', () => {
+        // Check if there's a hash in the URL
+        const hash = window.location.hash;
+        if (hash) {
+          // Wait a bit for the page to fully render
+          setTimeout(() => {
+            const element = document.querySelector(hash);
+            if (element) {
+              element.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+              });
+            }
+          }, 100);
+        }
+      });
+
+      // Handle hash changes while on the same page
+      window.addEventListener('hashchange', () => {
+        const hash = window.location.hash;
+        if (hash) {
+          const element = document.querySelector(hash);
+          if (element) {
+            element.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        }
+      });
+    </script>
   </body>
 </html>
