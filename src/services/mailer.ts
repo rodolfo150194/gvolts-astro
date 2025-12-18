@@ -5,9 +5,9 @@ import { dirname, join } from 'path';
 
 // Configuración de Resend desde variables de entorno
 const RESEND_API_KEY = import.meta.env.RESEND_API_KEY || '';
-const FROM_EMAIL = import.meta.env.FROM_EMAIL || 'noreply@gvolts.com';
-const FROM_NAME = import.meta.env.FROM_NAME || 'GVolts';
-const NOTIFICATION_EMAIL = import.meta.env.NOTIFICATION_EMAIL || 'info@gvolts.com';
+const FROM_EMAIL = import.meta.env.FROM_EMAIL || 'cgonzalezdiaz@gvolts.com';
+const FROM_NAME = import.meta.env.FROM_NAME || 'GVoltscorp';
+const NOTIFICATION_EMAIL = import.meta.env.NOTIFICATION_EMAIL || 'rodolfogarciamaeso@gmail.com';
 
 // Crear cliente de Resend
 const createResendClient = () => {
