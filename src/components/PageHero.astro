@@ -1,5 +1,5 @@
 ---
-import { ShieldCheck, Zap } from "@lucide/astro";
+import Icon from "@/components/Icon.astro";
 
 interface Props {
   title: string;
@@ -12,33 +12,25 @@ interface Props {
 
 const { title, highlightedTitle, description, badge, backgroundImage, icon } =
   Astro.props;
-
-// Icon mapping for JSON data compatibility
-const iconComponents = {
-  "shield-check": ShieldCheck,
-  "thunder": Zap,
-};
-
-const IconComponent = icon ? iconComponents[icon] : null;
 ---
 
 {
   backgroundImage ? (
-    <section class="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden pt-[80px] md:pt-[120px]">
+    <section class="relative h-[60vh] min-h-90 flex items-center justify-center mt-5 mx-5 rounded-3xl">
       <div class="absolute inset-0 z-0">
         <img
           src={backgroundImage}
           alt={title}
-          class="w-full h-full object-cover"
+          class="w-full h-full object-cover rounded-3xl"
           loading="eager"
           fetchpriority="high"
         />
-        <div class="absolute inset-0 bg-slate-900/80" />
+        <div class="absolute inset-0 bg-slate-900/80 rounded-3xl" />
       </div>
 
       <div class="z-10 container mx-auto px-4 py-12 text-center text-white">
         <span class="hero-badge inline-flex items-center gap-2 bg-white/10 border border-white/20 px-6 py-2 rounded-full text-white text-sm font-semibold mb-8 backdrop-blur-md">
-          {IconComponent && <IconComponent size={16} />}
+          {icon && <Icon name={icon} size={16} />}
           {badge}
         </span>
         <h1 class="text-5xl md:text-7xl font-bold font-display leading-tight">
@@ -53,9 +45,10 @@ const IconComponent = icon ? iconComponents[icon] : null;
       </div>
     </section>
   ) : (
-    <section class="bg-slate-900 py-12 text-center text-white pt-[80px] md:pt-[120px]">
+    <section class="bg-slate-900 py-12 text-center text-white pt-20 md:pt-30">
       <div class="container mx-auto px-4">
-        <span class="inline-block py-1 px-3 rounded-full bg-indian-red-500/20 border border-indian-red-500 text-indian-red-400 text-sm font-semibold mb-6">
+        <span class="inline-flex items-center gap-2 py-1 px-3 rounded-full bg-indian-red-500/20 border border-indian-red-500 text-indian-red-400 text-sm font-semibold mb-6">
+          {icon && <Icon name={icon} size={16} />}
           {badge}
         </span>
         <h1 class="text-5xl md:text-6xl font-bold font-display mb-6">
