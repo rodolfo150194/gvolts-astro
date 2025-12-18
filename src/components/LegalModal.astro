@@ -57,44 +57,46 @@ import { X, FileText } from '@lucide/astro';
 </style>
 
 <script>
-  const modal = document.getElementById('legal-modal');
-  const closeBtn = document.getElementById('close-modal');
-  const closeBtnMain = document.getElementById('modal-close-btn');
-  const modalTitle = document.getElementById('modal-title');
-  const modalDescription = document.getElementById('modal-description');
+  document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('legal-modal');
+    const closeBtn = document.getElementById('close-modal');
+    const closeBtnMain = document.getElementById('modal-close-btn');
+    const modalTitle = document.getElementById('modal-title');
+    const modalDescription = document.getElementById('modal-description');
 
-  // Function to open modal
-  function openModal(title: string, description: string) {
-    if (modalTitle) modalTitle.textContent = title;
-    if (modalDescription) modalDescription.textContent = description;
-    modal?.classList.add('show');
-    document.body.style.overflow = 'hidden';
-  }
-
-  // Function to close modal
-  function closeModal() {
-    modal?.classList.remove('show');
-    document.body.style.overflow = '';
-  }
-
-  // Close button clicks
-  closeBtn?.addEventListener('click', closeModal);
-  closeBtnMain?.addEventListener('click', closeModal);
-
-  // Close on overlay click
-  modal?.addEventListener('click', (e) => {
-    if (e.target === modal) {
-      closeModal();
+    // Function to open modal
+    function openModal(title: string, description: string) {
+      if (modalTitle) modalTitle.textContent = title;
+      if (modalDescription) modalDescription.textContent = description;
+      modal?.classList.add('show');
+      document.body.style.overflow = 'hidden';
     }
-  });
 
-  // Close on Escape key
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal?.classList.contains('show')) {
-      closeModal();
+    // Function to close modal
+    function closeModal() {
+      modal?.classList.remove('show');
+      document.body.style.overflow = '';
     }
-  });
 
-  // Export open function globally
-  (window as any).openLegalModal = openModal;
+    // Close button clicks
+    closeBtn?.addEventListener('click', closeModal);
+    closeBtnMain?.addEventListener('click', closeModal);
+
+    // Close on overlay click
+    modal?.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal?.classList.contains('show')) {
+        closeModal();
+      }
+    });
+
+    // Export open function globally
+    (window as any).openLegalModal = openModal;
+  });
 </script>

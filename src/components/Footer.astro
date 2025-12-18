@@ -199,22 +199,28 @@ import LegalModal from './LegalModal.astro';
 <script>
   import { actions } from "astro:actions";
 
-  // Legal modal handlers
-  const termsBtn = document.getElementById('terms-btn');
-  const privacyBtn = document.getElementById('privacy-btn');
+  document.addEventListener('DOMContentLoaded', () => {
+    // Legal modal handlers
+    const termsBtn = document.getElementById('terms-btn');
+    const privacyBtn = document.getElementById('privacy-btn');
 
-  termsBtn?.addEventListener('click', () => {
-    (window as any).openLegalModal(
-      'Términos y Condiciones',
-      'Estamos preparando nuestros términos y condiciones.'
-    );
-  });
+    termsBtn?.addEventListener('click', () => {
+      if ((window as any).openLegalModal) {
+        (window as any).openLegalModal(
+          'Términos y Condiciones',
+          'Estamos preparando nuestros términos y condiciones.'
+        );
+      }
+    });
 
-  privacyBtn?.addEventListener('click', () => {
-    (window as any).openLegalModal(
-      'Política de Privacidad',
-      'Estamos preparando nuestra política de privacidad.'
-    );
+    privacyBtn?.addEventListener('click', () => {
+      if ((window as any).openLegalModal) {
+        (window as any).openLegalModal(
+          'Política de Privacidad',
+          'Estamos preparando nuestra política de privacidad.'
+        );
+      }
+    });
   });
 
   const form = document.getElementById("newsletter-form-footer") as HTMLFormElement;
