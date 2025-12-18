@@ -1,0 +1,145 @@
+---
+import { Flame, Camera, Zap } from "@lucide/astro";
+
+const services = [
+  {
+    image: '/img/gvolts/men-install-camera.png',
+    title: "Alarmas de Incendio",
+    description:
+      "Sistemas avanzados de detección y alerta temprana contra incendios.",
+    href: "/services/fire-alarm",
+    icon: Flame,
+  },
+  {
+    image: '/img/gvolts/instalacion2.jpg',
+    title: "Seguridad",
+    description: "Cámaras de alta definición con monitoreo remoto 24/7.",
+    href: "/services/security",
+    icon: Camera,
+  },
+  {
+    image: '/img/gvolts/planing-project.png',
+    title: "Electricidad",
+    description: "Configuración y gestión centralizada de todos tus sistemas.",
+    href: "/services/electricity",
+    icon: Zap,
+  },
+  {
+    image: '/img/gvolts/instalacion.jpg',
+    title: "Planificación",
+    description: "Configuración y gestión centralizada de todos tus sistemas.",
+    href: "/contact",
+    icon: Zap,
+  },
+];
+const projects = [
+  {
+    image: '/img/gvolts/men-install-camera.png',
+    title: 'Instalación Comercial',
+    description: 'Sistema completo instalado'
+  },
+  {
+    image: '/img/gvolts/instalacion2.jpg',
+    title: 'Sistema de Incendios',
+    description: 'Protección certificada'
+  },
+  {
+    image: '/img/gvolts/electric.jpg',
+    title: 'Red de Vigilancia',
+    description: 'Monitoreo integral'
+  },
+  {
+    image: '/img/gvolts/planing-project.png',
+    title: 'Planificación',
+    description: 'Diseño personalizado'
+  },
+  {
+    image: '/img/gvolts/instalacion.jpg',
+    title: 'Mantenimiento',
+    description: 'Soporte 24/7'
+  }
+];
+---
+
+<section
+  class="relative py-12 sm:py-16 md:py-20 services-v2-section overflow-visible bg-slate-900"
+  id="services"
+>
+<div class="h-[600px]">
+  <!-- Background Pattern -->
+  <div class="absolute inset-0 opacity-10">
+    <div class="absolute inset-0 bg-[url('/img/gvolts/camara-bosque.jpg')] bg-cover bg-center bg-fixed"></div>
+  </div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-4 md:px-6 lg:px-8 pb-24 md:pb-32">
+    <!-- Header -->
+    <div class="text-center mb-8 md:mb-12 animate-fade-in-up">
+      <span
+        class="inline-flex items-center gap-2 bg-white/10 border border-white/20 px-6 py-2 rounded-full text-white text-sm font-semibold mb-6 backdrop-blur-md"
+      >
+        Servicios
+      </span>
+      <h2
+        class="text-[clamp(2rem,5vw,3rem)] font-extrabold text-white mb-4 leading-tight"
+      >
+        Protección Integral para tu Seguridad
+      </h2>
+      <p class="text-base md:text-lg text-white/70 max-w-2xl mx-auto">
+        Soluciones completas de alarmas contra incendios y videovigilancia
+      </p>
+    </div>
+
+    <div
+      class="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide gap-0 w-full h-[400px] md:h-[500px] relative translate-y-8 md:translate-y-6 shadow-2xl rounded-lg"
+    >
+      {services.map((service, index) => (
+        <div class="min-w-full md:min-w-[33.333%] lg:min-w-[25%] h-full snap-start relative border-r border-white/10 last:border-r-0 group/card cursor-pointer overflow-hidden first:rounded-l-lg last:rounded-r-lg">
+          <img
+            src={service.image}
+            alt={service.title}
+            class="w-full h-full object-cover grayscale group-hover/card:grayscale-0 transition-all duration-700"
+            loading="lazy"
+          />
+
+          {/* Gradient blur overlay */}
+          <div class="absolute inset-0 backdrop-blur-gradient"></div>
+
+          {/* Dark gradient overlay */}
+          <div class="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent transition-colors duration-300"></div>
+
+          {/* Text content */}
+          <div class="absolute inset-0 flex flex-col justify-end p-6 md:p-8">
+            <div class="transform transition-transform duration-300 group-hover/card:scale-105 origin-bottom-left">
+              <h3 class="text-xl md:text-2xl font-bold text-white mb-2 font-display drop-shadow-lg">{service.title}</h3>
+              <p class="text-sm md:text-base text-white/95 font-body drop-shadow-md">{service.description}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+  </div>
+</section>
+
+<style>
+  /* Hide scrollbar */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Gradient blur effect */
+  .backdrop-blur-gradient {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    mask-image: linear-gradient(to bottom, transparent 0%, transparent 30%, black 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 30%, black 100%);
+  }
+</style>
+
+<script>
+</script>

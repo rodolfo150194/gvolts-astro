@@ -6,10 +6,11 @@ import Header from "@components/Header.astro";
 import HowToWork from "@components/HowToWork.astro";
 import PageHero from "@components/PageHero.astro";
 import Layout from "@layouts/Layout.astro";
+import ScrollToTop from "@/components/ScrollToTop.astro";
 ---
 
 <Layout
-  title="Acerca de GVoltsCorp - Expertos en Protección y Seguridad"
+  title="GVoltscorp - Expertos en Protección y Seguridad"
   description="Más de 10 años protegiendo hogares y negocios. Certificaciones UL, NFPA y licencias estatales activas. Conoce nuestro equipo y compromiso con tu seguridad."
 >
   <!-- <Loader /> -->
@@ -19,7 +20,7 @@ import Layout from "@layouts/Layout.astro";
     description="Estamos listos para ayudarte con tu próximo proyecto de seguridad o electricidad."
     badge="Conócenos"
     backgroundImage="/img/gvolts/about.jpg"
-    icon="Zap"
+    icon="BookOpen"
   />
   <main>
     <section class="container mx-auto px-4">
@@ -40,5 +41,6 @@ import Layout from "@layouts/Layout.astro";
       "Instalación garantizada en menos de 1 semana",
     ]}
   />
+  <ScrollToTop />
   <Footer />
 </Layout>

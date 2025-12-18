@@ -4,10 +4,12 @@ import Header from "@/components/Header.astro";
 import PageHero from "@/components/PageHero.astro";
 import ContactSection from "@/components/Contact.astro";
 import Footer from "@/components/Footer.astro";
+import ScrollToTop from "@/components/ScrollToTop.astro";
+
 ---
 
 <Layout
-  title="Contacto - Cotización Gratuita | GVoltsCorp"
+  title="Contacto - Cotización Gratuita | GVoltscorp"
   description="Solicita una evaluación gratuita y cotización sin compromiso. Respuesta en 24 horas. Servicio de emergencia 24/7 disponible para urgencias eléctricas y de seguridad."
 >
   <!-- <Loader /> -->
@@ -17,10 +19,11 @@ import Footer from "@/components/Footer.astro";
       description="Estamos listos para ayudarte con tu próximo proyecto de seguridad o electricidad."
       badge="Contacto"
       backgroundImage="/img/gvolts/contact.jpg"
-      icon="chat"
+      icon='MessageSquareMore'
     />
   <main class="pt-10">
     <ContactSection />
   </main>
+  <ScrollToTop />
   <Footer />
 </Layout>
