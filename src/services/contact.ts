@@ -1,4 +1,5 @@
 import { supabase } from "@/supabase";
+import { sendContactNotification } from "@/services/mailer";
 
 interface ContactData {
     name: string;
@@ -14,6 +15,7 @@ interface ContactData {
 
 export const saveContact = async (data: ContactData) => {
     try {
+        // Guardar en Supabase
         const { error } = await supabase.from("contacts").insert({
             name: data.name,
             email: data.email,
@@ -34,6 +36,12 @@ export const saveContact = async (data: ContactData) => {
                 message: "Hubo un error al enviar tu mensaje. Por favor, intenta nuevamente."
             };
         }
+
+        // Enviar notificación por email en segundo plano
+        // No bloqueamos la respuesta si falla el envío del email
+        sendContactNotification(data).catch((err) => {
+            console.error("Error al enviar notificación de contacto (no crítico):", err);
+        });
 
         return {
             success: true,
