@@ -20,7 +20,7 @@ const {
 } = Astro.props;
 
 const baseClasses =
-  "inline-flex items-center gap-3 px-8 py-3.5 rounded-lg font-bold cursor-pointer transition-all duration-300 hover:-translate-y-1";
+  "inline-flex items-center gap-3 px-8 py-3.5 rounded-lg font-bold cursor-pointer transition-all duration-300 hover:-translate-y-0.5";
 
 const variantClasses = {
   primary:
@@ -36,7 +36,7 @@ const variantClasses = {
 >
   <span>{text}</span>
   {icon && (
-    <div class="cta-arrow transition-transform duration-300 group-hover:translate-x-1">
+    <div class="cta-arrow transition-transform duration-300 group-hover:translate-x-0.5">
       <Icon name={icon} size={size} />
     </div>
   )}
