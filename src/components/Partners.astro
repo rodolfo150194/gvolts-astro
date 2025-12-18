@@ -1,5 +1,5 @@
 ---
-const partners = [
+const allPartners = [
   {
     name: "Honeywell",
     logo: "/img/brands/hbt-honeywell-logo.avif",
@@ -25,69 +25,136 @@ const partners = [
     logo: "/img/brands/potter.svg",
     url: "https://www.pottersignal.com/",
   },
-   {
+  {
     name: "Napco",
     logo: "/img/brands/napco.png",
     url: "https://napcosecurity.com/",
   },
 ];
 
-// Duplicate partners for infinite scroll effect
-const allPartners = [...partners, ...partners];
 ---
 
-<section class="py-16 overflow-hidden bg-white">
-
+<section class="py-16 partners-section">
   <div class="relative w-full overflow-hidden">
-    <!-- Gradient Masks -->
-    <div
-      class="absolute left-0 top-0 bottom-0 w-20 bg-linear-to-r from-slate-50 to-transparent z-10"
-    >
-    </div>
-    <div
-      class="absolute right-0 top-0 bottom-0 w-20 bg-linear-to-l from-slate-50 to-transparent z-10"
-    >
-    </div>
-
-    <!-- Slider Track -->
-    <div class="flex w-[200%] animate-scroll hover:pause">
-      {
-        allPartners.map((partner, index) => (
-          <div class="flex-1 flex justify-center items-center min-w-37.5 md:min-w-50 px-8">
-            <a
-              href={partner.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="group relative block transition-all duration-300 transform hover:scale-110"
-              title={`Visitar ${partner.name}`}
-            >
-              <!-- Placeholder for logo if image is missing, otherwise use img -->
-              <div class="h-12 md:h-16 w-auto grayscale group-hover:grayscale-0 transition-all duration-300 opacity-60 group-hover:opacity-100 flex items-center justify-center text-slate-400 font-bold text-xl group-hover:text-indian-red-500">
-                 <img src={partner.logo} alt={partner.name} class="h-full w-auto object-contain" loading="lazy" />
-              </div>
-            </a>
-          </div>
-        ))
-      }
+    <!-- Swiper Container -->
+    <div class="swiper partners-swiper">
+      <div class="swiper-wrapper">
+        {
+          allPartners.map((partner, index) => (
+            <div class="swiper-slide">
+              <a
+                href={partner.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="group relative transition-all duration-300 transform hover:scale-110 flex items-center justify-center h-full"
+                title={`Visitar ${partner.name}`}
+              >
+                <div class="w-full grayscale group-hover:grayscale-0 transition-all duration-300 opacity-60 group-hover:opacity-100 flex items-center justify-center">
+                  <img
+                    src={partner.logo}
+                    alt={partner.name}
+                    class="w-auto h-full object-contain"
+                    loading={index < 6 ? "eager" : "lazy"}
+                  />
+                </div>
+              </a>
+            </div>
+          ))
+        }
+      </div>
     </div>
   </div>
 </section>
 
 <style>
-  @keyframes scroll {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-50%);
+  /* Override global overflow-x: hidden for swiper functionality */
+  .partners-section {
+    overflow-x: visible !important;
+  }
+
+  .partners-swiper {
+    padding: 1rem 0;
+    width: 100%;
+    min-height: 5rem;
+    overflow: visible !important;
+  }
+
+  .swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+    min-height: 4rem;
+  }
+
+  /* Ensure images load properly and maintain aspect ratio */
+  .swiper-slide img {
+    display: block;
+    width: auto;
+    height: 100%;
+    max-height: 3rem;
+    max-width: 120px;
+  }
+
+  @media (min-width: 768px) {
+    .swiper-slide img {
+      max-height: 4rem;
+      max-width: 160px;
     }
   }
 
-  .animate-scroll {
-    animation: scroll 30s linear infinite;
-  }
-
-  .hover\:pause:hover {
-    animation-play-state: paused;
+  /* Prevent layout shift during load */
+  .swiper-wrapper {
+    align-items: center;
   }
 </style>
+
+<script>
+  import Swiper from "swiper";
+  import "swiper/css";
+  import { Autoplay } from "swiper/modules";
+
+  document.addEventListener("DOMContentLoaded", () => {
+    new Swiper(".partners-swiper", {
+      modules: [Autoplay],
+      slidesPerView: 1,
+      spaceBetween: 15,
+      loop: true,
+      centeredSlides: true,
+      speed: 4000,
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+      },
+      watchSlidesProgress: true,
+      observer: true,
+      observeParents: true,
+      breakpoints: {
+        480: {
+          slidesPerView: 2.5,
+          centeredSlides: true,
+        },
+        640: {
+          slidesPerView: 2.5,
+          centeredSlides: false,
+        },
+        768: {
+          slidesPerView: 3,
+          spaceBetween: 30,
+          centeredSlides: false,
+        },
+        1024: {
+          slidesPerView: 4,
+          spaceBetween: 40,
+          centeredSlides: false,
+        },
+        1280: {
+          slidesPerView: 5,
+          spaceBetween: 50,
+          centeredSlides: false,
+        },
+      },
+    });
+  });
+</script>
