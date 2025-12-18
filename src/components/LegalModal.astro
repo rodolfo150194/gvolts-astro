@@ -1,0 +1,100 @@
+---
+import { X, FileText } from '@lucide/astro';
+---
+
+<!-- Modal Overlay -->
+<div id="legal-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 invisible transition-all duration-300">
+  <div class="modal-content relative bg-white rounded-3xl p-8 md:p-12 max-w-md mx-4 shadow-2xl transform scale-95 transition-all duration-300">
+    <!-- Close Button -->
+    <button
+      id="close-modal"
+      class="absolute top-4 right-4 text-slate-400 hover:text-slate-900 transition-colors p-2 hover:bg-slate-100 rounded-full"
+      aria-label="Cerrar modal"
+    >
+      <X size={24} />
+    </button>
+
+    <!-- Content -->
+    <div class="text-center">
+      <!-- Icon -->
+      <div class="w-20 h-20 bg-indian-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
+        <FileText size={40} class="text-indian-red-500" />
+      </div>
+
+      <!-- Title -->
+      <h3 class="font-display text-3xl font-bold text-slate-900 mb-4" id="modal-title">
+        Próximamente
+      </h3>
+
+      <!-- Description -->
+      <p class="text-slate-600 font-body leading-relaxed mb-2" id="modal-description">
+        Estamos trabajando en nuestro contenido legal.
+      </p>
+      <p class="text-slate-500 font-body text-sm mb-8">
+        Esta sección estará disponible muy pronto.
+      </p>
+
+      <!-- CTA Button -->
+      <button
+        id="modal-close-btn"
+        class="bg-indian-red-500 hover:bg-indian-red-600 text-white px-8 py-3 rounded-lg font-bold transition-all duration-300 hover:shadow-lg hover:shadow-indian-red-500/30"
+      >
+        Entendido
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  #legal-modal.show {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  #legal-modal.show .modal-content {
+    transform: scale(1);
+  }
+</style>
+
+<script>
+  const modal = document.getElementById('legal-modal');
+  const closeBtn = document.getElementById('close-modal');
+  const closeBtnMain = document.getElementById('modal-close-btn');
+  const modalTitle = document.getElementById('modal-title');
+  const modalDescription = document.getElementById('modal-description');
+
+  // Function to open modal
+  function openModal(title: string, description: string) {
+    if (modalTitle) modalTitle.textContent = title;
+    if (modalDescription) modalDescription.textContent = description;
+    modal?.classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+
+  // Function to close modal
+  function closeModal() {
+    modal?.classList.remove('show');
+    document.body.style.overflow = '';
+  }
+
+  // Close button clicks
+  closeBtn?.addEventListener('click', closeModal);
+  closeBtnMain?.addEventListener('click', closeModal);
+
+  // Close on overlay click
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal?.classList.contains('show')) {
+      closeModal();
+    }
+  });
+
+  // Export open function globally
+  (window as any).openLegalModal = openModal;
+</script>

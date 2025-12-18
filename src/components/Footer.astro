@@ -3,6 +3,7 @@ import { MapPin, Phone, Mail } from '@lucide/astro';
 import { socials } from "@/data/socials";
 import Certifications from "@/components/Certifications.astro";
 import CTAButton from './CTAButton.astro';
+import LegalModal from './LegalModal.astro';
 ---
 
 <Certifications />
@@ -148,10 +149,21 @@ import CTAButton from './CTAButton.astro';
         </div>
       </div>
       <div class="sm:flex items-center justify-between mb-12">
-        <div class="sm:flex mb-6 sm:mb-0 items-center">
-            <a class="inline-block mr-6 font-body sm:mr-12 text-gray-300 hover:text-gray-200" href="#">Términos y Condiciones</a><a class="inline-block text-gray-300 hover:text-gray-200" href="#">Política de Privacidad</a>
+        <div class="sm:flex mb-6 sm:mb-0 items-center gap-2">
+          <button
+            id="terms-btn"
+            class="inline-block mr-4 font-body sm:mr-10 text-gray-300 hover:text-gray-200 transition-colors cursor-pointer"
+          >
+            Términos y Condiciones
+          </button>
+          <button
+            id="privacy-btn"
+            class="inline-block text-gray-300 hover:text-gray-200 font-body transition-colors cursor-pointer"
+          >
+            Política de Privacidad
+          </button>
         </div>
-        <div class="flex gap-3 pt-2 ">
+        <div class="flex gap-3 pt-2">
           <p class="font-body text-gray-300 mr-3 flex items-center">Síguenos:</p>
           {
             socials.map((social) => (
@@ -182,8 +194,28 @@ import CTAButton from './CTAButton.astro';
   </div>
 </footer>
 
+<LegalModal />
+
 <script>
   import { actions } from "astro:actions";
+
+  // Legal modal handlers
+  const termsBtn = document.getElementById('terms-btn');
+  const privacyBtn = document.getElementById('privacy-btn');
+
+  termsBtn?.addEventListener('click', () => {
+    (window as any).openLegalModal(
+      'Términos y Condiciones',
+      'Estamos preparando nuestros términos y condiciones.'
+    );
+  });
+
+  privacyBtn?.addEventListener('click', () => {
+    (window as any).openLegalModal(
+      'Política de Privacidad',
+      'Estamos preparando nuestra política de privacidad.'
+    );
+  });
 
   const form = document.getElementById("newsletter-form-footer") as HTMLFormElement;
   const emailInput = document.getElementById("email-input-footer") as HTMLInputElement;
