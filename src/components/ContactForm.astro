@@ -165,6 +165,8 @@
 </form>
 
 <script>
+  import { actions } from "astro:actions";
+
   document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('contact-form') as HTMLFormElement;
     const formMessage = document.getElementById('form-message');
@@ -185,16 +187,35 @@
 
       // Obtener datos del formulario
       const formData = new FormData(form);
-      const data = Object.fromEntries(formData.entries());
+      const data = {
+        name: formData.get('name') as string,
+        email: formData.get('email') as string,
+        phone: formData.get('phone') as string,
+        service: formData.get('service') as string,
+        zip: formData.get('zip') as string,
+        company: formData.get('company') as string || undefined,
+        address: formData.get('address') as string || undefined,
+        subject: formData.get('subject') as string,
+        message: formData.get('message') as string,
+      };
 
       try {
-        // Aquí puedes integrar con tu API de backend
-        // Por ahora, simulamos un envío exitoso
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        // Llamar a la action de Astro
+        const { data: result, error } = await actions.contact(data);
+
+        if (error) {
+          // Mostrar mensaje de error de validación
+          if (formMessage) {
+            formMessage.textContent = `✗ ${error.message || 'Error de validación. Por favor, revisa los campos.'}`;
+            formMessage.className = 'p-4 rounded-xl text-sm font-medium bg-red-50 text-red-700 border border-red-200';
+            formMessage.classList.remove('hidden');
+          }
+          return;
+        }
 
         // Mostrar mensaje de éxito
-        if (formMessage) {
-          formMessage.textContent = '✓ ¡Mensaje enviado exitosamente! Nos pondremos en contacto contigo pronto.';
+        if (formMessage && result) {
+          formMessage.textContent = `✓ ${result.message}`;
           formMessage.className = 'p-4 rounded-xl text-sm font-medium bg-green-50 text-green-700 border border-green-200';
           formMessage.classList.remove('hidden');
         }
@@ -202,11 +223,8 @@
         // Limpiar formulario
         form.reset();
 
-        // Log para desarrollo (remover en producción)
-        console.log('Form data:', data);
-
       } catch (error) {
-        // Mostrar mensaje de error
+        // Mostrar mensaje de error genérico
         if (formMessage) {
           formMessage.textContent = '✗ Hubo un error al enviar el mensaje. Por favor, intenta nuevamente.';
           formMessage.className = 'p-4 rounded-xl text-sm font-medium bg-red-50 text-red-700 border border-red-200';
