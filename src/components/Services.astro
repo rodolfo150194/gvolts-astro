@@ -66,11 +66,11 @@ const services = [
       </p>
     </div>
 
-    <div class="w-full flex flex-wrap justify-center gap-4 md:gap-6 lg:gap-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
       {
         services.map((service, index) => (
           <div
-            class="service-card group relative bg-white rounded-xl md:rounded-2xl overflow-hidden shadow-lg md:hover:shadow-2xl transition-all duration-500 md:hover:-translate-y-2 w-full sm:w-[calc(50%-0.5rem)] md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1.334rem)]"
+            class="service-card border-2 border-white group relative bg-white rounded-xl md:rounded-2xl overflow-hidden shadow-lg md:hover:shadow-2xl transition-all duration-500 md:hover:-translate-y-2"
             data-index={index}
           >
             {/* Image Container */}
@@ -121,48 +121,4 @@ const services = [
 </section>
 
 <script>
-  document.addEventListener("DOMContentLoaded", async () => {
-    // Solo ejecutar animaciones en desktop (≥768px)
-    if (window.innerWidth < 768) return;
-
-    const { gsap } = await import("gsap");
-    const { ScrollTrigger } = await import("gsap/ScrollTrigger");
-    gsap.registerPlugin(ScrollTrigger);
-
-    const cards = document.querySelectorAll(".service-card");
-
-    cards.forEach((card, index) => {
-      // Animate card entrance
-      gsap.from(card, {
-        scrollTrigger: {
-          trigger: card,
-          start: "top 85%",
-          toggleActions: "play none none reverse",
-        },
-        y: 60,
-        opacity: 0,
-        scale: 0.95,
-        duration: 0.8,
-        delay: index * 0.15,
-        ease: "power3.out",
-      });
-
-      // Animate icon badge
-      const icon = card.querySelector(".absolute.top-3, .absolute.top-4");
-      if (icon) {
-        gsap.from(icon, {
-          scrollTrigger: {
-            trigger: card,
-            start: "top 85%",
-            toggleActions: "play none none reverse",
-          },
-          scale: 0,
-          rotation: -180,
-          duration: 0.6,
-          delay: index * 0.15 + 0.3,
-          ease: "back.out(1.7)",
-        });
-      }
-    });
-  });
 </script>
