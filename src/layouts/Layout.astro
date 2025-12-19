@@ -9,8 +9,8 @@ const {
 } = Astro.props;
 
 // Get the top active promotion for banner
-const { data: promotions } = await getActivePromotions();
-const topPromo = promotions?.[0];
+// const { data: promotions } = await getActivePromotions();
+// const topPromo = promotions?.[0];
 
 ---
 
@@ -52,13 +52,13 @@ const topPromo = promotions?.[0];
     <title>{title}</title>
   </head>
   <body class="min-h-screen w-full" id="background-mask">
-    {topPromo && (
+    <!-- {topPromo && (
       <PromoBanner
         promotion={topPromo}
         position="top"
         dismissible={true}
       />
-    )}
+    )} -->
 
     <slot />
 
