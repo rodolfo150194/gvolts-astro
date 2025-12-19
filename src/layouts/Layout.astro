@@ -1,10 +1,16 @@
 ---
 import "@/styles/global.css";
+import PromoBanner from "@/components/PromoBanner.astro";
+import { getActivePromotions } from "@/services/promotions";
 
 const {
   title = "GVOLTS | Advanced Protection Systems - Fire Alarm & Surveillance Installation",
   description = "Professional fire alarm and surveillance system installation for residential and commercial properties. ISO certified technology with 24/7 monitoring and absolute peace of mind.",
 } = Astro.props;
+
+// Get the top active promotion for banner
+const { data: promotions } = await getActivePromotions();
+const topPromo = promotions?.[0];
 
 ---
 
@@ -42,10 +48,18 @@ const {
 
     <!-- Theme Color -->
     <meta name="theme-color" content="#DC2626" />
-    <script defer src="http://gvoltscorp-umami-97a250-72-61-69-186.traefik.me/script.js" data-website-id="10e88ae0-220a-4e26-ac9f-fb5535a4ce8c"></script>
+    <script defer src="https://gvoltscorp.cloud/script.js" data-website-id="cd87d95a-c346-480d-8239-e3c860370fc0"></script>
     <title>{title}</title>
   </head>
   <body class="min-h-screen w-full" id="background-mask">
+    {topPromo && (
+      <PromoBanner
+        promotion={topPromo}
+        position="top"
+        dismissible={true}
+      />
+    )}
+
     <slot />
 
     <!-- Global Hash Scroll Handler -->
