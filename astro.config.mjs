@@ -35,7 +35,6 @@ const copyEmailTemplates = () => ({
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://www.gvoltscorp.com',
   output: 'server',
   adapter: node({
     mode: 'standalone'
