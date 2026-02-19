@@ -16,3 +16,9 @@ README.md
 CLAUDE.md
 SEO-IMPROVEMENTS-SUMMARY.md
 content-config-improved.json
+# Promotion feature (in development - not ready for production)
+src/components/PromoBanner.astro
+src/components/PromoCard.astro
+src/components/PromoSection.astro
+src/services/promotions.ts
+src/types/promotion.ts
