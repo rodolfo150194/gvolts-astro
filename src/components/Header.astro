@@ -1,10 +1,10 @@
 ---
-import { Phone, Mail, ChevronDown, Flame, ShieldCheck, Lightbulb, Menu, X } from '@lucide/astro';
+import { Phone, Mail, ChevronDown, Flame, ShieldCheck, Lightbulb, Menu, X, Search } from '@lucide/astro';
 import { socials } from "@/data/socials";
 ---
 
 <header
-  class=" z-50 transition-all duration-300 w-full max-w-full"
+  class="fixed top-0 left-0 z-50 bg-white transition-all duration-300 w-full max-w-full"
   id="main-header"
 >
   <!-- Top Bar: Dark Slate for high contrast -->
@@ -147,6 +147,14 @@ import { socials } from "@/data/socials";
             class="nav-link header-nav-item text-gray-800 font-medium hover:text-indian-red-500 transition-colors relative py-2"
             >Proyectos</a
           > -->
+          <!-- Search Button -->
+          <button
+            id="search-btn-desktop"
+            class="text-gray-600 hover:text-indian-red-500 transition-colors cursor-pointer p-2"
+            aria-label="Buscar"
+          >
+            <Search size={20} />
+          </button>
           <a
             href="/contact"
             class="header-cta bg-indian-red-500 cursor-pointer text-white px-6 py-2.5 rounded-lg font-bold hover:bg-indian-red-600 transition-[background-color,transform,box-shadow] duration-300 shadow-lg shadow-indian-red-500/30 hover:-translate-y-0.5 active:translate-y-0"
@@ -155,15 +163,24 @@ import { socials } from "@/data/socials";
           </a>
         </nav>
 
-        <!-- Mobile Menu Button -->
-        <button
-          id="mobile-menu-btn"
-          class="md:hidden text-gray-800 hover:text-indian-red-500 focus:outline-none p-2"
-          aria-label="Toggle menu"
-        >
-          <Menu size={24} class="menu-icon" />
-          <X size={24} class="close-icon hidden" />
-        </button>
+        <!-- Mobile Search + Menu Buttons -->
+        <div class="flex items-center gap-1 md:hidden">
+          <button
+            id="search-btn-mobile"
+            class="text-gray-800 hover:text-indian-red-500 focus:outline-none p-2 cursor-pointer"
+            aria-label="Buscar"
+          >
+            <Search size={22} />
+          </button>
+          <button
+            id="mobile-menu-btn"
+            class="text-gray-800 hover:text-indian-red-500 focus:outline-none p-2"
+            aria-label="Toggle menu"
+          >
+            <Menu size={24} class="menu-icon" />
+            <X size={24} class="close-icon hidden" />
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -234,6 +251,36 @@ import { socials } from "@/data/socials";
   </div>
 </header>
 
+<!-- Search Modal -->
+<div id="search-modal" class="fixed inset-0 z-100 hidden">
+  <!-- Backdrop -->
+  <div id="search-backdrop" class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+  <!-- Modal Content -->
+  <div class="relative flex items-start justify-center pt-24 px-4">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-xl overflow-hidden">
+      <!-- Search Input -->
+      <div class="flex items-center gap-3 px-5 py-4 border-b border-gray-100">
+        <Search size={20} class="text-gray-400 shrink-0" />
+        <input
+          id="search-input"
+          type="text"
+          placeholder="Buscar en el sitio..."
+          class="w-full text-lg outline-none text-gray-800 placeholder:text-gray-400"
+          autocomplete="off"
+        />
+        <kbd class="hidden sm:inline-block text-xs text-gray-400 border border-gray-200 rounded px-1.5 py-0.5">ESC</kbd>
+      </div>
+      <!-- Results -->
+      <div id="search-results" class="max-h-80 overflow-y-auto p-2">
+        <p class="text-sm text-gray-400 text-center py-6">Escribe para buscar...</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Spacer to compensate for fixed header height -->
+<div id="header-spacer" class="w-full"></div>
+
 <style>
   /* Ensure header doesn't overflow on mobile */
   #main-header {
@@ -277,6 +324,26 @@ import { socials } from "@/data/socials";
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
+    // Fixed header: set spacer height to match header
+    const header = document.getElementById("main-header");
+    const spacer = document.getElementById("header-spacer");
+    function updateSpacer() {
+      if (header && spacer) {
+        spacer.style.height = header.offsetHeight + "px";
+      }
+    }
+    updateSpacer();
+    window.addEventListener("resize", updateSpacer);
+
+    // Shadow on scroll
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 10) {
+        header?.classList.add("shadow-lg");
+      } else {
+        header?.classList.remove("shadow-lg");
+      }
+    });
+
     // Mobile Menu Toggle
     const menuBtn = document.getElementById("mobile-menu-btn");
     const mobileMenu = document.getElementById("mobile-menu");
@@ -317,4 +384,87 @@ import { socials } from "@/data/socials";
       });
     });
   });
+
+  // ── Site Search ──
+  const searchIndex = [
+    { title: "Inicio", description: "Página principal de GVoltscorp. Sistemas de seguridad, alarmas contra incendios, videovigilancia y servicios eléctricos profesionales.", url: "/", keywords: "inicio home principal gvolts seguridad protección" },
+    { title: "Nosotros", description: "Conoce nuestro equipo, experiencia y compromiso. Más de 10 años protegiendo hogares y negocios con certificaciones UL y NFPA.", url: "/about", keywords: "nosotros about equipo experiencia certificaciones historia empresa" },
+    { title: "Contacto", description: "Solicita una evaluación gratuita y cotización sin compromiso. Respuesta en 24 horas. Servicio de emergencia 24/7.", url: "/contact", keywords: "contacto cotización evaluación teléfono email emergencia" },
+    { title: "Alarmas de Incendio", description: "Sistemas de detección y alarmas contra incendios certificados NFPA. Detectores de humo, paneles de control, monitoreo 24/7.", url: "/services/fire-alarm", keywords: "alarma incendio fuego detector humo panel NFPA fire sprinkler protección contra incendios" },
+    { title: "Seguridad Electrónica", description: "Cámaras CCTV, control de acceso, videovigilancia inteligente. Monitoreo remoto en tiempo real para hogares y negocios.", url: "/services/security", keywords: "seguridad cámaras CCTV vigilancia control acceso monitoreo video surveillance" },
+    { title: "Electricidad", description: "Instalaciones eléctricas residenciales y comerciales. Mantenimiento, reparaciones y diseño de sistemas eléctricos certificados.", url: "/services/electricity", keywords: "electricidad eléctrico instalación cableado panel tablero mantenimiento reparación circuito" },
+  ];
+
+  const modal = document.getElementById("search-modal");
+  const backdrop = document.getElementById("search-backdrop");
+  const searchInput = document.getElementById("search-input") as HTMLInputElement;
+  const resultsContainer = document.getElementById("search-results");
+
+  function openSearch() {
+    modal?.classList.remove("hidden");
+    document.body.style.overflow = "hidden";
+    setTimeout(() => searchInput?.focus(), 50);
+  }
+
+  function closeSearch() {
+    modal?.classList.add("hidden");
+    document.body.style.overflow = "";
+    if (searchInput) searchInput.value = "";
+    if (resultsContainer) resultsContainer.innerHTML = '<p class="text-sm text-gray-400 text-center py-6">Escribe para buscar...</p>';
+  }
+
+  // Open search from buttons
+  document.getElementById("search-btn-desktop")?.addEventListener("click", openSearch);
+  document.getElementById("search-btn-mobile")?.addEventListener("click", openSearch);
+
+  // Close on backdrop click or ESC
+  backdrop?.addEventListener("click", closeSearch);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !modal?.classList.contains("hidden")) closeSearch();
+    // Ctrl+K / Cmd+K shortcut
+    if ((e.ctrlKey || e.metaKey) && e.key === "k") {
+      e.preventDefault();
+      modal?.classList.contains("hidden") ? openSearch() : closeSearch();
+    }
+  });
+
+  // Search logic
+  searchInput?.addEventListener("input", () => {
+    const query = searchInput.value.trim().toLowerCase();
+    if (!resultsContainer) return;
+
+    if (!query) {
+      resultsContainer.innerHTML = '<p class="text-sm text-gray-400 text-center py-6">Escribe para buscar...</p>';
+      return;
+    }
+
+    const terms = query.split(/\s+/);
+    const results = searchIndex.filter((page) => {
+      const haystack = `${page.title} ${page.description} ${page.keywords}`.toLowerCase();
+      return terms.every((term) => haystack.includes(term));
+    });
+
+    if (results.length === 0) {
+      resultsContainer.innerHTML = '<p class="text-sm text-gray-500 text-center py-6">No se encontraron resultados</p>';
+      return;
+    }
+
+    resultsContainer.innerHTML = results
+      .map(
+        (r) => `<a href="${r.url}" class="flex flex-col gap-1 px-4 py-3 rounded-xl hover:bg-slate-50 transition-colors group">
+          <span class="font-semibold text-gray-800 group-hover:text-indian-red-500 transition-colors">${highlight(r.title, terms)}</span>
+          <span class="text-sm text-gray-500 line-clamp-2">${highlight(r.description, terms)}</span>
+        </a>`
+      )
+      .join("");
+  });
+
+  function highlight(text: string, terms: string[]) {
+    let result = text;
+    for (const term of terms) {
+      const regex = new RegExp(`(${term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`, "gi");
+      result = result.replace(regex, '<mark class="bg-indian-red-100 text-indian-red-700 rounded px-0.5">$1</mark>');
+    }
+    return result;
+  }
 </script>

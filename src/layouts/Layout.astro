@@ -1,16 +1,13 @@
 ---
 import "@/styles/global.css";
-import PromoBanner from "@/components/PromoBanner.astro";
-import { getActivePromotions } from "@/services/promotions";
 
 const {
   title = "GVOLTS | Advanced Protection Systems - Fire Alarm & Surveillance Installation",
   description = "Professional fire alarm and surveillance system installation for residential and commercial properties. ISO certified technology with 24/7 monitoring and absolute peace of mind.",
 } = Astro.props;
 
-// Get the top active promotion for banner
-// const { data: promotions } = await getActivePromotions();
-// const topPromo = promotions?.[0];
+const chatwootUrl = import.meta.env.PUBLIC_CHATWOOT_URL;
+const chatwootToken = import.meta.env.PUBLIC_CHATWOOT_TOKEN;
 
 ---
 
@@ -49,17 +46,27 @@ const {
     <!-- Theme Color -->
     <meta name="theme-color" content="#DC2626" />
     <script defer src="https://analytics.gvoltscorp.cloud/script.js" data-website-id="5bd6008f-052c-466f-86e1-016f32ff1ee8"></script>
+
+    <!-- Chatwoot Live Chat Widget -->
+    <script is:inline define:vars={{ chatwootUrl, chatwootToken }}>
+      (function(d,t) {
+        var BASE_URL = chatwootUrl;
+        var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+        g.src=BASE_URL+"/packs/js/sdk.js";
+        g.defer = true;
+        g.async = true;
+        s.parentNode.insertBefore(g,s);
+        g.onload=function(){
+          window.chatwootSDK.run({
+            websiteToken: chatwootToken,
+            baseUrl: BASE_URL
+          })
+        }
+      })(document,"script");
+    </script>
     <title>{title}</title>
   </head>
   <body class="min-h-screen w-full" id="background-mask">
-    <!-- {topPromo && (
-      <PromoBanner
-        promotion={topPromo}
-        position="top"
-        dismissible={true}
-      />
-    )} -->
-
     <slot />
 
     <!-- Global Hash Scroll Handler -->

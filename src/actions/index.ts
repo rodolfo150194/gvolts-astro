@@ -2,6 +2,11 @@ import { defineAction } from "astro:actions";
 import { z } from "astro:schema";
 import { saveSubcribe } from "@/services/subcribe";
 import { saveContact } from "@/services/contact";
+import {
+    getActivePromotions,
+    validatePromoCode,
+    getPromotionsForService
+} from "@/services/promotions";
 
 export const server = {
     newsletter: defineAction({
@@ -47,6 +52,55 @@ export const server = {
             }
 
             return { success: true, message };
+        }
+    }),
+
+    getActivePromotions: defineAction({
+        input: z.object({
+            service: z.enum(["fire-alarm", "security", "electricity"]).optional(),
+        }).optional(),
+        handler: async (input) => {
+            const { success, data, error } = await getActivePromotions(input);
+
+            if (!success || !data) {
+                throw new Error(error ?? "Error al obtener promociones");
+            }
+
+            return { success: true, promotions: data };
+        }
+    }),
+
+    validatePromoCode: defineAction({
+        input: z.object({
+            promoCode: z.string().min(1, { message: "El código de promoción es requerido" }),
+            service: z.enum(["fire-alarm", "security", "electricity"]).optional(),
+        }),
+        handler: async ({ promoCode, service }) => {
+            const result = await validatePromoCode(promoCode, service);
+
+            if (!result.valid) {
+                throw new Error(result.error ?? "Código de promoción inválido");
+            }
+
+            return {
+                valid: true,
+                promotion: result.promotion!,
+            };
+        }
+    }),
+
+    getPromotionsForService: defineAction({
+        input: z.object({
+            service: z.enum(["fire-alarm", "security", "electricity"]),
+        }),
+        handler: async ({ service }) => {
+            const { success, data, error } = await getPromotionsForService(service);
+
+            if (!success || !data) {
+                throw new Error(error ?? "Error al obtener promociones");
+            }
+
+            return { success: true, promotions: data };
         }
     })
 }
