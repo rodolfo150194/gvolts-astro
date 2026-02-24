@@ -1,0 +1,135 @@
+---
+import { X, Tag } from "@lucide/astro";
+import type { Promotion } from "@/types/promotion";
+import { formatDiscount } from "@/services/promotions";
+
+interface Props {
+  promotion: Promotion;
+  position?: "top" | "bottom";
+  dismissible?: boolean;
+}
+
+const { promotion, position = "top", dismissible = true } = Astro.props;
+const discount = formatDiscount(promotion);
+const positionClasses = position === "top" ? "top-0" : "bottom-0";
+---
+
+<div
+  id="promo-banner"
+  class={`fixed ${positionClasses} left-0 right-0 z-50 bg-gradient-to-r from-indian-red-600 to-indian-red-700 text-white shadow-lg transform transition-transform duration-300`}
+  data-promo-id={promotion.id}
+>
+  <div class="container mx-auto px-4 py-3">
+    <div class="flex items-center justify-between gap-4">
+      <!-- Promo Content -->
+      <div class="flex items-center gap-3 flex-1">
+        <div class="hidden md:flex items-center justify-center w-10 h-10 bg-white/20 rounded-full">
+          <Tag size={20} />
+        </div>
+
+        <div class="flex-1">
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="font-bold text-lg md:text-xl">
+              {promotion.title}
+            </span>
+            <span class="hidden sm:inline text-white/90">-</span>
+            <span class="text-sm md:text-base text-white/90">
+              {promotion.description}
+            </span>
+          </div>
+
+          {promotion.promo_code && (
+            <div class="mt-1 flex items-center gap-2">
+              <span class="text-xs text-white/80">Código:</span>
+              <span class="font-mono font-bold text-sm bg-white/20 px-2 py-1 rounded">
+                {promotion.promo_code}
+              </span>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <!-- Discount Badge -->
+      <div class="flex items-center gap-3">
+        <div class="bg-white text-indian-red-700 px-4 py-2 rounded-full font-bold text-xl shadow-md whitespace-nowrap">
+          {discount} OFF
+        </div>
+
+        <!-- Dismiss Button -->
+        {dismissible && (
+          <button
+            id="dismiss-banner"
+            class="p-2 hover:bg-white/20 rounded-full transition-colors"
+            aria-label="Cerrar banner"
+          >
+            <X size={20} />
+          </button>
+        )}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const banner = document.getElementById('promo-banner');
+  const dismissBtn = document.getElementById('dismiss-banner');
+
+  if (banner && dismissBtn) {
+    const promoId = banner.getAttribute('data-promo-id');
+    const storageKey = `promo-banner-dismissed-${promoId}`;
+
+    // Check if banner was previously dismissed
+    const isDismissed = localStorage.getItem(storageKey);
+    if (isDismissed) {
+      banner.style.transform = 'translateY(-100%)';
+      banner.style.display = 'none';
+    }
+
+    // Handle dismiss button click
+    dismissBtn.addEventListener('click', () => {
+      banner.style.transform = 'translateY(-100%)';
+      setTimeout(() => {
+        banner.style.display = 'none';
+      }, 300);
+
+      // Save dismissal to localStorage
+      if (promoId) {
+        localStorage.setItem(storageKey, 'true');
+      }
+    });
+  }
+
+  // Add padding to body to prevent content from being hidden behind banner
+  function adjustBodyPadding() {
+    const banner = document.getElementById('promo-banner');
+    if (banner && banner.style.display !== 'none') {
+      const bannerHeight = banner.offsetHeight;
+      const position = banner.classList.contains('top-0') ? 'top' : 'bottom';
+
+      if (position === 'top') {
+        document.body.style.paddingTop = `${bannerHeight}px`;
+      } else {
+        document.body.style.paddingBottom = `${bannerHeight}px`;
+      }
+    }
+  }
+
+  // Adjust padding on load and resize
+  window.addEventListener('load', adjustBodyPadding);
+  window.addEventListener('resize', adjustBodyPadding);
+</script>
+
+<style>
+  #promo-banner {
+    animation: slideDown 0.5s ease-out;
+  }
+
+  @keyframes slideDown {
+    from {
+      transform: translateY(-100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+</style>

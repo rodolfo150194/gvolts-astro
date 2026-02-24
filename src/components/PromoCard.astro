@@ -1,0 +1,123 @@
+---
+import { Tag, Clock, Percent, DollarSign } from "@lucide/astro";
+import type { Promotion } from "@/types/promotion";
+import { formatDiscount, getDaysRemaining, getUsesRemaining } from "@/services/promotions";
+
+interface Props {
+  promotion: Promotion;
+  showDetails?: boolean;
+  className?: string;
+}
+
+const { promotion, showDetails = true, className = "" } = Astro.props;
+
+const discount = formatDiscount(promotion);
+const daysRemaining = getDaysRemaining(promotion.end_date);
+const usesRemaining = getUsesRemaining(promotion);
+
+// Generate service badges
+const serviceLabels = {
+  "fire-alarm": "Alarmas Contra Incendio",
+  "security": "Seguridad y Vigilancia",
+  "electricity": "Eléctrico"
+};
+---
+
+<div class={`bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 ${className}`}>
+  <!-- Image Section -->
+  {promotion.banner_image && (
+    <div class="relative h-48 overflow-hidden">
+      <img
+        src={promotion.banner_image}
+        alt={promotion.title}
+        class="w-full h-full object-cover"
+        loading="lazy"
+      />
+      <div class="absolute top-4 right-4 bg-indian-red-600 text-white px-4 py-2 rounded-full font-bold text-lg shadow-lg">
+        {promotion.discount_type === "percentage" ? (
+          <span class="flex items-center gap-1">
+            <Percent size={20} />
+            {discount}
+          </span>
+        ) : (
+          <span class="flex items-center gap-1">
+            <DollarSign size={20} />
+            {discount}
+          </span>
+        )}
+      </div>
+    </div>
+  )}
+
+  <!-- Content Section -->
+  <div class="p-6">
+    <h3 class="text-2xl font-bold text-gray-900 mb-3">
+      {promotion.title}
+    </h3>
+
+    <p class="text-gray-600 mb-4 line-clamp-2">
+      {promotion.description}
+    </p>
+
+    <!-- Service Tags -->
+    {promotion.applicable_services.length > 0 && (
+      <div class="flex flex-wrap gap-2 mb-4">
+        {promotion.applicable_services.map(service => (
+          <span class="inline-flex items-center gap-1 px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full">
+            <Tag size={14} />
+            {serviceLabels[service]}
+          </span>
+        ))}
+      </div>
+    )}
+
+    <!-- Promo Code -->
+    {promotion.promo_code && (
+      <div class="mb-4 p-3 bg-gradient-to-r from-indian-red-50 to-indian-red-100 rounded-lg border-2 border-dashed border-indian-red-300">
+        <p class="text-xs text-gray-600 mb-1">Código de promoción:</p>
+        <p class="text-xl font-mono font-bold text-indian-red-700 tracking-wider">
+          {promotion.promo_code}
+        </p>
+      </div>
+    )}
+
+    <!-- Info Footer -->
+    <div class="flex items-center justify-between text-sm text-gray-500 pt-4 border-t border-gray-200">
+      <div class="flex items-center gap-1">
+        <Clock size={16} />
+        <span>
+          {daysRemaining > 0
+            ? `${daysRemaining} día${daysRemaining !== 1 ? "s" : ""} restante${daysRemaining !== 1 ? "s" : ""}`
+            : "Expira hoy"}
+        </span>
+      </div>
+
+      {usesRemaining !== null && (
+        <div class="text-indian-red-600 font-semibold">
+          {usesRemaining} usos disponibles
+        </div>
+      )}
+    </div>
+
+    <!-- Terms Link -->
+    {showDetails && promotion.terms && (
+      <button
+        class="mt-4 text-sm text-indian-red-600 hover:text-indian-red-700 underline"
+        data-promo-terms={promotion.id}
+      >
+        Ver términos y condiciones
+      </button>
+    )}
+  </div>
+</div>
+
+{showDetails && promotion.terms && (
+  <script define:vars={{ promoId: promotion.id, terms: promotion.terms }}>
+    const button = document.querySelector(`[data-promo-terms="${promoId}"]`);
+    if (button) {
+      button.addEventListener('click', () => {
+        alert(terms); // In production, use a modal component
+      });
+    }
+  </script>
+)}

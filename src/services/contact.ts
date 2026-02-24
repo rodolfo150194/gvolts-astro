@@ -1,4 +1,4 @@
-import { supabase } from "@/supabase";
+import { pool } from "@/db";
 import { sendContactNotification } from "@/services/mailer";
 
 interface ContactData {
@@ -15,30 +15,23 @@ interface ContactData {
 
 export const saveContact = async (data: ContactData) => {
     try {
-        // Guardar en Supabase
-        const { error } = await supabase.from("contacts").insert({
-            name: data.name,
-            email: data.email,
-            phone: data.phone,
-            service: data.service,
-            zip: data.zip,
-            company: data.company || null,
-            address: data.address || null,
-            subject: data.subject,
-            message: data.message,
-        });
-
-        if (error) {
-            console.error("Error al guardar contacto:", error);
-            return {
-                success: false,
-                error: "Error al enviar el mensaje",
-                message: "Hubo un error al enviar tu mensaje. Por favor, intenta nuevamente."
-            };
-        }
+        await pool.query(
+            `INSERT INTO contacts (name, email, phone, service, zip, company, address, subject, message)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+            [
+                data.name,
+                data.email,
+                data.phone,
+                data.service,
+                data.zip,
+                data.company ?? null,
+                data.address ?? null,
+                data.subject,
+                data.message,
+            ]
+        );
 
         // Enviar notificación por email en segundo plano
-        // No bloqueamos la respuesta si falla el envío del email
         sendContactNotification(data).catch((err) => {
             console.error("Error al enviar notificación de contacto (no crítico):", err);
         });
@@ -49,11 +42,11 @@ export const saveContact = async (data: ContactData) => {
             message: "¡Mensaje enviado exitosamente! Nos pondremos en contacto contigo pronto."
         };
     } catch (error) {
-        console.error("Error inesperado al guardar contacto:", error);
+        console.error("Error al guardar contacto:", error);
         return {
             success: false,
-            error: "Error inesperado",
-            message: "Ocurrió un error inesperado. Por favor, intenta nuevamente."
+            error: "Error al enviar el mensaje",
+            message: "Hubo un error al enviar tu mensaje. Por favor, intenta nuevamente."
         };
     }
 }

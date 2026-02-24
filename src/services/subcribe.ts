@@ -1,13 +1,16 @@
-import { supabase } from "@/supabase";
+import { pool } from "@/db";
 import { sendWelcomeEmail } from "@/services/mailer";
 
-const ERROR_CODE_ALREADY_EXISTS = "23505";
+const MYSQL_ER_DUP_ENTRY = 1062;
 
 export const saveSubcribe = async (email: string) => {
-    const { error } = await supabase.from("subscriber").insert({ email });
-
-    if (error) {
-        if (error?.code === ERROR_CODE_ALREADY_EXISTS) {
+    try {
+        await pool.query(
+            'INSERT INTO subscriber (email) VALUES (?)',
+            [email]
+        );
+    } catch (error: any) {
+        if (error?.errno === MYSQL_ER_DUP_ENTRY) {
             return {
                 success: false,
                 error: "Correo electrónico ya registrado",
@@ -23,13 +26,9 @@ export const saveSubcribe = async (email: string) => {
     }
 
     // Enviar email de bienvenida en segundo plano
-    // No bloqueamos la respuesta si falla el envío del email
     sendWelcomeEmail({ to: 'rodolfogarciamaeso@gmail.com' }).catch((err) => {
         console.error("Error al enviar email de bienvenida:", err);
     });
-    // sendWelcomeEmail({ to: email }).catch((err) => {
-    //     console.error("Error al enviar email de bienvenida (no crítico):", err);
-    // });
 
     return {
         success: true,
