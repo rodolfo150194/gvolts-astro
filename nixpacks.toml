@@ -6,9 +6,8 @@ nixPkgs = ["nodejs_22"]
 
 [phases.install]
 cmds = [
-  "corepack enable pnpm",
-  "pnpm config set store-dir /pnpm-store",
-  "pnpm install --frozen-lockfile"
+  "corepack enable",
+  "pnpm install --frozen-lockfile --store-dir /pnpm-store"
 ]
 cacheDirectories = ["/pnpm-store"]
 
@@ -21,4 +20,5 @@ cmd = "node ./dist/server/entry.mjs"
 [variables]
 NODE_ENV = "production"
 HOST = "0.0.0.0"
+PNPM_HOME = "/pnpm-home"
 PORT = "3000"
