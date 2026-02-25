@@ -2,10 +2,15 @@
 # For deployment on Hostinger with Dokploy
 
 [phases.setup]
-nixPkgs = ["nodejs_20", "pnpm"]
+nixPkgs = ["nodejs_22"]
 
 [phases.install]
-cmds = ["pnpm install --frozen-lockfile"]
+cmds = [
+  "corepack enable pnpm",
+  "pnpm config set store-dir /pnpm-store",
+  "pnpm install --frozen-lockfile"
+]
+cacheDirectories = ["/pnpm-store"]
 
 [phases.build]
 cmds = ["pnpm run build"]
