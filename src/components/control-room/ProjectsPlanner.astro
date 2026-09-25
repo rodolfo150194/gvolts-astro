@@ -3,6 +3,8 @@
 // Mirrors the ProjectsPlanner.dc.html design-canvas artboard, but starts
 // collapsed behind a gate: the user must press "Activar simulador" before
 // any of this mounts or becomes visible.
+import { Image } from "astro:assets";
+import { avatars } from "@/data/avatar";
 ---
 
 <section class="pt-[clamp(56px,8vw,96px)] pb-[clamp(56px,8vw,96px)] border-t border-[color:var(--cr-line)]" data-pp>
@@ -18,6 +20,7 @@
           presupuesto armarse en vivo, con las mismas tarifas que usamos para cotizar.
         </p>
       </div>
+      <Image src={avatars.blueprint.src} alt={avatars.blueprint.alt} widths={[220, 330, 440]} sizes="220px" class="pp-tech" loading="lazy" />
       <button type="button" class="cr-btn shrink-0" data-pp-activate>
         Activar simulador <span aria-hidden="true">▶</span>
       </button>
@@ -172,6 +175,9 @@
 </section>
 
 <style>
+  /* Técnico con planos, apoyado en el borde inferior de la tarjeta */
+  .pp-tech { width: 220px; height: auto; align-self: flex-end; margin-bottom: calc(-1 * clamp(28px, 4vw, 44px)); margin-top: -48px; }
+  @media (max-width: 639px) { .pp-tech { width: 180px; align-self: center; margin-top: 0; } }
   /* These two keyframe animations have no Tailwind utility equivalent —
      Tailwind cannot express @keyframes as a class. Applied via the
      animate-[pp-scan_...] / animate-[pp-pulse_...] arbitrary utilities above

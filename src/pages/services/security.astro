@@ -1,8 +1,10 @@
 ---
+import { Image } from "astro:assets";
 import Layout from "@/layouts/Layout.astro";
 import Nav from "@/components/control-room/Nav.astro";
 import CameraViewer from "@/components/control-room/CameraViewer.astro";
 import Finale from "@/components/control-room/Finale.astro";
+import { avatars } from "@/data/avatar";
 import ServiceCircuit from "@/components/control-room/ServiceCircuit.astro";
 import logoSecurity from "@/assets/img/logo/G_VOLTS_huella_completo.webp";
 import "@/styles/control-room.css";
@@ -204,10 +206,13 @@ const advantages = [
       <!-- SOLUTIONS -->
       <section id="soluciones" class="py-[clamp(72px,10vw,140px)] bg-[var(--cr-ink-2)]">
         <div class="cr-wrap">
-          <header class="mb-[clamp(48px,6vw,64px)] flex flex-col items-start min-[761px]:block">
+          <header class="mb-[clamp(48px,6vw,64px)] flex flex-col items-start gap-8 min-[761px]:flex-row min-[761px]:justify-between min-[761px]:items-end">
             <div>
               <p class="cr-label" data-reveal>02 — Soluciones</p>
               <h2 class="mt-[18px] text-[length:clamp(46px,6.4vw,100px)]" data-reveal style="--d:80ms">Seguridad <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">a medida.</span></h2>
+            </div>
+            <div class="w-[clamp(220px,26vw,360px)] shrink-0 max-[760px]:self-end" data-reveal style="--d:160ms">
+              <Image src={avatars.securityAccess.src} alt={avatars.securityAccess.alt} widths={[240, 360, 520]} sizes="(min-width: 761px) 26vw, 220px" class="w-full h-auto [filter:drop-shadow(0_24px_40px_rgba(0,0,0,0.5))]" loading="lazy" />
             </div>
           </header>
 

@@ -1,8 +1,10 @@
 ---
+import { Image } from "astro:assets";
 import Layout from "@/layouts/Layout.astro";
 import Nav from "@/components/control-room/Nav.astro";
 import FireSimulator from "@/components/control-room/FireSimulator.astro";
 import Finale from "@/components/control-room/Finale.astro";
+import { avatars } from "@/data/avatar";
 import ServiceCircuit from "@/components/control-room/ServiceCircuit.astro";
 import logoFireAlarm from "@/assets/img/logo/G_VOLTS_llama_completo.webp";
 import "@/styles/control-room.css";
@@ -268,9 +270,12 @@ const benefits = [
       <!-- PROCESS -->
       <section class="py-[clamp(96px,12vw,180px)]">
         <div class="cr-wrap grid grid-cols-[minmax(0,0.45fr)_minmax(0,1fr)] gap-[clamp(48px,6vw,96px)] max-[960px]:grid-cols-1">
-          <div>
+          <div class="min-[961px]:sticky min-[961px]:top-[110px] self-start">
             <p class="cr-label" data-reveal>03 — Implementación</p>
             <h2 class="mt-[18px] text-[clamp(44px,6vw,96px)]" data-reveal style="--d:80ms">De la evaluación <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">a la protección total.</span></h2>
+            <div class="mt-12 max-w-[340px] max-[960px]:max-w-[240px]" data-reveal style="--d:160ms">
+              <Image src={avatars.fireInstall.src} alt={avatars.fireInstall.alt} widths={[240, 340, 520]} sizes="(min-width: 961px) 340px, 240px" class="w-full h-auto [filter:drop-shadow(0_24px_40px_rgba(0,0,0,0.5))]" loading="lazy" />
+            </div>
           </div>
           <ol class="m-0 p-0 list-none relative before:content-[''] before:absolute before:left-[11px] before:top-[12px] before:bottom-[12px] before:w-[2px] before:bg-[var(--cr-line-strong)]">
             {

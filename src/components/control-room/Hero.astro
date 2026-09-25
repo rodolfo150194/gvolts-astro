@@ -1,5 +1,7 @@
 ---
+import { Image } from "astro:assets";
 import { CLIENTS, DISCIPLINES } from "@/data/company";
+import { avatars } from "@/data/avatar";
 
 const stats = [
   { value: CLIENTS, suffix: "", label: "Clientes activos" },
@@ -102,6 +104,7 @@ const zones = [
       </div>
 
       <div class="panel absolute left-0 bottom-[2.6%] w-[54%] bg-[color-mix(in_srgb,var(--cr-ink-3)_94%,transparent)] backdrop-blur-[10px] border border-[var(--cr-line-strong)] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.8)] animate-[twin-drift_9s_ease-in-out_infinite] [animation-delay:-3s]">
+        <Image src={avatars.lean.src} alt={avatars.lean.alt} widths={[240, 360, 520]} sizes="(min-width: 960px) 280px, 50vw" class="panel__tech" loading="eager" />
         <div class="panel__head flex justify-between py-[10px] px-[14px] border-b border-[var(--cr-line)]">
           <span class="cr-label">Panel de zonas</span>
           <span class="cr-label panel__armed text-[var(--cr-ok)]">Armado</span>
@@ -126,6 +129,12 @@ const zones = [
 </section>
 
 <style>
+  /* El técnico se apoya sobre el borde superior del panel de zonas */
+  .panel__tech {
+    position: absolute; left: 21%; bottom: 100%; width: 68%; height: auto; z-index: 2;
+    transform: translateY(17%); pointer-events: none;
+    filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.55));
+  }
   @keyframes hero-scan {
     from { top: -4%; }
     to { top: 104%; }
