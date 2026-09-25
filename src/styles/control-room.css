@@ -214,3 +214,15 @@
     transform: none;
   }
 }
+
+/* Deja sitio a la barra fija de acciones en móvil (Nav.astro) */
+@media (max-width: 860px) {
+  .cr {
+    padding-bottom: calc(56px + env(safe-area-inset-bottom));
+  }
+
+  .cr [data-cr-top] {
+    bottom: calc(72px + env(safe-area-inset-bottom));
+    right: 16px;
+  }
+}

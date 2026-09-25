@@ -1,12 +1,13 @@
 ---
 import { Image } from "astro:assets";
-import { CLIENTS, DISCIPLINES } from "@/data/company";
+import { CONTACT } from "@/data/company";
 import { avatars } from "@/data/avatar";
 
-const stats = [
-  { value: CLIENTS, suffix: "", label: "Clientes activos" },
-  { value: 24, suffix: "/7", label: "Monitoreo continuo" },
-  { value: DISCIPLINES, suffix: "", label: "Servicios, un solo equipo" },
+// Accesos directos: quien llega sabe qué necesita, que no tenga que buscarlo
+const needs = [
+  { label: "Alarma de incendio", hint: "Instalar, inspeccionar o certificar", href: "/services/fire-alarm", accent: "var(--cr-signal)" },
+  { label: "Cámaras y acceso", hint: "Videovigilancia y control de acceso", href: "/services/security", accent: "var(--cr-ok)" },
+  { label: "Electricista", hint: "Paneles, cargadores y reparaciones", href: "/services/electricity", accent: "var(--cr-amber)" },
 ];
 
 const zones = [
@@ -38,23 +39,32 @@ const zones = [
       </p>
 
       <div class="hero__actions flex flex-wrap gap-[14px] mt-9 max-[640px]:flex-col max-[640px]:items-stretch" data-reveal style="--d:420ms">
-        <a href="/contact" class="cr-btn max-[640px]:justify-center">Consulta gratuita <span aria-hidden="true">→</span></a>
-        <a href="#servicios" class="cr-btn cr-btn--ghost max-[640px]:justify-center">Ver servicios</a>
+        <a href="/contact" class="cr-btn max-[640px]:justify-center">Cotización gratuita <span aria-hidden="true">→</span></a>
+        <a href={CONTACT.phoneHref} class="cr-btn cr-btn--ghost max-[640px]:justify-center">Llamar {CONTACT.phone}</a>
       </div>
 
-      <dl class="stats grid grid-cols-3 mt-14 border-t border-[var(--cr-line-strong)] max-[640px]:grid-cols-2 max-[640px]:gap-y-5" data-reveal style="--d:500ms">
-        {
-          stats.map((s) => (
-            <div class="stat pt-[18px] pr-4 [&+&]:pl-4 [&+&]:border-l [&+&]:border-[var(--cr-line)] max-[640px]:[&:nth-child(3)]:col-span-full max-[640px]:[&:nth-child(3)]:pl-0 max-[640px]:[&:nth-child(3)]:border-l-0 max-[640px]:[&:nth-child(3)]:border-t max-[640px]:[&:nth-child(3)]:border-[var(--cr-line)] max-[640px]:[&:nth-child(3)]:pt-[18px]">
-              <dt class="cr-label text-[10.5px]">{s.label}</dt>
-              <dd class="mt-1.5 font-[var(--cr-display)] font-extrabold text-[clamp(40px,4.6vw,64px)] leading-none [font-variant-numeric:tabular-nums]">
-                <span data-count={s.value}>{s.value}</span>
-                <span class="stat__suffix text-[var(--cr-signal)]">{s.suffix}</span>
-              </dd>
-            </div>
-          ))
-        }
-      </dl>
+      <nav class="mt-12 border-t border-[var(--cr-line-strong)] pt-5" aria-label="¿Qué necesitas?" data-reveal style="--d:500ms">
+        <p class="cr-label mb-3">¿Qué necesitas?</p>
+        <ul class="list-none m-0 p-0 grid grid-cols-3 gap-3 max-[640px]:grid-cols-1">
+          {
+            needs.map((n) => (
+              <li>
+                <a
+                  href={n.href}
+                  class="group flex h-full flex-col gap-1 p-4 bg-[var(--cr-ink-2)] border border-[var(--cr-line)] border-t-[3px] text-[var(--cr-bone)] transition-colors duration-300 hover:border-[var(--cr-bone-dim)]"
+                  style={`border-top-color:${n.accent}`}
+                >
+                  <span class="flex items-center justify-between gap-2 font-[var(--cr-display)] font-extrabold uppercase text-[20px] leading-[1.05]">
+                    {n.label}
+                    <span class="transition-transform duration-300 group-hover:translate-x-1" style={`color:${n.accent}`} aria-hidden="true">→</span>
+                  </span>
+                  <span class="text-[13px] leading-[1.4] text-[var(--cr-bone-dim)]">{n.hint}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
     </div>
 
     <!-- 3D digital twin -->

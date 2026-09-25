@@ -1,0 +1,72 @@
+---
+/**
+ * Preguntas frecuentes: resuelve las dudas que frenan una llamada.
+ * Las respuestas solo repiten compromisos que la web ya publica
+ * (visita sin costo, presupuesto en 24 h, garantía, central 24/7).
+ */
+import { CONTACT } from "@/data/company";
+
+const faqs = [
+  {
+    q: "¿Cuánto cuesta la visita y el presupuesto?",
+    a: "Nada. Visitamos el inmueble sin costo y te entregamos un diagnóstico y un presupuesto cerrado en 24 horas.",
+  },
+  {
+    q: "¿Trabajan con hogares o solo con empresas?",
+    a: "Con los dos. Instalamos en casas, locales, restaurantes, oficinas y bodegas.",
+  },
+  {
+    q: "¿Trabajan en mi zona?",
+    a: "Indícanos tu código postal en el formulario de contacto o llámanos y te confirmamos al momento.",
+  },
+  {
+    q: "¿Mi sistema pasará la inspección?",
+    a: "Diseñamos e instalamos según NFPA 72 y el código NEC, con técnicos certificados y licencia estatal activa. Hacemos las pruebas y te entregamos el certificado de cumplimiento.",
+  },
+  {
+    q: "¿Qué garantía tengo?",
+    a: "5 años en equipos y 2 años en mano de obra, por escrito en cada instalación.",
+  },
+  {
+    q: "¿Quién vigila el sistema después de instalarlo?",
+    a: "Nuestra central de monitoreo certificada UL, 24 horas al día, todos los días del año.",
+  },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+---
+
+<section class="faq py-[clamp(96px,12vw,160px)] border-t border-[var(--cr-line)]" id="preguntas">
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <div class="cr-wrap grid grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] gap-[clamp(40px,6vw,96px)] max-[960px]:grid-cols-1">
+    <header>
+      <p class="cr-label" data-reveal>05 — Preguntas</p>
+      <h2 class="mt-[18px] text-[clamp(44px,4.4vw,72px)]" data-reveal style="--d:80ms">Dudas<br /><span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">frecuentes.</span></h2>
+      <p class="mt-6 max-w-[36ch] text-[17px] leading-[1.6] text-[var(--cr-bone-dim)]" data-reveal style="--d:160ms">
+        ¿No está tu pregunta? Llámanos al <a href={CONTACT.phoneHref} class="text-[var(--cr-bone)] underline underline-offset-4 hover:text-[var(--cr-signal)]">{CONTACT.phone}</a>.
+      </p>
+    </header>
+
+    <div class="border-t border-[var(--cr-line-strong)]" data-reveal style="--d:120ms">
+      {
+        faqs.map((f) => (
+          <details class="group border-b border-[var(--cr-line)]">
+            <summary class="flex items-center justify-between gap-6 py-6 cursor-pointer list-none [&::-webkit-details-marker]:hidden font-[var(--cr-display)] font-bold text-[clamp(20px,1.8vw,26px)] leading-[1.2] transition-colors duration-200 hover:text-[var(--cr-signal)]">
+              {f.q}
+              <span class="shrink-0 grid place-items-center w-9 h-9 border border-[var(--cr-line-strong)] text-[var(--cr-signal)] text-[20px] transition-transform duration-300 group-open:rotate-45" aria-hidden="true">+</span>
+            </summary>
+            <p class="pb-6 pr-14 text-[17px] leading-[1.65] text-[var(--cr-bone-dim)] max-[640px]:pr-0">{f.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>

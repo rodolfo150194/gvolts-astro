@@ -5,6 +5,7 @@ import Nav from "@/components/control-room/Nav.astro";
 import BreakerPanel from "@/components/control-room/BreakerPanel.astro";
 import Finale from "@/components/control-room/Finale.astro";
 import { avatars } from "@/data/avatar";
+import { CONTACT } from "@/data/company";
 import ServiceCircuit from "@/components/control-room/ServiceCircuit.astro";
 import logoElectricity from "@/assets/img/logo/G_VOLTS_rayo_completo.webp";
 import "@/styles/control-room.css";
@@ -166,7 +167,7 @@ const safety = [
 
             <div class="flex flex-wrap gap-[14px] mt-[36px] max-[640px]:flex-col max-[640px]:items-stretch" data-reveal style="--d:420ms">
               <a href="/contact" class="cr-btn max-[640px]:justify-center">Inspección gratuita <span aria-hidden="true">→</span></a>
-              <a href="tel:+15551234567" class="cr-btn cr-btn--ghost max-[640px]:justify-center">Emergencias 24/7</a>
+              <a href={CONTACT.phoneHref} class="cr-btn cr-btn--ghost max-[640px]:justify-center">Emergencias 24/7</a>
             </div>
 
             <dl class="grid grid-cols-3 mt-[56px] border-t border-[var(--cr-line-strong)] max-[640px]:grid-cols-2 max-[640px]:gap-y-[20px]" data-reveal style="--d:500ms">

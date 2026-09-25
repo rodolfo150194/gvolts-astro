@@ -4,20 +4,23 @@ import Nav from "@/components/control-room/Nav.astro";
 import Hero from "@/components/control-room/Hero.astro";
 import CertTicker from "@/components/control-room/CertTicker.astro";
 import Services from "@/components/control-room/Services.astro";
-import Telemetry from "@/components/control-room/Telemetry.astro";
 import Process from "@/components/control-room/Process.astro";
 import MonitoringCenter from "@/components/control-room/MonitoringCenter.astro";
 import Testimonials from "@/components/control-room/Testimonials.astro";
 import Certifications from "@/components/control-room/Certifications.astro";
+import Faq from "@/components/control-room/Faq.astro";
 import Finale from "@/components/control-room/Finale.astro";
 import "@/styles/control-room.css";
 import { generateOrganizationSchema } from "@/utils/schemas";
+import { CONTACT } from "@/data/company";
 
 const organizationSchema = generateOrganizationSchema({
   name: "GVoltsCorp",
   url: "https://gvoltscorp.cloud",
   logo: "https://gvoltscorp.cloud/img/logo/logo-gvoltscorp2.png",
   description: "Diseñamos, instalamos y monitoreamos alarmas contra incendios, videovigilancia y sistemas eléctricos certificados para hogares y negocios.",
+  telephone: CONTACT.phone,
+  email: CONTACT.email,
 });
 ---
 
@@ -41,11 +44,11 @@ const organizationSchema = generateOrganizationSchema({
       <Hero />
       <CertTicker />
       <Services />
-      <Telemetry />
       <Process />
       <MonitoringCenter />
       <Testimonials />
       <Certifications />
+      <Faq />
     </main>
     <Finale />
   </div>

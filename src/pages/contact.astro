@@ -5,6 +5,7 @@ import ContactPanel from "@/components/control-room/ContactPanel.astro";
 import Finale from "@/components/control-room/Finale.astro";
 import "@/styles/control-room.css";
 import { generateBreadcrumbSchema } from "@/utils/schemas";
+import { CONTACT } from "@/data/company";
 
 const breadcrumbSchema = generateBreadcrumbSchema([
   { name: "Inicio", url: "https://gvoltscorp.cloud" },
@@ -46,17 +47,17 @@ const breadcrumbSchema = generateBreadcrumbSchema([
             </p>
 
             <div class="flex flex-col border-t border-[var(--cr-line-strong)]" data-reveal style="--d:240ms">
-              <a class="flex justify-between items-center gap-4 py-6 border-b border-[var(--cr-line)] max-sm:flex-col max-sm:items-start max-sm:gap-[6px] text-[var(--cr-bone)] transition-colors duration-200 hover:text-[var(--cr-signal)]" href="tel:+15551234567">
+              <a class="flex justify-between items-center gap-4 py-6 border-b border-[var(--cr-line)] max-sm:flex-col max-sm:items-start max-sm:gap-[6px] text-[var(--cr-bone)] transition-colors duration-200 hover:text-[var(--cr-signal)]" href={CONTACT.phoneHref}>
                 <span class="cr-label">Teléfono</span>
-                <span class="font-[var(--cr-display)] font-extrabold text-[clamp(24px,3vw,40px)]">+1 (555) 123-4567</span>
+                <span class="font-[var(--cr-display)] font-extrabold text-[clamp(24px,3vw,40px)]">{CONTACT.phone}</span>
               </a>
-              <a class="flex justify-between items-center gap-4 py-6 border-b border-[var(--cr-line)] max-sm:flex-col max-sm:items-start max-sm:gap-[6px] text-[var(--cr-bone)] transition-colors duration-200 hover:text-[var(--cr-signal)]" href="mailto:info@gvolts.com">
+              <a class="flex justify-between items-center gap-4 py-6 border-b border-[var(--cr-line)] max-sm:flex-col max-sm:items-start max-sm:gap-[6px] text-[var(--cr-bone)] transition-colors duration-200 hover:text-[var(--cr-signal)]" href={`mailto:${CONTACT.email}`}>
                 <span class="cr-label">Email</span>
-                <span class="font-[var(--cr-display)] font-extrabold text-[clamp(24px,3vw,40px)]">info@gvolts.com</span>
+                <span class="font-[var(--cr-display)] font-extrabold text-[clamp(24px,3vw,40px)]">{CONTACT.email}</span>
               </a>
               <div class="flex justify-between items-center gap-4 py-6 border-b border-[var(--cr-line)] max-sm:flex-col max-sm:items-start max-sm:gap-[6px]">
                 <span class="cr-label">Oficina</span>
-                <span class="font-[var(--cr-body)] font-normal text-[18px] text-right leading-[1.4] max-sm:text-left">Av. Tecnológica 123<br />Ciudad Innovación, CP 12345</span>
+                <span class="font-[var(--cr-body)] font-normal text-[18px] text-right leading-[1.4] max-sm:text-left">{CONTACT.address[0]}<br />{CONTACT.address[1]}</span>
               </div>
             </div>
 
@@ -66,7 +67,7 @@ const breadcrumbSchema = generateBreadcrumbSchema([
                 <p class="font-[var(--cr-display)] font-extrabold text-[30px] uppercase">¿Emergencia?</p>
                 <p class="text-[15px]">Eléctrica o de seguridad: estamos disponibles 24/7.</p>
               </div>
-              <a href="tel:+15551234567" class="cr-btn shrink-0 bg-[var(--cr-ink)] border-[var(--cr-ink)] text-[var(--cr-bone)] hover:bg-[var(--cr-bone)] hover:border-[var(--cr-bone)] hover:text-[var(--cr-ink)] max-sm:w-full max-sm:justify-center">Llamar ahora</a>
+              <a href={CONTACT.phoneHref} class="cr-btn shrink-0 bg-[var(--cr-ink)] border-[var(--cr-ink)] text-[var(--cr-bone)] hover:bg-[var(--cr-bone)] hover:border-[var(--cr-bone)] hover:text-[var(--cr-ink)] max-sm:w-full max-sm:justify-center">Llamar ahora</a>
             </div>
           </div>
 

@@ -4,6 +4,7 @@ import { ArrowUp } from "@lucide/astro";
 import { Image } from "astro:assets";
 import { socials } from "@/data/socials";
 import { avatars, type AvatarKey } from "@/data/avatar";
+import { CONTACT } from "@/data/company";
 
 interface Props {
   logo?: ImageMetadata;
@@ -31,7 +32,7 @@ const footerCompany = [
 <section class="fin bg-[var(--cr-signal-deep)] text-[var(--cr-ink)] py-[clamp(96px,12vw,170px)] [clip-path:polygon(0_48px,48px_0,100%_0,100%_100%,0_100%)]">
   <div class="cr-wrap relative">
     <div class="fin__content">
-    <p class="cr-label !text-[var(--cr-ink)]" data-reveal>04 — Siguiente paso</p>
+    <p class="cr-label !text-[var(--cr-ink)]" data-reveal>Siguiente paso</p>
     <h2 class="mt-[18px] text-[length:clamp(60px,11vw,176px)] min-[900px]:text-[length:clamp(60px,8.4vw,140px)] max-[720px]:text-[length:clamp(38px,13vw,60px)]" data-reveal style="--d:80ms">¿Tu inmueble<br />está protegido?</h2>
     <div class="flex flex-wrap justify-between items-end gap-[32px] mt-[48px] max-[720px]:items-start max-[520px]:flex-col max-[520px]:items-stretch" data-reveal style="--d:160ms">
       <p class="max-w-[42ch] text-[19px]">Agenda una visita técnica sin costo. Te entregamos un diagnóstico y un presupuesto cerrado en 24 horas.</p>
@@ -83,29 +84,9 @@ const footerCompany = [
     <div class="grid [grid-template-columns:minmax(0,1fr)_auto] items-start gap-[clamp(32px,4vw,72px)] max-[1100px]:[grid-template-columns:1fr]">
       <!-- Contenido: a la izquierda del logo y por encima -->
       <div class="min-w-0" data-reveal>
-        <p class="cr-label mb-[25px]">Mantente informado</p>
-        <h3 class="text-[length:clamp(30px,3.6vw,52px)] max-w-[22ch]">Señal directo tu correo</h3>
-
-        <form class="mt-[24px] flex flex-col gap-[12px] max-w-[560px]" data-nl novalidate={false}>
-          <label class="cr-label !text-[var(--cr-bone-dim)] !text-[11px]" for="nl-email">Correo electrónico</label>
-          <div class="flex gap-[10px] max-[520px]:flex-col">
-            <input
-              id="nl-email"
-              name="email"
-              type="email"
-              autocomplete="email"
-              required
-              placeholder="tu@empresa.com"
-              class="box-border flex-1 min-w-0 h-[56px] px-[16px] bg-[var(--cr-ink-2)] border border-[var(--cr-line-strong)] text-[var(--cr-bone)] [font-family:var(--cr-body)] text-[16px] transition-[border-color] duration-200 hover:border-[color-mix(in_srgb,var(--cr-bone)_60%,transparent)] focus-visible:border-[var(--cr-signal)]"
-            />
-            <button type="submit" class="cr-btn group justify-center shrink-0 !h-[56px] !min-h-[56px] max-[520px]:w-full" data-nl-submit>
-              <span data-nl-label>Suscribir</span>
-              <span class="inline-block transition-transform duration-300 group-hover:translate-x-[6px]" aria-hidden="true">→</span>
-            </button>
-          </div>
-          <p class="[font-family:var(--cr-mono)] text-[11px] leading-[1.7] tracking-[0.08em] uppercase text-[var(--cr-bone-dim)]">Un envío al mes. Normativas, mantenimiento y casos reales. Sin spam.</p>
-          <p class="m-0 py-[12px] px-[14px] bg-[var(--cr-ink-2)] border border-[var(--cr-line-strong)] text-[var(--cr-bone)] text-[14px] data-[state=error]:border-[var(--cr-signal)] data-[state=error]:bg-[color-mix(in_srgb,var(--cr-signal)_14%,transparent)] data-[state=ok]:border-[var(--cr-ok)] data-[state=ok]:bg-[color-mix(in_srgb,var(--cr-ok)_14%,transparent)]" data-nl-msg hidden role="status"></p>
-        </form>
+        <p class="cr-label mb-[25px]">¿Hablamos?</p>
+        <a href={CONTACT.phoneHref} class="block [font-family:var(--cr-display)] font-extrabold text-[length:clamp(36px,4.6vw,68px)] leading-none transition-colors duration-200 hover:!text-[var(--cr-signal)]">{CONTACT.phone}</a>
+        <p class="mt-[16px] max-w-[46ch] text-[var(--cr-bone-dim)]">Llámanos o <a href="/contact" class="text-[var(--cr-bone)] underline underline-offset-4 hover:text-[var(--cr-signal)]">pide tu cotización</a> y te respondemos en menos de 24 horas.</p>
       </div>
 
       <!-- Logo: extremo derecho, con redes sociales encima -->
@@ -147,18 +128,18 @@ const footerCompany = [
               <div class="flex items-baseline gap-[16px] py-[13px] border-t border-[var(--cr-line)]">
                 <dt class="cr-label w-[46px] shrink-0 !text-[10px]">Tel</dt>
                 <dd class="m-0 [font-family:var(--cr-display)] font-bold text-[length:clamp(19px,1.9vw,26px)] leading-[1.15]">
-                  <a href="tel:+15551234567" class="transition-colors duration-200 hover:!text-[var(--cr-signal)]">+1 (555) 123-4567</a>
+                  <a href={CONTACT.phoneHref} class="transition-colors duration-200 hover:!text-[var(--cr-signal)]">{CONTACT.phone}</a>
                 </dd>
               </div>
               <div class="flex items-baseline gap-[16px] py-[13px] border-t border-[var(--cr-line)]">
                 <dt class="cr-label w-[46px] shrink-0 !text-[10px]">Mail</dt>
                 <dd class="m-0 [font-family:var(--cr-display)] font-bold text-[length:clamp(19px,1.9vw,26px)] leading-[1.15]">
-                  <a href="mailto:info@gvolts.com" class="transition-colors duration-200 hover:!text-[var(--cr-signal)]">info@gvolts.com</a>
+                  <a href={`mailto:${CONTACT.email}`} class="transition-colors duration-200 hover:!text-[var(--cr-signal)]">{CONTACT.email}</a>
                 </dd>
               </div>
               <div class="flex items-start gap-[16px] py-[13px] border-t border-[var(--cr-line)]">
                 <dt class="cr-label w-[46px] shrink-0 !text-[10px] mt-[3px]">Dir</dt>
-                <dd class="m-0 text-[var(--cr-bone-dim)]">Av. Tecnológica 123<br />Ciudad Innovación, CP 12345</dd>
+                <dd class="m-0 text-[var(--cr-bone-dim)]">{CONTACT.address[0]}<br />{CONTACT.address[1]}</dd>
               </div>
               <div class="flex items-center gap-[16px] py-[13px] border-y border-[var(--cr-line)]">
                 <dt class="sr-only">Estado</dt>
@@ -216,46 +197,6 @@ const footerCompany = [
 </footer>
 
 <script>
-  import { actions } from "astro:actions";
-
-  const form = document.querySelector<HTMLFormElement>("[data-nl]");
-  if (form) {
-    const input = form.querySelector<HTMLInputElement>("[name=email]")!;
-    const button = form.querySelector<HTMLButtonElement>("[data-nl-submit]")!;
-    const label = form.querySelector<HTMLElement>("[data-nl-label]")!;
-    const msg = form.querySelector<HTMLElement>("[data-nl-msg]")!;
-
-    const show = (text: string, state: "ok" | "error") => {
-      msg.textContent = text;
-      msg.dataset.state = state;
-      msg.hidden = false;
-    };
-
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      msg.hidden = true;
-      button.disabled = true;
-      label.textContent = "Enviando…";
-
-      try {
-        const { error } = await actions.newsletter({ email: input.value.trim() });
-
-        if (error) {
-          show(error.message || "Correo electrónico inválido.", "error");
-          return;
-        }
-
-        form.reset();
-        show("Listo. Te agregamos a la lista de contactos.", "ok");
-      } catch {
-        show("No pudimos suscribirte. Intenta nuevamente.", "error");
-      } finally {
-        button.disabled = false;
-        label.textContent = "Suscribir";
-      }
-    });
-  }
-
   const topButton = document.querySelector<HTMLButtonElement>("[data-cr-top]");
   if (topButton) {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;

@@ -40,7 +40,7 @@ const PENDING_COLOR = "rgba(237,232,224,0.4)";
 const FL_LICENSE_URL = "https://www.myfloridalicense.com/LicenseDetail.asp?SID=&id=3FBDAA616905C8046A4E3EDED073B898";
 const NICET_VERIFY_URL = "https://nicet.useclarus.com/view/verify/";
 
-const certs: Cert[] = [
+const allCerts: Cert[] = [
   { id: "nfpa72", code: "NFPA 72", sub: "NFPA", k: ["fire"], short: "Alarmas de incendio", name: "Código Nacional de Alarmas de Incendio", desc: "Norma para la instalación, prueba y mantenimiento de sistemas de alarma contra incendio.", you: "Tu sistema se diseña y prueba para pasar la inspección de bomberos a la primera." },
   { id: "nfpa101", code: "NFPA 101", sub: "NFPA", k: ["fire", "elec"], short: "Seguridad humana", name: "Código de Seguridad Humana", desc: "Requisitos de evacuación, notificación e iluminación de emergencia.", you: "Rutas de salida, señalización y avisos pensados para que todos salgan a tiempo." },
   { id: "ul864", code: "UL 864", sub: "UL", k: ["fire"], short: "Paneles listados", name: "Unidades de control certificadas", desc: "Paneles de incendio listados y aprobados por UL.", you: "El cerebro de tu sistema es un equipo probado, no un genérico." },
@@ -58,6 +58,9 @@ const certs: Cert[] = [
   { id: "ins", code: "$2M", sub: "SEGURO", k: ["company"], short: "Seguro de responsabilidad", name: "Seguro de responsabilidad", desc: "$2M en responsabilidad general y $5M umbrella.", you: "Tu inmueble está cubierto durante toda la obra." },
   { id: "nfpam", code: "NFPA", sub: "MIEMBRO", k: ["company", "fire"], short: "Membresía NFPA", name: "Membresía activa en NFPA", desc: "Miembros activos de la National Fire Protection Association.", you: "Nos mantenemos al día con cada actualización de norma." },
 ];
+
+// Las pendientes son plantillas por rellenar: no se muestran al público hasta tener el dato real
+const certs = allCerts.filter((c) => !c.pending);
 
 const filterKeys = ["all", "fire", "security", "elec", "company"] as const;
 
