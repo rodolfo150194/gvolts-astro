@@ -60,6 +60,8 @@ const zones = [
     <!-- 3D digital twin -->
     <div class="twin relative w-full max-w-[560px] [aspect-ratio:620/760] mx-auto [perspective:1600px] max-[960px]:max-w-[420px]" data-reveal style="--d:200ms">
       <div class="twin__glow absolute left-[5%] top-[10.5%] w-[90%] h-[73.7%] rounded-full bg-[radial-gradient(closest-side,color-mix(in_srgb,var(--cr-signal)_24%,transparent),transparent)] animate-[twin-glow_4s_ease-in-out_infinite]" aria-hidden="true"></div>
+      <!-- Escena WebGL (Three.js); si no carga, queda el plano CSS de abajo -->
+      <div class="twin__3d absolute isolate inset-x-0 top-0 h-[86%] opacity-0 transition-opacity duration-700" aria-hidden="true"></div>
       <div class="twin__plan absolute left-[8%] top-[14.5%] w-[84%] [aspect-ratio:1] [transform-style:preserve-3d] [transform:rotateX(60deg)_rotateZ(-36deg)] animate-[twin-sway_18s_ease-in-out_infinite]" aria-hidden="true">
         <div class="twin__floor absolute inset-0 box-border border-2 border-[var(--cr-line-strong)] bg-[color-mix(in_srgb,var(--cr-ink-3)_90%,transparent)] bg-[image:linear-gradient(var(--cr-line)_1px,transparent_1px),linear-gradient(90deg,var(--cr-line)_1px,transparent_1px)] bg-[size:5%_5%]"></div>
         <div class="twin__sweep-wrap absolute inset-0 overflow-hidden">
@@ -128,7 +130,38 @@ const zones = [
   </div>
 </section>
 
+<script>
+  const twin = document.querySelector<HTMLElement>(".hero .twin");
+  const stage = twin?.querySelector<HTMLElement>(".twin__3d");
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const hasWebGL = (() => {
+    try {
+      return !!document.createElement("canvas").getContext("webgl2");
+    } catch {
+      return false;
+    }
+  })();
+
+  if (twin && stage && !reduce && hasWebGL) {
+    // Carga diferida: Three.js no bloquea el primer pintado del Hero
+    const load = () =>
+      import("./twin-scene")
+        .then(({ mountTwin }) => {
+          mountTwin(stage, twin.closest<HTMLElement>(".cr") ?? document.documentElement);
+          twin.classList.add("twin--3d");
+        })
+        .catch(() => {
+          /* se queda el plano CSS */
+        });
+    "requestIdleCallback" in window ? requestIdleCallback(load, { timeout: 1200 }) : setTimeout(load, 300);
+  }
+</script>
+
 <style>
+  .twin--3d .twin__3d { opacity: 1; }
+  .twin--3d .twin__plan { opacity: 0; animation-play-state: paused; }
+  .twin__plan { transition: opacity 0.7s ease; }
+  .twin__3d :global(canvas) { display: block; width: 100%; height: 100%; }
   /* El técnico se apoya sobre el borde superior del panel de zonas */
   .panel__tech {
     position: absolute; left: 21%; bottom: 100%; width: 68%; height: auto; z-index: 2;
