@@ -1,33 +1,93 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import Hero from "@/components/Hero.astro";
-import Header from "@/components/Header.astro";
-import Features from "@/components/Features.astro";
-import Services from "@/components/Services.astro";
-import ServicesV2 from "@/components/ServicesV2.astro";
-import Subscription from "@/components/Subscription.astro";
-import Projects from "@/components/Projects.astro";
-import ScrollToTop from "@/components/ScrollToTop.astro";
-import Partners from "@/components/Partners.astro";
-import FAQs from "@/components/FAQs.astro";
-import Footer from "@/components/Footer.astro";
-import ImageSection from "@components/ImageSection.astro";
+import Nav from "@/components/control-room/Nav.astro";
+import Hero from "@/components/control-room/Hero.astro";
+import CertTicker from "@/components/control-room/CertTicker.astro";
+import Services from "@/components/control-room/Services.astro";
+import Telemetry from "@/components/control-room/Telemetry.astro";
+import Process from "@/components/control-room/Process.astro";
+import MonitoringCenter from "@/components/control-room/MonitoringCenter.astro";
+import Testimonials from "@/components/control-room/Testimonials.astro";
+import Certifications from "@/components/control-room/Certifications.astro";
+import Finale from "@/components/control-room/Finale.astro";
+import "@/styles/control-room.css";
+import { generateOrganizationSchema } from "@/utils/schemas";
+
+const organizationSchema = generateOrganizationSchema({
+  name: "GVoltsCorp",
+  url: "https://gvoltscorp.cloud",
+  logo: "https://gvoltscorp.cloud/img/logo/logo-gvoltscorp2.png",
+  description: "Diseñamos, instalamos y monitoreamos alarmas contra incendios, videovigilancia y sistemas eléctricos certificados para hogares y negocios.",
+});
 ---
 
 <Layout
-  title="GVoltscorp - Sistemas de Seguridad y Protección Profesional"
-  description="Instalación de alarmas contra incendios, videovigilancia inteligente y servicios eléctricos certificados. Protección integral para tu hogar o negocio con tecnología de punta."
+  title="GVolts Corp — Alarmas de incendio, seguridad y electricidad"
+  description="Diseñamos, instalamos y monitoreamos alarmas contra incendios, videovigilancia y sistemas eléctricos certificados para hogares y negocios."
 >
-  <!-- <Loader /> -->
-  <Header />
-  <Hero />
-  <Partners />
-  <Features />
-  <ServicesV2 />
-  <Subscription />
-  <FAQs />
-  <Footer />
-  <ScrollToTop />
+  <Fragment slot="head">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700;800;900&family=Hanken+Grotesk:wght@400;500;600;700&display=swap"
+    />
+    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+  </Fragment>
+
+  <div class="cr">
+    <Nav />
+    <main id="main">
+      <Hero />
+      <CertTicker />
+      <Services />
+      <Telemetry />
+      <Process />
+      <MonitoringCenter />
+      <Testimonials />
+      <Certifications />
+    </main>
+    <Finale />
+  </div>
 </Layout>
 
-<script></script>
+<script>
+  // Staggered scroll reveals
+  const revealEls = document.querySelectorAll<HTMLElement>(".cr [data-reveal]");
+  const revealer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add("is-in");
+          revealer.unobserve(e.target);
+        }
+      });
+    },
+    { rootMargin: "0px 0px -8% 0px" },
+  );
+  revealEls.forEach((el) => revealer.observe(el));
+
+  // Stat counters tick up like a meter settling
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const counters = document.querySelectorAll<HTMLElement>("[data-count]");
+  const counterIO = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      const el = e.target as HTMLElement;
+      counterIO.unobserve(el);
+      const end = Number(el.dataset.count);
+      if (reduce) return;
+      const start = performance.now();
+      const dur = 1600;
+      const step = (now: number) => {
+        const k = Math.min(1, (now - start) / dur);
+        const eased = 1 - Math.pow(1 - k, 4);
+        el.textContent = String(Math.round(end * eased));
+        if (k < 1) requestAnimationFrame(step);
+      };
+      el.textContent = "0";
+      requestAnimationFrame(step);
+    });
+  });
+  counters.forEach((c) => counterIO.observe(c));
+</script>

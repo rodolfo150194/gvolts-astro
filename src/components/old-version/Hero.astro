@@ -1,0 +1,714 @@
+---
+import Icon from "@/components/old-version/Icon.astro";
+import CTAButton from "./CTAButton.astro";
+// Configuración del Hero
+const heroData = {
+  // Badge superior
+  badge: {
+    icon: "ShieldCheck",
+    text: "Soluciones de Seguridad Confiables",
+  },
+
+  // Título principal
+  title: {
+    line1: "Protege lo que",
+    line2: "Más Importa con",
+    highlight: "Seguridad Avanzada",
+  },
+
+  // Descripción
+  description:
+    "Experimente sistemas de seguridad electrónica de última generación diseñados para proteger su hogar y negocio.",
+
+  // Botones CTA
+  buttons: {
+    primary: {
+      text: "Consulta Gratuita",
+      icon: "forward",
+    },
+    secondary: {
+      text: "Ver",
+      icon: "Play",
+    },
+  },
+
+  // Estadísticas
+  stats: [
+    {
+      value: 500,
+      suffix: "+",
+      label: "Proyectos Completados",
+    },
+    {
+      value: 24,
+      suffix: "/7",
+      label: "Soporte de Monitoreo",
+    },
+    {
+      value: 10,
+      suffix: "+",
+      label: "Años de Experiencia",
+    },
+  ],
+
+  // Tarjetas flotantes
+  floatingCards: [
+    {
+      position: "right",
+      speed: "0.05",
+      icon: "Cctv",
+      title: "Seguridad",
+      description: "Camaras de seguridad y Control de acceso",
+    },
+    {
+      position: "left",
+      speed: "0.08",
+      icon: "Flame",
+      title: "Detección de Incendios",
+      description: "Sensores de calor avanzados",
+    },
+  ],
+
+  // Imágenes del slider
+  sliderImages: [
+    {
+      src: "/img/gvolts/planing-project.png",
+      srcWebp: "/img/gvolts/planing-project.webp",
+      alt: "Professional Security Installation",
+    },
+    {
+      src: "/img/gvolts/extintor.jpg",
+      srcWebp: "/img/gvolts/extintor.webp",
+      alt: "Security Camera Installation",
+    },
+    {
+      src: "/img/gvolts/camara-bosque.jpg",
+      srcWebp: "/img/gvolts/camara-bosque.webp",
+      alt: "Security Systems",
+    },
+  ],
+
+  // Video del modal
+  video: {
+    src: "/img/gvolts/camara_video.mp4",
+  },
+};
+
+// Palabras para el efecto typewriter (se usan en el script)
+const typewriterWords = [
+  "Seguridad Avanzada",
+  "Vigilancia Inteligente",
+  "Monitoreo 24/7",
+  "Respuesta Rápida",
+];
+---
+
+<section
+  class="relative min-h-dvh w-full flex items-center overflow-hidden"
+  id="home"
+>
+  <!-- Background Slider with Overlay -->
+  <div class="absolute top-0 left-0 w-full h-[120%] -top-10% z-0">
+    <!-- Slider Container -->
+    <div class="slider-container w-full h-full relative overflow-hidden">
+      {
+        heroData.sliderImages.map((image, index) => (
+          <div class={`slider-slide ${index === 0 ? "active" : ""}`}>
+            <picture>
+              <source srcset={image.srcWebp} type="image/webp" />
+              <img
+                src={image.src}
+                alt={image.alt}
+                class="background-image w-full h-full object-cover object-center will-change-transform"
+                loading={index === 0 ? "eager" : "lazy"}
+                fetchpriority={index === 0 ? "high" : "auto"}
+              />
+            </picture>
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- Overlay siempre visible encima del slider -->
+    <div class="hero-overlay absolute top-0 left-0 w-full h-full z-10"></div>
+  </div>
+
+  <!-- Hero Content -->
+  <div
+    class="relative z-20 w-full px-4 pt-10 pb-8 md:px-8 md:pt-20 md:pb-16 flex flex-col justify-center min-h-dvh"
+  >
+    <div class="max-w-350 mx-auto flex flex-col items-center text-center">
+      <!-- Badge -->
+      <div
+        class="hero-badge inline-flex items-center gap-2 mt-2 md:mt-5 bg-white/10 border border-white/20 px-4 py-1.5 md:px-6 md:py-2 rounded-full text-white text-xs md:text-sm font-semibold mb-4 md:mb-8 backdrop-blur-md animate-fade-in-up"
+      >
+        <Icon name={heroData.badge.icon} size="20" />
+        <span>{heroData.badge.text}</span>
+      </div>
+
+      <!-- Title Decorator -->
+      <div class="title-decorator-wrapper animate-fade-in" style="animation-delay: 0.3s;">
+        <div class="title-decorator-line-left bg-lemon-chiffon animate-scale-y" style="animation-delay: 0.8s;"></div>
+        <div class="title-decorator bg-lemon-chiffon animate-scale-x" style="animation-delay: 0.5s;"></div>
+        <div class="title-decorator-line-right bg-lemon-chiffon animate-scale-y" style="animation-delay: 0.8s;"></div>
+      </div>
+
+      <!-- Main Title -->
+      <h1
+        class="hero-title text-[clamp(2.25rem,8vw,4rem)] font-extrabold leading-[1.1] mb-4 md:mb-8 max-w-275 tracking-tight animate-fade-in-up"
+        style="animation-delay: 0.6s;"
+      >
+        <span class="block text-white drop-shadow-sm"
+          >{heroData.title.line1}</span
+        >
+        <span class="block text-white drop-shadow-sm"
+          >{heroData.title.line2}</span
+        >
+        <span class="block relative pb-2">
+          <span
+            class="typewriter-text bg-linear-to-r from-lemon-chiffon-500 to-lemon-chiffon-300 bg-clip-text text-transparent"
+            >{heroData.title.highlight}</span
+          >
+          <span
+            class="cursor-blink inline-block w-1 h-[clamp(2.25rem,9vw,6rem)] bg-indian-red-400 ml-1 align-middle"
+          ></span>
+        </span>
+      </h1>
+
+      <!-- Description -->
+      <p
+        class="hero-description text-[clamp(0.95rem,2.5vw,1.35rem)] leading-[1.6] md:leading-[1.8] text-lemon-chiffon-50/90 max-w-200 mb-6 md:mb-12 font-medium animate-fade-in-up"
+        style="animation-delay: 0.8s;"
+      >
+        {heroData.description}
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="hero-cta flex gap-4 md:gap-6 flex-wrap justify-center mb-8 md:mb-20 animate-fade-in-up" style="animation-delay: 1s;">
+        <CTAButton text={heroData.buttons.primary.text} icon={heroData.buttons.primary.icon} size="30" />
+        <CTAButton text={heroData.buttons.secondary.text} variant="secondary" icon={heroData.buttons.secondary.icon}  />
+      </div>
+
+      <!-- Stats -->
+      <div
+        class="hero-stats flex gap-8 md:gap-16 items-center justify-center flex-wrap w-full border-t border-white/10 pt-6 md:pt-12 animate-fade-in-up"
+        style="animation-delay: 1.2s;"
+      >
+        {
+          heroData.stats.map((stat, index) => (
+            <>
+              {index > 0 && (
+                <div class="w-px h-15 bg-linear-to-b from-transparent via-white/20 to-transparent hidden md:block" />
+              )}
+              <div class="text-center group hover:-translate-y-1 transition-transform duration-300">
+                <div class="text-[clamp(2rem,5vw,3.5rem)] font-extrabold text-white leading-none mb-1 md:mb-2 group-hover:text-indian-red-200 transition-colors">
+                  <span
+                    class="counter"
+                    data-target={stat.value}
+                    data-suffix={stat.suffix}
+                  >
+                    0
+                  </span>
+                </div>
+                <div class="text-sm md:text-base text-white/70 font-medium">
+                  {stat.label}
+                </div>
+              </div>
+            </>
+          ))
+        }
+      </div>
+    </div>
+
+    {
+      heroData.floatingCards.map((card) => (
+        <div
+          class={`hidden xl:block absolute ${card.position === "right" ? "right-[5%]" : "left-[5%]"} bottom-[20%] z-20 parallax-card`}
+          data-speed={card.speed}
+        >
+          <div class="bg-white/10 backdrop-blur-[20px] border border-white/20 rounded-[20px] p-6 w-65 shadow-[0_20px_60px_rgba(0,0,0,0.3)]">
+            <div class="w-12 h-12 bg-indian-red-500 text-white rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-indian-red-500/40">
+              <Icon name={card.icon} size="24" />
+            </div>
+            <h3 class="text-lg font-bold text-white mb-1">{card.title}</h3>
+            <p class="text-sm text-white/70">{card.description}</p>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+
+  <!-- Video Modal -->
+  <div
+    id="video-modal"
+    class="fixed inset-0 z-50 hidden opacity-0 transition-opacity duration-300"
+  >
+    <!-- Backdrop -->
+    <div class="absolute inset-0 bg-black/80 backdrop-blur-sm js-modal-close">
+    </div>
+
+    <!-- Modal Content -->
+    <div
+      class="relative w-full h-full flex items-center justify-center p-4 md:p-8"
+    >
+      <div
+        class="relative w-full max-w-5xl aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl transform scale-95 transition-transform duration-300 modal-content"
+      >
+        <button
+          class="absolute top-4 right-4 z-10 text-white/70 hover:text-white bg-black/50 hover:bg-black/70 rounded-full p-2 transition-colors js-modal-close"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+
+        <!-- Video Player -->
+        <video
+          width="100%"
+          height="100%"
+          controls
+          class="w-full h-full object-cover"
+        >
+          <source src={heroData.video.src} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Ocultar scrollbars internos en la sección del Hero (problema visto en móvil) */
+  #home,
+  #home * {
+    scrollbar-width: none; /* Firefox */
+  }
+
+  #home::-webkit-scrollbar,
+  #home *::-webkit-scrollbar {
+    display: none; /* Chrome, Edge, Safari */
+  }
+
+  /* Gradiente del overlay - Darker for better text contrast */
+  .hero-overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(15, 23, 42, 0.75) 0%,
+      rgba(15, 23, 42, 0.65) 50%,
+      rgba(15, 23, 42, 0.85) 100%
+    );
+    pointer-events: none;
+  }
+
+  .hero-description {
+    text-shadow:
+      0 2px 8px rgba(0, 0, 0, 0.7),
+      0 1px 3px rgba(0, 0, 0, 0.5);
+  }
+
+  .hero-badge {
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Línea decorativa encima del título */
+  .title-decorator-wrapper {
+    position: relative;
+    width: clamp(280px, 90%, 900px);
+    max-width: 90vw;
+    height: clamp(1rem, 5vw, 2rem);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  
+  .title-decorator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    transform: scaleX(0);
+    transform-origin: center;
+    width: 100%;
+    height: 3px;
+    border-radius: 2px;
+  }
+
+  /* Líneas verticales desde los extremos */
+  .title-decorator-line-left,
+  .title-decorator-line-right {
+    width: 5px;
+    height: 350%;
+    border-radius: 2px;
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+
+  @media (max-width: 768px) {
+    .title-decorator-line-left,
+    .title-decorator-line-right {
+      height: 250%;
+    }
+  }
+
+  .title-decorator-line-left {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  .title-decorator-line-right {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .title-line-accent::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 6px;
+    background: linear-gradient(90deg, transparent, #cd5c5c, transparent);
+    border-radius: 3px;
+    opacity: 0.8;
+  }
+
+  @keyframes blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+
+  .cursor-blink {
+    animation: blink 1s step-end infinite;
+  }
+
+  /* Tailwind-based entrance animations */
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade-in-up-mobile {
+    from {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes scale-x {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  @keyframes scale-y {
+    from {
+      transform: scaleY(0);
+    }
+    to {
+      transform: scaleY(1);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 0.8s ease-out forwards;
+    opacity: 0;
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.6s ease-out forwards;
+    opacity: 0;
+  }
+
+  .animate-scale-x {
+    animation: scale-x 0.8s ease-out forwards;
+    transform: scaleX(0);
+    transform-origin: center;
+  }
+
+  .animate-scale-y {
+    animation: scale-y 0.6s ease-out forwards;
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+
+  /* Mobile animations - reduced movement */
+  @media (max-width: 768px) {
+    .animate-fade-in-up {
+      animation: fade-in-up-mobile 0.8s ease-out forwards;
+    }
+  }
+
+  /* Slider Styles */
+  .slider-container {
+    position: relative;
+    background-color: #0f172a; /* Fondo base para evitar vacío durante transiciones */
+  }
+
+  .slider-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
+    z-index: 0;
+  }
+
+  .slider-slide.active {
+    opacity: 1;
+    z-index: 1;
+  }
+
+  /* Modal Styles */
+  #video-modal.open {
+    display: flex;
+    opacity: 1;
+  }
+
+  #video-modal.open .modal-content {
+    transform: scale(1);
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    // Load GSAP lazily to avoid increasing initial JS bundle and parse time
+    const { gsap } = await import("gsap");
+    const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Detect mobile for parallax effect
+    const isMobile = window.innerWidth < 768;
+
+    // Counter Animation
+    const counters = document.querySelectorAll(".counter");
+    counters.forEach((counter) => {
+      const target = parseInt(counter.getAttribute("data-target") || "0");
+      const suffix = counter.getAttribute("data-suffix") || "";
+      const obj = { value: 0 };
+
+      gsap.to(obj, {
+        value: target,
+        duration: 2.5,
+        delay: 1.5,
+        ease: "power2.out",
+        onUpdate: () => {
+          counter.textContent = Math.ceil(obj.value) + suffix;
+        },
+      });
+    });
+
+    // Parallax Effect - Enhanced (aplicado a todas las imágenes del slider)
+    // Reduce parallax effect on mobile to prevent excessive scroll
+    const parallaxAmount = isMobile ? 20 : 50;
+    const scaleAmount = isMobile ? 1.1 : 1.2;
+
+    gsap.utils.toArray(".background-image").forEach((img) => {
+      gsap.to(img as Element, {
+        yPercent: parallaxAmount,
+        scale: scaleAmount,
+        ease: "none",
+        scrollTrigger: {
+          trigger: "#home",
+          start: "top top",
+          end: "bottom top",
+          scrub: 1,
+        },
+      });
+    });
+
+    // Floating Cards Parallax - Disabled on mobile
+    if (!isMobile) {
+      const cards = document.querySelectorAll(".parallax-card");
+      cards.forEach((card) => {
+        const speed = card.getAttribute("data-speed");
+        gsap.to(card, {
+          y: -100 * Number(speed),
+          ease: "none",
+          scrollTrigger: {
+            trigger: "#home",
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+      });
+    }
+
+    // Typewriter Effect (Core GSAP Implementation)
+    const words = [
+      "Seguridad Avanzada",
+      "Vigilancia Inteligente",
+      "Monitoreo 24/7",
+      "Respuesta Rápida",
+    ];
+    const textElement = document.querySelector(".typewriter-text");
+    const cursorElement = document.querySelector(".cursor-blink");
+    let wordIndex = 0;
+
+    if (textElement && cursorElement) {
+      const typeWord = (word: string) => {
+        const tl = gsap.timeline();
+        const proxy = { length: 0 };
+
+        tl.to(proxy, {
+          length: word.length,
+          duration: word.length * 0.1,
+          ease: "none",
+          onUpdate: () => {
+            textElement.textContent = word.slice(0, Math.ceil(proxy.length));
+          },
+        });
+        return tl;
+      };
+
+      const deleteWord = (word: string) => {
+        const tl = gsap.timeline();
+        const proxy = { length: word.length };
+
+        tl.to(proxy, {
+          length: 0,
+          duration: word.length * 0.05,
+          ease: "none",
+          onUpdate: () => {
+            textElement.textContent = word.slice(0, Math.ceil(proxy.length));
+          },
+        });
+        return tl;
+      };
+
+      const cycleWords = () => {
+        const currentWord = words[wordIndex];
+        const nextWordIndex = (wordIndex + 1) % words.length;
+
+        const masterTl = gsap.timeline({
+          onComplete: () => {
+            wordIndex = nextWordIndex;
+            cycleWords();
+          },
+        });
+
+        masterTl
+          .add(typeWord(currentWord))
+          .to({}, { duration: 2 })
+          .add(deleteWord(currentWord))
+          .to({}, { duration: 0.5 });
+      };
+
+      // Start the cycle
+      setTimeout(() => {
+        cycleWords();
+      }, 2000);
+    }
+
+    // Background Slider
+    const slides = document.querySelectorAll(".slider-slide");
+    let currentSlide = 0;
+    const slideInterval = 5000;
+
+    function nextSlide() {
+      slides[currentSlide].classList.remove("active");
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add("active");
+    }
+    setInterval(nextSlide, slideInterval);
+
+    // Video Modal Logic
+    const modal = document.getElementById("video-modal");
+    const triggerBtn = document.querySelector(".js-video-modal-trigger");
+    const closeBtns = document.querySelectorAll(".js-modal-close");
+    const video = modal?.querySelector("video");
+
+    function openModal() {
+      if (!modal) return;
+      modal.classList.remove("hidden");
+      // Force reflow
+      void modal.offsetWidth;
+      modal.classList.add("open");
+      document.body.style.overflow = "hidden"; // Prevent background scrolling
+
+      // Auto-play video
+      if (video) {
+        video.currentTime = 0;
+        video.play().catch((e) => console.log("Autoplay prevented:", e));
+      }
+    }
+
+    function closeModal() {
+      if (!modal) return;
+      modal.classList.remove("open");
+      document.body.style.overflow = "";
+
+      // Stop video
+      if (video) {
+        video.pause();
+        video.currentTime = 0;
+      }
+
+      setTimeout(() => {
+        modal.classList.add("hidden");
+      }, 300); // Match transition duration
+    }
+
+    if (triggerBtn) {
+      triggerBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        openModal();
+      });
+    }
+
+    closeBtns.forEach((btn) => {
+      btn.addEventListener("click", closeModal);
+    });
+
+    // Close on Escape key
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal && modal.classList.contains("open")) {
+        closeModal();
+      }
+    });
+  });
+</script>

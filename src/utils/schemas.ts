@@ -50,7 +50,7 @@ export function generateServiceSchema(serviceName: string, description: string, 
     "provider": {
       "@type": "Organization",
       "name": "GVoltsCorp",
-      "url": "https://www.gvoltscorp.com"
+      "url": "https://gvoltscorp.cloud"
     },
     "url": url,
     "areaServed": {

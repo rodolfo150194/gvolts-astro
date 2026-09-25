@@ -31,3 +31,10 @@ pnpm-debug.log*
 .netlify
 .agent
 .claude
+# Local Pi runtime state
+.atl/
+
+# Local tooling artifacts
+.codegraph/
+.agents/
+brag-output/

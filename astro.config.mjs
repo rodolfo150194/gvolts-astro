@@ -35,6 +35,7 @@ const copyEmailTemplates = () => ({
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://gvoltscorp.cloud',
   output: 'server',
   adapter: node({
     mode: 'standalone'
@@ -63,6 +64,7 @@ export default defineConfig({
         interval: 1000,
         ignored: ['**/public/img/**'],
       },
+      allowedHosts: ['.ngrok-free.dev', '.ngrok-free.app'],
     },
   },
 });

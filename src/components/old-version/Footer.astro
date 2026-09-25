@@ -1,0 +1,278 @@
+---
+import { MapPin, Phone, Mail } from '@lucide/astro';
+import { socials } from "@/data/socials";
+import Certifications from "@/components/old-version/Certifications.astro";
+import CTAButton from './CTAButton.astro';
+import LegalModal from './LegalModal.astro';
+---
+
+<Certifications />
+
+<footer class="relative bg-[var(--cr-ink)] mt-20 pt-0 pb-10">
+  <div class="pt-5 relative">
+    <!-- Creative Wave Divider -->
+    <div class="absolute corner-shape rounded-[50px] -top-[50px] left-1/2 -translate-x-1/2 w-[70%] bg-[var(--cr-signal)] h-[60px] md:h-[100px] z-10"></div>
+
+    <div class="max-w-7xl mx-auto px-4 mt-32 lg:px-8">
+      <!-- Logo -->
+      <div class="flex flex-wrap justify-between items-center mb-12">
+        <div class="">
+          <img
+            src="/img/logo/logo-gvoltscorp2.png"
+            alt="GVoltscorp"
+            class="h-20"
+          />
+        </div>
+        <div class="px-4">
+          <div class="sm:flex items-center lg:justify-end">
+              <span class="inline-block text-[var(--cr-bone)] mb-4 mr-8">Hablar con un Asesor</span>
+              <CTAButton text="Hablar" href="/contact" />
+          </div>
+      </div>
+      </div>
+      <hr class="my-12 border-[var(--cr-line)]" />
+
+      <!-- Main Footer Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+
+        <!-- Address Column -->
+        <div class="space-y-6 col-span-2">
+          <p class="cr-label">Dirección</p>
+          <ul class="space-y-4">
+            <li class="flex items-start gap-3">
+              <div class="mt-1 text-[var(--cr-signal)] shrink-0">
+                <MapPin size={20} />
+              </div>
+              <span class="text-[var(--cr-bone-dim)] leading-relaxed">
+                Av. Tecnológica 123<br />Ciudad Innovación, CP 12345
+              </span>
+            </li>
+            <li class="flex items-center gap-3">
+              <div class="text-[var(--cr-signal)] shrink-0">
+                <Phone size={20} />
+              </div>
+              <a href="tel:+15551234567" class="text-[var(--cr-bone-dim)] hover:text-[var(--cr-signal)] transition-colors">
+                +1 (555) 123-4567
+              </a>
+            </li>
+            <li class="flex items-center gap-3">
+              <div class="text-[var(--cr-signal)] shrink-0">
+                <Mail size={20} />
+              </div>
+              <a href="mailto:info@gvolts.com" class="text-[var(--cr-bone-dim)] hover:text-[var(--cr-signal)] transition-colors">
+                info@gvolts.com
+              </a>
+            </li>
+            <li class="flex items-center gap-3 mt-2 [font-family:var(--cr-mono)] text-[11px] tracking-[0.1em] uppercase text-[var(--cr-bone-dim)]">
+              <span class="cr-led"></span>Central operativa 24/7/365
+            </li>
+          </ul>
+
+          <p class="cr-label pt-2">Mantente Informado</p>
+
+          <form id="newsletter-form-footer" class="flex flex-col gap-3 mb-6">
+            <div class="relative">
+              <input
+                id="email-input-footer"
+                name="email"
+                type="email"
+                placeholder="Tu correo electrónico"
+                class="w-full px-6 py-4 border border-[var(--cr-line)] focus:outline-none focus:border-[var(--cr-signal)] focus:ring-2 focus:ring-[var(--cr-signal)]/20 bg-[var(--cr-ink-2)] text-[var(--cr-bone)] placeholder-[var(--cr-bone-dim)] transition-all"
+              />
+              <button
+                id="submit-btn-footer"
+                type="submit"
+                class="absolute cursor-pointer right-2 top-2 bottom-2 bg-[var(--cr-signal)] hover:bg-[var(--cr-signal-deep)] text-[var(--cr-ink)] px-6 md:px-8 [font-family:var(--cr-mono)] text-[13px] font-semibold tracking-[0.1em] uppercase transition-all"
+              >
+                Suscribir
+              </button>
+            </div>
+            <div id="form-message-footer" class="mt-3 text-sm font-medium hidden"></div>
+          </form>
+        </div>
+
+        <!-- Services Column -->
+        <nav aria-label="Servicios" class="space-y-6">
+          <p class="cr-label">Servicios</p>
+          <ul class="list-none m-0 p-0 space-y-3">
+            <li>
+              <a
+                href="/services/fire-alarm"
+                class="text-[var(--cr-bone-dim)] hover:text-[var(--cr-signal)] transition-colors inline-flex items-center gap-2 group"
+              >
+                <span class="w-1.5 h-1.5 bg-[var(--cr-signal)] rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                Alarmas de Incendio
+              </a>
+            </li>
+            <li>
+              <a
+                href="/services/security"
+                class="text-[var(--cr-bone-dim)] hover:text-[var(--cr-signal)] transition-colors inline-flex items-center gap-2 group"
+              >
+                <span class="w-1.5 h-1.5 bg-[var(--cr-signal)] rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                Seguridad Electrónica
+              </a>
+            </li>
+            <li>
+              <a
+                href="/services/electricity"
+                class="text-[var(--cr-bone-dim)] hover:text-[var(--cr-signal)] transition-colors inline-flex items-center gap-2 group"
+              >
+                <span class="w-1.5 h-1.5 bg-[var(--cr-signal)] rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                Electricidad
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- Help Column -->
+        <nav aria-label="Ayuda" class="space-y-6">
+          <p class="cr-label">Ayuda</p>
+          <ul class="list-none m-0 p-0 space-y-3">
+            <li>
+              <a
+                href="/#faqs"
+                class="text-[var(--cr-bone-dim)] hover:text-[var(--cr-signal)] transition-colors inline-flex items-center gap-2 group"
+              >
+                <span class="w-1.5 h-1.5 bg-[var(--cr-signal)] rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                Preguntas Frecuentes
+              </a>
+            </li>
+            <li>
+              <a
+                href="/contact"
+                class="text-[var(--cr-bone-dim)] hover:text-[var(--cr-signal)] transition-colors inline-flex items-center gap-2 group"
+              >
+                <span class="w-1.5 h-1.5 bg-[var(--cr-signal)] rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                Contacto
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="sm:flex items-center justify-between mb-12 pt-8 border-t border-[var(--cr-line)]">
+        <div class="sm:flex mb-6 sm:mb-0 items-center gap-2">
+          <button
+            id="terms-btn"
+            class="cr-label inline-block mr-4 sm:mr-10 !text-[var(--cr-bone-dim)] hover:!text-[var(--cr-bone)] transition-colors cursor-pointer"
+          >
+            Términos y Condiciones
+          </button>
+          <button
+            id="privacy-btn"
+            class="cr-label inline-block !text-[var(--cr-bone-dim)] hover:!text-[var(--cr-bone)] transition-colors cursor-pointer"
+          >
+            Política de Privacidad
+          </button>
+        </div>
+        <div class="flex gap-3 pt-2">
+          <p class="cr-label mr-3 flex items-center">Síguenos:</p>
+          {
+            socials.map((social) => (
+              <a
+                href={social.url}
+                aria-label={social.ariaLabel}
+                class="w-11 h-11 bg-[var(--cr-ink-2)] rounded-full flex items-center justify-center text-[var(--cr-bone-dim)] hover:bg-[var(--cr-signal)] hover:text-[var(--cr-ink)] transition-all duration-300 border border-[var(--cr-line)] hover:border-[var(--cr-signal)] hover:scale-110"
+                target="_blank"
+                rel="noopener noreferrer"
+                set:html={social.icon}
+              />
+            ))
+          }
+      </div>
+      </div>
+
+      <!-- Copyright -->
+      <div class="cr-label flex flex-col md:flex-row justify-between items-center gap-4 !text-[10.5px]">
+        <span>© {new Date().getFullYear()} GVolts. Todos los derechos reservados.</span>
+        <span class="flex items-center gap-2">
+          Diseñado por
+          <span class="font-bold text-[var(--cr-signal)]">Ing. Rody</span>
+        </span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<LegalModal />
+
+<script>
+  import { actions } from "astro:actions";
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // Legal modal handlers
+    const termsBtn = document.getElementById('terms-btn');
+    const privacyBtn = document.getElementById('privacy-btn');
+
+    termsBtn?.addEventListener('click', () => {
+      if ((window as any).openLegalModal) {
+        (window as any).openLegalModal(
+          'Términos y Condiciones',
+          'Estamos preparando nuestros términos y condiciones.'
+        );
+      }
+    });
+
+    privacyBtn?.addEventListener('click', () => {
+      if ((window as any).openLegalModal) {
+        (window as any).openLegalModal(
+          'Política de Privacidad',
+          'Estamos preparando nuestra política de privacidad.'
+        );
+      }
+    });
+  });
+
+  const form = document.getElementById("newsletter-form-footer") as HTMLFormElement;
+  const emailInput = document.getElementById("email-input-footer") as HTMLInputElement;
+  const submitBtn = document.getElementById("submit-btn-footer") as HTMLButtonElement;
+  const messageDiv = document.getElementById("form-message-footer") as HTMLDivElement;
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    // Limpiar mensaje anterior
+    messageDiv.classList.add("hidden");
+    messageDiv.textContent = "";
+
+    // Validar email
+    const email = emailInput.value.trim();
+    if (!email) {
+      showMessage("Por favor, ingresa tu correo electrónico", "error");
+      return;
+    }
+
+    // Deshabilitar el botón durante el envío
+    submitBtn.disabled = true;
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = "Enviando...";
+
+    try {
+      const { data, error } = await actions.newsletter({ email });
+
+      if (error) {
+        showMessage(
+          error.message || "Error al suscribirse. Intenta nuevamente.",
+          "error"
+        );
+      } else if (data) {
+        showMessage(data.message, "success");
+        form.reset();
+      }
+    } catch (err) {
+      showMessage("Error de conexión. Por favor, intenta nuevamente.", "error");
+      console.error("Error al enviar el formulario:", err);
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+    }
+  });
+
+  function showMessage(message: string, type: "success" | "error") {
+    messageDiv.textContent = message;
+    messageDiv.classList.remove("hidden", "text-green-600", "text-red-600");
+    messageDiv.classList.add(
+      type === "success" ? "text-green-600" : "text-red-600"
+    );
+  }

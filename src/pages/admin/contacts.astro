@@ -1,0 +1,469 @@
+---
+export const prerender = false;
+import AdminLayout from "@/layouts/AdminLayout.astro";
+import { getContacts, deleteContact } from "@/services/admin";
+
+let flash = "";
+
+if (Astro.request.method === "POST") {
+  const form = await Astro.request.formData();
+  const action = form.get("_action") as string;
+  const id = parseInt(form.get("id") as string);
+
+  if (action === "delete" && id) {
+    const result = await deleteContact(id);
+    flash = result.success ? "success:Contacto eliminado correctamente." : "error:No se pudo eliminar el contacto.";
+  }
+  return Astro.redirect(`/admin/contacts?flash=${encodeURIComponent(flash)}&page=${form.get("page") ?? 1}&q=${encodeURIComponent(form.get("q") as string ?? "")}`);
+}
+
+const page = parseInt(Astro.url.searchParams.get("page") ?? "1");
+const search = Astro.url.searchParams.get("q") ?? "";
+const flashParam = Astro.url.searchParams.get("flash") ?? "";
+
+const { data: contacts, total, pages } = await getContacts(page, search);
+
+const serviceLabels: Record<string, string> = {
+  "fire-alarm": "Alarma Contra Incendio",
+  security: "Seguridad / CCTV",
+  electricity: "Instalaciones Eléctricas",
+  "access-control": "Control de Acceso",
+  monitoring: "Monitoreo",
+  maintenance: "Mantenimiento",
+  other: "Otro",
+};
+---
+
+<AdminLayout title="Contactos" section="contacts">
+  <style>
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .search-wrap {
+      flex: 1;
+      min-width: 220px;
+      position: relative;
+    }
+
+    .search-wrap svg {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 9px 12px 9px 36px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 12px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-input:focus {
+      border-color: var(--primary);
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+      box-shadow: 0 0 0 3px rgba(205,92,92,0.1);
+    }
+
+    .count-badge {
+      font-size: 11px;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .count-badge strong {
+      color: var(--text);
+    }
+
+    /* ─── FLASH ─── */
+    .flash {
+      padding: 10px 14px;
+      border-radius: var(--radius);
+      font-size: 12px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .flash-success { background: rgba(22,163,74,0.07); border: 1px solid rgba(22,163,74,0.2); color: #15803d; }
+    .flash-error   { background: #fff5f5; border: 1px solid rgba(205,92,92,0.25); color: #b34545; }
+
+    /* ─── TABLE ─── */
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 780px;
+    }
+
+    thead th {
+      background: var(--bg);
+      padding: 10px 14px;
+      text-align: left;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background 0.1s;
+    }
+
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: var(--bg-hover); }
+
+    td {
+      padding: 11px 14px;
+      font-size: 12px;
+      color: var(--text);
+      vertical-align: top;
+    }
+
+    .td-id {
+      color: var(--text-faint);
+      font-family: var(--font);
+      font-size: 11px;
+    }
+
+    .td-name { font-weight: 500; }
+
+    .td-email a {
+      color: var(--cyan);
+      text-decoration: none;
+      font-size: 11px;
+    }
+
+    .td-email a:hover { text-decoration: underline; }
+
+    .service-tag {
+      display: inline-block;
+      padding: 2px 8px;
+      background: var(--primary-dim);
+      border: 1px solid rgba(205,92,92,0.2);
+      color: var(--primary);
+      border-radius: 20px;
+      font-size: 10px;
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+    }
+
+    .td-date {
+      color: var(--text-muted);
+      font-family: var(--font);
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    .td-actions { text-align: right; }
+
+    .btn-delete {
+      background: none;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 5px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-family: var(--font);
+      transition: all 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .btn-delete:hover {
+      background: rgba(244,63,94,0.1);
+      border-color: rgba(244,63,94,0.25);
+      color: var(--red);
+    }
+
+    /* ─── DETAIL ROW ─── */
+    .detail-row td {
+      padding: 0 14px;
+      background: var(--bg);
+    }
+
+    .detail-content {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.3s ease, padding 0.2s;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .detail-content.open {
+      max-height: 200px;
+      padding: 12px 0;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 8px;
+    }
+
+    .detail-item span:first-child {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin-bottom: 2px;
+    }
+
+    .detail-item span:last-child {
+      color: var(--text);
+    }
+
+    /* ─── EMPTY ─── */
+    .empty {
+      text-align: center;
+      padding: 48px 24px;
+      color: var(--text-muted);
+    }
+
+    .empty-icon {
+      width: 48px;
+      height: 48px;
+      opacity: 0.15;
+      margin: 0 auto 12px;
+    }
+
+    /* ─── PAGINATION ─── */
+    .pagination {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 16px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .page-info {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .page-buttons {
+      display: flex;
+      gap: 4px;
+    }
+
+    .page-btn {
+      padding: 5px 10px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 4px;
+      font-family: var(--font);
+      font-size: 11px;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+
+    .page-btn:hover { border-color: var(--border-hover); background: var(--bg-hover); }
+    .page-btn.current { background: var(--primary-dim); border-color: rgba(205,92,92,0.3); color: var(--primary); }
+    .page-btn:disabled, .page-btn[aria-disabled="true"] { opacity: 0.3; pointer-events: none; }
+  </style>
+
+  <!-- Flash -->
+  {flashParam.startsWith("success:") && (
+    <div class="flash flash-success">✓ {flashParam.slice(8)}</div>
+  )}
+  {flashParam.startsWith("error:") && (
+    <div class="flash flash-error">⚠ {flashParam.slice(6)}</div>
+  )}
+
+  <!-- Toolbar -->
+  <form class="toolbar" method="GET">
+    <div class="search-wrap">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/>
+      </svg>
+      <input
+        class="search-input"
+        type="search"
+        name="q"
+        value={search}
+        placeholder="Buscar por nombre, email, teléfono..."
+      />
+    </div>
+    <button type="submit" style="padding:9px 16px;background:var(--bg-card);border:1px solid var(--border);color:var(--text);border-radius:var(--radius);font-family:var(--font);font-size:13px;cursor:pointer;letter-spacing:0.5px;transition:all 0.15s">
+      Buscar
+    </button>
+    <span class="count-badge"><strong>{total}</strong> contactos</span>
+  </form>
+
+  <!-- Table -->
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nombre</th>
+          <th>Email / Teléfono</th>
+          <th>Servicio</th>
+          <th>CP</th>
+          <th>Fecha</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {contacts.length === 0 && (
+          <tr>
+            <td colspan="7">
+              <div class="empty">
+                <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                  <path d="M22 12H16L14 15H10L8 12H2"/><path d="M5.45 5.11L2 12v6a2 2 0 002 2h16a2 2 0 002-2v-6l-3.45-6.89A2 2 0 0016.76 4H7.24a2 2 0 00-1.79 1.11z"/>
+                </svg>
+                <p>No se encontraron contactos</p>
+              </div>
+            </td>
+          </tr>
+        )}
+        {contacts.map((c: any) => (
+          <>
+            <tr
+              class="contact-row"
+              style="cursor:pointer"
+              data-id={c.id}
+              onclick={`toggleDetail(${c.id})`}
+            >
+              <td class="td-id">#{c.id}</td>
+              <td class="td-name">{c.name}</td>
+              <td class="td-email">
+                <a href={`mailto:${c.email}`} onclick="event.stopPropagation()">{c.email}</a>
+                <br />
+                <span style="color:var(--text-muted);font-size:11px">{c.phone}</span>
+              </td>
+              <td>
+                <span class="service-tag">{serviceLabels[c.service] ?? c.service}</span>
+              </td>
+              <td class="td-date">{c.zip}</td>
+              <td class="td-date">
+                {new Date(c.created_at).toLocaleDateString("es-MX", {
+                  day: "2-digit",
+                  month: "short",
+                  year: "numeric",
+                })}
+              </td>
+              <td class="td-actions" onclick="event.stopPropagation()">
+                <form method="POST">
+                  <input type="hidden" name="_action" value="delete" />
+                  <input type="hidden" name="id" value={c.id} />
+                  <input type="hidden" name="page" value={page} />
+                  <input type="hidden" name="q" value={search} />
+                  <button
+                    type="submit"
+                    class="btn-delete"
+                    onclick={`return confirm('¿Eliminar contacto de ${c.name}?')`}
+                  >
+                    <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                      <polyline points="3 6 5 6 13 6"/><path d="M14 6l-1 9H3L2 6"/>
+                      <path d="M6 6V4h4v2"/>
+                    </svg>
+                    Eliminar
+                  </button>
+                </form>
+              </td>
+            </tr>
+            <tr class="detail-row" id={`detail-${c.id}`}>
+              <td colspan="7">
+                <div class="detail-content" id={`content-${c.id}`}>
+                  <div class="detail-grid">
+                    {c.subject && (
+                      <div class="detail-item">
+                        <span>Asunto</span>
+                        <span>{c.subject}</span>
+                      </div>
+                    )}
+                    {c.company && (
+                      <div class="detail-item">
+                        <span>Empresa</span>
+                        <span>{c.company}</span>
+                      </div>
+                    )}
+                    {c.address && (
+                      <div class="detail-item">
+                        <span>Dirección</span>
+                        <span>{c.address}</span>
+                      </div>
+                    )}
+                    <div class="detail-item" style="grid-column:1/-1">
+                      <span>Mensaje</span>
+                      <span>{c.message}</span>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  {pages > 1 && (
+    <div class="pagination">
+      <span class="page-info">
+        Página {page} de {pages} · {total} registros
+      </span>
+      <div class="page-buttons">
+        <a
+          href={`/admin/contacts?page=${page - 1}&q=${search}`}
+          class="page-btn"
+          aria-disabled={page <= 1 ? "true" : undefined}
+        >← Ant</a>
+        {Array.from({ length: Math.min(pages, 7) }, (_, i) => {
+          const p = i + 1;
+          return (
+            <a
+              href={`/admin/contacts?page=${p}&q=${search}`}
+              class={`page-btn ${p === page ? "current" : ""}`}
+            >
+              {p}
+            </a>
+          );
+        })}
+        <a
+          href={`/admin/contacts?page=${page + 1}&q=${search}`}
+          class="page-btn"
+          aria-disabled={page >= pages ? "true" : undefined}
+        >Sig →</a>
+      </div>
+    </div>
+  )}
+</AdminLayout>
+
+<script>
+  function toggleDetail(id: number) {
+    const content = document.getElementById(`content-${id}`);
+    if (content) content.classList.toggle("open");
+  }
+  (window as any).toggleDetail = toggleDetail;
+</script>

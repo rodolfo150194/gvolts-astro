@@ -4,7 +4,12 @@ import "@/styles/global.css";
 const {
   title = "GVOLTS | Advanced Protection Systems - Fire Alarm & Surveillance Installation",
   description = "Professional fire alarm and surveillance system installation for residential and commercial properties. ISO certified technology with 24/7 monitoring and absolute peace of mind.",
+  image = "/img/logo/logo-gvoltscorp2.png",
+  noindex = false,
 } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = new URL(image, Astro.site);
 
 const chatwootUrl = import.meta.env.PUBLIC_CHATWOOT_URL;
 const chatwootToken = import.meta.env.PUBLIC_CHATWOOT_TOKEN;
@@ -12,15 +17,16 @@ const chatwootToken = import.meta.env.PUBLIC_CHATWOOT_TOKEN;
 ---
 
 <!doctype html>
-<html lang="es" class="min-h-full w-full">
+<html lang="es" class="min-h-full w-full has-[.cr]:overflow-x-clip">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
 
     <!-- Canonical URL -->
-    <!-- <link rel="canonical" href={canonicalURL} /> -->
+    <link rel="canonical" href={canonicalURL} />
 
     <!-- Favicon -->
     <link rel="icon" type="img/logo/logo-minimalista-gvolts.png" href="/favicon.svg" />
@@ -30,18 +36,21 @@ const chatwootToken = import.meta.env.PUBLIC_CHATWOOT_TOKEN;
     <link rel="preload" href="/img/gvolts/planing-project.webp" as="image" type="image/webp" fetchpriority="high" />
     <link rel="preload" href="/fonts/RobotoMono-VariableFont_wght.ttf" as="font" type="font/ttf" crossorigin />
 
-    <!-- <meta property="og:url" content={canonicalURL} /> -->
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
     <meta property="og:locale" content="es_ES" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <!-- <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" /> -->
+    <meta property="og:image" content={ogImageURL} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
 
     <!-- Local font will load with font-display: swap (avoid blocking render) -->
-
-    <!-- Structured Data -->
-    <!-- <StructuredData schema={organizationSchema} />
-    {schema && <StructuredData schema={schema} />} -->
 
     <!-- Theme Color -->
     <meta name="theme-color" content="#DC2626" />
@@ -65,8 +74,14 @@ const chatwootToken = import.meta.env.PUBLIC_CHATWOOT_TOKEN;
       })(document,"script");
     </script>
     <title>{title}</title>
+    <slot name="head" />
   </head>
-  <body class="min-h-screen w-full" id="background-mask">
+  <body class="min-h-screen w-full has-[.cr]:bg-[#111012] has-[.cr]:overflow-x-clip" id="background-mask">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200] focus:bg-white focus:text-indian-red-700 focus:px-4 focus:py-2 focus:rounded-lg focus:font-bold focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-indian-red-500 focus:ring-offset-2"
+      >Saltar al contenido</a
+    >
     <slot />
 
     <!-- Global Hash Scroll Handler -->

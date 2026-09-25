@@ -911,5 +911,69 @@
       "buttonLabel": "Llamar Ahora"
     }
   }
-}
+  },
+  "about": {
+    "hero": {
+      "kicker": "Quiénes somos",
+      "title": {
+        "line1": "Protegemos",
+        "line2": "lo que",
+        "highlight": "construyes"
+      },
+      "lede": "Diseñamos, instalamos y vigilamos sistemas de alarma contra incendios, videovigilancia y electricidad certificada para hogares y negocios. Un solo equipo, de plano a monitoreo.",
+      "image": "/img/gvolts/about.jpg",
+      "badge": {
+        "value": "500+",
+        "label": "Proyectos instalados"
+      }
+    },
+    "manifesto": {
+      "label": "01 — Filosofía",
+      "title": "No vendemos equipos. Vendemos tranquilidad.",
+      "text": "Más de 10 años protegiendo hogares y negocios con certificaciones UL, NFPA y licencias estatales activas. Cada proyecto empieza con una visita técnica real, no con un catálogo: escuchamos cómo usas tu propiedad y diseñamos el sistema alrededor de eso, no al revés."
+    },
+    "phases": [
+      {
+        "n": "01",
+        "title": "Diseñamos",
+        "text": "Plano técnico al código, equipos elegidos según riesgo real y presupuesto cerrado antes de tocar una pared."
+      },
+      {
+        "n": "02",
+        "title": "Instalamos",
+        "text": "Técnicos propios, cableado limpio y pruebas de cada zona antes de entregarte las llaves. Sin subcontratos."
+      },
+      {
+        "n": "03",
+        "title": "Vigilamos",
+        "text": "Monitoreo 24/7 desde central certificada UL. Tú duermes, el sistema no."
+      }
+    ],
+    "credentials": [
+      {
+        "value": "UL · ETL",
+        "label": "Certificación UL y ETL"
+      },
+      {
+        "value": "Activa",
+        "label": "Licencia estatal de contratista"
+      },
+      {
+        "value": "NFPA",
+        "label": "Membresía activa en NFPA"
+      },
+      {
+        "value": "A+",
+        "label": "Miembro BBB con calificación A+"
+      },
+      {
+        "value": "10+",
+        "label": "Años en el mercado"
+      },
+      {
+        "value": "500+",
+        "label": "Proyectos completados"
+      }
+    ]
+  }
 }

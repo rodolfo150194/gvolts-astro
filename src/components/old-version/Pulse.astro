@@ -1,0 +1,118 @@
+---
+// One heartbeat-shaped segment, 200 units wide; repeated to fill the scope
+const beat = "l40 0 l8 -6 l6 6 l10 0 l6 18 l8 -70 l8 82 l6 -24 l12 0 l10 -10 l10 10 l76 0";
+const segments = 16;
+const path = `M0 60 ${Array.from({ length: segments }, () => beat).join(" ")}`;
+---
+
+<section class="pulse" aria-labelledby="pulse-title">
+  <div class="pulse__scope" aria-hidden="true">
+    <svg viewBox={`0 0 ${segments * 200} 120`} preserveAspectRatio="none">
+      <path d={path} />
+    </svg>
+  </div>
+
+  <div class="cr-wrap pulse__inner">
+    <p class="cr-label" data-reveal><span class="cr-led cr-led--signal cr-blink"></span> Señal en vivo</p>
+    <h2 id="pulse-title" data-reveal style="--d:80ms">
+      <span class="pulse__big">24/7</span>
+      <span class="pulse__sub">Tú duermes.<br />El sistema no.</span>
+    </h2>
+  </div>
+</section>
+
+<style>
+  .pulse {
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(96px, 12vw, 170px);
+    border-block: 1px solid var(--cr-line);
+    background: radial-gradient(70% 90% at 50% 50%, color-mix(in srgb, var(--cr-signal) 10%, transparent), transparent 70%), var(--cr-ink);
+  }
+
+  .pulse__scope {
+    position: absolute;
+    inset: 50% 0 auto;
+    height: 160px;
+    translate: 0 -50%;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 25%, #000 75%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 25%, #000 75%, transparent);
+    opacity: 0.85;
+  }
+
+  .pulse__scope svg {
+    width: 400%;
+    height: 100%;
+    animation: cr-scope 9s linear infinite;
+  }
+
+  .pulse__scope path {
+    fill: none;
+    stroke: var(--cr-signal);
+    stroke-width: 2;
+    vector-effect: non-scaling-stroke;
+    filter: drop-shadow(0 0 6px var(--cr-signal));
+  }
+
+  @keyframes cr-scope {
+    to { transform: translateX(-50%); }
+  }
+
+  .pulse__inner {
+    position: relative;
+  }
+
+  .pulse__inner .cr-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .pulse h2 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 16px clamp(24px, 4vw, 64px);
+    margin-top: 20px;
+  }
+
+  .pulse__big {
+    font-size: clamp(120px, 26vw, 400px);
+    line-height: 0.78;
+    color: transparent;
+    -webkit-text-stroke: 2px var(--cr-bone);
+    text-shadow: 0 0 60px rgba(0, 0, 0, 0.8);
+  }
+
+  .pulse__sub {
+    font-size: clamp(36px, 5vw, 72px);
+    padding-bottom: 0.1em;
+    background: var(--cr-ink);
+    box-shadow: 0 0 0 12px var(--cr-ink);
+  }
+
+  @media (max-width: 640px) {
+    .pulse {
+      padding-block: clamp(72px, 16vw, 120px);
+    }
+
+    .pulse__big {
+      font-size: clamp(72px, 26vw, 400px);
+    }
+
+    .pulse h2 {
+      gap: 12px clamp(16px, 4vw, 64px);
+    }
+  }
+
+  @media (max-width: 400px) {
+    .pulse__big {
+      font-size: 56px;
+    }
+
+    .pulse__sub {
+      font-size: 28px;
+      box-shadow: 0 0 0 8px var(--cr-ink);
+    }
+  }
+</style>

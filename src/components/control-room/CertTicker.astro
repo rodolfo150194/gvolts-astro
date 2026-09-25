@@ -1,0 +1,34 @@
+---
+const items = [
+  "NFPA 72",
+  "UL 864",
+  "Código NEC",
+  "Técnicos NICET III · IV",
+  "Central UL 24/7",
+  "Garantía 5 años",
+  "+500 proyectos",
+];
+---
+
+<div class="cert-ticker h-24 flex items-center overflow-hidden bg-[var(--cr-signal)] text-[var(--cr-ink)]" aria-hidden="true">
+  <div class="cert-ticker__track flex w-max animate-[cert-marquee_42s_linear_infinite] motion-reduce:animate-none">
+    {
+      [0, 1].map(() => (
+        <div class="cert-ticker__set flex shrink-0 gap-12 pr-12">
+          {items.map((item) => (
+            <span class="flex items-center gap-12 font-[var(--cr-display)] font-extrabold text-[clamp(24px,3.2vw,44px)] uppercase whitespace-nowrap">
+              {item}
+              <em class="not-italic text-[0.5em]">■</em>
+            </span>
+          ))}
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  @keyframes cert-marquee {
+    to { transform: translateX(-50%); }
+  }
+</style>

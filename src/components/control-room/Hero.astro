@@ -1,0 +1,159 @@
+---
+const stats = [
+  { value: 500, suffix: "+", label: "Proyectos completados" },
+  { value: 24, suffix: "/7", label: "Monitoreo continuo" },
+  { value: 10, suffix: "+", label: "Años de experiencia" },
+];
+
+const zones = [
+  { id: "Z01", name: "Detección de incendio", state: "Normal", led: "" },
+  { id: "Z02", name: "CCTV perimetral", state: "Grabando", led: "cr-led--signal cr-blink" },
+  { id: "Z03", name: "Tablero eléctrico", state: "220 V", led: "cr-led--amber" },
+];
+---
+
+<section class="hero relative overflow-hidden bg-[var(--cr-ink)] pt-[clamp(48px,8vw,110px)] pb-[clamp(64px,9vw,130px)] max-[640px]:pt-[clamp(40px,10vw,72px)] max-[640px]:pb-[clamp(88px,14vw,120px)]">
+  <div class="hero__grid-bg absolute inset-0 bg-[linear-gradient(var(--cr-line)_1px,transparent_1px),linear-gradient(90deg,var(--cr-line)_1px,transparent_1px)] bg-[size:88px_88px]" aria-hidden="true"></div>
+  <div class="scan absolute left-0 right-0 top-0 h-px bg-[color-mix(in_srgb,var(--cr-signal)_45%,transparent)] shadow-[0_0_24px_2px_color-mix(in_srgb,var(--cr-signal)_35%,transparent)] animate-[hero-scan_7s_linear_infinite]" aria-hidden="true"></div>
+
+  <div class="cr-wrap hero__grid relative grid grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] max-[960px]:grid-cols-1 gap-[clamp(40px,6vw,96px)] items-center">
+    <div class="hero__copy">
+      <p class="cr-label hero__kicker flex items-center gap-[14px] text-[var(--cr-signal)] mb-7" data-reveal>
+        <span class="cr-led cr-led--signal cr-blink"></span>Sistema armado — Electricidad · Incendio · Seguridad
+      </p>
+
+      <h1 class="hero__title text-[clamp(60px,8.6vw,140px)]">
+        <span class="line block" data-reveal style="--d:80ms">Protege</span>
+        <span class="line outline block text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]" data-reveal style="--d:160ms">lo que más</span>
+        <span class="line line--signal block text-[var(--cr-signal)]" data-reveal style="--d:240ms">importa<span class="dot text-[var(--cr-bone)] [-webkit-text-stroke:0]">.</span></span>
+      </h1>
+
+      <p class="hero__lede mt-8 max-w-[46ch] text-[clamp(17px,1.4vw,20px)] text-[var(--cr-bone-dim)]" data-reveal style="--d:340ms">
+        Diseñamos, instalamos y vigilamos alarmas contra incendio, videovigilancia inteligente y electricidad
+        certificada. Un solo equipo, del plano al monitoreo.
+      </p>
+
+      <div class="hero__actions flex flex-wrap gap-[14px] mt-9 max-[640px]:flex-col max-[640px]:items-stretch" data-reveal style="--d:420ms">
+        <a href="/contact" class="cr-btn max-[640px]:justify-center">Consulta gratuita <span aria-hidden="true">→</span></a>
+        <a href="#servicios" class="cr-btn cr-btn--ghost max-[640px]:justify-center">Ver servicios</a>
+      </div>
+
+      <dl class="stats grid grid-cols-3 mt-14 border-t border-[var(--cr-line-strong)] max-[640px]:grid-cols-2 max-[640px]:gap-y-5" data-reveal style="--d:500ms">
+        {
+          stats.map((s) => (
+            <div class="stat pt-[18px] pr-4 [&+&]:pl-4 [&+&]:border-l [&+&]:border-[var(--cr-line)] max-[640px]:[&:nth-child(3)]:col-span-full max-[640px]:[&:nth-child(3)]:pl-0 max-[640px]:[&:nth-child(3)]:border-l-0 max-[640px]:[&:nth-child(3)]:border-t max-[640px]:[&:nth-child(3)]:border-[var(--cr-line)] max-[640px]:[&:nth-child(3)]:pt-[18px]">
+              <dt class="cr-label text-[10.5px]">{s.label}</dt>
+              <dd class="mt-1.5 font-[var(--cr-display)] font-extrabold text-[clamp(40px,4.6vw,64px)] leading-none [font-variant-numeric:tabular-nums]">
+                <span data-count={s.value}>{s.value}</span>
+                <span class="stat__suffix text-[var(--cr-signal)]">{s.suffix}</span>
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+
+    <!-- 3D digital twin -->
+    <div class="twin relative w-full max-w-[560px] [aspect-ratio:620/760] mx-auto [perspective:1600px] max-[960px]:max-w-[420px]" data-reveal style="--d:200ms">
+      <div class="twin__glow absolute left-[5%] top-[10.5%] w-[90%] h-[73.7%] rounded-full bg-[radial-gradient(closest-side,color-mix(in_srgb,var(--cr-signal)_24%,transparent),transparent)] animate-[twin-glow_4s_ease-in-out_infinite]" aria-hidden="true"></div>
+      <div class="twin__plan absolute left-[8%] top-[14.5%] w-[84%] [aspect-ratio:1] [transform-style:preserve-3d] [transform:rotateX(60deg)_rotateZ(-36deg)] animate-[twin-sway_18s_ease-in-out_infinite]" aria-hidden="true">
+        <div class="twin__floor absolute inset-0 box-border border-2 border-[var(--cr-line-strong)] bg-[color-mix(in_srgb,var(--cr-ink-3)_90%,transparent)] bg-[image:linear-gradient(var(--cr-line)_1px,transparent_1px),linear-gradient(90deg,var(--cr-line)_1px,transparent_1px)] bg-[size:5%_5%]"></div>
+        <div class="twin__sweep-wrap absolute inset-0 overflow-hidden">
+          <div class="twin__sweep absolute left-[59.6%] top-[-32.7%] w-[73.1%] [aspect-ratio:1] rounded-full bg-[conic-gradient(color-mix(in_srgb,var(--cr-ok)_0%,transparent)_0deg,color-mix(in_srgb,var(--cr-ok)_0%,transparent)_290deg,color-mix(in_srgb,var(--cr-ok)_42%,transparent)_358deg,color-mix(in_srgb,var(--cr-ok)_0%,transparent)_360deg)] animate-[twin-sweep_6s_linear_infinite]"></div>
+        </div>
+        <div class="twin__wall twin__wall--v absolute bg-[var(--cr-line-strong)] left-[57.7%] top-0 w-[2px] h-full"></div>
+        <div class="twin__wall twin__wall--h1 absolute bg-[var(--cr-line-strong)] left-0 top-[42.3%] w-[57.7%] h-[2px]"></div>
+        <div class="twin__wall twin__wall--h2 absolute bg-[var(--cr-line-strong)] left-[57.7%] top-[61.5%] w-[42.3%] h-[2px]"></div>
+
+        <svg viewBox="0 0 520 520" class="twin__wires absolute inset-0 overflow-visible" preserveAspectRatio="none">
+          <path class="flow [stroke-dasharray:6_14] animate-[twin-flow_3.2s_linear_infinite]" d="M440 440 L440 400 L150 400" stroke="#ffd66b" stroke-width="2" fill="none"></path>
+          <path class="flow [stroke-dasharray:6_14] animate-[twin-flow_3.2s_linear_infinite]" d="M440 440 L440 270 L230 270 L230 110 L150 110" stroke="#ffd66b" stroke-width="2" fill="none"></path>
+          <path class="flow [stroke-dasharray:6_14] animate-[twin-flow_3.2s_linear_infinite]" d="M440 440 L495 440 L495 25" stroke="#ffd66b" stroke-width="2" fill="none"></path>
+        </svg>
+
+        <div class="twin__marker twin__marker--fire absolute w-[5.4%] [aspect-ratio:1] [translate:-50%_-50%]" style="left:26.15%;top:18.46%">
+          <span class="twin__pulse absolute inset-0 border-2 border-[var(--cr-signal)] rounded-full animate-[twin-pulse_2.6s_cubic-bezier(0.2,0.6,0.3,1)_infinite]"></span><span class="twin__pulse twin__pulse--2 absolute inset-0 border-2 border-[var(--cr-signal)] rounded-full animate-[twin-pulse_2.6s_cubic-bezier(0.2,0.6,0.3,1)_infinite] [animation-delay:1.3s]"></span>
+          <span class="twin__dot absolute inset-[25%] rounded-full bg-[var(--cr-signal)] shadow-[0_0_18px_var(--cr-signal)]"></span>
+        </div>
+        <div class="twin__marker twin__marker--fire absolute w-[5.4%] [aspect-ratio:1] [translate:-50%_-50%]" style="left:26.15%;top:74.23%">
+          <span class="twin__pulse twin__pulse--2 absolute inset-0 border-2 border-[var(--cr-signal)] rounded-full animate-[twin-pulse_2.6s_cubic-bezier(0.2,0.6,0.3,1)_infinite] [animation-delay:1.3s]"></span>
+          <span class="twin__dot absolute inset-[25%] rounded-full bg-[var(--cr-signal)] shadow-[0_0_18px_var(--cr-signal)]"></span>
+        </div>
+        <div class="twin__marker twin__marker--cam absolute [aspect-ratio:1] [translate:-50%_-50%] w-[3.8%] bg-[var(--cr-ok)] shadow-[0_0_18px_var(--cr-ok)]" style="left:93.27%;top:2.88%"></div>
+        <div class="twin__marker twin__marker--amber cr-blink absolute [aspect-ratio:1] [translate:-50%_-50%] w-[4.6%] bg-[var(--cr-amber)] shadow-[0_0_22px_var(--cr-amber)]" style="left:82.3%;top:82.3%"></div>
+
+        <p class="twin__label absolute m-0 font-[var(--cr-mono)] text-[11px] tracking-[0.08em] text-[var(--cr-bone-dim)] whitespace-nowrap" style="left:3.46%;top:3.46%">Z01 · LOBBY</p>
+        <p class="twin__label absolute m-0 font-[var(--cr-mono)] text-[11px] tracking-[0.08em] text-[var(--cr-bone-dim)] whitespace-nowrap" style="left:3.46%;top:46.15%">Z02 · BODEGA</p>
+        <p class="twin__label absolute m-0 font-[var(--cr-mono)] text-[11px] tracking-[0.08em] text-[var(--cr-bone-dim)] whitespace-nowrap" style="left:61.15%;top:55.77%">Z03 · SERVIDORES</p>
+        <p class="twin__label twin__label--amber absolute m-0 font-[var(--cr-mono)] text-[11px] tracking-[0.08em] text-[var(--cr-amber)] whitespace-nowrap" style="left:61.15%;top:92.3%">TABLERO 220V</p>
+
+        <div class="twin__frame twin__frame--dashed absolute inset-0 box-border border border-dashed border-[var(--cr-line-strong)] [transform:translateZ(70px)]"></div>
+        <div class="twin__frame twin__frame--red absolute inset-0 box-border border border-[color-mix(in_srgb,var(--cr-signal)_40%,transparent)] [transform:translateZ(150px)]"></div>
+      </div>
+
+      <div class="cam-card absolute right-0 top-[3.2%] w-[40%] box-border py-[14px] px-4 bg-[color-mix(in_srgb,var(--cr-ink-3)_92%,transparent)] border border-[var(--cr-line-strong)] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.8)] animate-[twin-drift_7s_ease-in-out_infinite]">
+        <p class="cam-card__head flex justify-between m-0 font-[var(--cr-mono)] text-[11px] tracking-[0.1em] text-[var(--cr-bone-dim)]">
+          <span>CAM-04 · 4K</span>
+          <span class="cam-card__rec flex items-center gap-1.5 text-[var(--cr-signal)]"><span class="cr-led cr-led--signal cr-blink"></span>REC</span>
+        </p>
+        <p class="cam-card__body mt-2.5 font-[var(--cr-display)] font-bold text-[clamp(18px,2vw,24px)] leading-[1.15] max-[640px]:text-[16px]">Perímetro norte<br /><span class="cam-card__ok text-[var(--cr-ok)]">Sin intrusión</span></p>
+      </div>
+
+      <div class="panel absolute left-0 bottom-[2.6%] w-[54%] bg-[color-mix(in_srgb,var(--cr-ink-3)_94%,transparent)] backdrop-blur-[10px] border border-[var(--cr-line-strong)] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.8)] animate-[twin-drift_9s_ease-in-out_infinite] [animation-delay:-3s]">
+        <div class="panel__head flex justify-between py-[10px] px-[14px] border-b border-[var(--cr-line)]">
+          <span class="cr-label">Panel de zonas</span>
+          <span class="cr-label panel__armed text-[var(--cr-ok)]">Armado</span>
+        </div>
+        <ul class="list-none m-0 py-1">
+          {
+            zones.map((z) => (
+              <li class="zone grid grid-cols-[34px_1fr_auto] gap-2 items-center py-[7px] px-[14px] text-[12.5px] max-[640px]:text-[11px]">
+                <span class="zone__id font-[var(--cr-mono)] text-[10px] tracking-[0.08em] uppercase text-[var(--cr-bone-dim)]">{z.id}</span>
+                <span class="zone__name">{z.name}</span>
+                <span class="zone__state font-[var(--cr-mono)] text-[10px] tracking-[0.08em] uppercase inline-flex items-center gap-1.5 text-[var(--cr-bone)]">
+                  <span class={`cr-led ${z.led}`} />
+                  {z.state}
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes hero-scan {
+    from { top: -4%; }
+    to { top: 104%; }
+  }
+
+  @keyframes twin-glow {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+
+  @keyframes twin-sway {
+    0%, 100% { transform: rotateX(60deg) rotateZ(-44deg); }
+    50% { transform: rotateX(56deg) rotateZ(-28deg); }
+  }
+
+  @keyframes twin-sweep {
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes twin-flow {
+    to { stroke-dashoffset: -200; }
+  }
+
+  @keyframes twin-pulse {
+    0% { transform: scale(0.5); opacity: 1; }
+    100% { transform: scale(3.2); opacity: 0; }
+  }
+
+  @keyframes twin-drift {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+</style>

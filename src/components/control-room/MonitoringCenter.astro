@@ -1,0 +1,30 @@
+---
+import { Image } from "astro:assets";
+import monitoringCenter from "@/assets/img/gvolts/monitoring-center.jpg";
+---
+
+<section class="monitoring relative flex items-center min-h-[clamp(420px,44vw,640px)] overflow-hidden">
+  <Image
+    src={monitoringCenter}
+    alt="Operador en la central de monitoreo frente a múltiples pantallas"
+    class="monitoring__img absolute inset-0 w-full h-full object-cover [filter:saturate(0.5)_brightness(0.55)]"
+    loading="lazy"
+    format="webp"
+  />
+  <div class="monitoring__scan absolute left-0 right-0 top-[40%] h-0.5 bg-[rgba(126,226,168,0.4)] shadow-[0_0_30px_4px_rgba(126,226,168,0.25)] animate-[monitoring-scan_7s_linear_infinite] motion-reduce:animate-none motion-reduce:top-[40%]" aria-hidden="true"></div>
+  <div class="cr-wrap monitoring__inner relative flex flex-col gap-7 max-w-[620px] py-[clamp(64px,8vw,100px)]">
+    <p class="cr-label monitoring__flag inline-flex items-center gap-3 text-[var(--cr-ok)]" data-reveal><span class="cr-led"></span>Central de monitoreo · En línea</p>
+    <h2 class="text-[clamp(48px,7vw,104px)]" data-reveal style="--d:80ms">Una central<br />que nunca parpadea.</h2>
+    <p class="monitoring__copy text-[19px] leading-[1.6] text-[rgba(237,232,224,0.8)] max-w-[52ch]" data-reveal style="--d:160ms">
+      Si algo ocurre, despachamos ayuda mientras verificamos la emergencia. Tiempos de respuesta menores a 30
+      segundos, certificados UL.
+    </p>
+  </div>
+</section>
+
+<style>
+  @keyframes monitoring-scan {
+    from { top: -4%; }
+    to { top: 104%; }
+  }
+</style>

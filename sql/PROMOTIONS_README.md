@@ -85,7 +85,7 @@ Add the PromoSection component to any page:
 ```astro
 ---
 // src/pages/index.astro
-import PromoSection from "@/components/PromoSection.astro";
+import PromoSection from "@/components/old-version/PromoSection.astro";
 ---
 
 <Layout title="GVolts - Inicio">
@@ -107,7 +107,7 @@ Filter promotions by service:
 ```astro
 ---
 // src/pages/services/fire-alarm.astro
-import PromoSection from "@/components/PromoSection.astro";
+import PromoSection from "@/components/old-version/PromoSection.astro";
 ---
 
 <Layout title="Alarmas Contra Incendio">
@@ -127,7 +127,7 @@ Show a banner for the top active promotion:
 ```astro
 ---
 // src/layouts/Layout.astro
-import PromoBanner from "@/components/PromoBanner.astro";
+import PromoBanner from "@/components/old-version/PromoBanner.astro";
 import { getActivePromotions } from "@/services/promotions";
 
 const { data: promotions } = await getActivePromotions();

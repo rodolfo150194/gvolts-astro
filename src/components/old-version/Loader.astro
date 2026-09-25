@@ -1,0 +1,45 @@
+---
+
+---
+
+<!-- Loader de carga -->
+<div
+  id="loader-screen"
+  class="fixed inset-0 z-[9999] flex items-center justify-center bg-gradient-to-br from-lemon-chiffon-200 to-indian-red-100 transition-opacity duration-500 ease-out"
+>
+  <div class="flex flex-row items-center justify-center gap-2 overflow-hidden p-0 m-0">
+    {[
+      ["C", "0ms"],
+      ["A", "80ms"],
+      ["R", "160ms"],
+      ["G", "240ms"],
+      ["A", "320ms"],
+      ["N", "400ms"],
+      ["D", "480ms"],
+      ["O", "560ms"],
+    ].map(([letter, delay]) => (
+      <span
+        class="m-0 translate-y-16 p-0 font-display text-6xl font-black text-dark [text-shadow:2px_2px_4px_rgba(0,0,0,0.1)] [animation:hideAndSeek_1s_alternate_infinite_cubic-bezier(0.86,0,0.07,1)]"
+        style={`animation-delay: ${delay}`}
+      >
+        {letter}
+      </span>
+    ))}
+  </div>
+</div>
+
+<script>
+  // Ocultar el loader después de 2.5 segundos
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const loader = document.getElementById('loader-screen');
+      if (loader) {
+        loader.classList.add('opacity-0', 'pointer-events-none');
+        // Remover el elemento del DOM después de la transición
+        setTimeout(() => {
+          loader.remove();
+        }, 500);
+      }
+    }, 2500);
+  });
+</script>

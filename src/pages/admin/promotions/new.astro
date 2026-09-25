@@ -1,0 +1,507 @@
+---
+export const prerender = false;
+import AdminLayout from "@/layouts/AdminLayout.astro";
+import { createPromotion } from "@/services/admin";
+
+let formError = "";
+let fieldErrors: Record<string, string> = {};
+
+if (Astro.request.method === "POST") {
+  const form = await Astro.request.formData();
+
+  const title = (form.get("title") as string)?.trim();
+  const description = (form.get("description") as string)?.trim();
+  const discount_type = form.get("discount_type") as "percentage" | "fixed";
+  const discount_value = parseFloat(form.get("discount_value") as string);
+  const promo_code = (form.get("promo_code") as string)?.trim().toUpperCase() || undefined;
+  const start_date = form.get("start_date") as string;
+  const end_date = form.get("end_date") as string;
+  const is_active = form.get("is_active") === "1";
+  const terms = (form.get("terms") as string)?.trim() || undefined;
+  const max_uses_raw = form.get("max_uses") as string;
+  const max_uses = max_uses_raw ? parseInt(max_uses_raw) : undefined;
+  const applicable_services = form.getAll("applicable_services") as string[];
+
+  // Validation
+  if (!title) fieldErrors.title = "El título es requerido";
+  if (!description) fieldErrors.description = "La descripción es requerida";
+  if (!discount_type) fieldErrors.discount_type = "Selecciona un tipo";
+  if (isNaN(discount_value) || discount_value <= 0) fieldErrors.discount_value = "Ingresa un valor válido mayor a 0";
+  if (!start_date) fieldErrors.start_date = "La fecha de inicio es requerida";
+  if (!end_date) fieldErrors.end_date = "La fecha de fin es requerida";
+  if (start_date && end_date && new Date(end_date) <= new Date(start_date)) {
+    fieldErrors.end_date = "La fecha de fin debe ser posterior al inicio";
+  }
+
+  if (Object.keys(fieldErrors).length === 0) {
+    const result = await createPromotion({
+      title, description, discount_type, discount_value,
+      promo_code, applicable_services, start_date, end_date,
+      is_active, terms, max_uses,
+    });
+
+    if (result.success) {
+      return Astro.redirect("/admin/promotions?flash=" + encodeURIComponent("success:Promoción creada exitosamente."));
+    } else {
+      formError = result.error ?? "Error al crear la promoción";
+    }
+  }
+}
+---
+
+<AdminLayout title="Nueva Promoción" section="promotions">
+  <style>
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 12px;
+      margin-bottom: 20px;
+      transition: color 0.15s;
+    }
+
+    .back-link:hover { color: var(--text); }
+
+    .form-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      width: 100%;
+    }
+
+    .section-title {
+      font-family: var(--font);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .form-grid.cols-1 { grid-template-columns: 1fr; }
+    .form-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .form-grid.cols-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+
+    @media (max-width: 700px) {
+      .form-grid.cols-3,
+      .form-grid.cols-4 { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .form-grid,
+      .form-grid.cols-3,
+      .form-grid.cols-4 { grid-template-columns: 1fr; }
+    }
+
+    .col-span-2 { grid-column: span 2; }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    label {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    label .req { color: var(--red); margin-left: 2px; }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="url"],
+    input[type="datetime-local"],
+    select,
+    textarea {
+      padding: 10px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 12px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      width: 100%;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--primary);
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+      box-shadow: 0 0 0 3px rgba(205,92,92,0.1);
+    }
+
+    .field-error {
+      font-size: 11px;
+      color: var(--red);
+    }
+
+    input.has-error, select.has-error, textarea.has-error {
+      border-color: rgba(244,63,94,0.4);
+    }
+
+    select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%2364748b' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 32px;
+    }
+
+    select option { background: #fff; color: var(--text); }
+
+    textarea { resize: vertical; min-height: 80px; }
+
+    .promo-code-input { text-transform: uppercase; letter-spacing: 2px; }
+
+    .hint-text {
+      font-size: 11px;
+      color: var(--text-faint);
+      margin-top: 6px;
+      display: block;
+    }
+
+    /* ─── CHECKBOXES ─── */
+    .checkbox-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      cursor: pointer;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      transition: all 0.15s;
+    }
+
+    .checkbox-item:has(input:checked) {
+      background: var(--primary-dim);
+      border-color: rgba(205,92,92,0.3);
+    }
+
+    .checkbox-item input[type="checkbox"] {
+      width: 14px;
+      height: 14px;
+      accent-color: var(--primary);
+      padding: 0;
+      border: none;
+      background: none;
+    }
+
+    .checkbox-item span {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-family: var(--font);
+      letter-spacing: 0.3px;
+    }
+
+    .checkbox-item:has(input:checked) span { color: var(--primary); }
+
+    /* ─── TOGGLE SWITCH ─── */
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+    }
+
+    .toggle-label {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .toggle-label strong {
+      font-size: 13px;
+      color: var(--text);
+      font-family: var(--font);
+      font-weight: 600;
+    }
+
+    .toggle-label small {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .switch {
+      position: relative;
+      width: 40px;
+      height: 22px;
+    }
+
+    .switch input { opacity: 0; width: 0; height: 0; }
+
+    .slider {
+      position: absolute;
+      inset: 0;
+      background: #e2d8d8;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .slider::before {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      left: 3px;
+      top: 3px;
+      background: #fff;
+      border-radius: 50%;
+      transition: 0.2s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+
+    .switch input:checked + .slider { background: var(--primary); }
+    .switch input:checked + .slider::before {
+      transform: translateX(18px);
+    }
+
+    /* ─── FORM ACTIONS ─── */
+    .form-error {
+      padding: 10px 14px;
+      background: #fff5f5;
+      border: 1px solid rgba(205,92,92,0.3);
+      color: #b34545;
+      border-radius: var(--radius);
+      font-size: 12px;
+      margin-bottom: 20px;
+    }
+
+    .form-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .btn-submit {
+      padding: 12px 28px;
+      background: var(--primary);
+      color: #fff;
+      font-family: var(--font);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+      box-shadow: 0 2px 8px rgba(205,92,92,0.25);
+    }
+
+    .btn-submit:hover { background: var(--primary-dark); transform: translateY(-1px); }
+    .btn-submit:active { transform: translateY(0); }
+
+    .btn-cancel {
+      padding: 12px 20px;
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-family: var(--font);
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: var(--radius);
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+
+    .btn-cancel:hover { border-color: var(--border-hover); color: var(--text); }
+  </style>
+
+  <a href="/admin/promotions" class="back-link">
+    <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M10 3L4 8l6 5"/>
+    </svg>
+    Volver a Promociones
+  </a>
+
+  {formError && <div class="form-error">⚠ {formError}</div>}
+
+  <div class="form-card">
+    <form method="POST">
+
+      <!-- Información básica -->
+      <div class="section-title">Información básica</div>
+      <div class="form-grid cols-1">
+        <div class="field">
+          <label for="title">Título <span class="req">*</span></label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            placeholder="Ej: Descuento en Alarmas Contra Incendio"
+            class={fieldErrors.title ? "has-error" : ""}
+          />
+          {fieldErrors.title && <span class="field-error">{fieldErrors.title}</span>}
+        </div>
+
+        <div class="field">
+          <label for="description">Descripción <span class="req">*</span></label>
+          <textarea
+            id="description"
+            name="description"
+            placeholder="Descripción breve de la promoción..."
+            class={fieldErrors.description ? "has-error" : ""}
+          ></textarea>
+          {fieldErrors.description && <span class="field-error">{fieldErrors.description}</span>}
+        </div>
+
+        <div class="field">
+          <label for="terms">Términos y condiciones</label>
+          <textarea id="terms" name="terms" placeholder="Opcional..."></textarea>
+        </div>
+      </div>
+
+      <!-- Descuento -->
+      <div class="section-title">Configuración del descuento</div>
+      <div class="form-grid cols-4">
+        <div class="field">
+          <label for="discount_type">Tipo <span class="req">*</span></label>
+          <select id="discount_type" name="discount_type" class={fieldErrors.discount_type ? "has-error" : ""}>
+            <option value="">Seleccionar...</option>
+            <option value="percentage">Porcentaje (%)</option>
+            <option value="fixed">Monto fijo (MXN)</option>
+          </select>
+          {fieldErrors.discount_type && <span class="field-error">{fieldErrors.discount_type}</span>}
+        </div>
+
+        <div class="field">
+          <label for="discount_value">Valor <span class="req">*</span></label>
+          <input
+            type="number"
+            id="discount_value"
+            name="discount_value"
+            min="0.01"
+            step="0.01"
+            placeholder="Ej: 15 o 500"
+            class={fieldErrors.discount_value ? "has-error" : ""}
+          />
+          {fieldErrors.discount_value && <span class="field-error">{fieldErrors.discount_value}</span>}
+        </div>
+
+        <div class="field">
+          <label for="promo_code">Código promocional</label>
+          <input
+            type="text"
+            id="promo_code"
+            name="promo_code"
+            placeholder="Ej: FUEGO20"
+            class="promo-code-input"
+          />
+        </div>
+
+        <div class="field">
+          <label for="max_uses">Máximo de usos</label>
+          <input type="number" id="max_uses" name="max_uses" min="1" placeholder="Sin límite" />
+        </div>
+      </div>
+
+      <!-- Vigencia -->
+      <div class="section-title">Vigencia</div>
+      <div class="form-grid">
+        <div class="field">
+          <label for="start_date">Fecha de inicio <span class="req">*</span></label>
+          <input
+            type="datetime-local"
+            id="start_date"
+            name="start_date"
+            class={fieldErrors.start_date ? "has-error" : ""}
+          />
+          {fieldErrors.start_date && <span class="field-error">{fieldErrors.start_date}</span>}
+        </div>
+
+        <div class="field">
+          <label for="end_date">Fecha de fin <span class="req">*</span></label>
+          <input
+            type="datetime-local"
+            id="end_date"
+            name="end_date"
+            class={fieldErrors.end_date ? "has-error" : ""}
+          />
+          {fieldErrors.end_date && <span class="field-error">{fieldErrors.end_date}</span>}
+        </div>
+      </div>
+
+      <!-- Servicios aplicables -->
+      <div class="section-title">Servicios aplicables</div>
+      <div class="form-grid cols-1">
+        <div class="field">
+          <div class="checkbox-group">
+            <label class="checkbox-item">
+              <input type="checkbox" name="applicable_services" value="fire-alarm" />
+              <span>🔥 Alarma Contra Incendio</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" name="applicable_services" value="security" />
+              <span>📷 Seguridad / CCTV</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" name="applicable_services" value="electricity" />
+              <span>⚡ Instalaciones Eléctricas</span>
+            </label>
+          </div>
+          <small class="hint-text">Si no seleccionas ninguno, aplica para todos los servicios.</small>
+        </div>
+      </div>
+
+      <!-- Estado -->
+      <div class="section-title">Estado</div>
+      <div class="toggle-row">
+        <div class="toggle-label">
+          <strong>Promoción activa</strong>
+          <small>Si está activa y dentro de la vigencia, se mostrará a los usuarios.</small>
+        </div>
+        <label class="switch">
+          <input type="hidden" name="is_active" value="0" />
+          <input type="checkbox" name="is_active" value="1" checked />
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <!-- Actions -->
+      <div class="form-actions">
+        <button type="submit" class="btn-submit">Crear Promoción</button>
+        <a href="/admin/promotions" class="btn-cancel">Cancelar</a>
+      </div>
+    </form>
+  </div>
+</AdminLayout>

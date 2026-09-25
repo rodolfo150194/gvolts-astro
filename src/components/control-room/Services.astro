@@ -1,0 +1,87 @@
+---
+import { Image } from "astro:assets";
+import alarmFuego from "@/assets/img/gvolts/alarm-fuego.jpg";
+import camaraCasa from "@/assets/img/gvolts/camara-casa.jpg";
+import electric from "@/assets/img/gvolts/electric.jpg";
+
+const services = [
+  {
+    tag: "S-01 · INCENDIO",
+    accent: "var(--cr-signal)",
+    title: "Alarmas contra incendio",
+    description: "Detecta, alerta y protege. Tecnología certificada que actúa antes de que sea tarde.",
+    items: ["Detección multi-sensor inteligente", "Certificación NFPA 72", "Monitoreo por central UL"],
+    image: alarmFuego,
+    href: "/services/fire-alarm",
+  },
+  {
+    tag: "S-02 · SEGURIDAD",
+    accent: "var(--cr-ok)",
+    title: "Vigilancia inteligente",
+    description: "Videovigilancia 4K con IA y control de acceso biométrico. Todo desde tu móvil.",
+    items: ["Cámaras 4K con visión nocturna", "Analíticas con IA incorporada", "App iOS, Android y web"],
+    image: camaraCasa,
+    href: "/services/security",
+  },
+  {
+    tag: "S-03 · ELECTRICIDAD",
+    accent: "var(--cr-amber)",
+    title: "Instalaciones eléctricas",
+    description: "De circuitos residenciales a subestaciones comerciales, 100% al código NEC.",
+    items: ["Paneles de 200 A y 400 A", "Cargadores para vehículos eléctricos", "Emergencias en 15 minutos"],
+    image: electric,
+    href: "/services/electricity",
+  },
+];
+---
+
+<section class="services py-[clamp(96px,12vw,180px)]" id="servicios">
+  <div class="cr-wrap">
+    <header class="services__head flex justify-between items-end gap-12 mb-[clamp(48px,6vw,72px)] max-[960px]:flex-col max-[960px]:items-start">
+      <div>
+        <p class="cr-label" data-reveal>01 — Sistemas</p>
+        <h2 class="mt-[18px] text-[clamp(48px,7vw,112px)]" data-reveal style="--d:80ms">Tres disciplinas.<br /><span class="outline text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">Un solo equipo.</span></h2>
+      </div>
+      <p class="services__aside max-w-[400px] text-[18px] leading-[1.65] text-[var(--cr-bone-dim)]" data-reveal style="--d:160ms">
+        Un único responsable para todo lo que mantiene tu inmueble seguro y encendido. Menos proveedores, cero
+        huecos entre sistemas.
+      </p>
+    </header>
+
+    <div class="grid grid grid-cols-3 gap-6 max-[760px]:grid-cols-1">
+      {
+        services.map((s, i) => (
+          <a
+            class="card group flex flex-col bg-[var(--cr-ink-2)] border border-[var(--cr-line)] text-[var(--cr-bone)] [transition:transform_0.5s_cubic-bezier(0.16,0.84,0.24,1),border-color_0.3s] hover:-translate-y-2.5 hover:border-[var(--cr-signal)]"
+            href={s.href}
+            data-reveal
+            style={`--d:${i * 90}ms`}
+          >
+            <div class="card__media relative [aspect-ratio:4/3] overflow-hidden">
+              <Image
+                src={s.image}
+                alt={s.title}
+                loading="lazy"
+                format="webp"
+                class="w-full h-full object-cover [filter:grayscale(0.6)_contrast(1.1)] [transition:transform_1.4s_cubic-bezier(0.16,0.84,0.24,1),filter_0.6s] group-hover:scale-[1.08] group-hover:[filter:none]"
+              />
+              <span class="card__tag absolute left-5 top-5 py-1.5 px-2.5 bg-[var(--cr-ink)] font-[var(--cr-mono)] text-[12px] tracking-[0.12em]" style={`color:${s.accent}`}>{s.tag}</span>
+            </div>
+            <div class="card__body grow p-8 flex flex-col gap-[18px]">
+              <h3 class="text-[clamp(32px,3vw,46px)] leading-[0.95]">{s.title}</h3>
+              <p class="text-[16px] leading-[1.6] text-[var(--cr-bone-dim)]">{s.description}</p>
+              <ul class="list-none m-0 p-0 flex flex-col gap-2.5 text-[15px]">
+                {s.items.map((it) => (
+                  <li class="flex items-center gap-3 before:content-[''] before:w-2 before:h-2 before:bg-[var(--dot)] before:shrink-0" style={`--dot:${s.accent}`}>{it}</li>
+                ))}
+              </ul>
+              <span class="card__link mt-auto font-[var(--cr-mono)] text-[13px] tracking-[0.12em] uppercase" style={`color:${s.accent}`}>
+                Explorar sistema <span class="arrow inline-block transition-transform duration-300 group-hover:translate-x-1.5" aria-hidden="true">→</span>
+              </span>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>

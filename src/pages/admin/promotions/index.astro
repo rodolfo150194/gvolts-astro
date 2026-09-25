@@ -1,0 +1,465 @@
+---
+export const prerender = false;
+import AdminLayout from "@/layouts/AdminLayout.astro";
+import { getAllPromotions, deletePromotion, togglePromotionActive } from "@/services/admin";
+
+let flash = "";
+
+if (Astro.request.method === "POST") {
+  const form = await Astro.request.formData();
+  const action = form.get("_action") as string;
+  const id = form.get("id") as string;
+
+  if (action === "delete" && id) {
+    const result = await deletePromotion(id);
+    flash = result.success
+      ? "success:Promoción eliminada."
+      : "error:No se pudo eliminar la promoción.";
+  }
+
+  if (action === "toggle" && id) {
+    const result = await togglePromotionActive(id);
+    flash = result.success ? "success:Estado actualizado." : "error:No se pudo actualizar el estado.";
+  }
+
+  return Astro.redirect(
+    `/admin/promotions?flash=${encodeURIComponent(flash)}&page=${form.get("page") ?? 1}`
+  );
+}
+
+const page = parseInt(Astro.url.searchParams.get("page") ?? "1");
+const flashParam = Astro.url.searchParams.get("flash") ?? "";
+
+const { data: promotions, total, pages } = await getAllPromotions(page);
+
+const now = new Date();
+
+const serviceLabels: Record<string, string> = {
+  "fire-alarm": "Incendio",
+  security: "Seguridad",
+  electricity: "Eléctrico",
+};
+
+function getStatus(promo: any) {
+  if (!promo.is_active) return { label: "Inactiva", color: "var(--text-faint)" };
+  const start = new Date(promo.start_date);
+  const end = new Date(promo.end_date);
+  if (now < start) return { label: "Programada", color: "var(--amber)" };
+  if (now > end) return { label: "Expirada", color: "var(--red)" };
+  return { label: "Activa", color: "var(--green)" };
+}
+---
+
+<AdminLayout title="Promociones" section="promotions">
+  <style>
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 16px;
+      background: var(--primary);
+      color: #fff;
+      font-family: var(--font);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-decoration: none;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+      box-shadow: 0 2px 8px rgba(205,92,92,0.25);
+    }
+
+    .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); }
+    .btn-primary:active { transform: translateY(0); }
+
+    .count-badge {
+      margin-left: auto;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .count-badge strong { color: var(--text); }
+
+    /* ─── FLASH ─── */
+    .flash {
+      padding: 10px 14px;
+      border-radius: var(--radius);
+      font-size: 12px;
+      margin-bottom: 16px;
+    }
+    .flash-success { background: rgba(22,163,74,0.07); border: 1px solid rgba(22,163,74,0.2); color: var(--green); }
+    .flash-error   { background: rgba(244,63,94,0.08);  border: 1px solid rgba(244,63,94,0.2);  color: var(--red); }
+
+    /* ─── TABLE ─── */
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 860px;
+    }
+
+    thead th {
+      background: var(--bg);
+      padding: 10px 14px;
+      text-align: left;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background 0.1s;
+    }
+
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: var(--bg-hover); }
+
+    td {
+      padding: 12px 14px;
+      font-size: 12px;
+      color: var(--text);
+      vertical-align: middle;
+    }
+
+    .td-title { font-weight: 500; }
+    .td-title small {
+      display: block;
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 400;
+      margin-top: 2px;
+      max-width: 220px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .discount-val {
+      font-family: var(--font);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .code-chip {
+      display: inline-block;
+      padding: 3px 8px;
+      background: rgba(34,211,238,0.08);
+      border: 1px solid rgba(34,211,238,0.2);
+      color: var(--cyan);
+      border-radius: 3px;
+      font-family: var(--font);
+      font-size: 11px;
+      letter-spacing: 1px;
+    }
+
+    .no-code {
+      color: var(--text-faint);
+      font-size: 11px;
+    }
+
+    .services-tags {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+
+    .svc-tag {
+      padding: 2px 6px;
+      background: var(--primary-dim);
+      border: 1px solid rgba(205,92,92,0.2);
+      color: var(--accent);
+      border-radius: 20px;
+      font-size: 9px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .status-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .td-date {
+      font-family: var(--font);
+      font-size: 10px;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    .td-actions {
+      text-align: right;
+    }
+
+    .actions-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 6px;
+    }
+
+    .btn-icon {
+      background: none;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 5px 8px;
+      border-radius: 4px;
+      font-family: var(--font);
+      font-size: 11px;
+      transition: all 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      text-decoration: none;
+    }
+
+    .btn-edit:hover {
+      background: rgba(34,211,238,0.08);
+      border-color: rgba(34,211,238,0.2);
+      color: var(--cyan);
+    }
+
+    .btn-toggle:hover {
+      background: var(--primary-dim);
+      border-color: rgba(205,92,92,0.2);
+      color: var(--accent);
+    }
+
+    .btn-delete:hover {
+      background: rgba(244,63,94,0.1);
+      border-color: rgba(244,63,94,0.25);
+      color: var(--red);
+    }
+
+    /* ─── EMPTY ─── */
+    .empty {
+      text-align: center;
+      padding: 56px 24px;
+      color: var(--text-muted);
+    }
+
+    .empty p { margin-bottom: 16px; }
+
+    /* ─── PAGINATION ─── */
+    .pagination {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 16px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .page-info { font-size: 11px; color: var(--text-muted); }
+
+    .page-buttons { display: flex; gap: 4px; }
+
+    .page-btn {
+      padding: 5px 10px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 4px;
+      font-family: var(--font);
+      font-size: 11px;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+
+    .page-btn:hover { border-color: var(--border-hover); background: var(--bg-hover); }
+    .page-btn.current { background: var(--accent-dim); border-color: rgba(205,92,92,0.3); color: var(--accent); }
+    .page-btn[aria-disabled="true"] { opacity: 0.3; pointer-events: none; }
+  </style>
+
+  <!-- Flash -->
+  {flashParam.startsWith("success:") && (
+    <div class="flash flash-success">✓ {flashParam.slice(8)}</div>
+  )}
+  {flashParam.startsWith("error:") && (
+    <div class="flash flash-error">⚠ {flashParam.slice(6)}</div>
+  )}
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <a href="/admin/promotions/new" class="btn-primary">
+      <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M8 1v14M1 8h14"/>
+      </svg>
+      Nueva promoción
+    </a>
+    <span class="count-badge"><strong>{total}</strong> promociones</span>
+  </div>
+
+  <!-- Table -->
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Promoción</th>
+          <th>Descuento</th>
+          <th>Código</th>
+          <th>Servicios</th>
+          <th>Estado</th>
+          <th>Vigencia</th>
+          <th>Usos</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {promotions.length === 0 && (
+          <tr>
+            <td colspan="8">
+              <div class="empty">
+                <p>No hay promociones aún.</p>
+                <a href="/admin/promotions/new" class="btn-primary" style="display:inline-flex">
+                  Crear primera promoción
+                </a>
+              </div>
+            </td>
+          </tr>
+        )}
+        {promotions.map((p: any) => {
+          const status = getStatus(p);
+          const discount = p.discount_type === "percentage"
+            ? `${p.discount_value}%`
+            : `$${Number(p.discount_value).toLocaleString("es-MX")}`;
+          const services = Array.isArray(p.applicable_services) ? p.applicable_services : [];
+
+          return (
+            <tr>
+              <td class="td-title">
+                {p.title}
+                <small>{p.description}</small>
+              </td>
+              <td>
+                <span class="discount-val">{discount}</span>
+                <div style="font-size:10px;color:var(--text-faint);margin-top:2px">
+                  {p.discount_type === "percentage" ? "porcentaje" : "fijo MXN"}
+                </div>
+              </td>
+              <td>
+                {p.promo_code
+                  ? <span class="code-chip">{p.promo_code}</span>
+                  : <span class="no-code">—</span>
+                }
+              </td>
+              <td>
+                {services.length > 0 ? (
+                  <div class="services-tags">
+                    {services.map((s: string) => (
+                      <span class="svc-tag">{serviceLabels[s] ?? s}</span>
+                    ))}
+                  </div>
+                ) : (
+                  <span style="font-size:11px;color:var(--text-faint)">Todos</span>
+                )}
+              </td>
+              <td>
+                <span class="status-badge" style={`color:${status.color}`}>
+                  <span class="status-dot"></span>
+                  {status.label}
+                </span>
+              </td>
+              <td class="td-date">
+                {new Date(p.start_date).toLocaleDateString("es-MX", { day:"2-digit", month:"short", year:"numeric" })}
+                <br />
+                {new Date(p.end_date).toLocaleDateString("es-MX", { day:"2-digit", month:"short", year:"numeric" })}
+              </td>
+              <td style="font-family:var(--font);font-size:11px;text-align:center">
+                {p.current_uses}
+                {p.max_uses ? ` / ${p.max_uses}` : ""}
+              </td>
+              <td class="td-actions">
+                <div class="actions-wrap">
+                  <a href={`/admin/promotions/${p.id}`} class="btn-icon btn-edit">
+                    <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                      <path d="M11 2l3 3-9 9H2v-3L11 2z"/>
+                    </svg>
+                    Editar
+                  </a>
+
+                  <form method="POST" style="display:inline">
+                    <input type="hidden" name="_action" value="toggle" />
+                    <input type="hidden" name="id" value={p.id} />
+                    <input type="hidden" name="page" value={page} />
+                    <button type="submit" class="btn-icon btn-toggle">
+                      <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                        {p.is_active
+                          ? <><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/></>
+                          : <><circle cx="8" cy="8" r="6"/><path d="M6 8l2 2 3-3"/></>
+                        }
+                      </svg>
+                      {p.is_active ? "Pausar" : "Activar"}
+                    </button>
+                  </form>
+
+                  <form method="POST" style="display:inline">
+                    <input type="hidden" name="_action" value="delete" />
+                    <input type="hidden" name="id" value={p.id} />
+                    <input type="hidden" name="page" value={page} />
+                    <button
+                      type="submit"
+                      class="btn-icon btn-delete"
+                      onclick={`return confirm('¿Eliminar promoción "${p.title}"?')`}
+                    >
+                      <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <polyline points="3 6 5 6 13 6"/><path d="M14 6l-1 9H3L2 6"/>
+                        <path d="M6 6V4h4v2"/>
+                      </svg>
+                    </button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  {pages > 1 && (
+    <div class="pagination">
+      <span class="page-info">Página {page} de {pages} · {total} registros</span>
+      <div class="page-buttons">
+        <a href={`/admin/promotions?page=${page - 1}`} class="page-btn" aria-disabled={page <= 1 ? "true" : undefined}>← Ant</a>
+        {Array.from({ length: Math.min(pages, 7) }, (_, i) => {
+          const p = i + 1;
+          return <a href={`/admin/promotions?page=${p}`} class={`page-btn ${p === page ? "current" : ""}`}>{p}</a>;
+        })}
+        <a href={`/admin/promotions?page=${page + 1}`} class="page-btn" aria-disabled={page >= pages ? "true" : undefined}>Sig →</a>
+      </div>
+    </div>
+  )}
+</AdminLayout>

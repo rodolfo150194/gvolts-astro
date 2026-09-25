@@ -1,0 +1,33 @@
+---
+const stats = [
+  { value: 500, suffix: "+", label: "Proyectos entregados", count: true },
+  { value: 10, suffix: "+", label: "Años en el mercado", count: true },
+  { prefix: "<", value: "30s", label: "Respuesta de la central", count: false },
+  { value: "A", suffix: "+", label: "Calificación BBB", count: false },
+];
+---
+
+<section class="telemetry border-y border-[var(--cr-line)] bg-[var(--cr-ink-2)] py-[clamp(48px,6vw,72px)]">
+  <div class="cr-wrap telemetry__inner">
+    <p class="cr-label telemetry__flag inline-flex items-center gap-3 mb-7" data-reveal><span class="cr-led"></span>Telemetría de la operación</p>
+    <dl class="telemetry__grid m-0 grid grid-cols-4 max-[760px]:grid-cols-2 max-[760px]:gap-y-8 max-[760px]:gap-x-0 max-[420px]:grid-cols-1" data-reveal>
+      {
+        stats.map((s, i) => (
+          <div
+            class="telemetry__stat px-6 border-l border-[var(--cr-line)] [&:first-child]:pl-0 [&:first-child]:border-l-0 max-[760px]:[&:nth-child(2)]:border-l max-[760px]:[&:nth-child(2)]:border-[var(--cr-line)] max-[760px]:[&:nth-child(odd)]:pl-0 max-[760px]:[&:nth-child(odd)]:border-l-0 max-[420px]:!px-0 max-[420px]:!border-l-0"
+            data-reveal
+            style={`--d:${i * 80}ms`}
+          >
+            <dt class="absolute w-px h-px overflow-hidden whitespace-nowrap [clip:rect(0_0_0_0)]">{s.label}</dt>
+            <dd class="m-0 font-[var(--cr-display)] font-black text-[clamp(52px,7vw,136px)] leading-[0.9]">
+              {s.prefix && <span class="telemetry__accent text-[var(--cr-signal)]">{s.prefix}</span>}
+              {s.count ? <span data-count={s.value}>{s.value}</span> : s.value}
+              {s.suffix && <span class="telemetry__accent text-[var(--cr-signal)]">{s.suffix}</span>}
+            </dd>
+            <p class="mt-3 text-[16px] text-[var(--cr-bone-dim)]">{s.label}</p>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>

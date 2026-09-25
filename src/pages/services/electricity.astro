@@ -1,334 +1,422 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import Header from "@/components/Header.astro";
-import Footer from "@/components/Footer.astro";
-import Icon from "@components/Icon.astro";
-import PageHero from "@components/PageHero.astro";
-import Timeline from "@/components/Timeline.astro";
-import ScrollToTop from "@components/ScrollToTop.astro";
+import Nav from "@/components/control-room/Nav.astro";
+import BreakerPanel from "@/components/control-room/BreakerPanel.astro";
+import Finale from "@/components/control-room/Finale.astro";
+import logoElectricity from "@/assets/img/logo/G_VOLTS_rayo_completo.webp";
+import "@/styles/control-room.css";
 import { generateServiceSchema, generateBreadcrumbSchema } from "@/utils/schemas";
-// Import service content
-import serviceContent from "@/data/electricity-content.json";
-const content = serviceContent.servicesPages.electricity;
 
-// Generate schemas for SEO
 const serviceSchema = generateServiceSchema(
   "Servicios Eléctricos Profesionales",
   "Instalaciones eléctricas residenciales y comerciales, actualización de paneles, cargadores para vehículos eléctricos y automatización. Electricistas maestros licenciados con cumplimiento NEC.",
-  "https://www.gvoltscorp.com/services/electricity"
+  "https://gvoltscorp.cloud/services/electricity",
 );
 
 const breadcrumbSchema = generateBreadcrumbSchema([
-  { name: "Inicio", url: "https://www.gvoltscorp.com" },
-  { name: "Servicios", url: "https://www.gvoltscorp.com/#services" },
-  { name: "Servicios Eléctricos", url: "https://www.gvoltscorp.com/services/electricity" }
+  { name: "Inicio", url: "https://gvoltscorp.cloud" },
+  { name: "Servicios", url: "https://gvoltscorp.cloud/#servicios" },
+  { name: "Servicios Eléctricos", url: "https://gvoltscorp.cloud/services/electricity" },
 ]);
 
 const schemas = [serviceSchema, breadcrumbSchema];
+
+const credentials = [
+  { title: "Licencia estatal Master Electrician", icon: "shield" },
+  { title: "Seguro de responsabilidad de $2M", icon: "check" },
+  { title: "Especialistas en eficiencia energética", icon: "leaf" },
+];
+
+const residentialServices = [
+  {
+    title: "Actualización de panel",
+    description:
+      "¿Panel de 100 A saturado? Actualizamos a 200 A o 400 A con espacio para crecer, breakers modernos y puesta a tierra.",
+    items: ["Evaluación de carga eléctrica total", "Breakers AFCI/GFCI", "Transferencia sin interrupción", "Inspección y permiso municipal"],
+    tags: ["Vehículos eléctricos", "Ampliaciones", "Federal Pacific / Zinsco"],
+  },
+  {
+    title: "Circuitos dedicados",
+    description: "Líneas dedicadas desde el panel hasta cada equipo de alto consumo, con calibre y protecciones correctas.",
+    items: ["Cálculo de calibre según NEC", "Canalización oculta o superficial", "Tomas GFCI donde lo exige el código", "Etiquetado claro en panel"],
+    tags: ["Cargador EV 240 V", "Mini-split", "Talleres"],
+  },
+  {
+    title: "Iluminación interior y exterior",
+    description: "LED moderna, dimeable e inteligente. Esquemas de iluminación funcionales y estéticos.",
+    items: ["Diseño de iluminación por ambiente", "Fixtures LED de alta eficiencia", "Dimmers compatibles con LED", "Acento, trabajo y ambiente"],
+    tags: ["Cocinas y baños", "Seguridad exterior", "Halógeno a LED"],
+  },
+  {
+    title: "Automatización y domótica",
+    description: "Switches, tomas y termostatos conectados que controlas desde el móvil o por voz.",
+    items: ["Switches WiFi Lutron, Leviton", "Tomas controladas remotamente", "Termostatos Nest, Ecobee", "Alexa, Google y HomeKit"],
+    tags: ["Control por voz", "Horarios", "Simulación de presencia"],
+  },
+];
+
+const commercialServices = [
+  {
+    title: "Diseño e instalación completa",
+    description: "Sistemas trifásicos completos, desde la acometida hasta el último tomacorriente.",
+    items: ["Cálculo de demanda eléctrica", "Planos sellados por ingeniero", "Subestación y transformadores", "Coordinación con la compañía eléctrica"],
+    tags: ["Oficinas y restaurantes", "Naves industriales", "Retail"],
+  },
+  {
+    title: "Iluminación comercial LED",
+    description: "Reduce tu factura hasta 70%: más brillo, menos calor y 10 veces más vida útil que fluorescentes.",
+    items: ["Auditoría de iluminación actual", "Cálculo de ROI y ahorro", "Fixtures LED listados UL", "Controles por ocupación"],
+    tags: ["Almacenes", "Estacionamientos", "Retail alto CRI"],
+  },
+  {
+    title: "Respaldo y UPS",
+    description: "Generadores automáticos y UPS que mantienen tu negocio funcionando durante apagones.",
+    items: ["Transfer switch automático", "Generadores diésel o gas natural", "UPS para equipos críticos", "Mantenimiento programado"],
+    tags: ["Data centers", "Clínicas", "Cámaras frías"],
+  },
+  {
+    title: "Mantenimiento preventivo",
+    description: "Inspecciones programadas que detectan problemas antes de que causen fallos o incendios.",
+    items: ["Termografía infrarroja", "Pruebas de carga en paneles", "Ajuste de conexiones", "Reporte con recomendaciones"],
+    tags: ["Edificios +10 años", "Requisitos de seguro", "Prevención de incendios"],
+  },
+];
+
+const specialties = [
+  {
+    title: "Carga para vehículos eléctricos",
+    description: "Cargadores Nivel 2 (240 V) para todas las marcas, de 16 A a 80 A.",
+    items: ["Evaluación del panel existente", "Circuito dedicado", "Montaje en pared o pedestal", "Compatible con redes inteligentes", "Certificado para créditos fiscales"],
+    icon: "M5 17h14M6 17v2M18 17v2M3 13l2-6h14l2 6v4H3z M7 13h.01M17 13h.01",
+  },
+  {
+    title: "Preparación para energía solar",
+    description: "Paneles listos para conexión bidireccional y net metering.",
+    items: ["Upgrade de panel principal", "Espacio para breaker solar", "Canalización para cableado DC", "Coordinación con instalador", "Main breaker para back-feed"],
+    icon: "circle-sun",
+  },
+  {
+    title: "Instalaciones industriales",
+    description: "Motores trifásicos, controles industriales y transformadores de potencia.",
+    items: ["Motores de 1 HP a 500 HP", "Arrancadores suaves y VFDs", "Centros de control MCC", "Bancos de transformadores", "Corrección de factor de potencia"],
+    icon: "M2 20V8l6 4V8l6 4V4h8v16z M17 16h1M12 16h1M7 16h1",
+  },
+  {
+    title: "Emergencia y salida",
+    description: "Iluminación de emergencia, señalización EXIT y alimentación ininterrumpida.",
+    items: ["Luces con batería", "Letreros EXIT iluminados", "Circuitos de iluminación de vida", "Pruebas mensuales documentadas", "NFPA 101 y NEC 700"],
+    icon: "M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z",
+  },
+];
+
+const steps = [
+  { step: "01", title: "Consulta y evaluación", description: "Visitamos sin costo, medimos cargas y detectamos deficiencias.", deliverable: "Diagnóstico fotográfico" },
+  { step: "02", title: "Propuesta detallada", description: "Cotización desglosada con opciones bueno / mejor / óptimo.", deliverable: "Propuesta con garantías" },
+  { step: "03", title: "Permisos y planificación", description: "Gestionamos permisos y programamos minimizando interrupciones.", deliverable: "Cronograma acordado" },
+  { step: "04", title: "Ejecución profesional", description: "Puntuales, uniformados y con limpieza diaria del área.", deliverable: "Instalación al código NEC" },
+  { step: "05", title: "Inspección y certificación", description: "No terminamos hasta obtener la aprobación final del inspector.", deliverable: "Certificado aprobado" },
+];
+
+const safety = [
+  { title: "Capacitación continua", description: "NEC actualizado cada 3 años y OSHA 30 horas para todo el equipo." },
+  { title: "Pruebas exhaustivas", description: "Continuidad, aislamiento, polaridad y tierra antes de energizar." },
+  { title: "Documentación completa", description: "Diagramas unifilares, etiquetado claro y certificados de garantía." },
+  { title: "Seguro robusto", description: "$2M en responsabilidad general y $5M umbrella." },
+];
 ---
 
 <Layout
   title="Servicios Eléctricos Certificados Residencial y Comercial | GVoltscorp"
   description="Electricistas maestros licenciados. Instalaciones eléctricas, actualización de paneles, cargadores EV y automatización. Cumplimiento NEC garantizado."
-  ogImage="/img/og/electricity-og.png"
-  schema={schemas}
 >
-  <Header />
-  <PageHero
-    title={content.hero.title.main}
-    highlightedTitle={content.hero.title.highlight}
-    description={content.hero.description}
-    badge={content.hero.badge}
-    backgroundImage="/img/gvolts/electric.jpg"
-    icon="thunder"
-  />
-
-  <main class="pt-10">
-    <section class="relative overflow-hidden">
-      <div class="container mx-auto px-4">
-        <div class="max-w-6xl mx-auto">
-          <!-- Highlights Grid with Electric Theme -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 highlights-grid">
-            {content.introduction.highlights.map((highlight: { icon: string; text: string }, index: number) => (
-              <div class="highlight-card group relative bg-linear-to-br from-slate-50 to-slate-100 p-6 rounded-2xl border-2 border-indian-red-100 hover:border-indian-red-500 transition-all duration-500 hover:-translate-y-2 overflow-hidden">
-                <!-- Electric pulse background effect -->
-                <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <div class="absolute top-0 left-0 w-full h-1"></div>
-                </div>
-                <div class="relative z-10">
-                  <div class="w-14 h-14 bg-linear-to-br from-indian-red-500 to-indian-red-600 text-white rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg shadow-indian-red-500/30">
-                    <Icon name={highlight.icon} size="28" class="text-white" />
-                  </div>
-                  <p class="text-slate-700 font-medium text-lg leading-relaxed">{highlight.text}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Services Section - Industrial Blueprint Aesthetic -->
-    <section class="py-24 relative">
-      <!-- Technical grid background -->
-      <div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(#CD5C5C 1px, transparent 1px), linear-gradient(90deg, #CD5C5C 1px, transparent 1px); background-size: 40px 40px;"></div>
-
-      <div class="container mx-auto px-4 relative z-10">
-        <div class="max-w-7xl mx-auto">
-          <div class="text-center mb-16">
-            <h2 class="services-title font-display text-5xl md:text-6xl font-bold text-slate-900 mb-4">
-              {content.services.title}
-            </h2>
-          </div>
-
-          <!-- Residential Services -->
-          <div class="mb-20">
-            <div class="flex items-center gap-4 mb-10 relative">
-              <!-- Decorative circuit lines -->
-                  <div class="absolute top-0 right-0 w-40 h-40 opacity-50">
-                    <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" class="text-indian-red-500">
-                      <path d="M10 10 L90 10 L90 50" stroke-width="4" />
-                      <circle cx="90" cy="50" r="4" fill="currentColor" />
-                      <path d="M50 10 L50 90" stroke-width="4" />
-                      <circle cx="50" cy="90" r="4" fill="currentColor" />
-                    </svg>
-                  </div>
-              <div class="w-16 h-16 bg-indian-red-500 rounded-2xl text-white flex items-center justify-center shadow-lg shadow-indian-red-500/30">
-                <Icon name='Home' size={32} />
-              </div>
-              <div>
-                <h3 class="text-3xl font-bold text-slate-900">{content.services.residential.name}</h3>
-                <p class="text-slate-600">{content.services.residential.tagline}</p>
-              </div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {content.services.residential.items.map((service: { title: string; description: string; includes: string[]; ideal_for: string[] }, index: number) => (
-                <div class="service-card group bg-white rounded-3xl p-8 border-2 border-slate-100 transition-all duration-500 hover:shadow-2xl shadow relative overflow-hidden">
-                  <!-- Number indicator -->
-                  <div class="absolute -top-4 -right-4 w-24 h-24 bg-indian-red-50 rounded-full flex items-end justify-start pb-6 pl-6 opacity-80 group-hover:opacity-100 transition-opacity">
-                    <span class="text-4xl font-black text-indian-red-500">0{index + 1}</span>
-                  </div>
-
-                  <div class="relative z-10">
-                    <h4 class="text-2xl font-bold text-slate-900 mb-3 group-hover:text-indian-red-600 transition-colors">{service.title}</h4>
-                    <p class="text-slate-600 mb-6 leading-relaxed">{service.description}</p>
-
-                    <div class="space-y-4">
-                      <div class="bg-slate-50 rounded-xl p-4 border-2 hover:shadow-2xl">
-                        <h5 class="text-sm font-bold text-slate-800 uppercase tracking-wide mb-3">Incluye:</h5>
-                        <ul class="space-y-2">
-                          {service.includes.map((item: string) => (
-                            <li class="flex items-start gap-2 text-sm text-slate-700">
-                              <Icon name='Check' size={16} class="text-indian-red-500 mt-0.5 shrink-0" />
-                              <span>{item}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      <div class="bg-indian-red-200 rounded-xl p-4 border-2 hover:shadow-2xl">
-                        <h5 class="text-sm font-bold text-slate-800 uppercase tracking-wide mb-3">Ideal para:</h5>
-                        <div class="flex flex-wrap gap-2">
-                          {service.ideal_for.slice(0, 3).map((item: string) => (
-                            <span class="inline-block bg-white px-3 py-1 rounded-full text-xs text-slate-700 border border-slate-200">{item}</span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <!-- Commercial Services -->
-          <div>
-            <div class="flex items-center gap-4 mb-10">
-              <div class="w-16 h-16 text-white bg-slate-900 rounded-2xl flex items-center justify-center shadow-lg">
-                <Icon name='Building2' size={32} />
-              </div>
-              <div>
-                <h3 class="text-3xl font-bold text-slate-900">{content.services.commercial.name}</h3>
-                <p class="text-slate-600">{content.services.commercial.tagline}</p>
-              </div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {content.services.commercial.items.map((service: { title: string; description: string; includes: string[]; ideal_for: string[] }, index: number) => (
-                <div class="service-card group bg-linear-to-br from-slate-900 to-slate-800 rounded-3xl p-8 transition-all duration-500 hover:shadow-2xl hover:shadow-indian-red-500/20 relative overflow-hidden">
-                  <!-- Decorative circuit lines -->
-                  <div class="absolute top-0 right-0 w-40 h-40 opacity-10">
-                    <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" class="text-lemon-chiffon-400">
-                      <path d="M10 10 L90 10 L90 50" stroke-width="2" />
-                      <circle cx="90" cy="50" r="4" fill="currentColor" />
-                      <path d="M50 10 L50 90" stroke-width="2" />
-                      <circle cx="50" cy="90" r="4" fill="currentColor" />
-                    </svg>
-                  </div>
-
-                  <div class="relative z-10">
-                    <h4 class="text-2xl font-bold text-white mb-3">{service.title}</h4>
-                    <p class="text-slate-400 mb-6 leading-relaxed">{service.description}</p>
-                    <div class="space-y-4">
-                      <div class="bg-white/5 backdrop-blur border-2 rounded-xl p-4 border-white/10">
-                        <h5 class="text-sm font-bold text-lemon-chiffon-400 uppercase tracking-wide mb-3">Incluye:</h5>
-                        <ul class="space-y-2">
-                          {service.includes.map((item: string) => (
-                            <li class="flex items-start gap-2 text-sm text-slate-300">
-                              <Icon name='Check' size={16} class="text-lemon-chiffon-400 mt-0.5 shrink-0" />
-                              <span>{item}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      <div class="flex flex-wrap gap-2">
-                        {service.ideal_for.slice(0, 2).map((item: string) => (
-                          <span class="inline-block bg-lemon-chiffon-400/20 text-lemon-chiffon-300 px-3 py-1 rounded-full text-xs border border-indian-red-500/30">{item}</span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Process Timeline -->
-    <Timeline
-      title={content.process.title}
-      subtitle={content.process.subtitle}
-      steps={content.process.steps}
+  <Fragment slot="head">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=Hanken+Grotesk:wght@400;500;600&display=swap"
     />
+    {schemas.map((schema) => <script type="application/ld+json" set:html={JSON.stringify(schema)} />)}
+  </Fragment>
 
-    <!-- CTA Section - High Energy Design -->
-    <section class="py-24 bg-slate-900 text-white relative overflow-hidden">
+  <div class="cr" data-accent="electricity">
+    <Nav logo={logoElectricity} />
+    <main id="main">
+      <!-- HERO -->
+      <section class="relative pt-[clamp(48px,8vw,110px)] pb-[clamp(64px,9vw,130px)] overflow-hidden [background:radial-gradient(60%_50%_at_85%_20%,color-mix(in_srgb,var(--cr-signal)_16%,transparent),transparent_70%),linear-gradient(var(--cr-line)_1px,transparent_1px)_0_0/100%_88px,var(--cr-ink)] max-[640px]:pt-[clamp(40px,10vw,72px)] max-[640px]:pb-[clamp(88px,14vw,120px)]">
+        <div class="cr-wrap grid grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] gap-[clamp(40px,6vw,96px)] items-center max-[960px]:grid-cols-1">
+          <div>
+            <p class="cr-label flex items-center gap-[14px] text-[var(--cr-signal)] mb-[28px]" data-reveal>
+              <span class="w-[40px] h-px bg-current"></span>S-03 · Servicios eléctricos profesionales
+            </p>
 
-      <!-- Grid pattern -->
-      <div class="absolute inset-0 opacity-5">
-        <div style="background-image: linear-gradient(rgba(255,255,255,.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.5) 1px, transparent 1px); background-size: 50px 50px; height: 100%; width: 100%;"></div>
-      </div>
-      <div class="container mx-auto px-4 relative z-10">
-        <div class="max-w-4xl mx-auto text-center">
-          
+            <h1 class="font-[var(--cr-display)] font-black uppercase leading-[0.84] text-[clamp(52px,7.4vw,118px)]">
+              <span class="block" data-reveal style="--d:80ms">Energía</span>
+              <span class="block text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]" data-reveal style="--d:160ms">segura y</span>
+              <span class="block text-[var(--cr-signal)]" data-reveal style="--d:240ms">eficiente.</span>
+            </h1>
 
-          <h2 class="cta-title font-display text-4xl md:text-6xl font-bold mb-6">
-            {content.cta.title}
-          </h2>
-          <p class="cta-description text-xl text-slate-400 mb-12 max-w-2xl mx-auto">
-            {content.cta.description}
-          </p>
+            <p class="mt-[32px] max-w-[48ch] text-[clamp(17px,1.4vw,20px)] text-[var(--cr-bone-dim)]" data-reveal style="--d:340ms">
+              Desde circuitos residenciales hasta subestaciones comerciales. Potencia confiable, instalaciones al
+              código y eficiencia energética máxima.
+            </p>
 
-          <div class="flex flex-wrap justify-center gap-4 mb-12">
-            <a
-              href={content.cta.primary.href}
-              class="group relative inline-flex items-center gap-2 bg-linear-to-r from-indian-red-500 to-indian-red-600 text-white px-8 py-4 rounded-xl font-bold overflow-hidden transition-all transform hover:-translate-y-1"
-            >
-              <span class="relative z-10">{content.cta.primary.label}</span>
-              <Icon name='ArrowRight' size={20} class="relative z-10 group-hover:translate-x-1 transition-transform" />
-              <div class="absolute inset-0 bg-linear-to-r from-indian-red-600 to-indian-red-700 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            </a>
-            <a
-              href={content.cta.secondary.href}
-              class="inline-flex items-center gap-2 bg-white/10 text-white px-8 py-4 rounded-xl font-bold hover:bg-white/20 transition-all backdrop-blur-sm border border-white/20"
-            >
-              <Icon name='Phone' size={20} />
-              <span>{content.cta.secondary.label}</span>
-            </a>
+            <div class="flex flex-wrap gap-[14px] mt-[36px] max-[640px]:flex-col max-[640px]:items-stretch" data-reveal style="--d:420ms">
+              <a href="/contact" class="cr-btn max-[640px]:justify-center">Inspección gratuita <span aria-hidden="true">→</span></a>
+              <a href="tel:+15551234567" class="cr-btn cr-btn--ghost max-[640px]:justify-center">Emergencias 24/7</a>
+            </div>
+
+            <dl class="grid grid-cols-3 mt-[56px] border-t border-[var(--cr-line-strong)] max-[640px]:grid-cols-2 max-[640px]:gap-y-[20px]" data-reveal style="--d:500ms">
+              <div class="pt-[18px] pr-[16px] pb-0 pl-0">
+                <dt class="cr-label">Código actualizado</dt>
+                <dd class="mt-[6px] font-[var(--cr-display)] font-extrabold text-[clamp(36px,4vw,56px)] leading-none [font-variant-numeric:tabular-nums]">NEC</dd>
+              </div>
+              <div class="pt-[18px] pr-[16px] pb-0 pl-[16px] border-l border-[var(--cr-line)]">
+                <dt class="cr-label">Respuesta emergencias</dt>
+                <dd class="mt-[6px] font-[var(--cr-display)] font-extrabold text-[clamp(36px,4vw,56px)] leading-none [font-variant-numeric:tabular-nums]"><span data-count="15">15</span><span class="text-[var(--cr-signal)]"> min</span></dd>
+              </div>
+              <div class="pt-[18px] pr-[16px] pb-0 pl-[16px] border-l border-[var(--cr-line)] max-[640px]:col-span-2 max-[640px]:pl-0 max-[640px]:border-l-0 max-[640px]:border-t max-[640px]:border-[var(--cr-line)] max-[640px]:pt-[18px]">
+                <dt class="cr-label">Garantía de trabajo</dt>
+                <dd class="mt-[6px] font-[var(--cr-display)] font-extrabold text-[clamp(36px,4vw,56px)] leading-none [font-variant-numeric:tabular-nums]"><span data-count="100">100</span><span class="text-[var(--cr-signal)]">%</span></dd>
+              </div>
+            </dl>
           </div>
 
-          <!-- Guarantees -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {content.cta.guarantees.map((guarantee: string) => (
-              <div class="flex items-center justify-center gap-2 text-slate-400">
-                <Icon name='CheckCircle' size={20} class="text-lemon-chiffon-400" />
-                <span class="text-sm">{guarantee}</span>
-              </div>
-            ))}
+          <div class="relative" data-reveal style="--d:200ms">
+            <BreakerPanel />
           </div>
         </div>
-      </div>
-    </section>
-  </main>
+      </section>
 
-  <Footer />
-  <ScrollToTop />
+      <!-- INTRO -->
+      <section class="py-[clamp(72px,10vw,140px)] border-t border-[var(--cr-line)]">
+        <div class="cr-wrap grid grid-cols-2 gap-[clamp(48px,6vw,96px)] max-[960px]:grid-cols-1">
+          <div>
+            <p class="cr-label" data-reveal>01 — Maestros electricistas</p>
+            <h2 class="mt-[18px] text-[clamp(40px,5.4vw,84px)]" data-reveal style="--d:80ms">Energía que <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">impulsa tu vida y negocio.</span></h2>
+          </div>
+          <div data-reveal style="--d:200ms">
+            <p class="text-[19px] leading-[1.7] text-[color-mix(in_srgb,var(--cr-bone)_80%,transparent)]">
+              No arriesgues con improvisados. Nuestros electricistas certificados garantizan instalaciones seguras,
+              eficientes y 100% al código. Renovar tu hogar, expandir tu negocio o pasar a sistemas inteligentes: lo
+              hacemos bien la primera vez.
+            </p>
+            <ul class="mt-[32px] mx-0 mb-0 p-0 list-none flex flex-col border-t border-[var(--cr-line)]">
+              {credentials.map((c) => (
+                <li class="relative py-[18px] pl-[32px] border-b border-[var(--cr-line)] text-[17px] before:content-[''] before:absolute before:left-0 before:top-1/2 before:[translate:0_-50%] before:w-[8px] before:h-[8px] before:bg-[var(--cr-signal)]">
+                  {c.title}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SERVICES WITH TABS -->
+      <section class="py-[clamp(72px,10vw,140px)] bg-[var(--cr-ink-2)]">
+        <div class="cr-wrap">
+          <header class="flex justify-between items-end gap-[48px] mb-[clamp(48px,6vw,64px)] max-[760px]:flex-col max-[760px]:items-start">
+            <div>
+              <p class="cr-label" data-reveal>02 — Servicios</p>
+              <h2 class="mt-[18px] text-[clamp(46px,6.4vw,100px)]" data-reveal style="--d:80ms">Servicios eléctricos <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">completos.</span></h2>
+            </div>
+            <div class="flex border border-[var(--cr-line-strong)] shrink-0" role="tablist" aria-label="Tipo de servicio" data-reveal style="--d:160ms">
+              <button type="button" role="tab" class="appearance-none h-[56px] px-[28px] border-0 bg-transparent text-[var(--cr-bone-dim)] font-[var(--cr-mono)] text-[13px] tracking-[0.12em] uppercase cursor-pointer transition-[background-color,color] duration-200 hover:text-[var(--cr-bone)] aria-selected:bg-[var(--cr-signal)] aria-selected:text-[var(--cr-ink)]" aria-selected="true" data-el-tab="res">Residencial</button>
+              <button type="button" role="tab" class="appearance-none h-[56px] px-[28px] border-0 bg-transparent text-[var(--cr-bone-dim)] font-[var(--cr-mono)] text-[13px] tracking-[0.12em] uppercase cursor-pointer transition-[background-color,color] duration-200 hover:text-[var(--cr-bone)] aria-selected:bg-[var(--cr-signal)] aria-selected:text-[var(--cr-ink)]" aria-selected="false" data-el-tab="com">Comercial</button>
+            </div>
+          </header>
+
+          <div data-el-panel="res">
+            <p class="text-[20px] text-[color-mix(in_srgb,var(--cr-bone)_72%,transparent)] mb-[24px]">Tu hogar merece instalaciones eléctricas seguras y modernas.</p>
+            <div class="grid grid-cols-2 gap-[24px] max-[960px]:grid-cols-1">
+              {
+                residentialServices.map((s) => (
+                  <article class="p-[36px] flex flex-col gap-[16px] bg-[var(--cr-ink)] border border-[var(--cr-line)] [transition:transform_0.5s_cubic-bezier(0.16,0.84,0.24,1),border-color_0.3s] hover:-translate-y-[10px] hover:border-[var(--cr-signal)]">
+                    <h3 class="text-[clamp(28px,2.6vw,36px)]">{s.title}</h3>
+                    <p class="text-[15px] leading-[1.6] text-[var(--cr-bone-dim)]">{s.description}</p>
+                    <ul class="m-0 p-0 list-none flex flex-col gap-[8px] text-[14px]">
+                      {s.items.map((it) => <li class="flex gap-[10px] items-center before:content-['✓'] before:text-[var(--cr-signal)] before:shrink-0">{it}</li>)}
+                    </ul>
+                    <p class="flex flex-wrap gap-[8px] mt-auto">
+                      {s.tags.map((t) => <span class="px-[10px] py-[6px] border border-[color-mix(in_srgb,var(--cr-signal)_50%,transparent)] text-[var(--cr-signal)] font-[var(--cr-mono)] text-[11px]">{t}</span>)}
+                    </p>
+                  </article>
+                ))
+              }
+            </div>
+          </div>
+
+          <div data-el-panel="com" hidden>
+            <p class="text-[20px] text-[color-mix(in_srgb,var(--cr-bone)_72%,transparent)] mb-[24px]">Potencia y confiabilidad para tu operación empresarial.</p>
+            <div class="grid grid-cols-2 gap-[24px] max-[960px]:grid-cols-1">
+              {
+                commercialServices.map((s) => (
+                  <article class="p-[36px] flex flex-col gap-[16px] bg-[var(--cr-ink)] border border-[var(--cr-line)] [transition:transform_0.5s_cubic-bezier(0.16,0.84,0.24,1),border-color_0.3s] hover:-translate-y-[10px] hover:border-[var(--cr-signal)]">
+                    <h3 class="text-[clamp(28px,2.6vw,36px)]">{s.title}</h3>
+                    <p class="text-[15px] leading-[1.6] text-[var(--cr-bone-dim)]">{s.description}</p>
+                    <ul class="m-0 p-0 list-none flex flex-col gap-[8px] text-[14px]">
+                      {s.items.map((it) => <li class="flex gap-[10px] items-center before:content-['✓'] before:text-[var(--cr-signal)] before:shrink-0">{it}</li>)}
+                    </ul>
+                    <p class="flex flex-wrap gap-[8px] mt-auto">
+                      {s.tags.map((t) => <span class="px-[10px] py-[6px] border border-[color-mix(in_srgb,var(--cr-signal)_50%,transparent)] text-[var(--cr-signal)] font-[var(--cr-mono)] text-[11px]">{t}</span>)}
+                    </p>
+                  </article>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SPECIALTIES -->
+      <section class="py-[clamp(72px,10vw,140px)]">
+        <div class="cr-wrap">
+          <header class="flex justify-between items-end gap-[48px] mb-[clamp(48px,6vw,64px)] max-[760px]:flex-col max-[760px]:items-start">
+            <div>
+              <p class="cr-label" data-reveal>03 — Especialidades</p>
+              <h2 class="mt-[18px] text-[clamp(46px,6.4vw,100px)]" data-reveal style="--d:80ms">Especialidades <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">técnicas.</span></h2>
+            </div>
+          </header>
+
+          <div class="grid grid-cols-4 gap-[20px] max-[960px]:grid-cols-2 max-[640px]:grid-cols-1">
+            {
+              specialties.map((s, i) => (
+                <article class="p-[30px] flex flex-col gap-[16px] bg-[var(--cr-ink-3)] border border-[var(--cr-line)] [transition:transform_0.5s_cubic-bezier(0.16,0.84,0.24,1),border-color_0.3s] hover:-translate-y-[10px] hover:border-[var(--cr-signal)]" data-reveal style={`--d:${i * 90}ms`}>
+                  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--cr-signal)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    {s.icon === "circle-sun" ? (
+                      <>
+                        <circle cx="12" cy="12" r="4" />
+                        <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+                      </>
+                    ) : (
+                      <path d={s.icon} />
+                    )}
+                  </svg>
+                  <h3 class="text-[clamp(28px,2.6vw,36px)]">{s.title}</h3>
+                  <p class="text-[15px] leading-[1.6] text-[var(--cr-bone-dim)]">{s.description}</p>
+                  <ul class="m-0 p-0 list-none flex flex-col gap-[8px] text-[14px] mt-auto pt-[16px] border-t border-[var(--cr-line)] text-[13px] text-[var(--cr-bone-dim)]">
+                    {s.items.map((it) => <li class="flex gap-[10px] items-center before:content-[''] before:w-[6px] before:h-[6px] before:bg-[var(--cr-signal)]">{it}</li>)}
+                  </ul>
+                </article>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+
+      <!-- PROCESS -->
+      <section class="py-[clamp(96px,12vw,180px)] bg-[var(--cr-ink-2)]">
+        <div class="cr-wrap grid grid-cols-[minmax(0,0.45fr)_minmax(0,1fr)] gap-[clamp(48px,6vw,96px)] max-[960px]:grid-cols-1">
+          <div>
+            <p class="cr-label" data-reveal>04 — Proceso</p>
+            <h2 class="mt-[18px] text-[clamp(44px,6vw,96px)]" data-reveal style="--d:80ms">Cómo trabajamos <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">contigo.</span></h2>
+          </div>
+          <ol class="m-0 p-0 list-none relative before:content-[''] before:absolute before:left-[11px] before:top-[12px] before:bottom-[12px] before:w-[2px] before:bg-[var(--cr-line-strong)]">
+            {
+              steps.map((s, i) => (
+                <li class="group relative flex gap-[40px] pb-[40px] last:pb-0" data-reveal style={`--d:${i * 90}ms`}>
+                  <span class="shrink-0 w-[24px] h-[24px] box-border border-2 border-[var(--cr-signal)] bg-[var(--cr-ink)] z-[1] group-last:bg-[var(--cr-signal)] group-last:shadow-[0_0_20px_var(--cr-signal)]" />
+                  <div>
+                    <p class="cr-label text-[var(--cr-signal)]">PASO {s.step}</p>
+                    <h3 class="mt-[10px] text-[40px]">{s.title}</h3>
+                    <p class="mt-[10px] text-[16px] leading-[1.6] text-[var(--cr-bone-dim)]">{s.description}</p>
+                    <p class="mt-[10px] font-[var(--cr-mono)] text-[12px] tracking-[0.08em] text-[var(--cr-amber)]">ENTREGABLE → {s.deliverable}</p>
+                  </div>
+                </li>
+              ))
+            }
+          </ol>
+        </div>
+      </section>
+
+      <!-- SAFETY -->
+      <section class="py-[clamp(72px,10vw,140px)]">
+        <div class="cr-wrap">
+          <header class="flex justify-between items-end gap-[48px] mb-[clamp(48px,6vw,64px)] max-[760px]:flex-col max-[760px]:items-start">
+            <div>
+              <p class="cr-label" data-reveal>05 — Seguridad</p>
+              <h2 data-reveal style="--d:80ms">Seguridad es <span class="text-[var(--cr-signal)]">prioridad #1.</span></h2>
+            </div>
+            <p class="max-w-[380px] text-[18px] leading-[1.65] text-[var(--cr-bone-dim)]" data-reveal style="--d:160ms">
+              No cortamos caminos. Cada instalación cumple o supera NEC y códigos locales.
+            </p>
+          </header>
+
+          <div class="grid grid-cols-4 border-t border-[var(--cr-line-strong)] max-[960px]:grid-cols-2 max-[640px]:grid-cols-1" data-reveal style="--d:220ms">
+            {
+              safety.map((s, i) => (
+                <div
+                  class:list={[
+                    "pt-[32px] pr-[28px] pb-0 pl-0 flex flex-col gap-[14px] border-l border-[var(--cr-line)] max-[640px]:!border-l-0 max-[640px]:!pl-0 max-[640px]:border-t max-[640px]:pt-[24px]",
+                    i === 0 && "border-l-0 max-[640px]:border-t-0",
+                    i === 3 && "pr-0",
+                    i === 1 && "max-[960px]:border-l-0 max-[960px]:pl-0",
+                  ]}
+                >
+                  <h3 class="text-[20px] font-bold normal-case font-[var(--cr-body)]">{s.title}</h3>
+                  <p class="text-[15px] leading-[1.6] text-[var(--cr-bone-dim)]">{s.description}</p>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <Finale logo={logoElectricity} />
+  </div>
 </Layout>
 
 <script>
-  document.addEventListener("DOMContentLoaded", async () => {
-    const { gsap } = await import("gsap");
-    const { ScrollTrigger } = await import("gsap/ScrollTrigger");
-    gsap.registerPlugin(ScrollTrigger);
-    // Safety cards
-    ScrollTrigger.batch(".safety-card", {
-      onEnter: (elements) => {
-        gsap.from(elements, {
-          opacity: 0,
-          y: 50,
-          scale: 0.9,
-          stagger: 0.1,
-          duration: 0.6,
-          ease: "back.out(1.7)"
-        });
-      },
-      start: "top 85%"
-    });
-
-    // Benefits grid
-    ScrollTrigger.batch(".benefit-card", {
-      onEnter: (elements) => {
-        gsap.from(elements, {
-          opacity: 0,
-          y: 60,
-          stagger: 0.1,
-          duration: 0.8,
-          ease: "power3.out"
-        });
-      },
-      start: "top 80%"
-    });
-
-    // CTA section elements
-    gsap.from(".cta-title", {
-      opacity: 0,
-      y: 40,
-      duration: 1,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: ".cta-title",
-        start: "top 80%"
-      }
-    });
-
-    gsap.from(".cta-description", {
-      opacity: 0,
-      y: 30,
-      duration: 0.8,
-      delay: 0.2,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: ".cta-description",
-        start: "top 85%"
-      }
-    });
-
-    // Section titles with split effect
-    const sectionTitles = [".services-title", ".specialties-title", ".process-title", ".safety-title", ".benefits-title"];
-    sectionTitles.forEach((selector) => {
-      gsap.from(selector, {
-        opacity: 0,
-        y: 50,
-        duration: 1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: selector,
-          start: "top 80%"
+  // Staggered scroll reveals (same behaviour as the home page)
+  const revealEls = document.querySelectorAll<HTMLElement>(".cr [data-reveal]");
+  const revealer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add("is-in");
+          revealer.unobserve(e.target);
         }
+      });
+    },
+    { rootMargin: "0px 0px -8% 0px" },
+  );
+  revealEls.forEach((el) => revealer.observe(el));
+
+  // Stat counters tick up like a meter settling
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const counters = document.querySelectorAll<HTMLElement>("[data-count]");
+  const counterIO = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      const el = e.target as HTMLElement;
+      counterIO.unobserve(el);
+      const end = Number(el.dataset.count);
+      if (reduce) return;
+      const start = performance.now();
+      const dur = 1600;
+      const step = (now: number) => {
+        const k = Math.min(1, (now - start) / dur);
+        const eased = 1 - Math.pow(1 - k, 4);
+        el.textContent = (end * eased).toFixed(end % 1 !== 0 ? 1 : 0);
+        if (k < 1) requestAnimationFrame(step);
+      };
+      el.textContent = "0";
+      requestAnimationFrame(step);
+    });
+  });
+  counters.forEach((c) => counterIO.observe(c));
+
+  // Services tabs (residential / commercial)
+  const tabButtons = document.querySelectorAll<HTMLButtonElement>("[data-el-tab]");
+  const panels = document.querySelectorAll<HTMLElement>("[data-el-panel]");
+
+  tabButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const target = btn.dataset.elTab;
+      tabButtons.forEach((b) => b.setAttribute("aria-selected", String(b === btn)));
+      panels.forEach((p) => {
+        p.hidden = p.dataset.elPanel !== target;
       });
     });
   });

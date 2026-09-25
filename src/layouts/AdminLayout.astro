@@ -1,0 +1,480 @@
+---
+import { Image } from 'astro:assets';
+import logoGvolts from "@/assets/img/logo/logo-gvoltscorp.png";
+
+interface Props {
+  title: string;
+  section?: "dashboard" | "contacts" | "subscribers" | "promotions";
+}
+const { title, section = "dashboard" } = Astro.props;
+
+const nav = [
+  { id: "dashboard", label: "Dashboard", href: "/admin", icon: "grid" },
+  { id: "contacts", label: "Contactos", href: "/admin/contacts", icon: "inbox" },
+  { id: "subscribers", label: "Suscriptores", href: "/admin/subscribers", icon: "users" },
+  { id: "promotions", label: "Promociones", href: "/admin/promotions", icon: "tag" },
+];
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title} · GVolts Admin</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <style>
+    @font-face {
+      font-family: 'Roboto Mono';
+      src: url('/fonts/RobotoMono-VariableFont_wght.ttf') format('truetype');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* Brand palette */
+      --primary:        #CD5C5C;
+      --primary-dim:    rgba(205,92,92,0.08);
+      --primary-hover:  rgba(205,92,92,0.14);
+      --primary-dark:   #B34545;
+      --dark:           #3D1F1D;
+
+      /* Backgrounds */
+      --bg:             #FAF8F5;
+      --bg-sidebar:     #ffffff;
+      --bg-card:        #ffffff;
+      --bg-hover:       rgba(205,92,92,0.06);
+
+      /* Status colors (kept for dashboard cards) */
+      --cyan:           #0891b2;
+      --green:          #16a34a;
+      --amber:          #d97706;
+      --accent:         #CD5C5C;
+      --accent-dim:     rgba(205,92,92,0.08);
+
+      /* Text */
+      --text:           #3D1F1D;
+      --text-muted:     #7a5a58;
+      --text-faint:     #b89898;
+
+      /* Borders */
+      --border:         #e8e0df;
+      --border-hover:   rgba(205,92,92,0.3);
+
+      /* Layout */
+      --sidebar-w:      240px;
+      --header-h:       60px;
+
+      --font:           'Roboto Mono', monospace;
+      --radius:         6px;
+    }
+
+    html, body { height: 100%; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 13px;
+      line-height: 1.5;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* ─── SIDEBAR ─────────────────────────────── */
+    .sidebar {
+      width: var(--sidebar-w);
+      height: 100vh;
+      background: var(--bg-sidebar);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 20;
+      transition: transform 0.25s ease;
+    }
+
+    /* ─── BRAND ───────────────────────────────── */
+    .sidebar-brand {
+      height: var(--header-h);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 20px;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .brand-logo {
+      height: 34px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .brand-badge {
+      margin-left: auto;
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--primary);
+      background: var(--primary-dim);
+      border: 1px solid rgba(205,92,92,0.2);
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-family: var(--font);
+      flex-shrink: 0;
+    }
+
+    /* ─── NAV ─────────────────────────────────── */
+    .sidebar-nav {
+      flex: 1;
+      padding: 16px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      overflow-y: auto;
+    }
+
+    .nav-label {
+      font-size: 9px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      padding: 8px 10px 6px;
+      font-family: var(--font);
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: var(--radius);
+      color: var(--text-muted);
+      text-decoration: none;
+      font-family: var(--font);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      transition: all 0.15s;
+      position: relative;
+    }
+
+    .nav-link:hover {
+      background: var(--bg-hover);
+      color: var(--primary);
+    }
+
+    .nav-link.active {
+      background: var(--primary-dim);
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .nav-link.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 7px;
+      bottom: 7px;
+      width: 2px;
+      background: var(--primary);
+      border-radius: 0 2px 2px 0;
+    }
+
+    .nav-icon {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      opacity: 0.5;
+    }
+    .nav-link.active .nav-icon,
+    .nav-link:hover .nav-icon { opacity: 1; }
+
+    /* ─── SIDEBAR FOOTER ──────────────────────── */
+    .sidebar-footer {
+      padding: 12px 10px;
+      border-top: 1px solid var(--border);
+    }
+
+    .logout-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: var(--radius);
+      color: var(--text-muted);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: var(--font);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      transition: all 0.15s;
+      text-decoration: none;
+    }
+
+    .logout-btn:hover {
+      background: rgba(244,63,94,0.06);
+      color: #dc2626;
+    }
+
+    /* ─── MAIN ────────────────────────────────── */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+      min-width: 0;
+    }
+
+    /* ─── TOPBAR ──────────────────────────────── */
+    .topbar {
+      height: var(--header-h);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      flex-shrink: 0;
+      background: var(--bg-card);
+      gap: 12px;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .topbar-title {
+      font-family: var(--font);
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+
+    .status-dot {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #16a34a;
+      box-shadow: 0 0 6px rgba(22,163,74,0.5);
+      animation: pulse-dot 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* ─── PAGE CONTENT ────────────────────────── */
+    .page-content {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: clip;
+      padding: 24px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+      scrollbar-gutter: stable;
+      min-width: 0;
+    }
+
+    /* ─── MOBILE TOGGLE ────────────────────────── */
+    .menu-toggle {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 7px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .menu-toggle:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    /* ─── OVERLAY ─────────────────────────────── */
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(61,31,29,0.35);
+      z-index: 15;
+      backdrop-filter: blur(2px);
+    }
+    .overlay.show { display: block; }
+
+    /* ─── RESPONSIVE ──────────────────────────── */
+    @media (max-width: 768px) {
+      body { overflow: hidden; }
+
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100dvh;
+        transform: translateX(-100%);
+        z-index: 20;
+        box-shadow: none;
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+        box-shadow: 4px 0 24px rgba(61,31,29,0.15);
+      }
+
+      .menu-toggle { display: flex; }
+
+      .topbar { padding: 0 16px; }
+
+      .page-content { padding: 16px; }
+
+      .status-dot span:last-child { display: none; }
+    }
+
+    @media (max-width: 480px) {
+      :root { --sidebar-w: min(280px, 85vw); }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay" id="overlay"></div>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <Image
+        src={logoGvolts}
+        alt="GVoltscorp"
+        class="brand-logo"
+      />
+      <span class="brand-badge">Admin</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <span class="nav-label">Panel</span>
+      {nav.map(item => (
+        <a
+          href={item.href}
+          class={`nav-link ${section === item.id ? "active" : ""}`}
+        >
+          <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+            {item.icon === "grid" && <>
+              <rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/>
+              <rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/>
+            </>}
+            {item.icon === "inbox" && <>
+              <path d="M1 10l2-7h10l2 7"/><path d="M1 10h4l1 2h4l1-2h4" /><rect x="1" y="10" width="14" height="5" rx="1"/>
+            </>}
+            {item.icon === "users" && <>
+              <circle cx="6" cy="5" r="3"/><path d="M1 14c0-3 2.5-5 5-5s5 2 5 5"/>
+              <circle cx="12" cy="5" r="2"/><path d="M15 14c0-2-1-3.5-3-4.5"/>
+            </>}
+            {item.icon === "tag" && <>
+              <path d="M1 1h6l7 7-6 6-7-7V1z"/><circle cx="4" cy="4" r="1" fill="currentColor" stroke="none"/>
+            </>}
+          </svg>
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="/admin/login?logout=1" class="logout-btn">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M6 2H2a1 1 0 00-1 1v10a1 1 0 001 1h4"/>
+          <path d="M11 11l4-4-4-4"/><path d="M15 7H6"/>
+        </svg>
+        Cerrar sesión
+      </a>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M2 4h12M2 8h12M2 12h12"/>
+          </svg>
+        </button>
+        <span class="topbar-title">{title}</span>
+      </div>
+      <div class="topbar-right">
+        <span class="status-dot">
+          <span class="dot"></span>
+          <span>Online</span>
+        </span>
+      </div>
+    </header>
+
+    <main class="page-content">
+      <slot />
+    </main>
+  </div>
+
+  <script>
+    const toggle = document.getElementById("menuToggle");
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("overlay");
+
+    function openSidebar() {
+      sidebar?.classList.add("open");
+      overlay?.classList.add("show");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeSidebar() {
+      sidebar?.classList.remove("open");
+      overlay?.classList.remove("show");
+      document.body.style.overflow = "";
+    }
+
+    toggle?.addEventListener("click", () => {
+      sidebar?.classList.contains("open") ? closeSidebar() : openSidebar();
+    });
+
+    overlay?.addEventListener("click", closeSidebar);
+
+    sidebar?.querySelectorAll(".nav-link, .logout-btn").forEach(link => {
+      link.addEventListener("click", () => {
+        if (window.innerWidth <= 768) closeSidebar();
+      });
+    });
+  </script>
+</body>
+</html>

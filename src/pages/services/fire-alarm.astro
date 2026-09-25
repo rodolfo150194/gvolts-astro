@@ -1,256 +1,425 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import Header from "@/components/Header.astro";
-import Footer from "@/components/Footer.astro";
-import PageHero from "@components/PageHero.astro";
-import Timeline from "@/components/Timeline.astro";
-import ScrollToTop from "@components/ScrollToTop.astro";
+import Nav from "@/components/control-room/Nav.astro";
+import FireSimulator from "@/components/control-room/FireSimulator.astro";
+import Finale from "@/components/control-room/Finale.astro";
+import logoFireAlarm from "@/assets/img/logo/G_VOLTS_llama_completo.webp";
+import "@/styles/control-room.css";
 import { generateServiceSchema, generateBreadcrumbSchema } from "@/utils/schemas";
-import serviceContent from "@/data/fire-alarm-content.json";
-import Icon from "@components/Icon.astro";
 
-const content = serviceContent.servicesPages.fireAlarm;
-
-// Generate schemas for SEO
 const serviceSchema = generateServiceSchema(
   "Instalación de Alarmas Contra Incendios",
   "Sistemas de detección y alarma contra incendios con certificación NFPA 72. Monitoreo 24/7, instalación profesional y mantenimiento preventivo.",
-  "https://www.gvoltscorp.com/services/fire-alarm"
+  "https://gvoltscorp.cloud/services/fire-alarm",
 );
 
 const breadcrumbSchema = generateBreadcrumbSchema([
-  { name: "Inicio", url: "https://www.gvoltscorp.com" },
-  { name: "Servicios", url: "https://www.gvoltscorp.com/#services" },
-  { name: "Alarmas Contra Incendios", url: "https://www.gvoltscorp.com/services/fire-alarm" }
+  { name: "Inicio", url: "https://gvoltscorp.cloud" },
+  { name: "Servicios", url: "https://gvoltscorp.cloud/#servicios" },
+  { name: "Alarmas Contra Incendios", url: "https://gvoltscorp.cloud/services/fire-alarm" },
 ]);
 
 const schemas = [serviceSchema, breadcrumbSchema];
+
+const features = [
+  {
+    number: "01",
+    title: "Detección multi-sensor inteligente",
+    description:
+      "Humo fotoeléctrico, calor y CO combinados para distinguir entre el humo de una tostada y un incendio real.",
+    items: [
+      "Reducción del 95% en falsas alarmas",
+      "Detección temprana de fuegos lentos",
+      "Análisis de patrones con IA",
+    ],
+  },
+  {
+    number: "02",
+    title: "Notificación masiva",
+    description:
+      "Sirenas estroboscópicas sincronizadas que alertan a todos al instante. Cumplimiento ADA para personas con discapacidad auditiva.",
+    items: [
+      "Alertas visuales y sonoras simultáneas",
+      "Mensajes de voz pregrabados",
+      "Integración con sistemas de evacuación",
+    ],
+  },
+  {
+    number: "03",
+    title: "Panel de control inteligente",
+    description:
+      "Paneles direccionables que identifican la ubicación exacta del incendio en segundos para una evacuación quirúrgica.",
+    items: ["Mapeo visual en tiempo real", "Diagnóstico automático de fallos", "Batería de respaldo por 72 horas"],
+  },
+  {
+    number: "04",
+    title: "Integración con supresión",
+    description: "Rociadores, gas limpio FM-200 y control de humo para una respuesta automatizada que minimiza daños.",
+    items: [
+      "Activación automática de rociadores",
+      "Liberación controlada de agentes",
+      "Cierre de compuertas contra humo",
+    ],
+  },
+];
+
+const steps = [
+  {
+    step: "01",
+    duration: "1–2 días",
+    title: "Evaluación de riesgos",
+    description: "Identificamos puntos críticos, materiales inflamables, rutas de evacuación y requisitos de tu industria.",
+    deliverable: "Informe de riesgos y recomendaciones",
+  },
+  {
+    step: "02",
+    duration: "3–5 días",
+    title: "Diseño personalizado",
+    description: "Plano técnico al código con equipos elegidos según polvo, humedad, temperatura e interferencias.",
+    deliverable: "Planos CAD y especificaciones",
+  },
+  {
+    step: "03",
+    duration: "2–5 días",
+    title: "Instalación certificada",
+    description: "Técnicos NICET con cableado oculto y detectores ubicados según flujo de aire y patrones de calor.",
+    deliverable: "Sistema instalado y probado",
+  },
+  {
+    step: "04",
+    duration: "1 día",
+    title: "Pruebas y certificación",
+    description: "Simulamos condiciones de incendio y verificamos cobertura, comunicación y tiempos de respuesta.",
+    deliverable: "Certificado oficial y manual",
+  },
+  {
+    step: "05",
+    duration: "Medio día",
+    title: "Capacitación y monitoreo",
+    description: "Entrenamos a tu equipo en protocolos de evacuación y activamos la central UL 24/7.",
+    deliverable: "Personal capacitado y monitoreo activo",
+  },
+];
+
+const industries = [
+  {
+    title: "Comercial",
+    description: "Oficinas, centros comerciales, restaurantes",
+    items: ["Detección direccionable por zona", "Integración con control de acceso", "Evacuación personalizada"],
+  },
+  {
+    title: "Industrial",
+    description: "Fábricas, almacenes, plantas de producción",
+    items: ["Detección para ambientes hostiles", "Supresión con agentes especiales", "Zonas de alto riesgo monitoreadas"],
+  },
+  {
+    title: "Residencial",
+    description: "Condominios, edificios de apartamentos",
+    items: ["Sistema interconectado inalámbrico", "Notificación a todos los residentes", "Cumplimiento de códigos residenciales"],
+  },
+  {
+    title: "Institucional",
+    description: "Hospitales, escuelas, hoteles",
+    items: ["Evacuación asistida inteligente", "Zonas de refugio monitoreadas", "Integración con sistemas médicos"],
+  },
+];
+
+const codes = [
+  { code: "NFPA 72", title: "Código Nacional de Alarmas de Incendio", description: "Instalación, prueba y mantenimiento de sistemas de alarma." },
+  { code: "NFPA 101", title: "Código de Seguridad Humana", description: "Requisitos de evacuación y sistemas de notificación." },
+  { code: "UL 864", title: "Unidades de control certificadas", description: "Paneles listados y aprobados por UL." },
+  { code: "ADA", title: "Accesibilidad", description: "Dispositivos de notificación visual certificados." },
+];
+
+const credentials = [
+  "Técnicos NICET nivel III y IV",
+  "Licencia estatal de contratista",
+  "Central de monitoreo certificada UL",
+  "Membresía activa en NFPA",
+];
+
+const benefits = [
+  { title: "Experiencia certificada", description: "Más de 10 años protegiendo propiedades con técnicos NICET en formación continua." },
+  { title: "Respuesta ultra-rápida", description: "Central UL con respuesta menor a 30 segundos. Despachamos ayuda mientras verificamos." },
+  { title: "Soporte vitalicio", description: "Mantenimiento semestral, inspección anual certificada y soporte técnico 24/7." },
+  { title: "Garantía total", description: "5 años en equipos y 2 años en mano de obra. Si falla, lo reparamos o reemplazamos." },
+  { title: "ROI comprobado", description: "Clientes reportan hasta 30% menos en primas de seguros y cero multas por incumplimiento." },
+  { title: "Tecnología sustentable", description: "Equipos de bajo consumo y sensores con vida útil de más de 10 años." },
+];
 ---
 
 <Layout
   title="Sistemas de Alarmas Contra Incendios Certificados | GVoltscorp"
   description="Instalación profesional de alarmas contra incendios con certificación NFPA 72. Detección multi-sensor inteligente, monitoreo 24/7 y respuesta en menos de 30 segundos."
-  ogImage="/img/og/fire-alarm-og.png"
-  schema={schemas}
 >
-  <Header />
-  <PageHero
-      title={content.hero.title.main}
-      highlightedTitle={content.hero.title.highlight}
-      description={content.hero.description}
-      badge={content.hero.badge}
-      backgroundImage={content.hero.image}
-      icon={content.hero.icon}
+  <Fragment slot="head">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=Hanken+Grotesk:wght@400;500;600&display=swap"
     />
-  <main class="pt-10">
-    <section class="">
-      <div class="container mx-auto px-4">
-        <div class="max-w-6xl mx-auto">
-      
-          <!-- Highlights Grid -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 highlights-grid">
-            {content.introduction.highlights.map((highlight, index) => (
-              <div class="highlight-card bg-slate-50 p-6 rounded-2xl border-2 border-indian-red-100 hover:border-indian-red-500 transition-all  hover:-translate-y-2">
-                <div class="w-12 h-12 bg-indian-red-500 text-white rounded-xl flex items-center justify-center mb-4">
-                  <Icon name={highlight.icon} size="24" />
-                </div>
-                <p class="text-slate-700 font-medium">{highlight.text}</p>
+    {schemas.map((schema) => <script type="application/ld+json" set:html={JSON.stringify(schema)} />)}
+  </Fragment>
+
+  <div class="cr" data-accent="fire">
+    <Nav logo={logoFireAlarm} />
+    <main id="main">
+      <!-- HERO -->
+      <section class="relative overflow-hidden pt-[clamp(48px,8vw,110px)] pb-[clamp(64px,9vw,130px)] [background:radial-gradient(60%_50%_at_85%_20%,color-mix(in_srgb,var(--cr-signal)_16%,transparent),transparent_70%),linear-gradient(var(--cr-line)_1px,transparent_1px)_0_0/100%_88px,var(--cr-ink)] max-[640px]:pt-[clamp(40px,10vw,72px)] max-[640px]:pb-[clamp(88px,14vw,120px)]">
+        <div class="cr-wrap grid grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] gap-[clamp(32px,5vw,72px)] items-center max-[960px]:grid-cols-1">
+          <div>
+            <p class="cr-label flex items-center gap-[14px] text-[var(--cr-signal)] mb-[28px]" data-reveal>
+              <span class="w-[40px] h-px bg-current"></span>S-01 · Protección contra incendios
+            </p>
+
+            <h1 class="font-[var(--cr-display)] font-black uppercase leading-[0.84] text-[clamp(60px,8.6vw,140px)]">
+              <span class="block" data-reveal style="--d:80ms">Alarmas</span>
+              <span class="block" data-reveal style="--d:160ms">contra</span>
+              <span class="block text-[var(--cr-signal)]" data-reveal style="--d:240ms">incendios<span class="text-[var(--cr-bone)]">.</span></span>
+            </h1>
+
+            <p class="mt-[32px] max-w-[46ch] text-[clamp(17px,1.4vw,20px)] text-[var(--cr-bone-dim)]" data-reveal style="--d:340ms">
+              Detecta, alerta y protege. Tecnología certificada que puede salvar vidas y patrimonio antes de que sea
+              demasiado tarde.
+            </p>
+
+            <div class="flex flex-wrap gap-[14px] mt-[36px] max-[640px]:flex-col max-[640px]:items-stretch" data-reveal style="--d:420ms">
+              <a href="/contact" class="cr-btn max-[640px]:justify-center">Cotización gratuita <span aria-hidden="true">→</span></a>
+              <a href="/projects" class="cr-btn cr-btn--ghost max-[640px]:justify-center">Ver proyectos</a>
+            </div>
+
+            <dl class="grid grid-cols-3 mt-[56px] border-t border-[var(--cr-line-strong)] max-[640px]:grid-cols-2 max-[640px]:gap-y-[20px]" data-reveal style="--d:500ms">
+              <div class="pt-[18px] pr-[16px] pb-0 pl-0">
+                <dt class="cr-label">Tasa de detección</dt>
+                <dd class="mt-[6px] font-[var(--cr-display)] font-extrabold text-[clamp(40px,4.6vw,64px)] leading-none tabular-nums"><span data-count="99.8">99.8</span><span class="text-[var(--cr-signal)]">%</span></dd>
               </div>
-            ))}
+              <div class="pt-[18px] pr-[16px] pb-0 pl-[16px] border-l border-[var(--cr-line)]">
+                <dt class="cr-label">Tiempo de respuesta</dt>
+                <dd class="mt-[6px] font-[var(--cr-display)] font-extrabold text-[clamp(40px,4.6vw,64px)] leading-none tabular-nums"><span class="text-[var(--cr-signal)]">&lt;</span>30s</dd>
+              </div>
+              <div class="pt-[18px] pr-[16px] pb-0 pl-[16px] border-l border-[var(--cr-line)] max-[640px]:col-[1/-1] max-[640px]:pl-0 max-[640px]:border-l-0 max-[640px]:border-t max-[640px]:border-t-[var(--cr-line)] max-[640px]:pt-[18px]">
+                <dt class="cr-label">Certificación</dt>
+                <dd class="mt-[6px] font-[var(--cr-display)] font-extrabold text-[clamp(40px,4.6vw,64px)] leading-none tabular-nums">NFPA</dd>
+              </div>
+            </dl>
+          </div>
+
+          <div class="relative" data-reveal style="--d:200ms">
+            <FireSimulator />
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Features Section -->
-    <section class="py-20">
-      <div class="container mx-auto px-4">
-        <div class="max-w-7xl mx-auto">
-          <div class="text-center mb-16">
-            <h2 class="features-title font-display text-5xl md:text-6xl font-bold text-slate-900 mb-4">
-              {content.features.title}
-            </h2>
-            <p class="text-xl text-slate-600">{content.features.description}</p>
+      <!-- INTRO -->
+      <section class="py-[clamp(72px,10vw,140px)] border-t border-[var(--cr-line)]">
+        <div class="cr-wrap grid grid-cols-2 gap-[clamp(48px,6vw,96px)] max-[960px]:grid-cols-1">
+          <div>
+            <p class="cr-label" data-reveal>01 — Prevención</p>
+            <h2 class="mt-[18px] text-[clamp(44px,6vw,92px)]" data-reveal style="--d:80ms">Cada segundo <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">cuenta.</span></h2>
+            <p class="mt-[20px] text-[20px] text-[var(--cr-bone-dim)]" data-reveal style="--d:140ms">Prevención que marca la diferencia.</p>
           </div>
+          <div data-reveal style="--d:200ms">
+            <p class="text-[19px] leading-[1.7] text-[color-mix(in_srgb,var(--cr-bone)_80%,transparent)]">
+              Nuestros sistemas no solo cumplen con las normativas más exigentes: usan detección multi-sensor que
+              identifica amenazas invisibles antes de que se conviertan en tragedia. Desde pequeños negocios hasta
+              complejos industriales.
+            </p>
+            <ul class="mt-[32px] p-0 list-none flex flex-col border-t border-[var(--cr-line)]">
+              <li class="py-[18px] border-b border-[var(--cr-line)] text-[17px] pl-[32px] relative before:content-[''] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-[8px] before:h-[8px] before:bg-[var(--cr-signal)]">Certificación NFPA 72 y códigos locales</li>
+              <li class="py-[18px] border-b border-[var(--cr-line)] text-[17px] pl-[32px] relative before:content-[''] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-[8px] before:h-[8px] before:bg-[var(--cr-signal)]">Instalación en 48–72 horas</li>
+              <li class="py-[18px] border-b border-[var(--cr-line)] text-[17px] pl-[32px] relative before:content-[''] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-[8px] before:h-[8px] before:bg-[var(--cr-signal)]">Monitoreo 24/7 por central certificada</li>
+            </ul>
+          </div>
+        </div>
+      </section>
 
-          <!-- Features Grid -->
-          <div class="space-y-24 features-container">
-            {content.features.items.map((feature, index) => (
-              <div class={`feature-item grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
-                <div class={`${index % 2 === 1 ? 'lg:order-2' : ''}`}>
-                  <div class="inline-block bg-indian-red-500 text-white text-2xl font-bold px-4 py-2 rounded-lg mb-4">
-                    {feature.number}
-                  </div>
-                  <h3 class="font-display text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-                    {feature.title}
-                  </h3>
-                  <p class="text-lg text-slate-600 mb-6 leading-relaxed">
-                    {feature.description}
-                  </p>
-                  <ul class="space-y-3 mb-6">
-                    {feature.benefits.map((benefit) => (
-                      <li class="flex items-start gap-3">
-                        <div class="w-6 h-6 bg-indian-red-500 rounded-full flex items-center justify-center shrink-0 mt-1">
-                          <Icon name='Check' size={14} class="text-white" />
-                        </div>
-                        <span class="text-slate-700">{benefit}</span>
-                      </li>
-                    ))}
+      <!-- FEATURES -->
+      <section class="py-[clamp(72px,10vw,140px)] bg-[var(--cr-ink-2)]">
+        <div class="cr-wrap">
+          <header class="flex justify-between items-end gap-[48px] mb-[clamp(48px,6vw,64px)] max-[760px]:flex-col max-[760px]:items-start">
+            <div>
+              <p class="cr-label" data-reveal>02 — Componentes</p>
+              <h2 class="mt-[18px] text-[clamp(52px,7vw,112px)]" data-reveal style="--d:80ms">Tecnología que<br /><span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">salva vidas.</span></h2>
+            </div>
+            <p class="max-w-[380px] text-[18px] leading-[1.65] text-[var(--cr-bone-dim)]" data-reveal style="--d:160ms">
+              Componentes de última generación que trabajan en perfecta sincronía.
+            </p>
+          </header>
+
+          <div class="grid grid-cols-2 gap-[24px] max-[640px]:grid-cols-1">
+            {
+              features.map((f, i) => (
+                <article class="p-[36px] flex flex-col gap-[16px] bg-[var(--cr-ink-3)] border border-[var(--cr-line)] [transition:transform_0.5s_cubic-bezier(0.16,0.84,0.24,1),border-color_0.3s] hover:-translate-y-[10px] hover:border-[var(--cr-signal)]" data-reveal style={`--d:${i * 90}ms`}>
+                  <p class="font-[var(--cr-display)] font-black text-[48px] leading-none text-[var(--cr-signal)]">{f.number}</p>
+                  <h3 class="text-[clamp(28px,2.6vw,36px)]">{f.title}</h3>
+                  <p class="text-[15px] leading-[1.6] text-[var(--cr-bone-dim)]">{f.description}</p>
+                  <ul class="m-0 p-0 list-none flex flex-col gap-[10px] text-[15px]">
+                    {f.items.map((it) => <li class="flex gap-[12px] items-center before:content-[''] before:w-[8px] before:h-[8px] before:shrink-0 before:bg-[var(--cr-signal)]">{it}</li>)}
                   </ul>
-                </div>
-                <div class={`relative ${index % 2 === 1 ? 'lg:order-1' : ''}`}>
-                  <div class="absolute -inset-4 bg-indian-red-500/10 rounded-3xl transform rotate-3"></div>
-                  <div class="relative rounded-3xl overflow-hidden shadow-2xl">
-                    <img
-                      src={feature.image}
-                      alt={`${feature.title} - Sistema profesional de alarmas contra incendios de GVolts`}
-                      loading="lazy"
-                      class="w-full object-cover aspect-4/3 shadow-lg"
-                    />
-                    <div class="absolute inset-0 bg-slate-900/40"></div>
+                </article>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+
+      <!-- PROCESS -->
+      <section class="py-[clamp(96px,12vw,180px)]">
+        <div class="cr-wrap grid grid-cols-[minmax(0,0.45fr)_minmax(0,1fr)] gap-[clamp(48px,6vw,96px)] max-[960px]:grid-cols-1">
+          <div>
+            <p class="cr-label" data-reveal>03 — Implementación</p>
+            <h2 class="mt-[18px] text-[clamp(44px,6vw,96px)]" data-reveal style="--d:80ms">De la evaluación <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">a la protección total.</span></h2>
+          </div>
+          <ol class="m-0 p-0 list-none relative before:content-[''] before:absolute before:left-[11px] before:top-[12px] before:bottom-[12px] before:w-[2px] before:bg-[var(--cr-line-strong)]">
+            {
+              steps.map((s, i) => (
+                <li class="relative flex gap-[40px] pb-[40px] pl-0 last:pb-0 group" data-reveal style={`--d:${i * 90}ms`}>
+                  <span class="shrink-0 w-[24px] h-[24px] box-border border-2 border-[var(--cr-signal)] bg-[var(--cr-ink)] z-[1] group-last:bg-[var(--cr-signal)] group-last:shadow-[0_0_20px_var(--cr-signal)] group-last:border-[var(--cr-signal)]" />
+                  <div>
+                    <p class="cr-label text-[var(--cr-signal)]">PASO {s.step} · {s.duration.toUpperCase()}</p>
+                    <h3 class="mt-[10px] text-[40px]">{s.title}</h3>
+                    <p class="mt-[10px] text-[16px] leading-[1.6] text-[var(--cr-bone-dim)]">{s.description}</p>
+                    <p class="mt-[10px] font-[var(--cr-mono)] text-[12px] tracking-[0.08em] text-[var(--cr-amber)]">ENTREGABLE → {s.deliverable}</p>
                   </div>
+                </li>
+              ))
+            }
+          </ol>
+        </div>
+      </section>
+
+      <!-- INDUSTRIES -->
+      <section class="py-[clamp(72px,10vw,140px)]">
+        <div class="cr-wrap">
+          <header class="flex justify-between items-end gap-[48px] mb-[clamp(48px,6vw,64px)] max-[760px]:flex-col max-[760px]:items-start">
+            <div>
+              <p class="cr-label" data-reveal>04 — Industrias</p>
+              <h2 class="mt-[18px] text-[clamp(52px,7vw,112px)]" data-reveal style="--d:80ms">Soluciones para <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">cada industria.</span></h2>
+            </div>
+          </header>
+
+          <div class="grid grid-cols-4 gap-[20px] max-[960px]:grid-cols-2 max-[640px]:grid-cols-1">
+            {
+              industries.map((ind, i) => (
+                <article class="p-[36px] flex flex-col gap-[16px] bg-[var(--cr-ink-3)] border border-[var(--cr-line)] [transition:transform_0.5s_cubic-bezier(0.16,0.84,0.24,1),border-color_0.3s] hover:-translate-y-[10px] hover:border-[var(--cr-signal)]" data-reveal style={`--d:${i * 90}ms`}>
+                  <h3 class="text-[clamp(28px,2.6vw,36px)]">{ind.title}</h3>
+                  <p class="text-[15px] leading-[1.6] text-[var(--cr-bone-dim)]">{ind.description}</p>
+                  <ul class="m-0 p-0 list-none flex flex-col gap-[10px] text-[15px] mt-auto pt-[16px] border-t border-[var(--cr-line)] font-[var(--cr-mono)] text-[13px] text-[var(--cr-bone-dim)]">
+                    {ind.items.map((it) => <li class="flex gap-[12px] items-center">{it}</li>)}
+                  </ul>
+                </article>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+
+      <!-- COMPLIANCE -->
+      <section class="py-[clamp(72px,10vw,140px)]">
+        <div class="cr-wrap">
+          <header class="flex justify-between items-end gap-[48px] mb-[clamp(48px,6vw,64px)] max-[760px]:flex-col max-[760px]:items-start">
+            <div>
+              <p class="cr-label" data-reveal>05 — Normativa</p>
+              <h2 class="mt-[18px] text-[clamp(52px,7vw,112px)]" data-reveal style="--d:80ms">Cumplimiento <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">total.</span></h2>
+            </div>
+            <p class="max-w-[380px] text-[18px] leading-[1.65] text-[var(--cr-bone-dim)]" data-reveal style="--d:160ms">
+              No solo instalamos sistemas: garantizamos cumplimiento con regulaciones locales e internacionales.
+            </p>
+          </header>
+
+          <div class="grid grid-cols-4 border-t border-b border-[var(--cr-line-strong)] max-[960px]:grid-cols-2 max-[640px]:grid-cols-1" data-reveal style="--d:220ms">
+            {
+              codes.map((c, i) => (
+                <div
+                  class={`py-[36px] px-[28px] flex flex-col gap-[14px] ${
+                    i === 0
+                      ? "border-l-0 pl-0 max-[640px]:border-t-0"
+                      : i === 3
+                        ? "border-l border-[var(--cr-line)] pr-0 max-[960px]:border-l max-[960px]:pl-[28px] max-[640px]:border-l-0! max-[640px]:pl-0! max-[640px]:border-t max-[640px]:border-t-[var(--cr-line)]"
+                        : "border-l border-[var(--cr-line)] max-[960px]:border-l-0! max-[960px]:pl-0! max-[640px]:border-l-0! max-[640px]:pl-0! max-[640px]:border-t max-[640px]:border-t-[var(--cr-line)]"
+                  }`}
+                >
+                  <p class="font-[var(--cr-display)] font-black text-[56px] leading-none text-[var(--cr-signal)]">{c.code}</p>
+                  <h3 class="text-[18px] font-bold normal-case">{c.title}</h3>
+                  <p class="text-[15px] leading-[1.55] text-[var(--cr-bone-dim)]">{c.description}</p>
                 </div>
-              </div>
-            ))}
+              ))
+            }
+          </div>
+
+          <div class="mt-[36px] flex flex-wrap gap-[12px]" data-reveal style="--d:280ms">
+            {credentials.map((c) => <span class="py-[12px] px-[18px] border border-[var(--cr-line-strong)] font-[var(--cr-mono)] text-[13px] tracking-[0.06em]">{c}</span>)}
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Process Timeline -->
-    <Timeline
-      title={content.process.title}
-      subtitle={content.process.subtitle}
-      steps={content.process.steps}
-    />
+      <!-- BENEFITS -->
+      <section class="py-[clamp(72px,10vw,140px)] bg-[var(--cr-ink-2)]">
+        <div class="cr-wrap">
+          <header class="flex justify-between items-end gap-[48px] mb-[clamp(48px,6vw,64px)] max-[760px]:flex-col max-[760px]:items-start">
+            <div>
+              <p class="cr-label" data-reveal>06 — Por qué GVolts</p>
+              <h2 class="mt-[18px] text-[clamp(52px,7vw,112px)]" data-reveal style="--d:80ms">Seis razones <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">para dormir tranquilo.</span></h2>
+            </div>
+          </header>
 
-    <!-- CTA Section -->
-    <section class="py-20 bg-slate-900 text-white relative overflow-hidden">
-      <div class="absolute inset-0 opacity-50">
-        <div
-          class="absolute inset-0"
-          style="background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px); background-size: 50px 50px;"
-        />
-      </div>
-      <div class="container mx-auto px-4 relative z-10">
-        <div class="max-w-4xl mx-auto text-center">
-          <h2 class="cta-title font-display text-4xl md:text-6xl font-bold mb-6">
-            {content.cta.title}
-          </h2>
-          <p class="cta-description text-xl text-slate-300 mb-12 max-w-2xl mx-auto">
-            {content.cta.description}
-          </p>
-
-          <div class="flex flex-wrap justify-center gap-4 mb-12">
-            <a
-              href={content.cta.primary.href}
-              class="bg-indian-red-500 text-white px-8 py-4 rounded-xl font-bold hover:bg-indian-red-600 transition-all transform hover:-translate-y-1 shadow-lg shadow-indian-red-500/30"
-            >
-              {content.cta.primary.label}
-            </a>
-            <a
-              href={content.cta.secondary.href}
-              class="bg-white/10 text-white px-8 py-4 rounded-xl font-bold hover:bg-white/20 transition-all backdrop-blur-sm border border-white/20"
-            >
-              {content.cta.secondary.label}
-            </a>
-          </div>
-
-          <!-- Guarantees -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {content.cta.guarantees.map((guarantee) => (
-              <div class="flex items-center justify-center gap-2 text-slate-300">
-                <Icon name='CheckCircle' size={20} class="text-indian-red-400" />
-                <span class="text-sm">{guarantee}</span>
-              </div>
-            ))}
+          <div class="grid grid-cols-3 gap-[24px] max-[960px]:grid-cols-2 max-[640px]:grid-cols-1">
+            {
+              benefits.map((b, i) => (
+                <div class="p-[30px] flex flex-col gap-[16px] bg-[var(--cr-ink-3)] border border-[var(--cr-line)] [transition:transform_0.5s_cubic-bezier(0.16,0.84,0.24,1),border-color_0.3s] hover:-translate-y-[10px] hover:border-[var(--cr-signal)]" data-reveal style={`--d:${i * 70}ms`}>
+                  <h3 class="text-[clamp(28px,2.6vw,36px)]">{b.title}</h3>
+                  <p class="text-[15px] leading-[1.6] text-[var(--cr-bone-dim)]">{b.description}</p>
+                </div>
+              ))
+            }
           </div>
         </div>
-      </div>
-    </section>
-  </main>
+      </section>
 
-  <Footer />
-  <ScrollToTop />
+    </main>
+
+    <Finale logo={logoFireAlarm} />
+  </div>
 </Layout>
 
 <script>
-  document.addEventListener("DOMContentLoaded", async () => {
-    const { gsap } = await import("gsap");
-    const { ScrollTrigger } = await import("gsap/ScrollTrigger");
-    gsap.registerPlugin(ScrollTrigger);
-    // Hero animations
-    gsap.from(".hero-badge", {
-      opacity: 0,
-      y: -20,
-      duration: 0.8,
-      ease: "power3.out"
-    });
+  // Staggered scroll reveals (same behaviour as the home page)
+  const revealEls = document.querySelectorAll<HTMLElement>(".cr [data-reveal]");
+  const revealer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add("is-in");
+          revealer.unobserve(e.target);
+        }
+      });
+    },
+    { rootMargin: "0px 0px -8% 0px" },
+  );
+  revealEls.forEach((el) => revealer.observe(el));
 
-    gsap.from(".hero-title", {
-      opacity: 0,
-      y: 30,
-      duration: 1,
-      delay: 0.2,
-      ease: "power3.out"
-    });
-
-    gsap.from(".hero-description", {
-      opacity: 0,
-      y: 20,
-      duration: 0.8,
-      delay: 0.4,
-      ease: "power3.out"
-    });
-
-    gsap.from(".stat-item", {
-      opacity: 0,
-      scale: 0.5,
-      duration: 0.6,
-      stagger: 0.1,
-      delay: 0.6,
-      ease: "back.out(1.7)"
-    });
-
-    // Features animations
-    ScrollTrigger.batch(".feature-item", {
-      onEnter: (elements) => {
-        gsap.from(elements, {
-          opacity: 0,
-          y: 80,
-          duration: 1,
-          ease: "power3.out"
-        });
-      },
-      start: "top 75%"
-    });
-
-    // Applications grid
-    ScrollTrigger.batch(".application-card", {
-      onEnter: (elements) => {
-        gsap.from(elements, {
-          opacity: 0,
-          scale: 0.8,
-          stagger: 0.1,
-          duration: 0.6,
-          ease: "back.out(1.7)"
-        });
-      },
-      start: "top 80%"
-    });
-
-    // Benefits grid
-    ScrollTrigger.batch(".benefit-card", {
-      onEnter: (elements) => {
-        gsap.from(elements, {
-          opacity: 0,
-          y: 60,
-          stagger: 0.1,
-          duration: 0.8,
-          ease: "power3.out"
-        });
-      },
-      start: "top 80%"
+  // Stat counters tick up like a meter settling
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const counters = document.querySelectorAll<HTMLElement>("[data-count]");
+  const counterIO = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      const el = e.target as HTMLElement;
+      counterIO.unobserve(el);
+      const end = Number(el.dataset.count);
+      if (reduce) return;
+      const start = performance.now();
+      const dur = 1600;
+      const step = (now: number) => {
+        const k = Math.min(1, (now - start) / dur);
+        const eased = 1 - Math.pow(1 - k, 4);
+        el.textContent = (end * eased).toFixed(end % 1 !== 0 ? 1 : 0);
+        if (k < 1) requestAnimationFrame(step);
+      };
+      el.textContent = "0";
+      requestAnimationFrame(step);
     });
   });
+  counters.forEach((c) => counterIO.observe(c));
 </script>

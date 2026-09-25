@@ -1,29 +1,96 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import Header from "@/components/Header.astro";
-import PageHero from "@/components/PageHero.astro";
-import ContactSection from "@/components/Contact.astro";
-import Footer from "@/components/Footer.astro";
-import ScrollToTop from "@/components/ScrollToTop.astro";
+import Nav from "@/components/control-room/Nav.astro";
+import ContactPanel from "@/components/control-room/ContactPanel.astro";
+import Finale from "@/components/control-room/Finale.astro";
+import "@/styles/control-room.css";
+import { generateBreadcrumbSchema } from "@/utils/schemas";
 
+const breadcrumbSchema = generateBreadcrumbSchema([
+  { name: "Inicio", url: "https://gvoltscorp.cloud" },
+  { name: "Contacto", url: "https://gvoltscorp.cloud/contact" },
+]);
 ---
 
 <Layout
   title="Contacto - Cotización Gratuita | GVoltscorp"
   description="Solicita una evaluación gratuita y cotización sin compromiso. Respuesta en 24 horas. Servicio de emergencia 24/7 disponible para urgencias eléctricas y de seguridad."
 >
-  <!-- <Loader /> -->
-  <Header />
-  <PageHero
-      title="Contáctanos"
-      description="Estamos listos para ayudarte con tu próximo proyecto de seguridad o electricidad."
-      badge="Contacto"
-      backgroundImage="/img/gvolts/contact.jpg"
-      icon='MessageSquareMore'
+  <Fragment slot="head">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=Hanken+Grotesk:wght@400;500;600&display=swap"
     />
-  <main class="pt-10">
-    <ContactSection />
-  </main>
-  <ScrollToTop />
-  <Footer />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
+
+  <div class="cr">
+    <Nav />
+    <main id="main">
+      <section class="relative [background:radial-gradient(60%_50%_at_85%_20%,color-mix(in_srgb,var(--cr-signal)_16%,transparent),transparent_70%),linear-gradient(var(--cr-line)_1px,transparent_1px)_0_0/100%_88px,var(--cr-ink)] [padding-block:clamp(48px,8vw,110px)_clamp(64px,9vw,130px)] max-sm:[padding-block:clamp(40px,10vw,72px)_clamp(88px,14vw,120px)]">
+        <div class="cr-wrap grid grid-cols-2 max-[960px]:grid-cols-1 items-start [gap:clamp(40px,6vw,96px)]">
+          <div class="flex flex-col gap-10">
+            <p class="cr-label flex items-center gap-[14px] text-[var(--cr-signal)]" data-reveal>
+              <span class="cr-led cr-blink"></span>Canal abierto · Respuesta en 24 h
+            </p>
+
+            <h1 class="font-[var(--cr-display)] font-black uppercase leading-[0.84] text-[clamp(60px,8.6vw,128px)]" data-reveal style="--d:80ms">
+              Habl<span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">emos.</span>
+            </h1>
+
+            <p class="max-w-[46ch] text-[clamp(17px,1.4vw,20px)] text-[var(--cr-bone-dim)]" data-reveal style="--d:160ms">
+              Cuéntanos qué necesitas proteger o energizar. Te devolvemos un diagnóstico y un presupuesto cerrado,
+              sin compromiso.
+            </p>
+
+            <div class="flex flex-col border-t border-[var(--cr-line-strong)]" data-reveal style="--d:240ms">
+              <a class="flex justify-between items-center gap-4 py-6 border-b border-[var(--cr-line)] max-sm:flex-col max-sm:items-start max-sm:gap-[6px] text-[var(--cr-bone)] transition-colors duration-200 hover:text-[var(--cr-signal)]" href="tel:+15551234567">
+                <span class="cr-label">Teléfono</span>
+                <span class="font-[var(--cr-display)] font-extrabold text-[clamp(24px,3vw,40px)]">+1 (555) 123-4567</span>
+              </a>
+              <a class="flex justify-between items-center gap-4 py-6 border-b border-[var(--cr-line)] max-sm:flex-col max-sm:items-start max-sm:gap-[6px] text-[var(--cr-bone)] transition-colors duration-200 hover:text-[var(--cr-signal)]" href="mailto:info@gvolts.com">
+                <span class="cr-label">Email</span>
+                <span class="font-[var(--cr-display)] font-extrabold text-[clamp(24px,3vw,40px)]">info@gvolts.com</span>
+              </a>
+              <div class="flex justify-between items-center gap-4 py-6 border-b border-[var(--cr-line)] max-sm:flex-col max-sm:items-start max-sm:gap-[6px]">
+                <span class="cr-label">Oficina</span>
+                <span class="font-[var(--cr-body)] font-normal text-[18px] text-right leading-[1.4] max-sm:text-left">Av. Tecnológica 123<br />Ciudad Innovación, CP 12345</span>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-6 p-7 bg-[var(--cr-signal)] text-[var(--cr-ink)] max-sm:flex-wrap" data-reveal style="--d:320ms">
+              <span class="cr-led cr-led--signal cr-blink bg-[var(--cr-ink)] shadow-[0_0_0_3px_color-mix(in_srgb,var(--cr-ink)_22%,transparent),0_0_14px_var(--cr-ink)]"></span>
+              <div class="grow">
+                <p class="font-[var(--cr-display)] font-extrabold text-[30px] uppercase">¿Emergencia?</p>
+                <p class="text-[15px]">Eléctrica o de seguridad: estamos disponibles 24/7.</p>
+              </div>
+              <a href="tel:+15551234567" class="cr-btn shrink-0 bg-[var(--cr-ink)] border-[var(--cr-ink)] text-[var(--cr-bone)] hover:bg-[var(--cr-bone)] hover:border-[var(--cr-bone)] hover:text-[var(--cr-ink)] max-sm:w-full max-sm:justify-center">Llamar ahora</a>
+            </div>
+          </div>
+
+          <ContactPanel />
+        </div>
+      </section>
+    </main>
+
+    <Finale />
+  </div>
 </Layout>
+
+<script>
+  const revealEls = document.querySelectorAll<HTMLElement>(".cr [data-reveal]");
+  const revealer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add("is-in");
+          revealer.unobserve(e.target);
+        }
+      });
+    },
+    { rootMargin: "0px 0px -8% 0px" },
+  );
+  revealEls.forEach((el) => revealer.observe(el));
+</script>

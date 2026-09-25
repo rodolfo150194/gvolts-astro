@@ -1,0 +1,124 @@
+---
+import CTAButton from "@/components/old-version/CTAButton.astro";
+import { Flame, Camera, Zap } from "@lucide/astro";
+
+const services = [
+  {
+    image: "/img/gvolts/extintor.jpg",
+    title: "Alarmas de Incendio",
+    description:
+      "Sistemas avanzados de detección y alerta temprana contra incendios.",
+    href: "/services/fire-alarm",
+    icon: Flame,
+    color: "from-orange-500 to-indian-red-600",
+  },
+  {
+    image: "/img/gvolts/camara-casa.jpg",
+    title: "Seguridad",
+    description: "Cámaras de alta definición con monitoreo remoto 24/7.",
+    href: "/services/security",
+    icon: Camera,
+    color: "from-blue-500 to-indian-red-600",
+  },
+  {
+    image: "/img/gvolts/instalacion.jpg",
+    title: "Electricidad",
+    description: "Configuración y gestión centralizada de todos tus sistemas.",
+    href: "/services/electricity",
+    icon: Zap,
+    color: "from-yellow-500 to-indian-red-600",
+  },
+];
+---
+
+<section
+  class="relative py-12 sm:py-16 md:py-20 px-4 md:px-6 lg:px-8 services-section z-0 bg-[url('/img/gvolts/camara-bosque.jpg')] min-h-screen bg-cover bg-center bg-no-repeat bg-fixed w-full max-w-full"
+  id="services"
+>
+  <!-- Overlay background que cubre el 100% de la sección -->
+  <div
+    class="absolute inset-0 bg-linear-to-b from-[#3D1F1D]/85 via-[#3D1F1D]/70 to-[#3D1F1D]/60 z-0 pointer-events-none"
+  >
+  </div>
+
+  <!-- Línea decorativa superior -->
+  <div
+    class="absolute top-0 left-0 right-0 h-0.5 bg-linear-to-r from-transparent via-indian-red-500 to-transparent z-10"
+  >
+  </div>
+
+  <div class="w-full max-w-7xl mx-auto relative z-10">
+    <div class="text-center mb-8 md:mb-12 lg:mb-20 section-header">
+
+      <span
+        class="hero-badge inline-flex items-center gap-2 bg-white/10 border border-white/20 px-6 py-2 rounded-full text-white text-sm font-semibold mb-8 backdrop-blur-md"
+        >Servicios</span
+      >
+      <h2
+        class="section-title font-display text-[clamp(2rem,5vw,3rem)] font-extrabold text-white mb-3 md:mb-4 leading-tight"
+      >
+        Protección Integral para tu Seguridad
+      </h2>
+      <p
+        class="section-subtitle font-body text-base md:text-lg text-white/60 max-w-2xl mx-auto"
+      >
+        Soluciones completas de alarmas contra incendios y videovigilancia
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
+      {
+        services.map((service, index) => (
+          <div
+            class="service-card border-2 border-white group relative bg-white rounded-xl md:rounded-2xl overflow-hidden shadow-lg md:hover:shadow-2xl transition-all duration-500 md:hover:-translate-y-2"
+            data-index={index}
+          >
+            {/* Image Container */}
+            <div class="relative h-48 sm:h-56 md:h-64 overflow-hidden">
+              <img
+                src={service.image}
+                alt={service.title}
+                class="w-full h-full object-cover transition-transform duration-700 md:group-hover:scale-110"
+                loading="lazy"
+              />
+              {/* Gradient Overlay */}
+              <div class={`absolute inset-0 bg-linear-to bg-slate-950/70 opacity-60 md:group-hover:opacity-75 transition-opacity duration-500`}></div>
+
+              {/* Icon Badge */}
+              <div class="absolute top-3 right-3 md:top-4 md:right-4 w-12 h-12 md:w-14 md:h-14 bg-white rounded-full flex items-center justify-center shadow-lg transform transition-transform duration-500 md:group-hover:scale-110 md:group-hover:rotate-12">
+                <service.icon size={24} class="md:hidden text-indian-red-600" />
+                <service.icon size={28} class="hidden md:block text-indian-red-600" />
+              </div>
+            </div>
+
+            {/* Content */}
+            <div class="p-4 sm:p-5 md:p-6 flex flex-col h-auto min-h-52 sm:min-h-56 md:min-h-60">
+              <h3 class="font-display text-xl sm:text-2xl font-bold text-slate-900 mb-2 md:mb-3 leading-tight md:group-hover:text-indian-red-600 transition-colors duration-300">
+                {service.title}
+              </h3>
+
+              <p class="font-body text-sm sm:text-base text-slate-600 leading-relaxed mb-4 md:mb-6 grow">
+                {service.description}
+              </p>
+
+              <div class="mt-auto">
+                <CTAButton
+                  text="Ver más detalles"
+                  href={service.href}
+                  variant="primary"
+                  className="w-full justify-center text-xs sm:text-sm"
+                />
+              </div>
+            </div>
+
+            {/* Decorative corner */}
+            <div class="absolute top-0 left-0 w-16 h-16 md:w-20 md:h-20 bg-indian-red-500/10 rounded-br-full transform -translate-x-8 -translate-y-8 md:-translate-x-10 md:-translate-y-10 md:group-hover:scale-150 transition-transform duration-500"></div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+</script>

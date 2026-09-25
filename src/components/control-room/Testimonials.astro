@@ -1,0 +1,58 @@
+---
+const testimonials = [
+  {
+    tag: "Incendio",
+    accent: "var(--cr-signal)",
+    quote:
+      "Instalaron nuestro sistema en 3 días sin interrumpir operaciones. Pasamos la inspección de bomberos a la primera.",
+    name: "María González",
+    role: "Propietaria de restaurante",
+  },
+  {
+    tag: "Seguridad",
+    accent: "var(--cr-ok)",
+    quote:
+      "Las cámaras con IA redujeron nuestros robos internos. Ver todo desde el celular mientras viajo me da tranquilidad total.",
+    name: "Carlos Hernández",
+    role: "Gerente de operaciones",
+  },
+  {
+    tag: "Electricidad",
+    accent: "var(--cr-amber)",
+    quote:
+      "Actualizaron nuestro panel de 100 A a 200 A para cargar el auto eléctrico. Trabajo impecable y aprobado sin observaciones.",
+    name: "Ana Rodríguez",
+    role: "Dueña de casa",
+  },
+];
+---
+
+<section class="testimonials py-[clamp(96px,12vw,170px)]">
+  <div class="cr-wrap">
+    <header class="testimonials__head mb-[clamp(48px,6vw,64px)]">
+      <p class="cr-label" data-reveal>03 — Clientes</p>
+      <h2 class="mt-[18px] text-[clamp(46px,6vw,88px)]" data-reveal style="--d:80ms">Lo que dicen<br /><span class="outline text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">de nosotros.</span></h2>
+    </header>
+
+    <ul class="testimonials__grid list-none m-0 p-0 grid grid-cols-3 gap-6 max-[900px]:grid-cols-1">
+      {
+        testimonials.map((t, i) => (
+          <li
+            class="testimonials__card flex flex-col gap-6 p-9 bg-[var(--cr-ink-2)] border border-[var(--cr-line)] [transition:transform_0.5s_cubic-bezier(0.16,0.84,0.24,1),border-color_0.3s] hover:-translate-y-2.5 hover:border-[var(--cr-signal)]"
+            data-reveal
+            style={`--d:${i * 100}ms`}
+          >
+            <p class="testimonials__tag font-[var(--cr-mono)] text-[12px] tracking-[0.14em] uppercase" style={`color:${t.accent}`}>
+              {t.tag} · ★★★★★
+            </p>
+            <blockquote class="m-0 text-[18px] leading-[1.6]">{t.quote}</blockquote>
+            <p class="testimonials__author mt-auto flex flex-col gap-0.5 text-[15px]">
+              <strong>{t.name}</strong>
+              <span class="text-[var(--cr-bone-dim)]">{t.role}</span>
+            </p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

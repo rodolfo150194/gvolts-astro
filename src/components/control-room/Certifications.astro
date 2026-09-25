@@ -1,0 +1,367 @@
+---
+interface Cert {
+  id: string;
+  code: string;
+  sub: string;
+  k: ("fire" | "security" | "elec" | "company")[];
+  short: string;
+  name: string;
+  desc: string;
+  you: string;
+  pending?: boolean;
+}
+
+interface Props {
+  service?: "all" | "fire" | "security" | "elec" | "company";
+}
+
+const { service = "all" } = Astro.props;
+
+const COLORS: Record<string, string> = {
+  fire: "var(--cr-signal)",
+  security: "var(--cr-ok)",
+  elec: "var(--cr-amber)",
+  company: "var(--cr-bone)",
+};
+
+const LABELS: Record<string, string> = {
+  fire: "Incendio",
+  security: "Seguridad",
+  elec: "Electricidad",
+  company: "Empresa",
+};
+
+const PENDING_COLOR = "rgba(237,232,224,0.4)";
+
+const certs: Cert[] = [
+  { id: "nfpa72", code: "NFPA 72", sub: "NFPA", k: ["fire"], short: "Alarmas de incendio", name: "Código Nacional de Alarmas de Incendio", desc: "Norma para la instalación, prueba y mantenimiento de sistemas de alarma contra incendio.", you: "Tu sistema se diseña y prueba para pasar la inspección de bomberos a la primera." },
+  { id: "nfpa101", code: "NFPA 101", sub: "NFPA", k: ["fire", "elec"], short: "Seguridad humana", name: "Código de Seguridad Humana", desc: "Requisitos de evacuación, notificación e iluminación de emergencia.", you: "Rutas de salida, señalización y avisos pensados para que todos salgan a tiempo." },
+  { id: "ul864", code: "UL 864", sub: "UL", k: ["fire"], short: "Paneles listados", name: "Unidades de control certificadas", desc: "Paneles de incendio listados y aprobados por UL.", you: "El cerebro de tu sistema es un equipo probado, no un genérico." },
+  { id: "ada", code: "ADA", sub: "ACCESO", k: ["fire"], short: "Accesibilidad", name: "Notificación accesible", desc: "Dispositivos de notificación visual certificados para personas con discapacidad auditiva.", you: "Nadie se queda sin enterarse de una alarma." },
+  { id: "nicet", code: "NICET", sub: "III · IV", k: ["fire"], short: "Técnicos nivel III y IV", name: "Técnicos certificados NICET", desc: "Técnicos con certificación NICET en sus niveles avanzados.", you: "Quien instala tu sistema está acreditado para hacerlo." },
+  { id: "central", code: "UL", sub: "24/7", k: ["security", "fire"], short: "Central de monitoreo", name: "Central de monitoreo certificada UL", desc: "Monitoreo continuo con respuesta menor a 30 segundos.", you: "Si algo pasa, despachamos ayuda mientras verificamos la emergencia." },
+  { id: "sec1", code: "[—]", sub: "PENDIENTE", k: ["security"], pending: true, short: "[Certificación CCTV]", name: "[Certificación de fabricante CCTV]", desc: "[Agrega aquí la certificación de fabricante o integrador de videovigilancia que tenga el equipo.]", you: "[Beneficio para el cliente.]" },
+  { id: "sec2", code: "[—]", sub: "PENDIENTE", k: ["security"], pending: true, short: "[Licencia de seguridad]", name: "[Licencia de seguridad electrónica]", desc: "[Agrega aquí la licencia o registro de seguridad electrónica aplicable.]", you: "[Beneficio para el cliente.]" },
+  { id: "nec", code: "NEC", sub: "CÓDIGO", k: ["elec"], short: "Código Eléctrico Nacional", name: "Código Eléctrico Nacional", desc: "Todas las instalaciones eléctricas cumplen o superan el NEC y los códigos locales.", you: "Instalaciones que aprueban la inspección sin observaciones." },
+  { id: "nec700", code: "NEC 700", sub: "EMERGENCIA", k: ["elec", "fire"], short: "Sistemas de emergencia", name: "Sistemas eléctricos de emergencia", desc: "Iluminación de vida, letreros EXIT y alimentación ininterrumpida.", you: "La luz de salida sigue encendida aunque se vaya la energía." },
+  { id: "master", code: "MASTER", sub: "LICENCIA", k: ["elec"], short: "Master Electrician", name: "Licencia estatal Master Electrician", desc: "Licencia estatal de maestro electricista activa.", you: "Tu obra la firma un electricista con el nivel más alto de licencia." },
+  { id: "osha", code: "OSHA 30", sub: "HORAS", k: ["elec", "company"], short: "Seguridad laboral", name: "OSHA 30 horas", desc: "Capacitación de 30 horas en seguridad laboral para todo el equipo.", you: "Obra segura para nuestro equipo y para tu gente." },
+  { id: "lic", code: "LIC", sub: "ESTATAL", k: ["company"], short: "Licencia de contratista", name: "Licencia estatal de contratista", desc: "Licencia estatal de contratista activa.", you: "Contratas a una empresa formal y registrada." },
+  { id: "ulet", code: "UL·ETL", sub: "EQUIPOS", k: ["company", "elec"], short: "Certificación UL y ETL", name: "Equipos UL y ETL", desc: "Equipos y fixtures listados por UL y ETL.", you: "Cada equipo instalado cuenta con certificación de seguridad." },
+  { id: "ins", code: "$2M", sub: "SEGURO", k: ["company"], short: "Seguro de responsabilidad", name: "Seguro de responsabilidad", desc: "$2M en responsabilidad general y $5M umbrella.", you: "Tu inmueble está cubierto durante toda la obra." },
+  { id: "bbb", code: "A+", sub: "BBB", k: ["company"], short: "Rating BBB A+", name: "Miembro BBB con rating A+", desc: "Calificación A+ en el Better Business Bureau.", you: "Una reputación pública y verificable." },
+  { id: "nfpam", code: "NFPA", sub: "MIEMBRO", k: ["company", "fire"], short: "Membresía NFPA", name: "Membresía activa en NFPA", desc: "Miembros activos de la National Fire Protection Association.", you: "Nos mantenemos al día con cada actualización de norma." },
+];
+
+const filterKeys = ["all", "fire", "security", "elec", "company"] as const;
+
+const countFor = (key: (typeof filterKeys)[number]) => (key === "all" ? certs.length : certs.filter((c) => c.k.includes(key)).length);
+
+const codeSize = (code: string) => (code.length > 6 ? 22 : code.length > 4 ? 26 : 34);
+
+const colorOf = (c: Cert, filter: string) => (c.pending ? PENDING_COLOR : filter !== "all" ? COLORS[filter] : COLORS[c.k[0]]);
+
+const shown = certs.filter((c) => service === "all" || c.k.includes(service));
+const initial = shown[0] ?? certs[0];
+const initialColor = colorOf(initial, service);
+---
+
+<section class="certifications relative border-t border-[var(--cr-line)] bg-[#0b0a0c] py-[clamp(96px,12vw,160px)]" id="certificaciones" data-cert-section data-initial-filter={service}>
+  <div class="cr-wrap flex flex-col gap-[clamp(40px,5vw,56px)]">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+      <div class="flex flex-col gap-[22px]">
+        <p class="cr-label text-[var(--cr-signal)]" data-reveal>04 — Credenciales</p>
+        <h2 class="text-[clamp(48px,7vw,104px)] leading-[0.88]" data-reveal style="--d:80ms">
+          Certificados, <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">no promesas.</span>
+        </h2>
+      </div>
+
+      <div role="group" aria-label="Filtrar certificaciones por servicio" class="flex flex-wrap justify-start md:justify-end gap-2 max-w-[620px]" data-reveal style="--d:120ms">
+        {
+          filterKeys.map((key) => (
+            <button
+              type="button"
+              class="cert-chip appearance-none m-0 h-12 px-[18px] flex items-center gap-[10px] cursor-pointer border font-[var(--cr-mono)] text-[12px] tracking-[0.12em] uppercase"
+              data-cert-filter={key}
+              aria-pressed={key === service ? "true" : "false"}
+            >
+              <span class="w-2 h-2 shrink-0" style={`background-color:${key === "all" ? "var(--cr-bone)" : COLORS[key]}`} />
+              {key === "all" ? "Todas" : LABELS[key]} <span class="opacity-60">{countFor(key)}</span>
+            </button>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_440px] gap-12">
+      <div class="grid grid-cols-2 min-[540px]:grid-cols-3 min-[860px]:grid-cols-4 min-[1180px]:grid-cols-6 auto-rows-[176px] gap-x-3 gap-y-4 content-start" data-cert-grid>
+        {
+          certs.map((c, i) => (
+            <button
+              type="button"
+              class="cert-seal appearance-none m-0 p-0 border-0 bg-transparent text-[var(--cr-bone)] cursor-pointer flex flex-col items-center gap-3"
+              data-cert-seal
+              data-cert-id={c.id}
+              data-cert-keys={c.k.join(",")}
+              data-cert-code={c.code}
+              data-cert-sub={c.sub}
+              data-cert-name={c.name}
+              data-cert-desc={c.desc}
+              data-cert-you={c.you}
+              data-cert-pending={c.pending ? "true" : "false"}
+              aria-pressed={c.id === initial.id ? "true" : "false"}
+              aria-label={`${c.name}${c.pending ? " (pendiente de completar)" : ""}`}
+              data-reveal
+              style={`--d:${Math.min(i * 25, 300)}ms`}
+            >
+              <span class="relative w-[116px] h-[116px] shrink-0">
+                <span
+                  class="cert-seal__ring absolute inset-0 rounded-full border-2 border-dashed"
+                  data-cert-ring
+                  style={`border-color:${colorOf(c, service)}`}
+                />
+                <span
+                  class="absolute left-[10px] top-[10px] w-24 h-24 box-border rounded-full flex flex-col items-center justify-center gap-0.5"
+                  data-cert-fill
+                  style={`background-color:${c.id === initial.id && !c.pending ? colorOf(c, service) : "transparent"};border:${c.pending ? "1px dashed rgba(237,232,224,0.4)" : `1px solid ${colorOf(c, service)}`}`}
+                >
+                  <span
+                    class="font-[var(--cr-display)] font-black leading-[0.9] text-center"
+                    data-cert-code-label
+                    style={`font-size:${codeSize(c.code)}px;color:${c.id === initial.id && !c.pending ? "var(--cr-ink)" : c.pending ? "rgba(237,232,224,0.62)" : "var(--cr-bone)"}`}
+                  >
+                    {c.code}
+                  </span>
+                  <span
+                    class="font-[var(--cr-mono)] text-[9px] tracking-[0.14em] opacity-75"
+                    data-cert-sub-label
+                    style={`color:${c.id === initial.id && !c.pending ? "var(--cr-ink)" : c.pending ? "rgba(237,232,224,0.62)" : "var(--cr-bone)"}`}
+                  >
+                    {c.sub}
+                  </span>
+                </span>
+              </span>
+              <span class="text-[13px] leading-[1.3] text-center text-[rgba(237,232,224,0.8)]">{c.short}</span>
+            </button>
+          ))
+        }
+      </div>
+
+      <div
+        class="cert-detail relative box-border p-9 flex flex-col gap-[18px] bg-[var(--cr-ink-2)] border border-[var(--cr-line)] border-t-4"
+        data-cert-detail
+        style={`border-top-color:${initialColor}`}
+      >
+        <p class="flex justify-between font-[var(--cr-mono)] text-[11px] tracking-[0.14em] uppercase text-[var(--cr-bone-dim)]">
+          <span data-cert-detail-area>{initial.k.map((k) => LABELS[k]).join(" · ")}</span>
+          <span data-cert-detail-status style={`color:${initial.pending ? "var(--cr-amber)" : "var(--cr-ok)"}`}>{initial.pending ? "Por completar" : "Vigente · verificable"}</span>
+        </p>
+        <p class="font-[var(--cr-display)] font-black text-[clamp(56px,9vw,96px)] leading-[0.85]" data-cert-detail-code style={`color:${initialColor}`}>{initial.code}</p>
+        <h3 class="font-[var(--cr-display)] font-extrabold text-[clamp(26px,3vw,34px)] leading-none uppercase" data-cert-detail-name>{initial.name}</h3>
+        <p class="text-[16px] leading-[1.6] text-[rgba(237,232,224,0.72)]" data-cert-detail-desc>{initial.desc}</p>
+        <div class="p-[18px] bg-[rgba(237,232,224,0.05)] border-l-[3px] flex flex-col gap-2" data-cert-detail-you-box style={`border-left-color:${initialColor}`}>
+          <p class="font-[var(--cr-mono)] text-[11px] tracking-[0.14em] uppercase text-[var(--cr-bone-dim)]">Qué significa para ti</p>
+          <p class="text-[16px] leading-[1.55]" data-cert-detail-you>{initial.you}</p>
+        </div>
+        <div class="flex flex-wrap gap-2" data-cert-detail-tags>
+          {
+            initial.k.map((k) => (
+              <span class="px-[10px] py-[6px] border font-[var(--cr-mono)] text-[11px] tracking-[0.08em] uppercase" style={`border-color:${COLORS[k]};color:${COLORS[k]}`}>
+                {LABELS[k]}
+              </span>
+            ))
+          }
+        </div>
+        <a href="/contact" class="cert-inkbtn mt-auto flex items-center justify-between h-14 px-[22px] bg-[var(--cr-bone)] text-[var(--cr-ink)] font-bold text-[16px]">
+          Pide el documento en tu visita técnica <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cert-chip {
+    background-color: transparent;
+    color: var(--cr-bone);
+    border-color: var(--cr-line-strong);
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  }
+  .cert-chip:hover {
+    border-color: var(--cr-bone);
+  }
+  .cert-chip[aria-pressed="true"] {
+    background-color: var(--cr-bone);
+    color: var(--cr-ink);
+    border-color: var(--cr-bone);
+  }
+
+  .cert-seal {
+    transition: transform 0.3s cubic-bezier(0.16, 0.84, 0.24, 1), opacity 0.2s;
+  }
+  .cert-seal:hover {
+    transform: translateY(-6px);
+  }
+  .cert-seal[aria-pressed="false"] {
+    opacity: 0.85;
+  }
+
+  .cert-seal__ring--spin {
+    animation: cert-seal-spin 14s linear infinite;
+  }
+  @keyframes cert-seal-spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .cert-detail--stamp {
+    animation: cert-detail-stamp 0.45s cubic-bezier(0.2, 0.8, 0.3, 1.1) both;
+  }
+  @keyframes cert-detail-stamp {
+    0% { transform: scale(1.25) rotate(-8deg); opacity: 0; }
+    100% { transform: none; opacity: 1; }
+  }
+
+  .cert-inkbtn {
+    transition: background-color 0.25s, color 0.25s;
+  }
+  .cert-inkbtn:hover {
+    background-color: var(--cr-amber);
+    color: var(--cr-ink);
+  }
+</style>
+
+<script>
+  const COLORS: Record<string, string> = {
+    fire: "var(--cr-signal)",
+    security: "var(--cr-ok)",
+    elec: "var(--cr-amber)",
+    company: "var(--cr-bone)",
+  };
+  const LABELS: Record<string, string> = {
+    fire: "Incendio",
+    security: "Seguridad",
+    elec: "Electricidad",
+    company: "Empresa",
+  };
+  const PENDING_COLOR = "rgba(237,232,224,0.4)";
+
+  const root = document.querySelector<HTMLElement>("[data-cert-section]");
+  if (!root) throw new Error("Certifications root not found");
+
+  const filterBtns = [...root.querySelectorAll<HTMLButtonElement>("[data-cert-filter]")];
+  const seals = [...root.querySelectorAll<HTMLButtonElement>("[data-cert-seal]")];
+  const detail = root.querySelector<HTMLElement>("[data-cert-detail]");
+
+  let filter = root.dataset.initialFilter ?? "all";
+  let pick = seals.find((s) => s.getAttribute("aria-pressed") === "true")?.dataset.certId ?? (seals[0]?.dataset.certId ?? "");
+
+  const colorFor = (seal: HTMLButtonElement) => {
+    if (seal.dataset.certPending === "true") return PENDING_COLOR;
+    const keys = (seal.dataset.certKeys ?? "").split(",");
+    return filter !== "all" ? COLORS[filter] : COLORS[keys[0]];
+  };
+
+  const updateSeals = () => {
+    seals.forEach((seal) => {
+      const on = seal.dataset.certId === pick;
+      const pending = seal.dataset.certPending === "true";
+      const color = colorFor(seal);
+      seal.setAttribute("aria-pressed", String(on));
+
+      const ring = seal.querySelector<HTMLElement>("[data-cert-ring]");
+      const fill = seal.querySelector<HTMLElement>("[data-cert-fill]");
+      const codeLabel = seal.querySelector<HTMLElement>("[data-cert-code-label]");
+      const subLabel = seal.querySelector<HTMLElement>("[data-cert-sub-label]");
+      const ink = on && !pending ? "var(--cr-ink)" : pending ? "rgba(237,232,224,0.62)" : "var(--cr-bone)";
+
+      if (ring) {
+        ring.style.borderColor = color;
+        ring.classList.toggle("cert-seal__ring--spin", on);
+      }
+      if (fill) {
+        fill.style.backgroundColor = on && !pending ? color : "transparent";
+        fill.style.border = pending ? "1px dashed rgba(237,232,224,0.4)" : `1px solid ${color}`;
+      }
+      if (codeLabel) codeLabel.style.color = ink;
+      if (subLabel) subLabel.style.color = ink;
+    });
+  };
+
+  const renderDetail = () => {
+    const seal = seals.find((s) => s.dataset.certId === pick);
+    if (!seal || !detail) return;
+    const pending = seal.dataset.certPending === "true";
+    const color = colorFor(seal);
+    const keys = (seal.dataset.certKeys ?? "").split(",");
+
+    detail.style.borderTopColor = color;
+
+    const codeEl = detail.querySelector<HTMLElement>("[data-cert-detail-code]");
+    const nameEl = detail.querySelector<HTMLElement>("[data-cert-detail-name]");
+    const descEl = detail.querySelector<HTMLElement>("[data-cert-detail-desc]");
+    const youEl = detail.querySelector<HTMLElement>("[data-cert-detail-you]");
+    const youBox = detail.querySelector<HTMLElement>("[data-cert-detail-you-box]");
+    const areaEl = detail.querySelector<HTMLElement>("[data-cert-detail-area]");
+    const statusEl = detail.querySelector<HTMLElement>("[data-cert-detail-status]");
+    const tagsEl = detail.querySelector<HTMLElement>("[data-cert-detail-tags]");
+
+    if (codeEl) {
+      codeEl.textContent = seal.dataset.certCode ?? "";
+      codeEl.style.color = color;
+    }
+    if (nameEl) nameEl.textContent = seal.dataset.certName ?? "";
+    if (descEl) descEl.textContent = seal.dataset.certDesc ?? "";
+    if (youEl) youEl.textContent = seal.dataset.certYou ?? "";
+    if (youBox) youBox.style.borderLeftColor = color;
+    if (areaEl) areaEl.textContent = keys.map((k) => LABELS[k] ?? k).join(" · ");
+    if (statusEl) {
+      statusEl.textContent = pending ? "Por completar" : "Vigente · verificable";
+      statusEl.style.color = pending ? "var(--cr-amber)" : "var(--cr-ok)";
+    }
+    if (tagsEl) {
+      tagsEl.innerHTML = "";
+      keys.forEach((k) => {
+        const span = document.createElement("span");
+        span.className = "px-[10px] py-[6px] border font-[var(--cr-mono)] text-[11px] tracking-[0.08em] uppercase";
+        span.style.borderColor = COLORS[k] ?? "var(--cr-bone)";
+        span.style.color = COLORS[k] ?? "var(--cr-bone)";
+        span.textContent = LABELS[k] ?? k;
+        tagsEl.appendChild(span);
+      });
+    }
+
+    detail.classList.remove("cert-detail--stamp");
+    void detail.offsetWidth;
+    detail.classList.add("cert-detail--stamp");
+  };
+
+  const applyFilter = (next: string) => {
+    filter = next;
+    filterBtns.forEach((btn) => btn.setAttribute("aria-pressed", String(btn.dataset.certFilter === filter)));
+
+    let firstVisibleId = "";
+    seals.forEach((seal) => {
+      const keys = (seal.dataset.certKeys ?? "").split(",");
+      const visible = filter === "all" || keys.includes(filter);
+      seal.classList.toggle("hidden", !visible);
+      if (visible && !firstVisibleId) firstVisibleId = seal.dataset.certId ?? "";
+    });
+
+    const pickStillVisible = seals.some((s) => s.dataset.certId === pick && !s.classList.contains("hidden"));
+    if (!pickStillVisible) pick = firstVisibleId;
+
+    updateSeals();
+    renderDetail();
+  };
+
+  filterBtns.forEach((btn) => btn.addEventListener("click", () => applyFilter(btn.dataset.certFilter ?? "all")));
+  seals.forEach((seal) =>
+    seal.addEventListener("click", () => {
+      pick = seal.dataset.certId ?? pick;
+      updateSeals();
+      renderDetail();
+    }),
+  );
+
+  applyFilter(filter);
+</script>

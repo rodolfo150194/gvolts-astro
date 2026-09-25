@@ -1,0 +1,287 @@
+---
+export const prerender = false;
+import AdminLayout from "@/layouts/AdminLayout.astro";
+import { getDashboardStats } from "@/services/admin";
+
+const { data: stats } = await getDashboardStats();
+
+const cards = [
+  {
+    label: "Contactos",
+    value: stats?.totalContacts ?? 0,
+    sub: `+${stats?.recentContacts ?? 0} esta semana`,
+    color: "#0891b2",
+    href: "/admin/contacts",
+    icon: "inbox",
+  },
+  {
+    label: "Suscriptores",
+    value: stats?.totalSubscribers ?? 0,
+    sub: "newsletter activo",
+    color: "#CD5C5C",
+    href: "/admin/subscribers",
+    icon: "users",
+  },
+  {
+    label: "Promociones",
+    value: stats?.totalPromotions ?? 0,
+    sub: `${stats?.activePromotions ?? 0} activas ahora`,
+    color: "#d97706",
+    href: "/admin/promotions",
+    icon: "tag",
+  },
+  {
+    label: "Activas",
+    value: stats?.activePromotions ?? 0,
+    sub: "promociones vigentes",
+    color: "#16a34a",
+    href: "/admin/promotions",
+    icon: "zap",
+  },
+];
+---
+
+<AdminLayout title="Dashboard" section="dashboard">
+  <style>
+    .grid-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      text-decoration: none;
+      display: block;
+      transition: border-color 0.2s, background 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--card-color);
+      opacity: 0.6;
+    }
+
+    .stat-card:hover {
+      border-color: var(--border-hover);
+      background: var(--bg-hover);
+    }
+
+    .stat-label {
+      font-family: var(--font);
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .stat-value {
+      font-family: var(--font);
+      font-size: 42px;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--card-color);
+      margin-bottom: 6px;
+      letter-spacing: -1px;
+    }
+
+    .stat-sub {
+      font-size: 11px;
+      color: var(--text-faint);
+    }
+
+    .stat-icon {
+      position: absolute;
+      bottom: 16px;
+      right: 16px;
+      width: 32px;
+      height: 32px;
+      opacity: 0.12;
+      color: var(--card-color);
+    }
+
+    /* ─── SECTION TITLE ─── */
+    .section-title {
+      font-family: var(--font);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ─── QUICK ACTIONS ─── */
+    .actions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .action-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text);
+      text-decoration: none;
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.15s;
+    }
+
+    .action-btn:hover {
+      background: var(--accent-dim);
+      border-color: var(--border-accent);
+      color: var(--accent);
+    }
+
+    .action-icon {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--primary-dim);
+      color: var(--primary);
+      border-radius: 4px;
+    }
+
+    /* ─── SYSTEM INFO ─── */
+    .info-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 12px;
+    }
+
+    .info-row:last-child { border-bottom: none; }
+
+    .info-key {
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+    }
+
+    .info-val {
+      color: var(--text);
+      font-family: var(--font);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-green {
+      background: rgba(22,163,74,0.08);
+      color: #15803d;
+      border: 1px solid rgba(22,163,74,0.2);
+    }
+  </style>
+
+  <!-- Stats -->
+  <div class="grid-stats">
+    {cards.map(card => (
+      <a href={card.href} class="stat-card" style={`--card-color: ${card.color}`}>
+        <div class="stat-label">{card.label}</div>
+        <div class="stat-value">{card.value.toString().padStart(2, "0")}</div>
+        <div class="stat-sub">{card.sub}</div>
+        <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          {card.icon === "inbox" && <><path d="M22 12H16L14 15H10L8 12H2"/><path d="M5.45 5.11L2 12v6a2 2 0 002 2h16a2 2 0 002-2v-6l-3.45-6.89A2 2 0 0016.76 4H7.24a2 2 0 00-1.79 1.11z"/></>}
+          {card.icon === "users" && <><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></>}
+          {card.icon === "tag" && <><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></>}
+          {card.icon === "zap" && <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>}
+        </svg>
+      </a>
+    ))}
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="section-title">Acciones rápidas</div>
+  <div class="actions-grid">
+    <a href="/admin/contacts" class="action-btn">
+      <span class="action-icon">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M1 10l2-7h10l2 7"/><rect x="1" y="10" width="14" height="5" rx="1"/>
+        </svg>
+      </span>
+      Ver contactos
+    </a>
+    <a href="/admin/subscribers" class="action-btn">
+      <span class="action-icon">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="6" cy="5" r="3"/><path d="M1 14c0-3 2.5-5 5-5s5 2 5 5"/>
+          <path d="M13 7v4M11 9h4"/>
+        </svg>
+      </span>
+      Ver suscriptores
+    </a>
+    <a href="/admin/promotions/new" class="action-btn">
+      <span class="action-icon">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M1 1h6l7 7-6 6-7-7V1z"/><path d="M8 8v4M6 10h4"/>
+        </svg>
+      </span>
+      Nueva promoción
+    </a>
+    <a href="/admin/promotions" class="action-btn">
+      <span class="action-icon">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/>
+          <rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/>
+        </svg>
+      </span>
+      Gestionar promos
+    </a>
+  </div>
+
+  <!-- System info -->
+  <div class="section-title">Estado del sistema</div>
+  <div>
+    <div class="info-row">
+      <span class="info-key">Base de datos</span>
+      <span class="badge badge-green">● Conectada</span>
+    </div>
+    <div class="info-row">
+      <span class="info-key">Entorno</span>
+      <span class="info-val">{import.meta.env.PROD ? "production" : "development"}</span>
+    </div>
+    <div class="info-row">
+      <span class="info-key">Sesión</span>
+      <span class="info-val">activa · expira en 8h</span>
+    </div>
+  </div>
+</AdminLayout>

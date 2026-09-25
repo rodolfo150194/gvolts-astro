@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>GVolts - Inicio</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1B1412;--paper:#FBF8F3;--paper2:#F3ECE3;--line:#E7DDD2;--red:#B34545;--red-d:#993333;--lemon:#FFE066;--muted:#5E504A}
+body{margin:0;font-family:'Instrument Sans',system-ui,sans-serif;background:#FBF8F3;color:#1B1412}
+a{color:inherit;text-decoration:none}
+.ico{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.btn{display:inline-flex;align-items:center;gap:10px;height:54px;padding:0 26px;border-radius:999px;font:600 16px 'Instrument Sans',sans-serif;box-sizing:border-box}
+.btn-p{background:#1B1412;color:#FFFFFF}.btn-p:hover{background:#3A2622}
+.btn-s{border:1.5px solid #1B1412;color:#1B1412}.btn-s:hover{background:#F3ECE3}
+.btn-l{background:#FFE066;color:#1B1412}.btn-l:hover{background:#FFD633}
+.eyebrow{font:500 13px 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#993333}
+.h2{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:52px;line-height:1.05;letter-spacing:-0.02em;margin:0}
+.nav-a{font-size:16px;font-weight:500;color:#1B1412}.nav-a:hover{color:#993333}
+.field{width:100%;height:52px;box-sizing:border-box;border:1.5px solid #1B1412;border-radius:12px;padding:0 16px;font:400 16px 'Instrument Sans',sans-serif;background:#FFFFFF;color:#1B1412}
+.field:focus{outline:3px solid #1B1412;outline-offset:2px}
+.lbl{font:600 14px 'Instrument Sans',sans-serif;color:#1B1412;margin-bottom:6px;display:block}
+.svc-link{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:16px}
+.stepbtn{transition:transform .2s ease,box-shadow .2s ease,background .2s ease}
+.stepbtn:hover{transform:scale(1.08)}
+.stepbtn:focus-visible,button:focus-visible{outline:3px solid #B34545;outline-offset:3px}
+@keyframes flowdash{to{stroke-dashoffset:-40}}
+.flow{animation:flowdash 1.4s linear infinite}
+@media (prefers-reduced-motion:reduce){.flow{animation:none}.stepbtn{transition:none}}
+</style>
+</helmet>
+
+<div style="width: 1440px; height: 5304px; display: flex; flex-direction: column; background: #FBF8F3;">
+
+<!-- NAV -->
+<header style="height: 88px; flex-shrink: 0; box-sizing: border-box; padding: 0 80px; display: flex; align-items: center; justify-content: space-between;">
+<a href="#inicio" aria-label="GVolts, inicio" style="display: flex; align-items: center; gap: 12px;">
+<span style="width: 40px; height: 40px; border-radius: 12px; background: #1B1412; color: #FFE066; display: flex; align-items: center; justify-content: center;">
+<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" fill="currentColor"/></svg>
+</span>
+<span style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 26px; letter-spacing: -0.02em;">GVolts</span>
+</a>
+<nav aria-label="Principal" style="display: flex; gap: 40px;">
+<a class="nav-a" href="#servicios">Servicios</a>
+<a class="nav-a" href="#sistema">Un solo sistema</a>
+<a class="nav-a" href="#proceso">Cómo trabajamos</a>
+<a class="nav-a" href="#agentes">Para agentes</a>
+<a class="nav-a" href="#faq">Preguntas</a>
+</nav>
+<a class="btn btn-p" href="#contacto" style="height: 46px; padding: 0 22px; font-size: 15px;">Solicitar evaluación</a>
+</header>
+
+<!-- HERO -->
+<section id="inicio" style="height: 760px; flex-shrink: 0; box-sizing: border-box; padding: 40px 80px 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 72px; align-items: center;">
+<div style="display: flex; flex-direction: column; align-items: flex-start; gap: 28px;">
+<div style="display: inline-flex; align-items: center; gap: 10px; padding: 8px 16px; border: 1px solid #E7DDD2; border-radius: 999px; background: #FFFFFF;">
+<span style="width: 8px; height: 8px; border-radius: 50%; background: #2E9E5B;"></span>
+<span class="eyebrow" style="color: #1B1412; letter-spacing: .06em;">Incendios · Videovigilancia · Electricidad</span>
+</div>
+<h1 style="margin: 0; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 76px; line-height: 1; letter-spacing: -0.035em;">
+Seguridad eléctrica que se ve, se mide y <span style="background: linear-gradient(transparent 62%, {{accent}} 62%); padding: 0 4px;">responde.</span>
+</h1>
+<p style="margin: 0; font-size: 20px; line-height: 1.55; color: #5E504A; max-width: 560px;">
+Instalamos y monitoreamos alarmas contra incendios, videovigilancia inteligente y sistemas eléctricos para hogares y empresas. Un solo equipo, un solo contacto, 24/7.
+</p>
+<div style="display: flex; gap: 14px; flex-wrap: wrap;">
+<a class="btn btn-p" href="#contacto">Solicitar evaluación gratuita
+<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+</a>
+<a class="btn btn-s" href="#proceso">Ver cómo trabajamos</a>
+</div>
+<dl style="margin: 12px 0 0; display: flex; gap: 48px; padding-top: 28px; border-top: 1px solid #E7DDD2; width: 100%;">
+<sc-for list="{{proof}}" as="p" hint-placeholder-count="3">
+<div>
+<dt style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 40px; line-height: 1; letter-spacing: -0.02em;">{{p.value}}</dt>
+<dd style="margin: 6px 0 0; font-size: 15px; color: #5E504A;">{{p.label}}</dd>
+</div>
+</sc-for>
+</dl>
+</div>
+
+<!-- Hero photo + status -->
+<div style="position: relative; height: 580px;">
+<div style="position: absolute; left: 28px; top: 28px; right: -28px; bottom: -28px; border-radius: 32px; background: {{accent}};"></div>
+<img src="/_blob/a415cadfa8376b5b3a90921ccef12aca" alt="Equipo de GVolts revisando el plano de un sistema de seguridad sobre una maqueta holográfica" style="position: relative; display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; border-radius: 28px; border: 1px solid #E7DDD2;">
+<div role="img" aria-label="Ejemplo de panel: alarma contra incendios operativa, cámaras en línea, tablero eléctrico estable" style="position: absolute; left: -48px; bottom: 36px; width: 340px; box-sizing: border-box; background: #FFFFFF; border: 1px solid #E7DDD2; border-radius: 22px; padding: 18px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 20px 50px rgba(27,20,18,0.18);">
+<div style="display: flex; justify-content: space-between; align-items: center;">
+<span class="eyebrow" style="color: #5E504A; font-size: 11px;">Panel de ejemplo</span>
+<span style="display: inline-flex; align-items: center; gap: 6px; font: 500 12px 'JetBrains Mono', monospace; color: #1F6B3A; background: #E3F4E8; padding: 4px 10px; border-radius: 999px;"><span style="width: 7px; height: 7px; border-radius: 50%; background: #2E9E5B;"></span>En orden</span>
+</div>
+<div style="display: flex; align-items: center; gap: 12px;">
+<span style="width: 36px; height: 36px; border-radius: 10px; background: #FFE3E3; color: #993333; display: flex; align-items: center; justify-content: center;">
+<svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px;"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg></span>
+<span style="flex-grow: 1; font-weight: 600; font-size: 15px;">Alarma contra incendios</span>
+<span style="font: 500 12px 'JetBrains Mono', monospace; color: #1F6B3A;">Operativa</span>
+</div>
+<div style="display: flex; align-items: center; gap: 12px;">
+<span style="width: 36px; height: 36px; border-radius: 10px; background: #1B1412; color: #FFE066; display: flex; align-items: center; justify-content: center;">
+<svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px;"><path d="M16.75 12h3.632a1 1 0 0 1 .894 1.447l-2.034 4.069a1 1 0 0 1-1.708.134l-2.124-2.97"/><path d="M17.106 9.053a1 1 0 0 1 .447 1.341l-3.106 6.211a1 1 0 0 1-1.342.447L3.61 12.3a2.92 2.92 0 0 1-1.3-3.91L3.69 5.6a2.92 2.92 0 0 1 3.92-1.3z"/><path d="M2 19h3.76a2 2 0 0 0 1.8-1.1L9 15"/><path d="M2 21v-4"/><path d="M7 9h.01"/></svg></span>
+<span style="flex-grow: 1; font-weight: 600; font-size: 15px;">Videovigilancia</span>
+<span style="font: 500 12px 'JetBrains Mono', monospace; color: #1F6B3A;">En línea</span>
+</div>
+<div style="display: flex; align-items: center; gap: 12px;">
+<span style="width: 36px; height: 36px; border-radius: 10px; background: #FFFACD; color: #1B1412; display: flex; align-items: center; justify-content: center;">
+<svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
+<span style="flex-grow: 1; font-weight: 600; font-size: 15px;">Instalación eléctrica</span>
+<span style="font: 500 12px 'JetBrains Mono', monospace; color: #1F6B3A;">Estable</span>
+</div>
+</div>
+</div>
+</section>
+
+<!-- STANDARDS -->
+<section aria-label="Normativas" style="height: 96px; flex-shrink: 0; box-sizing: border-box; margin: 0 80px; border-top: 1px solid #E7DDD2; border-bottom: 1px solid #E7DDD2; display: flex; align-items: center; justify-content: space-between;">
+<span class="eyebrow" style="color: #5E504A;">Trabajamos bajo</span>
+<sc-for list="{{standards}}" as="s" hint-placeholder-count="5">
+<span style="font: 500 18px 'JetBrains Mono', monospace; color: #1B1412;">{{s}}</span>
+</sc-for>
+</section>
+
+<!-- SERVICES -->
+<section id="servicios" style="height: 960px; flex-shrink: 0; box-sizing: border-box; padding: 96px 80px 0; display: flex; flex-direction: column; gap: 48px;">
+<div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 48px;">
+<div style="display: flex; flex-direction: column; gap: 16px; max-width: 700px;">
+<span class="eyebrow">Servicios</span>
+<h2 class="h2">Tres frentes. Un solo equipo responsable.</h2>
+</div>
+<p style="margin: 0; max-width: 420px; font-size: 18px; line-height: 1.55; color: #5E504A;">Diseñamos, instalamos y damos soporte. Tú no coordinas contratistas, coordinas con nosotros.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px;">
+<sc-for list="{{services}}" as="v" hint-placeholder-count="3">
+<article style="box-sizing: border-box; border-radius: 28px; background: {{v.bg}}; border: 1px solid {{v.border}}; color: {{v.fg}}; display: flex; flex-direction: column; overflow: hidden; min-height: 620px;">
+<img src="{{v.img}}" alt="{{v.alt}}" style="display: block; width: 100%; height: 220px; object-fit: cover; object-position: {{v.pos}};">
+<div style="padding: 32px; display: flex; flex-direction: column; gap: 18px; flex-grow: 1;">
+<h3 style="margin: 0; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 30px; letter-spacing: -0.02em; line-height: 1.1; color: {{v.head}};">{{v.title}}</h3>
+<p style="margin: 0; font-size: 17px; line-height: 1.55; color: {{v.sub}};">{{v.text}}</p>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 16px;">
+<sc-for list="{{v.bullets}}" as="b" hint-placeholder-count="3">
+<li style="display: flex; gap: 10px; align-items: flex-start;"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px; color: {{v.tick}}; margin-top: 2px;"><path d="M20 6 9 17l-5-5"/></svg>{{b}}</li>
+</sc-for>
+</ul>
+<a class="svc-link" href="{{v.href}}" style="margin-top: auto; color: {{v.link}};">Ver servicio
+<svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px;"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+</div>
+</article>
+</sc-for>
+</div>
+</section>
+
+<!-- ONE SYSTEM -->
+<section id="sistema" style="height: 700px; flex-shrink: 0; box-sizing: border-box; background: #1B1412; color: #F3EBE4; padding: 96px 80px 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 96px; align-items: start;">
+<div style="display: flex; flex-direction: column; gap: 24px;">
+<span class="eyebrow" style="color: #FFE066;">Un solo sistema</span>
+<h2 class="h2" style="color: #FFFFFF;">Un evento, una respuesta coordinada.</h2>
+<p style="margin: 0; font-size: 19px; line-height: 1.6; color: #C9BBB1; max-width: 520px;">Cuando tus sistemas trabajan juntos, cada alerta activa la siguiente acción: la cámara graba, la alarma notifica y tu equipo recibe el aviso en el móvil.</p>
+<a class="btn btn-l" href="#contacto" style="align-self: flex-start; margin-top: 8px;">Hablar con un asesor</a>
+<img src="/_blob/7ac16f880b13f7b96cd8227f57c2d111" alt="Operador en una central de monitoreo frente a varias pantallas de cámaras" style="display: block; width: 100%; max-width: 560px; height: 200px; object-fit: cover; object-position: 50% 45%; border-radius: 20px; margin-top: 8px;">
+</div>
+<ol style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column;">
+<sc-for list="{{flow}}" as="f" hint-placeholder-count="4">
+<li style="display: flex; gap: 24px; align-items: flex-start; padding: 0 0 32px; position: relative;">
+<span style="width: 48px; height: 48px; border-radius: 50%; background: #FFE066; color: #1B1412; display: flex; align-items: center; justify-content: center; font: 500 15px 'JetBrains Mono', monospace; flex-shrink: 0;">{{f.n}}</span>
+<div style="padding-top: 4px; border-bottom: 1px solid #3A2E2A; padding-bottom: 28px; flex-grow: 1;">
+<div style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 26px; letter-spacing: -0.01em; color: #FFFFFF;">{{f.title}}</div>
+<div style="margin-top: 6px; font-size: 17px; line-height: 1.5; color: #C9BBB1;">{{f.text}}</div>
+</div>
+</li>
+</sc-for>
+</ol>
+</section>
+
+<!-- PROCESS -->
+<section id="proceso" style="height: 900px; flex-shrink: 0; box-sizing: border-box; padding: 96px 80px 0; display: flex; flex-direction: column; gap: 40px;">
+<div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 48px;">
+<div style="display: flex; flex-direction: column; gap: 16px; max-width: 640px;">
+<span class="eyebrow">Cómo trabajamos</span>
+<h2 class="h2">De la evaluación a la protección total.</h2>
+</div>
+<div role="group" aria-label="Tipo de servicio" style="display: flex; gap: 12px;">
+<sc-for list="{{tabs}}" as="t" hint-placeholder-count="3">
+<button type="button" onClick="{{t.pick}}" aria-pressed="{{t.pressed}}" style="display: inline-flex; align-items: center; gap: 10px; height: 48px; padding: 0 22px; border-radius: 999px; cursor: pointer; font: 600 16px 'Instrument Sans', sans-serif; background: {{t.bg}}; color: {{t.fg}}; border: 2px solid {{t.border}};">
+<sc-if value="{{t.f1}}" hint-placeholder-val="{{ true }}"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px;"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg></sc-if>
+<sc-if value="{{t.f2}}" hint-placeholder-val="{{ false }}"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px;"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></sc-if>
+<sc-if value="{{t.f3}}" hint-placeholder-val="{{ false }}"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></sc-if>
+{{t.label}}</button>
+</sc-for>
+</div>
+</div>
+
+<div style="position: relative; width: 1280px; height: 460px;">
+<svg width="1280" height="460" viewBox="0 0 1280 460" aria-hidden="true" style="position: absolute; left: 0; top: 0;">
+<path d="M128 90 Q 384 90 384 260" fill="none" stroke="{{seg0Stroke}}" stroke-width="{{seg0W}}" stroke-dasharray="{{seg0Dash}}" stroke-linecap="round" class="{{seg0Cls}}"/>
+<path d="M384 260 Q 640 260 640 200" fill="none" stroke="{{seg1Stroke}}" stroke-width="{{seg1W}}" stroke-dasharray="{{seg1Dash}}" stroke-linecap="round" class="{{seg1Cls}}"/>
+<path d="M640 200 Q 896 200 896 260" fill="none" stroke="{{seg2Stroke}}" stroke-width="{{seg2W}}" stroke-dasharray="{{seg2Dash}}" stroke-linecap="round" class="{{seg2Cls}}"/>
+<path d="M896 260 Q 1152 260 1152 90" fill="none" stroke="{{seg3Stroke}}" stroke-width="{{seg3W}}" stroke-dasharray="{{seg3Dash}}" stroke-linecap="round" class="{{seg3Cls}}"/>
+</svg>
+<sc-for list="{{steps}}" as="s" hint-placeholder-count="5">
+<button type="button" onClick="{{s.pick}}" aria-pressed="{{s.pressed}}" aria-label="{{s.aria}}" class="stepbtn" style="position: absolute; width: 104px; height: 104px; border-radius: 50%; padding: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 2px solid #1B1412; {{s.circleStyle}}">
+<sc-if value="{{s.i1}}" hint-placeholder-val="{{ true }}"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="width: 44px; height: 44px; color: {{s.iconColor}};"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></sc-if>
+<sc-if value="{{s.i2}}" hint-placeholder-val="{{ false }}"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="width: 44px; height: 44px; color: {{s.iconColor}};"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/><path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/></svg></sc-if>
+<sc-if value="{{s.i3}}" hint-placeholder-val="{{ false }}"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="width: 44px; height: 44px; color: {{s.iconColor}};"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></sc-if>
+<sc-if value="{{s.i4}}" hint-placeholder-val="{{ false }}"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="width: 44px; height: 44px; color: {{s.iconColor}};"><line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/><line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/><line x1="21" x2="16" y1="20" y2="20"/><line x1="12" x2="3" y1="20" y2="20"/><line x1="14" x2="14" y1="2" y2="6"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="16" x2="16" y1="18" y2="22"/></svg></sc-if>
+<sc-if value="{{s.i5}}" hint-placeholder-val="{{ false }}"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="width: 44px; height: 44px; color: {{s.iconColor}};"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></sc-if>
+<span style="position: absolute; right: -8px; top: -8px; width: 32px; height: 32px; border-radius: 50%; border: 2px solid #1B1412; display: flex; align-items: center; justify-content: center; font: 500 13px 'JetBrains Mono', monospace; background: {{s.badgeBg}}; color: {{s.badgeFg}};">{{s.n}}</span>
+</button>
+<div style="position: absolute; width: 220px; height: 96px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; {{s.labelStyle}}">
+<div style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 20px; letter-spacing: -0.01em; line-height: 1.15; color: #1B1412;">{{s.label}}</div>
+<div style="font-size: 14px; line-height: 1.4; color: #5E504A;">{{s.desc}}</div>
+</div>
+</sc-for>
+</div>
+
+<div style="box-sizing: border-box; height: 120px; border-radius: 24px; background: #1B1412; color: #F3EBE4; padding: 0 32px; display: flex; align-items: center; gap: 28px;">
+<span style="font: 500 14px 'JetBrains Mono', monospace; color: #FFE066; white-space: nowrap;">{{detail.count}}</span>
+<div style="flex-grow: 1;">
+<div style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 26px; letter-spacing: -0.01em; color: #FFFFFF;">{{detail.title}}</div>
+<div style="margin-top: 4px; font-size: 16px; line-height: 1.45; color: #C9BBB1;">{{detail.text}}</div>
+</div>
+<button type="button" onClick="{{prev}}" aria-label="Paso anterior" style="width: 48px; height: 48px; border-radius: 50%; border: 1.5px solid #FFE066; background: transparent; color: #FFE066; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: {{prevOpacity}};">
+<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg></button>
+<button type="button" onClick="{{next}}" aria-label="Paso siguiente" style="width: 48px; height: 48px; border-radius: 50%; border: 0; background: #FFE066; color: #1B1412; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: {{nextOpacity}};">
+<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+</div>
+</section>
+
+<!-- AGENTS -->
+<section id="agentes" style="height: 560px; flex-shrink: 0; box-sizing: border-box; padding: 0 80px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 80px; align-items: center;">
+<div style="display: flex; flex-direction: column; gap: 24px;">
+<span class="eyebrow">Para agentes e IA</span>
+<h2 class="h2">Legible para personas. Y para máquinas.</h2>
+<p style="margin: 0; font-size: 19px; line-height: 1.6; color: #5E504A; max-width: 540px;">Servicios, cobertura y contacto están publicados en formato estructurado. Un asistente de IA puede entender qué hacemos y pedir una evaluación por ti.</p>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 14px; font-size: 17px;">
+<li style="display: flex; gap: 12px; align-items: center;"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="color: #993333;"><path d="M20 6 9 17l-5-5"/></svg>Datos estructurados JSON-LD en cada página</li>
+<li style="display: flex; gap: 12px; align-items: center;"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="color: #993333;"><path d="M20 6 9 17l-5-5"/></svg>Archivo llms.txt con el resumen del negocio</li>
+<li style="display: flex; gap: 12px; align-items: center;"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="color: #993333;"><path d="M20 6 9 17l-5-5"/></svg>Solicitud de evaluación mediante API abierta</li>
+</ul>
+</div>
+<div style="background: #1B1412; border-radius: 28px; padding: 28px 32px 32px; box-shadow: 0 24px 60px rgba(27,20,18,0.16);">
+<div style="display: flex; align-items: center; gap: 8px; margin-bottom: 20px;">
+<span style="width: 12px; height: 12px; border-radius: 50%; background: #CD5C5C;"></span>
+<span style="width: 12px; height: 12px; border-radius: 50%; background: #FFE066;"></span>
+<span style="width: 12px; height: 12px; border-radius: 50%; background: #5E504A;"></span>
+<span style="margin-left: 12px; font: 400 13px 'JetBrains Mono', monospace; color: #B9AAA0;">gvolts.com/llms.txt</span>
+</div>
+<div style="margin: 0; font: 400 15px/1.75 'JetBrains Mono', monospace; color: #F3EBE4;">
+<div style="min-height: 1.75em; white-space: pre-wrap; color: #FFE066;"># GVolts</div>
+<div style="min-height: 1.75em; white-space: pre-wrap; color: #B9AAA0;">&gt; Alarmas contra incendios, videovigilancia</div>
+<div style="min-height: 1.75em; white-space: pre-wrap; color: #B9AAA0;">&gt; y servicios eléctricos para hogares y empresas.</div>
+<div style="min-height: 1.75em; white-space: pre-wrap;">&nbsp;</div>
+<div style="min-height: 1.75em; white-space: pre-wrap; color: #FFE066;">## Servicios</div>
+<div style="min-height: 1.75em; white-space: pre-wrap;">- /services/fire-alarm</div>
+<div style="min-height: 1.75em; white-space: pre-wrap;">- /services/security</div>
+<div style="min-height: 1.75em; white-space: pre-wrap;">- /services/electricity</div>
+<div style="min-height: 1.75em; white-space: pre-wrap;">&nbsp;</div>
+<div style="min-height: 1.75em; white-space: pre-wrap; color: #FFE066;">## Acciones</div>
+<div style="min-height: 1.75em; white-space: pre-wrap;">POST /api/quote</div>
+<div style="min-height: 1.75em; white-space: pre-wrap;">&nbsp;&nbsp;service: fire-alarm | security | electricity</div>
+<div style="min-height: 1.75em; white-space: pre-wrap;">&nbsp;&nbsp;contact: name, email</div>
+</div>
+</div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" style="height: 480px; flex-shrink: 0; box-sizing: border-box; padding: 0 80px; display: grid; grid-template-columns: 420px minmax(0, 1fr); gap: 80px; align-items: start; border-top: 1px solid #E7DDD2; margin: 0 0; padding-top: 80px;">
+<div style="display: flex; flex-direction: column; gap: 16px;">
+<span class="eyebrow">Preguntas</span>
+<h2 class="h2" style="font-size: 44px;">Lo que suelen preguntarnos.</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 48px;">
+<sc-for list="{{faqs}}" as="q" hint-placeholder-count="6">
+<div>
+<h3 style="margin: 0 0 8px; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 20px; letter-spacing: -0.01em; line-height: 1.2;">{{q.q}}</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.55; color: #5E504A;">{{q.a}}</p>
+</div>
+</sc-for>
+</div>
+</section>
+
+<!-- CTA -->
+<section id="contacto" style="height: 420px; flex-shrink: 0; box-sizing: border-box; padding: 0 80px;">
+<div style="height: 100%; box-sizing: border-box; border-radius: 36px; background: {{accent}}; padding: 56px 64px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px; align-items: center;">
+<div style="display: flex; flex-direction: column; gap: 20px;">
+<h2 class="h2" style="font-size: 50px;">Empieza con una evaluación gratuita.</h2>
+<p style="margin: 0; font-size: 18px; line-height: 1.55; max-width: 460px;">Sin compromiso. Te respondemos en 24 horas con un diagnóstico y una propuesta clara.</p>
+</div>
+<form style="display: flex; flex-direction: column; gap: 14px;" onsubmit="return false">
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px;">
+<div><label class="lbl" for="c-nombre">Nombre</label><input class="field" id="c-nombre" type="text" autocomplete="name"></div>
+<div><label class="lbl" for="c-correo">Correo</label><input class="field" id="c-correo" type="email" autocomplete="email"></div>
+</div>
+<div><label class="lbl" for="c-servicio">Servicio</label>
+<select class="field" id="c-servicio">
+<option>Alarmas contra incendios</option>
+<option>Videovigilancia y acceso</option>
+<option>Instalaciones eléctricas</option>
+<option>No estoy seguro</option>
+</select></div>
+<button class="btn btn-p" type="submit" style="justify-content: center; border: 0; cursor: pointer; margin-top: 6px;">Solicitar evaluación
+<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+</form>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer style="height: 340px; flex-shrink: 0; box-sizing: border-box; margin-top: 0; padding: 72px 80px 0; display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 48px; align-items: start;">
+<div style="display: flex; flex-direction: column; gap: 16px;">
+<a href="#inicio" aria-label="GVolts, inicio" style="display: flex; align-items: center; gap: 12px;">
+<span style="width: 40px; height: 40px; border-radius: 12px; background: #1B1412; color: #FFE066; display: flex; align-items: center; justify-content: center;">
+<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" fill="currentColor"/></svg>
+</span>
+<span style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 26px; letter-spacing: -0.02em;">GVolts</span>
+</a>
+<p style="margin: 0; font-size: 16px; line-height: 1.55; color: #5E504A; max-width: 300px;">Seguridad contra incendios, videovigilancia y electricidad para hogares y empresas.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 12px;">
+<span class="eyebrow" style="color: #1B1412;">Servicios</span>
+<a href="services/fire-alarm" class="nav-a" style="color: #5E504A;">Alarmas contra incendios</a>
+<a href="services/security" class="nav-a" style="color: #5E504A;">Seguridad electrónica</a>
+<a href="services/electricity" class="nav-a" style="color: #5E504A;">Electricidad</a>
+</div>
+<div style="display: flex; flex-direction: column; gap: 12px;">
+<span class="eyebrow" style="color: #1B1412;">Empresa</span>
+<a href="about" class="nav-a" style="color: #5E504A;">Nosotros</a>
+<a href="projects" class="nav-a" style="color: #5E504A;">Proyectos</a>
+<a href="#faq" class="nav-a" style="color: #5E504A;">Preguntas frecuentes</a>
+</div>
+<div style="display: flex; flex-direction: column; gap: 12px;">
+<span class="eyebrow" style="color: #1B1412;">Contacto</span>
+<a href="tel:+15551234567" class="nav-a" style="color: #5E504A;">+1 (555) 123-4567</a>
+<a href="mailto:info@gvolts.com" class="nav-a" style="color: #5E504A;">info@gvolts.com</a>
+<a href="contact" class="nav-a" style="color: #993333; font-weight: 600;">Formulario de contacto</a>
+</div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#FFE066","options":["#FFE066","#FFC9C9","#CDEBD8","#CFE3FF"]},"$preview":{"width":1440,"height":5304}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const st = this.state || {};
+    const tab = st.tab ?? 0;
+    const active = st.step ?? 2;
+    const accent = this.props.accent ?? '#FFE066';
+    const flows = [
+      { label: 'Alarmas de fuego', steps: [
+        ['Diagnóstico', 'Identificación de riesgos y necesidades reales'],
+        ['Diseño del sistema', 'Plan óptimo según la normativa'],
+        ['Instalación técnica', 'Montaje profesional de sensores y dispositivos'],
+        ['Configuración y pruebas', 'Ajuste del sistema y verificación total de funcionamiento'],
+        ['Monitoreo y soporte', 'Supervisión continua y asistencia cuando la necesite'] ] },
+      { label: 'Seguridad', steps: [
+        ['Evaluación del sitio', 'Análisis del entorno y puntos críticos'],
+        ['Plan de cobertura', 'Zonas y ángulos de vigilancia definidos con estrategia'],
+        ['Instalación de equipos', 'Montaje preciso de cámaras y cableado'],
+        ['Integración de red', 'Conexión, configuración y enlace con el sistema central'],
+        ['Vigilancia activa', 'Monitoreo 24/7 y respuesta inmediata'] ] },
+      { label: 'Electricidad', steps: [
+        ['Inspección inicial', 'Revisión del estado eléctrico y detección de necesidades'],
+        ['Planificación', 'Diseño del sistema o mejora según normas y seguridad'],
+        ['Instalación y cableado', 'Montaje de líneas, paneles y dispositivos eléctricos'],
+        ['Pruebas y certificación', 'Verificación completa del sistema y control de calidad'],
+        ['Mantenimiento', 'Revisión periódica y soporte ante fallas'] ] }
+    ];
+    const cx = [128, 384, 640, 896, 1152];
+    const cy = [90, 260, 200, 260, 90];
+    const items = flows[tab].steps;
+    const stepItems = items.map((it, i) => {
+      const isActive = i === active;
+      const done = i < active;
+      const above = i === 2;
+      return {
+        n: String(i + 1),
+        label: it[0],
+        desc: it[1],
+        pick: () => this.setState({ step: i }),
+        pressed: isActive ? 'true' : 'false',
+        aria: 'Paso ' + (i + 1) + ': ' + it[0],
+        circleStyle: 'left:' + (cx[i] - 52) + 'px;top:' + (cy[i] - 52) + 'px;background:' + (isActive ? '#1B1412' : done ? accent : '#FFFFFF') + ';box-shadow:' + (isActive ? '0 0 0 8px ' + accent : '0 6px 16px rgba(27,20,18,0.10)') + ';transform:scale(' + (isActive ? 1.06 : 1) + ');',
+        labelStyle: 'left:' + (cx[i] - 110) + 'px;top:' + (above ? cy[i] - 52 - 14 - 96 : cy[i] + 52 + 16) + 'px;' + (above ? 'justify-content:flex-end;' : 'justify-content:flex-start;'),
+        iconColor: isActive ? '#FFE066' : '#1B1412',
+        badgeBg: isActive ? '#FFE066' : done ? '#1B1412' : '#FFFFFF',
+        badgeFg: done ? '#FFFFFF' : '#1B1412',
+        i1: i === 0, i2: i === 1, i3: i === 2, i4: i === 3, i5: i === 4
+      };
+    });
+    const segs = {};
+    for (let i = 0; i < 4; i++) {
+      const done = i < active;
+      const lead = i === active;
+      segs['seg' + i + 'Stroke'] = done ? '#B34545' : lead ? '#1B1412' : '#A89A91';
+      segs['seg' + i + 'W'] = done ? 5 : 4;
+      segs['seg' + i + 'Dash'] = done ? '0' : '2 14';
+      segs['seg' + i + 'Cls'] = lead ? 'flow' : '';
+    }
+    const tabs = flows.map((f, k) => ({
+      label: f.label,
+      pick: () => this.setState({ tab: k, step: 0 }),
+      pressed: k === tab ? 'true' : 'false',
+      bg: k === tab ? '#B34545' : '#FFFFFF',
+      fg: k === tab ? '#FFFFFF' : '#5E504A',
+      border: k === tab ? '#B34545' : '#D9CEC3',
+      f1: k === 0, f2: k === 1, f3: k === 2
+    }));
+    const cur = items[active];
+    return {
+      ...segs,
+      tabs,
+      steps: stepItems,
+      detail: { count: 'Paso ' + (active + 1) + ' de 5', title: cur[0], text: cur[1] },
+      prev: () => this.setState({ step: Math.max(0, active - 1) }),
+      next: () => this.setState({ step: Math.min(4, active + 1) }),
+      prevOpacity: active === 0 ? 0.35 : 1,
+      nextOpacity: active === 4 ? 0.35 : 1,
+      accent: accent,
+      proof: [
+        { value: '500+', label: 'Proyectos completados' },
+        { value: '10+', label: 'Años de experiencia' },
+        { value: '24/7', label: 'Monitoreo y soporte' }
+      ],
+      services: [
+        { bg: '#FFFFFF', border: '#E7DDD2', fg: '#1B1412', head: '#1B1412', sub: '#5E504A', tick: '#993333', link: '#993333', href: 'services/fire-alarm', img: '/_blob/02fe0fc74caa70769cf4b115b7da504e', pos: '50% 60%', alt: 'Detector de humo en el techo rodeado de humo rojizo', title: 'Alarmas contra incendios', text: 'Detecta, alerta y protege con tecnología certificada.', bullets: ['Detección multi-sensor inteligente', 'Cumplimiento NFPA 72', 'Monitoreo 24/7'] },
+        { bg: '#1B1412', border: '#1B1412', fg: '#F3EBE4', head: '#FFFFFF', sub: '#C9BBB1', tick: '#FFE066', link: '#FFE066', href: 'services/security', img: '/_blob/614b5be1cc929de9ac5ab296ee7887f1', pos: '50% 45%', alt: 'Cámara de seguridad instalada en un árbol', title: 'Videovigilancia y acceso', text: 'Ve y controla tu propiedad desde cualquier lugar.', bullets: ['Cámaras 4K con visión nocturna', 'Analíticas con IA', 'Control de acceso biométrico'] },
+        { bg: '#FFFACD', border: '#F0E6A0', fg: '#1B1412', head: '#1B1412', sub: '#4A3F2E', tick: '#1B1412', link: '#1B1412', href: 'services/electricity', img: '/_blob/f6b3709345813fdc68e97f948df92dc9', pos: '50% 40%', alt: 'Electricista con guantes revisando un tablero eléctrico', title: 'Instalaciones eléctricas', text: 'Potencia confiable, al código y con garantía.', bullets: ['Paneles y circuitos dedicados', 'Iluminación LED y respaldo UPS', 'Cargadores para vehículos eléctricos'] }
+      ],
+      standards: ['NFPA 72', 'NFPA 101', 'UL 864', 'NEC', 'ADA'],
+      flow: [
+        { n: '01', title: 'Detección', text: 'Un sensor de humo, una cámara o un lector de acceso registra el evento.' },
+        { n: '02', title: 'Alerta', text: 'Sirenas, luces y notificaciones móviles avisan a las personas correctas.' },
+        { n: '03', title: 'Registro', text: 'La cámara graba en 4K cuando se rompe el perímetro y guarda la evidencia.' },
+        { n: '04', title: 'Respuesta', text: 'La central de monitoreo verifica y coordina la ayuda mientras tú sigues informado.' }
+      ],
+      faqs: [
+        { q: '¿La evaluación tiene costo?', a: 'No. Es gratuita y sin compromiso. Te respondemos en 24 horas.' },
+        { q: '¿Trabajan con hogares y empresas?', a: 'Sí. Atendemos viviendas, comercios, industria e instituciones.' },
+        { q: '¿Cuánto tarda una instalación?', a: 'Depende del alcance. Una alarma contra incendios típica se instala en 48 a 72 horas.' },
+        { q: '¿Ofrecen monitoreo y soporte?', a: 'Sí. Monitoreo 24/7 y mantenimiento preventivo para mantener todo operativo.' },
+        { q: '¿Cumplen con las normativas?', a: 'Trabajamos según NFPA 72 y NEC y entregamos un certificado de cumplimiento.' },
+        { q: '¿Puedo controlarlo desde el móvil?', a: 'Sí. Cámaras, accesos y alarmas se gestionan desde una app en iOS, Android y web.' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

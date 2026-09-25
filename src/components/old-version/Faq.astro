@@ -1,0 +1,189 @@
+---
+const faqs = [
+  {
+    q: "¿Qué servicios de seguridad ofrecen?",
+    a: "Instalación de videovigilancia, sistemas de alarma contra incendios, control de acceso y monitoreo 24/7 con analítica inteligente.",
+  },
+  {
+    q: "¿Trabajan en hogares y en empresas?",
+    a: "Sí. Cada proyecto se diseña según el inmueble y el riesgo: desde una vivienda hasta naves industriales y locales comerciales.",
+  },
+  {
+    q: "¿Cuánto tarda la instalación?",
+    a: "La mayoría de proyectos residenciales se completan en 24–48 horas. Los comerciales siguen un cronograma que acordamos contigo antes de empezar.",
+  },
+  {
+    q: "¿Los equipos tienen garantía?",
+    a: "Todos los equipos tienen garantía de fábrica y además ofrecemos garantía extendida sobre nuestra mano de obra.",
+  },
+];
+---
+
+<section class="faq" id="faq">
+  <div class="cr-wrap faq__grid">
+    <header>
+      <p class="cr-label" data-reveal>03 — Preguntas</p>
+      <h2 data-reveal style="--d:80ms">Registro de<br />consultas.</h2>
+      <p class="faq__note" data-reveal style="--d:160ms">
+        ¿No ves la tuya? Escríbenos y un técnico te responde, no un bot.
+      </p>
+      <a href="/contact" class="cr-btn cr-btn--ghost" data-reveal style="--d:220ms">Hacer una pregunta</a>
+    </header>
+
+    <div class="log">
+      {
+        faqs.map((f, i) => (
+          <details class="entry" data-reveal style={`--d:${i * 80}ms`} open={i === 0}>
+            <summary>
+              <span class="entry__id">Q-{String(i + 1).padStart(2, "0")}</span>
+              <span class="entry__q">{f.q}</span>
+              <span class="entry__icon" aria-hidden="true" />
+            </summary>
+            <p>
+              <span class="entry__prompt" aria-hidden="true">&gt;</span>
+              {f.a}
+            </p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq {
+    padding-block: clamp(96px, 12vw, 180px);
+  }
+
+  .faq__grid {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: clamp(40px, 6vw, 96px);
+    align-items: start;
+  }
+
+  .faq header {
+    position: sticky;
+    top: 140px;
+  }
+
+  .faq h2 {
+    margin-top: 18px;
+    font-size: clamp(52px, 6.5vw, 104px);
+  }
+
+  .faq__note {
+    margin: 24px 0 28px;
+    color: var(--cr-bone-dim);
+    max-width: 34ch;
+  }
+
+  .log {
+    border-top: 1px solid var(--cr-line-strong);
+  }
+
+  .entry {
+    border-bottom: 1px solid var(--cr-line-strong);
+  }
+
+  .entry summary {
+    display: grid;
+    grid-template-columns: 56px 1fr 28px;
+    align-items: center;
+    gap: 16px;
+    padding: 26px 0;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .entry summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .entry__id {
+    font-family: var(--cr-mono);
+    font-size: 12px;
+    color: var(--cr-signal);
+  }
+
+  .entry__q {
+    font-family: var(--cr-display);
+    font-weight: 700;
+    font-size: clamp(24px, 2.4vw, 32px);
+    line-height: 1.05;
+    text-transform: uppercase;
+    transition: color 0.25s;
+  }
+
+  .entry summary:hover .entry__q {
+    color: var(--cr-signal);
+  }
+
+  .entry__icon {
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--cr-line-strong);
+    position: relative;
+  }
+
+  .entry__icon::before,
+  .entry__icon::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 12px;
+    height: 1.5px;
+    background: var(--cr-bone);
+    translate: -50% -50%;
+    transition: rotate 0.3s;
+  }
+
+  .entry__icon::after {
+    rotate: 90deg;
+  }
+
+  .entry[open] .entry__icon::after {
+    rotate: 0deg;
+  }
+
+  .entry p {
+    padding: 0 44px 28px 72px;
+    color: var(--cr-bone-dim);
+    font-family: var(--cr-mono);
+    font-size: 14px;
+    line-height: 1.75;
+  }
+
+  .entry__prompt {
+    color: var(--cr-ok);
+    margin-right: 8px;
+  }
+
+  .entry[open] p {
+    animation: cr-type 0.5s steps(12) both;
+  }
+
+  @keyframes cr-type {
+    from { clip-path: inset(0 100% 0 0); }
+    to { clip-path: inset(0 0 0 0); }
+  }
+
+  @media (max-width: 900px) {
+    .faq__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .faq header {
+      position: static;
+    }
+
+    .entry summary {
+      grid-template-columns: 44px 1fr 28px;
+    }
+
+    .entry p {
+      padding: 0 0 24px 60px;
+    }
+  }
+</style>

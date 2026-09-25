@@ -1,0 +1,282 @@
+---
+interface Zone {
+  id: string;
+  name: string;
+}
+
+const zones: Zone[] = [
+  { id: "Z01", name: "Lobby principal" },
+  { id: "Z02", name: "Cocina" },
+  { id: "Z03", name: "Bodega" },
+  { id: "Z04", name: "Sala de servidores" },
+  { id: "Z05", name: "Estacionamiento" },
+];
+---
+
+<div class="annunciator" data-annunciator>
+  <div class="annunciator__head">
+    <span class="cr-label" data-ann-label>Panel direccionable · Simulador</span>
+    <span class="annunciator__status">
+      <span class="cr-led cr-led--ok" data-ann-led></span>
+      <span data-ann-status>Sistema normal</span>
+    </span>
+  </div>
+
+  <div class="annunciator__zones" role="group" aria-label="Zonas monitoreadas">
+    {
+      zones.map((z) => (
+        <button
+          type="button"
+          class="annunciator__zone"
+          data-ann-zone
+          data-zone-id={z.id}
+          data-zone-name={z.name}
+          aria-pressed="false"
+        >
+          <span class="annunciator__zone-id">{z.id}</span>
+          <span class="annunciator__zone-name">{z.name}</span>
+          <span class="annunciator__zone-state">
+            <span class="cr-led cr-led--ok" data-zone-led />
+            <span data-zone-state>NORMAL</span>
+          </span>
+        </button>
+      ))
+    }
+  </div>
+
+  <div class="annunciator__foot">
+    <p data-ann-message>Toca una zona para simular una alarma.</p>
+    <button type="button" class="cr-btn cr-btn--ghost" data-ann-reset hidden aria-label="Detener alarma y restablecer panel">Restablecer</button>
+  </div>
+</div>
+
+<div class="ann-strobe" data-ann-strobe aria-hidden="true"></div>
+
+<style>
+  .annunciator {
+    background: color-mix(in srgb, var(--cr-ink-2) 92%, transparent);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--cr-line-strong);
+    box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.7);
+  }
+
+  .annunciator__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--cr-line);
+    font-family: var(--cr-mono);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  .annunciator__status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .annunciator__zones {
+    display: flex;
+    flex-direction: column;
+    padding: 6px 0;
+  }
+
+  .annunciator__zone {
+    appearance: none;
+    border: 0;
+    margin: 0;
+    width: 100%;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 0 18px;
+    text-align: left;
+    cursor: pointer;
+    background: transparent;
+    color: var(--cr-bone);
+    font-family: var(--cr-body);
+    font-size: 15px;
+    transition: background-color 0.2s, color 0.2s;
+  }
+
+  .annunciator__zone:hover {
+    background: color-mix(in srgb, var(--cr-signal) 14%, transparent);
+  }
+
+  .annunciator__zone-id {
+    width: 40px;
+    flex-shrink: 0;
+    font-family: var(--cr-mono);
+    font-size: 12px;
+    opacity: 0.75;
+  }
+
+  .annunciator__zone-name {
+    flex-grow: 1;
+  }
+
+  .annunciator__zone-state {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--cr-mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+  }
+
+  .annunciator__foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 18px;
+    border-top: 1px solid var(--cr-line);
+  }
+
+  .annunciator__foot p {
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--cr-bone-dim);
+    transition: color 0.3s;
+  }
+
+  /* ---------- Alarm state ---------- */
+  .annunciator.is-alarm .annunciator__head {
+    background: var(--cr-signal);
+    color: var(--cr-ink);
+  }
+
+  .annunciator.is-alarm .annunciator__foot p {
+    color: var(--cr-bone);
+  }
+
+  .annunciator__zone.is-alarm {
+    background: var(--cr-signal);
+    color: var(--cr-ink);
+  }
+
+  .annunciator__zone.is-alarm:hover {
+    background: var(--cr-signal);
+  }
+
+  /* ---------- Strobe overlay ---------- */
+  .ann-strobe {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    background: var(--cr-signal);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .ann-strobe.is-active {
+    animation: ann-strobe 2.2s linear infinite;
+  }
+
+  @keyframes ann-strobe {
+    0%, 88% { opacity: 0; }
+    90%, 94% { opacity: 0.35; }
+    96%, 100% { opacity: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ann-strobe.is-active {
+      animation: none;
+      opacity: 0.2;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .annunciator__head {
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 12px 14px;
+    }
+
+    .annunciator__zone {
+      gap: 10px;
+      padding: 0 14px;
+    }
+
+    .annunciator__zone-name {
+      font-size: 14px;
+    }
+
+    .annunciator__foot {
+      flex-wrap: wrap;
+      padding: 12px 14px;
+    }
+
+    [data-ann-reset] {
+      flex-basis: 100%;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .annunciator__zone-id {
+      width: 30px;
+    }
+
+    .annunciator__zone-state {
+      font-size: 10px;
+      gap: 4px;
+    }
+  }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>("[data-annunciator]");
+  const strobe = document.querySelector<HTMLElement>("[data-ann-strobe]");
+  if (!root) throw new Error("Annunciator root not found");
+
+  const led = root.querySelector<HTMLElement>("[data-ann-led]");
+  const status = root.querySelector<HTMLElement>("[data-ann-status]");
+  const message = root.querySelector<HTMLElement>("[data-ann-message]");
+  const resetBtn = root.querySelector<HTMLButtonElement>("[data-ann-reset]");
+  const zoneButtons = [...root.querySelectorAll<HTMLButtonElement>("[data-ann-zone]")];
+
+  let activeZone: HTMLButtonElement | null = null;
+
+  const setAlarm = (zone: HTMLButtonElement | null) => {
+    activeZone = zone;
+    const hasAlarm = !!zone;
+
+    root.classList.toggle("is-alarm", hasAlarm);
+    strobe?.classList.toggle("is-active", hasAlarm);
+
+    zoneButtons.forEach((btn) => {
+      const on = btn === zone;
+      btn.classList.toggle("is-alarm", on);
+      btn.setAttribute("aria-pressed", String(on));
+      const zoneLed = btn.querySelector<HTMLElement>("[data-zone-led]");
+      const zoneState = btn.querySelector<HTMLElement>("[data-zone-state]");
+      zoneLed?.classList.toggle("cr-led--ok", !on);
+      zoneLed?.classList.toggle("cr-led--signal", on);
+      zoneLed?.classList.toggle("cr-blink", on);
+      if (zoneState) zoneState.textContent = on ? "ALARMA" : "NORMAL";
+    });
+
+    led?.classList.toggle("cr-led--ok", !hasAlarm);
+    led?.classList.toggle("cr-led--signal", hasAlarm);
+    led?.classList.toggle("cr-blink", hasAlarm);
+
+    if (status) status.textContent = hasAlarm ? `Alarma · ${zone!.dataset.zoneId}` : "Sistema normal";
+    if (message) {
+      message.textContent = hasAlarm
+        ? `Central UL notificada · sirenas y estrobos activos en ${zone!.dataset.zoneName!.toLowerCase()} · evacuación por zona.`
+        : "Toca una zona para simular una alarma.";
+    }
+    if (resetBtn) resetBtn.hidden = !hasAlarm;
+  };
+
+  zoneButtons.forEach((btn) => {
+    btn.addEventListener("click", () => setAlarm(activeZone === btn ? null : btn));
+  });
+
+  resetBtn?.addEventListener("click", () => setAlarm(null));
+</script>

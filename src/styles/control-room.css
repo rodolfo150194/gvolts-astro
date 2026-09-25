@@ -1,0 +1,216 @@
+/* Control Room design tokens — scoped to the redesign under .cr */
+.cr {
+  --cr-ink: #111012;
+  --cr-ink-2: #19181b;
+  --cr-ink-3: #232126;
+  --cr-line: rgba(237, 232, 224, 0.12);
+  --cr-line-strong: rgba(237, 232, 224, 0.28);
+  --cr-bone: #ede8e0;
+  --cr-bone-dim: rgba(237, 232, 224, 0.62);
+  --cr-signal: #e0605a;
+  --cr-signal-deep: #cd5c5c;
+  --cr-amber: #ffd66b;
+  --cr-ok: #7ee2a8;
+
+  --cr-display: "Big Shoulders Display", "Arial Narrow", sans-serif;
+  --cr-body: "Hanken Grotesk", system-ui, sans-serif;
+  --cr-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --cr-gutter: clamp(16px, 4vw, 56px);
+  --cr-max: 1440px;
+
+  background: var(--cr-ink);
+  color: var(--cr-bone);
+  font-family: var(--cr-body);
+  font-size: 17px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  isolation: isolate;
+}
+
+/* Per-service accent theming — set data-accent on the .cr wrapper to recolor
+   Nav/CTA bands/buttons without duplicating components */
+.cr[data-accent="fire"] {
+  --cr-signal: #ff6b35;
+  --cr-signal-deep: #d9481f;
+}
+
+.cr[data-accent="security"] {
+  --cr-signal: #4da8ff;
+  --cr-signal-deep: #2f7fd1;
+}
+
+.cr[data-accent="electricity"] {
+  --cr-signal: #ffd66b;
+  --cr-signal-deep: #e0b23a;
+}
+
+.cr[data-accent="projects"] {
+  --cr-signal: #4da8ff;
+  --cr-signal-deep: #2f7fd1;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/JetBrainsMono-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 800;
+  font-display: swap;
+}
+
+/* Film grain over everything — gives the dark surfaces a physical feel */
+.cr::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.cr ::selection {
+  background: var(--cr-signal);
+  color: var(--cr-ink);
+}
+
+.cr h1,
+.cr h2,
+.cr h3 {
+  font-family: var(--cr-display);
+  font-weight: 800;
+  line-height: 0.88;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.cr p {
+  margin: 0;
+}
+
+.cr a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.cr-wrap {
+  width: 100%;
+  max-width: var(--cr-max);
+  margin-inline: auto;
+  padding-inline: var(--cr-gutter);
+}
+
+.cr-label {
+  font-family: var(--cr-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cr-bone-dim);
+}
+
+.cr-led {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--cr-ok);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--cr-ok) 18%, transparent), 0 0 12px var(--cr-ok);
+  flex-shrink: 0;
+}
+
+.cr-led--signal {
+  background: var(--cr-signal);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--cr-signal) 22%, transparent), 0 0 14px var(--cr-signal);
+}
+
+.cr-led--amber {
+  background: var(--cr-amber);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--cr-amber) 20%, transparent), 0 0 12px var(--cr-amber);
+}
+
+.cr-blink {
+  animation: cr-blink 1.6s steps(2, jump-none) infinite;
+}
+
+@keyframes cr-blink {
+  50% { opacity: 0.25; }
+}
+
+.cr-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 52px;
+  padding: 0 26px;
+  font-family: var(--cr-mono);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 1px solid var(--cr-signal);
+  background: var(--cr-signal);
+  color: var(--cr-ink);
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+  transition: background 0.25s, color 0.25s, transform 0.25s;
+}
+
+.cr-btn:hover {
+  background: var(--cr-bone);
+  border-color: var(--cr-bone);
+  transform: translateY(-2px);
+}
+
+.cr-btn--ghost {
+  background: transparent;
+  color: var(--cr-bone);
+  border-color: var(--cr-line-strong);
+}
+
+.cr-btn--ghost:hover {
+  background: var(--cr-bone);
+  color: var(--cr-ink);
+}
+
+/* Shared disabled state for both .cr-btn and .cr-btn--ghost */
+.cr-btn:disabled,
+.cr-btn:disabled:hover {
+  background: var(--cr-line-strong);
+  border-color: var(--cr-line-strong);
+  color: var(--cr-bone-dim);
+  cursor: not-allowed;
+  transform: none;
+}
+
+.cr :focus-visible {
+  outline: 2px solid var(--cr-amber);
+  outline-offset: 3px;
+}
+
+/* Scroll reveal, driven by an IntersectionObserver in the page script */
+.cr [data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.9s cubic-bezier(0.2, 0.7, 0.1, 1), transform 0.9s cubic-bezier(0.2, 0.7, 0.1, 1);
+  transition-delay: var(--d, 0ms);
+}
+
+.cr [data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cr *,
+  .cr *::before,
+  .cr *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .cr [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}

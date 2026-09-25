@@ -1,0 +1,388 @@
+---
+interface Room {
+  id: string;
+  name: string;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+}
+
+const PLAN_W = 600;
+const PLAN_H = 500;
+
+const rooms: Room[] = [
+  { id: "Z01", name: "Lobby", x: 0, y: 0, w: 216, h: 183 },
+  { id: "Z02", name: "Oficinas", x: 216, y: 0, w: 200, h: 183 },
+  { id: "Z03", name: "Servidores", x: 416, y: 0, w: 184, h: 183 },
+  { id: "Z04", name: "Pasillo", x: 0, y: 183, w: 600, h: 84 },
+  { id: "Z05", name: "Cocina", x: 0, y: 267, w: 184, h: 233 },
+  { id: "Z06", name: "Bodega", x: 184, y: 267, w: 232, h: 233 },
+  { id: "Z07", name: "Sala de juntas", x: 416, y: 267, w: 184, h: 233 },
+];
+
+const pct = (n: number, base: number) => `${(n / base) * 100}%`;
+---
+
+<div
+  class="fsim flex flex-col gap-[18px] p-[20px] bg-[color-mix(in_srgb,var(--cr-ink-2)_92%,transparent)] backdrop-blur-[10px] border border-[var(--cr-line-strong)] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.7)] [--fsim-suppress:#7ecbe2]"
+  data-fsim
+>
+  <div class="flex justify-between items-center gap-[16px]">
+    <span class="cr-label">Escenario</span>
+    <div class="grid grid-cols-2 border border-[var(--cr-line-strong)]" role="group" aria-label="Escenario de la simulación">
+      <button
+        type="button"
+        class="fsim__seg is-active appearance-none border-0 m-0 h-[40px] px-[14px] cursor-pointer bg-transparent text-[var(--cr-bone-dim)] font-[var(--cr-mono)] text-[11px] tracking-[0.1em] uppercase transition-[background-color,color] duration-200"
+        data-fsim-mode="off"
+        aria-pressed="true">Sin sistema</button
+      >
+      <button
+        type="button"
+        class="fsim__seg appearance-none border-0 m-0 h-[40px] px-[14px] cursor-pointer bg-transparent text-[var(--cr-bone-dim)] font-[var(--cr-mono)] text-[11px] tracking-[0.1em] uppercase transition-[background-color,color] duration-200 border-l border-[var(--cr-line-strong)]"
+        data-fsim-mode="on"
+        aria-pressed="false">Con GVolts</button
+      >
+    </div>
+  </div>
+
+  <dl class="grid grid-cols-3 border-t border-[var(--cr-line-strong)] m-0">
+    <div class="pt-[14px] pr-[10px] pb-0 pl-0">
+      <dt class="cr-label">Tiempo</dt>
+      <dd class="mt-[6px] font-[var(--cr-display)] font-extrabold text-[clamp(28px,3vw,36px)] leading-none tabular-nums max-[520px]:text-[24px]" data-fsim-clock>00:00</dd>
+    </div>
+    <div class="pt-[14px] pr-[10px] pb-0 pl-[10px] border-l border-[var(--cr-line)]">
+      <dt class="cr-label">Zonas en fuego</dt>
+      <dd class="mt-[6px] font-[var(--cr-display)] font-extrabold text-[clamp(28px,3vw,36px)] leading-none tabular-nums max-[520px]:text-[24px]"><span data-fsim-burning>0</span><span class="text-[var(--cr-bone-dim)] text-[0.5em]">/7</span></dd>
+    </div>
+    <div class="pt-[14px] pr-[10px] pb-0 pl-[10px] border-l border-[var(--cr-line)]">
+      <dt class="cr-label">Daño estimado</dt>
+      <dd class="mt-[6px] font-[var(--cr-display)] font-extrabold text-[clamp(28px,3vw,36px)] leading-none tabular-nums max-[520px]:text-[24px]"><span data-fsim-damage>0</span><span class="text-[var(--cr-bone-dim)] text-[0.5em]">%</span></dd>
+    </div>
+  </dl>
+
+  <div class="h-[3px] bg-[var(--cr-line)]"><div class="h-[3px] w-0 bg-[var(--cr-signal)] [transition:width_0.6s_linear,background-color_0.3s]" data-fsim-bar></div></div>
+
+  <div class="flex flex-col gap-[10px]">
+    <div class="flex justify-between items-center font-[var(--cr-mono)] text-[10px] tracking-[0.1em] uppercase text-[var(--cr-bone-dim)]">
+      <span>Planta baja · Esc. 1:200</span>
+      <span class="inline-flex items-center gap-[8px]">
+        <span class="cr-led cr-led--ok" data-fsim-led></span>
+        <span data-fsim-status>En espera</span>
+      </span>
+    </div>
+
+    <div class="fsim__plan relative w-full aspect-[600/500] p-[4px] box-border border border-[var(--cr-line-strong)] [background:linear-gradient(var(--cr-line)_1px,transparent_1px)_0_0/24px_24px,linear-gradient(90deg,var(--cr-line)_1px,transparent_1px)_0_0/24px_24px,#0d0c0f] overflow-hidden" data-fsim-plan>
+      <div class="absolute inset-x-0 h-px top-[-4%] bg-[color-mix(in_srgb,var(--cr-signal)_35%,transparent)] shadow-[0_0_18px_2px_color-mix(in_srgb,var(--cr-signal)_25%,transparent)] animate-[fsim-scan_6s_linear_infinite] motion-reduce:animate-none pointer-events-none" aria-hidden="true"></div>
+      <div class="absolute inset-[4px]">
+        {
+          rooms.map((r) => (
+            <button
+              type="button"
+              class="fsim__room appearance-none absolute box-border m-0 p-[12px] max-[520px]:p-[8px] border-2 border-[var(--cr-line-strong)] bg-transparent text-[var(--cr-bone)] cursor-pointer text-left flex flex-col justify-between font-[var(--cr-body)] transition-[background-color,border-color] duration-200 hover:border-[var(--cr-amber)]"
+              data-fsim-room
+              data-room-id={r.id}
+              data-room-name={r.name}
+              style={`left:${pct(r.x, PLAN_W)};top:${pct(r.y, PLAN_H)};width:${pct(r.w, PLAN_W)};height:${pct(r.h, PLAN_H)};`}
+              aria-label={`${r.name} — Encender conato aquí`}
+            >
+              <span class="flex justify-between items-start">
+                <span class="font-[var(--cr-mono)] text-[10px] tracking-[0.1em] opacity-80">{r.id}</span>
+                <span class="w-[9px] h-[9px] rounded-full border-[1.5px] border-current box-border" data-room-det></span>
+              </span>
+              <span class="flex flex-col gap-[4px]">
+                <span class="font-[var(--cr-display)] font-extrabold text-[20px] leading-none uppercase max-[520px]:text-[14px]">{r.name}</span>
+                <span class="font-[var(--cr-mono)] text-[9px] tracking-[0.1em]" data-room-label>NORMAL</span>
+              </span>
+            </button>
+          ))
+        }
+      </div>
+      <p class="absolute left-1/2 bottom-[16px] -translate-x-1/2 m-0 py-[8px] px-[14px] bg-[var(--cr-bone)] text-[var(--cr-ink)] font-[var(--cr-mono)] text-[10px] tracking-[0.1em] uppercase whitespace-nowrap pointer-events-none" data-fsim-idle>Toca una sala para encender un conato</p>
+    </div>
+
+    <ul class="m-0 p-0 list-none flex flex-wrap gap-[14px] font-[var(--cr-mono)] text-[10px] tracking-[0.08em] uppercase text-[var(--cr-bone-dim)]">
+      <li class="flex items-center gap-[6px]"><span class="w-[10px] h-[10px] inline-block bg-[rgba(237,232,224,0.24)]" data-swatch="smoke"></span>Humo</li>
+      <li class="flex items-center gap-[6px]"><span class="w-[10px] h-[10px] inline-block bg-[var(--cr-signal)]" data-swatch="fire"></span>Fuego</li>
+      <li class="flex items-center gap-[6px]"><span class="w-[10px] h-[10px] inline-block bg-[var(--cr-amber)]" data-swatch="detected"></span>Detectado</li>
+      <li class="flex items-center gap-[6px]"><span class="w-[10px] h-[10px] inline-block bg-[var(--fsim-suppress)]" data-swatch="suppress"></span>Supresión</li>
+      <li class="flex items-center gap-[6px]"><span class="w-[10px] h-[10px] inline-block bg-[var(--cr-ok)]" data-swatch="route"></span>Ruta segura</li>
+    </ul>
+  </div>
+
+  <div class="flex justify-between items-center gap-[16px] pt-[14px] border-t border-[var(--cr-line)]">
+    <p class="m-0 text-[13px] leading-[1.45] text-[var(--cr-bone-dim)]" data-fsim-message>Elige un escenario y toca una sala del plano.</p>
+    <button type="button" class="cr-btn cr-btn--ghost shrink-0" data-fsim-reset>Reiniciar</button>
+  </div>
+</div>
+
+<style>
+  /*
+   * @keyframes have no Tailwind utility equivalent and must stay as raw CSS.
+   *
+   * The rules below style states that the script below toggles at runtime via
+   * classList (e.g. "is-active", "is-smoke", "is-fire", "is-inferno", built from
+   * a dynamic `is-${state}` template literal). Tailwind's build-time class
+   * scanner cannot see those dynamically constructed class names, and the task
+   * explicitly disallows changing the script's logic to work around that, so
+   * these state-driven rules are kept as scoped CSS rather than converted.
+   * Everything else in this component (all static structural/typographic/color
+   * styling) has been converted to Tailwind utility classes above.
+   */
+  @keyframes fsim-scan {
+    to { top: 104%; }
+  }
+
+  @keyframes fsim-burn {
+    0%, 100% { background-color: var(--cr-signal); }
+    35% { background-color: var(--cr-signal-deep); }
+    70% { background-color: #ef7a52; }
+  }
+
+  .fsim__seg.is-active[data-fsim-mode="off"] {
+    background: var(--cr-signal);
+    color: var(--cr-ink);
+  }
+
+  .fsim__seg.is-active[data-fsim-mode="on"] {
+    background: var(--cr-ok);
+    color: var(--cr-ink);
+  }
+
+  .fsim__room.is-smoke { background: rgba(237, 232, 224, 0.16); }
+  .fsim__room.is-fire { background: var(--cr-signal); color: var(--cr-ink); animation: fsim-burn 1.2s ease-in-out infinite; }
+  .fsim__room.is-detected { background: var(--cr-amber); color: var(--cr-ink); }
+  .fsim__room.is-suppress { background: var(--fsim-suppress); color: var(--cr-ink); }
+  .fsim__room.is-controlled { background: color-mix(in srgb, var(--cr-ok) 22%, transparent); }
+  .fsim__room.is-alarm { background: color-mix(in srgb, var(--cr-amber) 12%, transparent); }
+  .fsim__room.is-clear { background: color-mix(in srgb, var(--cr-ok) 8%, transparent); }
+
+  .fsim__plan.is-inferno::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    box-shadow: inset 0 0 120px 24px color-mix(in srgb, var(--cr-signal) 35%, transparent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fsim__room.is-fire {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  type RoomState = "normal" | "smoke" | "fire" | "detected" | "suppress" | "controlled" | "alarm" | "clear";
+
+  const root = document.querySelector<HTMLElement>("[data-fsim]");
+  if (!root) throw new Error("FireSimulator root not found");
+
+  const plan = root.querySelector<HTMLElement>("[data-fsim-plan]");
+  const idleMsg = root.querySelector<HTMLElement>("[data-fsim-idle]");
+  const clockEl = root.querySelector<HTMLElement>("[data-fsim-clock]");
+  const burningEl = root.querySelector<HTMLElement>("[data-fsim-burning]");
+  const damageEl = root.querySelector<HTMLElement>("[data-fsim-damage]");
+  const barEl = root.querySelector<HTMLElement>("[data-fsim-bar]");
+  const messageEl = root.querySelector<HTMLElement>("[data-fsim-message]");
+  const statusEl = root.querySelector<HTMLElement>("[data-fsim-status]");
+  const ledEl = root.querySelector<HTMLElement>("[data-fsim-led]");
+  const resetBtn = root.querySelector<HTMLButtonElement>("[data-fsim-reset]");
+  const modeButtons = [...root.querySelectorAll<HTMLButtonElement>("[data-fsim-mode]")];
+  const roomButtons = [...root.querySelectorAll<HTMLButtonElement>("[data-fsim-room]")];
+
+  const adjacency: Record<string, string[]> = {
+    Z01: ["Z02", "Z04"],
+    Z02: ["Z01", "Z03", "Z04"],
+    Z03: ["Z02", "Z04"],
+    Z04: ["Z01", "Z02", "Z03", "Z05", "Z06", "Z07"],
+    Z05: ["Z04", "Z06"],
+    Z06: ["Z04", "Z05", "Z07"],
+    Z07: ["Z04", "Z06"],
+  };
+
+  const areas: Record<string, number> = {};
+  roomButtons.forEach((btn) => {
+    const rect = { w: btn.offsetWidth, h: btn.offsetHeight };
+    areas[btn.dataset.roomId!] = rect.w * rect.h;
+  });
+  const totalArea = Object.values(areas).reduce((s, a) => s + a, 0) || 1;
+
+  let gvolts = false;
+  let ignited: string | null = null;
+  let t = 0;
+  let timer: ReturnType<typeof setInterval> | null = null;
+
+  const stop = () => {
+    if (timer) {
+      clearInterval(timer);
+      timer = null;
+    }
+  };
+
+  const bfsDist = (start: string) => {
+    const dist: Record<string, number> = { [start]: 0 };
+    const queue = [start];
+    while (queue.length) {
+      const cur = queue.shift()!;
+      for (const next of adjacency[cur] ?? []) {
+        if (dist[next] === undefined) {
+          dist[next] = dist[cur] + 1;
+          queue.push(next);
+        }
+      }
+    }
+    return dist;
+  };
+
+  const stateFor = (roomId: string, dist: Record<string, number>): RoomState => {
+    if (!ignited) return "normal";
+    const d = dist[roomId];
+    if (d === undefined) return "normal";
+    if (!gvolts) {
+      if (2 * d <= t) return "fire";
+      if (2 * d - 1 <= t) return "smoke";
+      return "normal";
+    }
+    if (roomId === ignited) {
+      return t === 0 ? "smoke" : t === 1 ? "detected" : t === 2 ? "suppress" : "controlled";
+    }
+    return t === 0 ? "normal" : t === 1 ? "alarm" : "clear";
+  };
+
+  const render = () => {
+    const dist = ignited ? bfsDist(ignited) : {};
+    let burnArea = 0;
+    let burnCount = 0;
+    let corridorFire = false;
+
+    roomButtons.forEach((btn) => {
+      const id = btn.dataset.roomId!;
+      const state = stateFor(id, dist);
+      btn.classList.remove("is-smoke", "is-fire", "is-detected", "is-suppress", "is-controlled", "is-alarm", "is-clear");
+      if (state !== "normal") btn.classList.add(`is-${state}`);
+      if (state === "fire") {
+        burnArea += areas[id];
+        burnCount += 1;
+        if (id === "Z04") corridorFire = true;
+      }
+      if (gvolts && id === ignited && t <= 2) burnArea += areas[id] * 0.35;
+
+      const label = btn.querySelector<HTMLElement>("[data-room-label]");
+      const det = btn.querySelector<HTMLElement>("[data-room-det]");
+      const labels: Record<RoomState, string> = {
+        normal: "NORMAL",
+        smoke: "HUMO",
+        fire: "FUEGO",
+        detected: "DETECTADO",
+        suppress: "SUPRESIÓN",
+        controlled: "CONTROLADO",
+        alarm: "ALARMA",
+        clear: "EVACUADO",
+      };
+      if (label) label.textContent = labels[state];
+      if (det) det.style.background = state === "normal" ? "transparent" : "currentColor";
+    });
+
+    const burningShown = gvolts ? (ignited && t <= 2 ? 1 : 0) : burnCount;
+    const damage = ignited ? Math.round((burnArea / totalArea) * 100) : 0;
+    const secs = t * 30;
+    const clock = `0${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, "0")}`;
+    const done = t >= 6;
+    const ignRoom = roomButtons.find((b) => b.dataset.roomId === ignited);
+    const place = ignRoom?.dataset.roomName?.toLowerCase() ?? "";
+
+    let message = "Elige un escenario y toca una sala del plano. Cada paso equivale a 30 segundos reales.";
+    if (ignited && !gvolts) {
+      if (t === 0) message = `Conato en ${place}. Nadie lo sabe todavía.`;
+      else if (t <= 2) message = "El humo avanza sin aviso. Sin detectores, el fuego gana minutos.";
+      else if (!done) message = corridorFire ? "Pasillo en llamas: las dos salidas quedan bloqueadas." : "El fuego se extiende sala por sala.";
+      else message = `Detección manual a los 3 minutos · ${damage}% del inmueble afectado.`;
+    } else if (ignited && gvolts) {
+      if (t === 0) message = `Conato en ${place} · el sensor multi-criterio analiza humo, calor y CO.`;
+      else if (t === 1) message = "Detector confirma en menos de 30 s · central UL notificada · sirenas y estrobos activos.";
+      else if (t === 2) message = `Supresión automática en ${place} · evacuación por rutas seguras.`;
+      else message = `Incendio controlado en 1 zona · 0 personas en riesgo · daño ${damage}%.`;
+    }
+
+    if (clockEl) clockEl.textContent = clock;
+    if (burningEl) burningEl.textContent = String(burningShown);
+    if (damageEl) damageEl.textContent = String(damage);
+    if (barEl) {
+      barEl.style.width = `${Math.round((t / 6) * 100)}%`;
+      barEl.style.backgroundColor = gvolts ? "var(--cr-ok)" : "var(--cr-signal)";
+    }
+    if (messageEl) messageEl.textContent = message;
+    if (idleMsg) idleMsg.hidden = !!ignited;
+
+    const hot = ignited && !gvolts;
+    const alarmed = ignited && gvolts && t >= 1 && t <= 2;
+    if (statusEl) {
+      statusEl.textContent = !ignited
+        ? "En espera"
+        : gvolts
+          ? t >= 3
+            ? "Controlado"
+            : t >= 1
+              ? `Alarma · ${ignited}`
+              : "Analizando"
+          : done
+            ? "Sin monitoreo"
+            : "Sin detección";
+    }
+    if (ledEl) {
+      ledEl.classList.toggle("cr-led--ok", !hot && !alarmed);
+      ledEl.classList.toggle("cr-led--signal", !!hot);
+      ledEl.classList.toggle("cr-led--amber", !!alarmed);
+      ledEl.classList.toggle("cr-blink", !!hot || !!alarmed);
+    }
+    if (plan) {
+      plan.classList.toggle("is-inferno", !!(hot && burnCount >= 3));
+    }
+  };
+
+  const run = (roomId: string) => {
+    stop();
+    ignited = roomId;
+    t = 0;
+    render();
+    timer = setInterval(() => {
+      if (t >= 6) {
+        stop();
+        return;
+      }
+      t += 1;
+      render();
+    }, 900);
+  };
+
+  const reset = () => {
+    stop();
+    ignited = null;
+    t = 0;
+    render();
+  };
+
+  const setMode = (on: boolean) => {
+    gvolts = on;
+    modeButtons.forEach((btn) => {
+      const isOn = btn.dataset.fsimMode === "on";
+      btn.classList.toggle("is-active", isOn === on);
+      btn.setAttribute("aria-pressed", String(isOn === on));
+    });
+    if (ignited) run(ignited);
+    else render();
+  };
+
+  roomButtons.forEach((btn) => {
+    btn.addEventListener("click", () => run(btn.dataset.roomId!));
+  });
+
+  modeButtons.forEach((btn) => {
+    btn.addEventListener("click", () => setMode(btn.dataset.fsimMode === "on"));
+  });
+
+  resetBtn?.addEventListener("click", reset);
+
+  render();
+</script>

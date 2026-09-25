@@ -243,6 +243,15 @@ h6 {
     transform: translate(0, 0) rotateX(0) rotateY(360deg);
   }
 }
+
+@keyframes hideAndSeek {
+  0% {
+    transform: translateY(4rem);
+  }
+  100% {
+    transform: translateY(0rem);
+  }
+}
 .corner-shape {
   corner-shape:bevel;   
 }

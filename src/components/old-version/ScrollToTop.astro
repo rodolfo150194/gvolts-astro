@@ -1,0 +1,37 @@
+---
+import { ChevronUp } from '@lucide/astro';
+---
+
+<button
+  id="scroll-to-top"
+  class="fixed bottom-6 right-20 z-[1000] flex h-12 w-12 scale-[0.8] items-center justify-center rounded-full border-0 bg-primary text-white opacity-0 invisible shadow-[0_4px_12px_rgba(0,0,0,0.15)] transition-all duration-300 ease-out cursor-pointer hover:scale-100 hover:bg-indian-red-600 hover:shadow-[0_6px_20px_rgba(205,92,92,0.4)] active:scale-95 md:bottom-8 md:right-24 md:h-14 md:w-14 [&>svg]:h-5 [&>svg]:w-5 md:[&>svg]:h-6 md:[&>svg]:w-6"
+  aria-label="Volver arriba"
+>
+  <ChevronUp />
+</button>
+
+<script>
+  const scrollToTopBtn = document.getElementById('scroll-to-top');
+
+  const hiddenClasses = ['opacity-0', 'invisible', 'scale-[0.8]'];
+  const visibleClasses = ['opacity-100', 'visible', 'scale-100'];
+
+  // Mostrar/ocultar botón según scroll
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      scrollToTopBtn?.classList.remove(...hiddenClasses);
+      scrollToTopBtn?.classList.add(...visibleClasses);
+    } else {
+      scrollToTopBtn?.classList.remove(...visibleClasses);
+      scrollToTopBtn?.classList.add(...hiddenClasses);
+    }
+  });
+
+  // Scroll suave al hacer click
+  scrollToTopBtn?.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+</script>

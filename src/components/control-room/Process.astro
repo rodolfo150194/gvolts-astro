@@ -1,0 +1,44 @@
+---
+const steps = [
+  { n: "01", meta: "1–2 días", title: "Evaluación", text: "Inspeccionamos el inmueble, puntos críticos, cargas y rutas de evacuación." },
+  { n: "02", meta: "3–5 días", title: "Diseño", text: "Planos CAD al código y selección de equipos para tu ambiente real." },
+  { n: "03", meta: "2–5 días", title: "Instalación", text: "Técnicos certificados, cableado oculto y mínima interrupción de tu operación." },
+  { n: "04", meta: "1 día", title: "Certificación", text: "Pruebas en condiciones reales y certificado oficial de cumplimiento." },
+  { n: "05", meta: "continuo", title: "Monitoreo", text: "Capacitamos a tu equipo y activamos la central 24/7." },
+];
+---
+
+<section class="process pt-[clamp(96px,12vw,180px)] pb-[clamp(64px,8vw,100px)]" id="proceso">
+  <div class="cr-wrap">
+    <header class="process__head">
+      <p class="cr-label" data-reveal>02 — Método</p>
+      <h2 class="mt-[18px] text-[clamp(48px,7vw,112px)]" data-reveal style="--d:80ms">Del plano <span class="outline text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">al monitoreo.</span></h2>
+    </header>
+
+    <div class="rail relative mt-[clamp(56px,7vw,80px)]">
+      <svg viewBox="0 0 1312 24" class="rail__line absolute left-0 top-0 w-full h-6 max-[960px]:hidden" preserveAspectRatio="none" aria-hidden="true">
+        <line x1="12" y1="12" x2="1300" y2="12" stroke="var(--cr-line-strong)" stroke-width="2"></line>
+        <line class="rail__flow [stroke-dasharray:6_14] animate-[rail-flow_3.2s_linear_infinite] motion-reduce:animate-none" x1="12" y1="12" x2="1300" y2="12" stroke="var(--cr-signal)" stroke-width="2"></line>
+      </svg>
+
+      <ol class="steps relative list-none m-0 p-0 grid grid-cols-5 gap-8 max-[960px]:grid-cols-2 max-[960px]:gap-x-6 max-[960px]:gap-y-10 max-[560px]:grid-cols-1">
+        {
+          steps.map((s, i) => (
+            <li class="step flex flex-col gap-4" data-reveal style={`--d:${i * 90}ms`}>
+              <span class={`step__node w-6 h-6 box-border border-2 border-[var(--cr-signal)] bg-[var(--cr-ink)] ${i === steps.length - 1 ? "step__node--live border-none bg-[var(--cr-signal)] shadow-[0_0_20px_var(--cr-signal)]" : ""}`} />
+              <p class="cr-label step__meta mt-3 text-[var(--cr-signal)]">{s.n} · {s.meta.toUpperCase()}</p>
+              <h3 class="text-[clamp(28px,2.4vw,36px)]">{s.title}</h3>
+              <p class="step__text text-[15px] leading-[1.6] text-[var(--cr-bone-dim)]">{s.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes rail-flow {
+    to { stroke-dashoffset: -200; }
+  }
+</style>

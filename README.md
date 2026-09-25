@@ -86,9 +86,9 @@ import { Phone, Mail } from '@lucide/astro';
 <Phone size={24} />
 ```
 
-### Icon.astro (para iconos dinámicos)
+### Icon.astro (para iconos dinámicos) — componente legado
 ```astro
-import Icon from "@/components/Icon.astro";
+import Icon from "@/components/old-version/Icon.astro";
 
 <Icon name="custom-icon" size={24} />
 ```

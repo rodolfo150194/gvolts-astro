@@ -1,46 +1,79 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import Header from "@/components/Header.astro";
-import PageHero from "@/components/PageHero.astro";
-import Footer from "@/components/Footer.astro";
+import Nav from "@/components/control-room/Nav.astro";
+import ProjectsPlanner from "@/components/control-room/ProjectsPlanner.astro";
+import Finale from "@/components/control-room/Finale.astro";
+import "@/styles/control-room.css";
+import { Image } from 'astro:assets';
+import menInstallCamera from "@/assets/img/gvolts/men-install-camera.png";
+import instalacion2 from "@/assets/img/gvolts/instalacion2.jpg";
+import electric from "@/assets/img/gvolts/electric.jpg";
+import planingProject from "@/assets/img/gvolts/planing-project.png";
+import instalacion from "@/assets/img/gvolts/instalacion.jpg";
+import { generateBreadcrumbSchema } from "@/utils/schemas";
+
+const breadcrumbSchema = generateBreadcrumbSchema([
+  { name: "Inicio", url: "https://gvoltscorp.cloud" },
+  { name: "Proyectos", url: "https://gvoltscorp.cloud/projects" },
+]);
+
+const categoryFilters: Record<string, string> = {
+  Seguridad: "seguridad",
+  "Fire Alarm": "incendio",
+  Consultoría: "consultoria",
+  Electricidad: "electricidad",
+};
 
 const projects = [
   {
-    image: "/img/gvolts/men-install-camera.png",
+    image: menInstallCamera,
     title: "Instalación Comercial",
     category: "Seguridad",
     description: "Sistema completo de videovigilancia para centro comercial.",
   },
   {
-    image: "/img/gvolts/instalacion2.jpg",
+    image: instalacion2,
     title: "Sistema de Incendios",
     category: "Fire Alarm",
     description: "Protección certificada para complejo residencial.",
   },
   {
-    image: "/img/gvolts/electric.jpg",
+    image: electric,
     title: "Red de Vigilancia",
     category: "Seguridad",
     description: "Monitoreo integral 24/7 para oficinas corporativas.",
   },
   {
-    image: "/img/gvolts/planing-project.png",
+    image: planingProject,
     title: "Planificación",
     category: "Consultoría",
     description: "Diseño personalizado de sistemas de seguridad.",
   },
   {
-    image: "/img/gvolts/instalacion.jpg",
+    image: instalacion,
     title: "Mantenimiento Eléctrico",
     category: "Electricidad",
     description: "Actualización de paneles y cableado para nave industrial.",
   },
   {
+    // NOTE: /img/gvolts/alarm.png does not exist in public/img/gvolts — pre-existing broken image, left as raw string/skipped.
     image: "/img/gvolts/alarm.png",
     title: "Detección Temprana",
     category: "Fire Alarm",
     description: "Instalación de sensores inteligentes en edificio histórico.",
   },
+].map((p, i) => ({
+  ...p,
+  code: `PRJ-${String(i + 1).padStart(2, "0")}`,
+  filter: categoryFilters[p.category] ?? "otros",
+}));
+
+const chips = [
+  { label: "Todos", filter: "todos" },
+  { label: "Incendio", filter: "incendio" },
+  { label: "Seguridad", filter: "seguridad" },
+  { label: "Electricidad", filter: "electricidad" },
+  { label: "Consultoría", filter: "consultoria" },
 ];
 ---
 
@@ -48,61 +81,174 @@ const projects = [
   title="Proyectos Realizados - Portfolio de Instalaciones | GVoltsCorp"
   description="Galería de nuestros proyectos de alarmas contra incendios, sistemas de seguridad y trabajos eléctricos. Ver casos de éxito en residencial, comercial e industrial."
 >
-  <Header />
-
-  <main class="pt-10">
-    <PageHero
-      title="Nuestros"
-      highlightedTitle="Proyectos"
-      description="Explora algunos de nuestros trabajos recientes en seguridad, alarmas contra incendios y electricidad."
-      badge="Portafolio"
+  <Fragment slot="head">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=Hanken+Grotesk:wght@400;500;600&display=swap"
     />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
 
-    <!-- Projects Grid -->
-    <section class="py-20 bg-white">
-      <div class="container mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {
-            projects.map((project) => (
-              <div class="group relative overflow-hidden rounded-2xl shadow-lg cursor-pointer">
-                <div class="aspect-[4/3] overflow-hidden">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                </div>
-                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                  <span class="text-indian-red-400 text-sm font-bold uppercase tracking-wider mb-2">
-                    {project.category}
-                  </span>
-                  <h3 class="text-2xl font-bold text-white mb-2">
-                    {project.title}
-                  </h3>
-                  <p class="text-slate-300 text-sm">{project.description}</p>
-                </div>
-              </div>
-            ))
-          }
+  <div class="cr" data-accent="projects">
+    <Nav />
+    <main id="main">
+      <!-- HERO -->
+      <section class="relative box-border pt-[clamp(48px,8vw,110px)] px-[var(--cr-gutter)] pb-[clamp(64px,9vw,130px)] flex flex-col gap-[clamp(24px,4vw,40px)] overflow-hidden [background:radial-gradient(60%_50%_at_85%_20%,color-mix(in_srgb,var(--cr-signal)_16%,transparent),transparent_70%),linear-gradient(var(--cr-line)_1px,transparent_1px)_0_0/100%_88px,var(--cr-ink)]">
+        <p class="cr-label flex items-center gap-[14px] [color:var(--cr-signal)]" data-reveal>
+          <span class="cr-led cr-led--signal cr-blink" aria-hidden="true"></span>Archivo de obra · 2014 — 2026
+        </p>
+
+        <h1 class="[font-family:var(--cr-display)] font-black uppercase leading-[0.9] tracking-[-0.02em] text-[clamp(60px,8.6vw,140px)]" data-reveal style="--d:80ms">Proyec<span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">tos.</span></h1>
+
+        <div class="flex justify-between items-end flex-wrap gap-[clamp(24px,4vw,48px)] mt-[clamp(8px,2vw,16px)] max-sm:flex-col max-sm:items-start" data-reveal style="--d:160ms">
+          <p class="max-w-[560px] text-[clamp(16px,1.4vw,20px)] leading-[1.6] [color:var(--cr-bone-dim)]">
+            Centros comerciales, complejos residenciales, oficinas y naves industriales. Una muestra del
+            trabajo que respalda cada presupuesto.
+          </p>
+          <dl class="flex gap-[clamp(28px,4vw,48px)] max-sm:gap-8">
+            <div>
+              <dd class="m-0 [font-family:var(--cr-display)] font-black text-[clamp(40px,6vw,88px)] leading-[0.9] [font-variant-numeric:tabular-nums]"><span data-count="500">0</span>+</dd>
+              <dt class="cr-label mt-1">Proyectos</dt>
+            </div>
+            <div>
+              <dd class="m-0 [font-family:var(--cr-display)] font-black text-[clamp(40px,6vw,88px)] leading-[0.9] [font-variant-numeric:tabular-nums]"><span data-count="10">0</span>+</dd>
+              <dt class="cr-label mt-1">Años</dt>
+            </div>
+          </dl>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- CTA -->
-    <section class="bg-slate-50 py-20">
-      <div class="container mx-auto px-4 text-center">
-        <h2 class="text-3xl font-bold text-slate-900 mb-6 font-display">
-          ¿Tienes un proyecto en mente?
-        </h2>
-        <a
-          href="/contact"
-          class="inline-block bg-indian-red-500 text-white px-8 py-4 rounded-xl font-bold hover:bg-indian-red-600 transition-all shadow-lg shadow-indian-red-500/30"
-        >
-          Hablemos
-        </a>
-      </div>
-    </section>
-  </main>
-  
-  <Footer />
+      <!-- GRID -->
+      <section id="proyectos" class="pt-[clamp(56px,8vw,120px)] pb-[clamp(72px,10vw,140px)] border-t border-[color:var(--cr-line)]">
+        <div class="cr-wrap">
+          <header class="mb-[clamp(32px,4vw,48px)]">
+            <div>
+              <p class="cr-label" data-reveal>01 — Casos de éxito</p>
+              <h2 class="mt-[18px] text-[clamp(46px,6.4vw,96px)]" data-reveal style="--d:80ms">Trabajo <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">en el terreno.</span></h2>
+            </div>
+          </header>
+
+          <div class="flex flex-wrap gap-[10px] mb-[clamp(32px,5vw,56px)]" data-reveal style="--d:120ms" role="group" aria-label="Filtrar proyectos por categoría">
+            {
+              chips.map((c, i) => (
+                <button
+                  type="button"
+                  class="[font-family:var(--cr-mono)] text-xs font-semibold tracking-widest uppercase px-5 py-[10px] bg-transparent [color:var(--cr-bone-dim)] border border-[color:var(--cr-line-strong)] [clip-path:polygon(0_0,calc(100%-10px)_0,100%_10px,100%_100%,10px_100%,0_calc(100%-10px))] cursor-pointer transition-[background,color,border-color] duration-[250ms] hover:[color:var(--cr-bone)] hover:border-[color:var(--cr-bone-dim)] aria-pressed:[background:var(--cr-signal)] aria-pressed:[color:var(--cr-ink)] aria-pressed:border-[color:var(--cr-signal)]"
+                  data-filter-btn={c.filter}
+                  aria-pressed={i === 0 ? "true" : "false"}
+                >
+                  {c.label}
+                </button>
+              ))
+            }
+          </div>
+
+          <ul class="list-none m-0 p-0 grid grid-cols-3 gap-px [background:var(--cr-line)] border border-[color:var(--cr-line-strong)] max-[960px]:grid-cols-2 max-sm:grid-cols-1">
+            {
+              projects.map((p, i) => (
+                <li class="group [background:var(--cr-ink-2)] flex flex-col [transition:background_0.4s,opacity_0.35s,transform_0.35s] [&[hidden]]:hidden" data-project data-filter={p.filter} data-reveal style={`--d:${i * 80}ms`}>
+                  <div class="relative aspect-[4/3] overflow-hidden">
+                    {typeof p.image === "string" ? (
+                      <img class="w-full h-full object-cover block [filter:grayscale(0.55)_contrast(1.1)_brightness(0.85)] scale-[1.04] [transition:filter_0.6s,transform_0.9s_cubic-bezier(0.2,0.7,0.1,1)] group-hover:filter-none group-hover:scale-110" src={p.image} alt={p.title} loading="lazy" />
+                    ) : (
+                      <Image class="w-full h-full object-cover block [filter:grayscale(0.55)_contrast(1.1)_brightness(0.85)] scale-[1.04] [transition:filter_0.6s,transform_0.9s_cubic-bezier(0.2,0.7,0.1,1)] group-hover:filter-none group-hover:scale-110" src={p.image} alt={p.title} loading="lazy" format="webp" />
+                    )}
+                    <span class="cr-label absolute left-[14px] top-[14px] py-[5px] px-[9px] [background:var(--cr-ink)] [color:var(--cr-signal)]">{p.code}</span>
+                  </div>
+                  <div class="pt-[22px] px-5 pb-[26px] flex flex-col gap-[10px] flex-1">
+                    <span class="cr-label inline-flex items-center gap-[10px] [color:var(--cr-signal)]">
+                      <span class="cr-led cr-led--signal" aria-hidden="true"></span>
+                      {p.category}
+                    </span>
+                    <h3 class="text-[clamp(24px,2.2vw,30px)]">{p.title}</h3>
+                    <p class="text-[14.5px] leading-[1.55] [color:var(--cr-bone-dim)]">{p.description}</p>
+                  </div>
+                </li>
+              ))
+            }
+          </ul>
+
+          <p class="mt-8 [font-family:var(--cr-mono)] text-[13px] [color:var(--cr-bone-dim)] text-center" data-empty-state hidden>No hay proyectos en esta categoría todavía.</p>
+        </div>
+      </section>
+
+      <!-- PLANNER -->
+      <ProjectsPlanner />
+
+      <!-- CTA -->
+      <section class="[background:var(--cr-signal)] [color:var(--cr-ink)]">
+        <div class="cr-wrap py-[clamp(56px,8vw,100px)] flex flex-wrap justify-between items-center gap-8">
+          <h2 class="text-[clamp(40px,7vw,128px)]">Tu proyecto<br />es el siguiente.</h2>
+          <a href="/contact" class="cr-btn [background:var(--cr-ink)] border-[color:var(--cr-ink)] [color:var(--cr-bone)] hover:[background:var(--cr-bone)] hover:border-[color:var(--cr-bone)] hover:[color:var(--cr-ink)]">Cotizar proyecto <span aria-hidden="true">→</span></a>
+        </div>
+      </section>
+    </main>
+
+    <Finale />
+  </div>
 </Layout>
+
+<script>
+  // Staggered scroll reveals (same behaviour as other cr pages)
+  const revealEls = document.querySelectorAll<HTMLElement>(".cr [data-reveal]");
+  const revealer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add("is-in");
+          revealer.unobserve(e.target);
+        }
+      });
+    },
+    { rootMargin: "0px 0px -8% 0px" },
+  );
+  revealEls.forEach((el) => revealer.observe(el));
+
+  // Stat counters tick up like a meter settling
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const counters = document.querySelectorAll<HTMLElement>("[data-count]");
+  const counterIO = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      const el = e.target as HTMLElement;
+      counterIO.unobserve(el);
+      const end = Number(el.dataset.count);
+      if (reduce) return;
+      const start = performance.now();
+      const dur = 1400;
+      const step = (now: number) => {
+        const k = Math.min(1, (now - start) / dur);
+        const eased = 1 - Math.pow(1 - k, 4);
+        el.textContent = String(Math.round(end * eased));
+        if (k < 1) requestAnimationFrame(step);
+      };
+      el.textContent = "0";
+      requestAnimationFrame(step);
+    });
+  });
+  counters.forEach((c) => counterIO.observe(c));
+
+  // Category filter chips — pure client-side show/hide, no framework
+  const chipButtons = [...document.querySelectorAll<HTMLButtonElement>("[data-filter-btn]")];
+  const cards = [...document.querySelectorAll<HTMLElement>("[data-project]")];
+  const emptyState = document.querySelector<HTMLElement>("[data-empty-state]");
+
+  const applyFilter = (filter: string) => {
+    let visibleCount = 0;
+    cards.forEach((card) => {
+      const matches = filter === "todos" || card.dataset.filter === filter;
+      card.hidden = !matches;
+      if (matches) visibleCount += 1;
+    });
+    if (emptyState) emptyState.hidden = visibleCount > 0;
+  };
+
+  chipButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      chipButtons.forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+      applyFilter(btn.dataset.filterBtn ?? "todos");
+    });
+  });
+</script>

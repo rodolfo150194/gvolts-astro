@@ -1,203 +1,371 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import Header from "@/components/Header.astro";
-import Footer from "@/components/Footer.astro";
-import { Check, Phone } from "@lucide/astro";
-import Icon from "@/components/Icon.astro";
-import CTAButton from "@/components/CTAButton.astro";
-import PageHero from "@components/PageHero.astro";
-import Timeline from "@/components/Timeline.astro";
-import ScrollToTop from "@components/ScrollToTop.astro";
+import Nav from "@/components/control-room/Nav.astro";
+import CameraViewer from "@/components/control-room/CameraViewer.astro";
+import Finale from "@/components/control-room/Finale.astro";
+import logoSecurity from "@/assets/img/logo/G_VOLTS_huella_completo.webp";
+import "@/styles/control-room.css";
 import { generateServiceSchema, generateBreadcrumbSchema } from "@/utils/schemas";
-// Import service content
-import serviceContent from "@/data/security-content.json";
-const content = serviceContent.servicesPages.security;
+import { Image } from 'astro:assets';
+import instalacion2 from "@/assets/img/gvolts/instalacion2.jpg";
+import controlDeAcceso from "@/assets/img/gvolts/control-de-acceso.jpg";
 
-// Generate schemas for SEO
 const serviceSchema = generateServiceSchema(
   "Videovigilancia y Sistemas de Seguridad",
   "Sistemas de seguridad con cámaras 4K, inteligencia artificial, control de acceso biométrico y almacenamiento en nube. Monitoreo remoto 24/7.",
-  "https://www.gvoltscorp.com/services/security"
+  "https://gvoltscorp.cloud/services/security",
 );
 
 const breadcrumbSchema = generateBreadcrumbSchema([
-  { name: "Inicio", url: "https://www.gvoltscorp.com" },
-  { name: "Servicios", url: "https://www.gvoltscorp.com/#services" },
-  { name: "Seguridad Integral", url: "https://www.gvoltscorp.com/services/security" }
+  { name: "Inicio", url: "https://gvoltscorp.cloud" },
+  { name: "Servicios", url: "https://gvoltscorp.cloud/#servicios" },
+  { name: "Seguridad Integral", url: "https://gvoltscorp.cloud/services/security" },
 ]);
 
 const schemas = [serviceSchema, breadcrumbSchema];
+
+const highlights = [
+  { title: "IA que aprende patrones y detecta anomalías", icon: "spark" },
+  { title: "Control desde tu móvil iOS y Android", icon: "phone" },
+  { title: "Almacenamiento redundante local + nube", icon: "cloud" },
+];
+
+const solutions = [
+  {
+    tag: "SOL-A · VIDEOVIGILANCIA",
+    title: "Videovigilancia inteligente",
+    tagline: "Ojos que nunca duermen, cerebro que siempre piensa.",
+    image: instalacion2,
+    imageAlt: "Técnico instalando una cámara de videovigilancia",
+    price: "Desde $2,499",
+    priceNote: "Paquete básico: 4 cámaras + NVR",
+    items: [
+      {
+        title: "Cámaras 4K con visión nocturna",
+        description: "Imagen nítida hasta 30 metros en oscuridad total, zoom óptico 4x y resistencia IP67.",
+        spec: "8MP 3840×2160 · WDR 120dB · H.265+",
+      },
+      {
+        title: "Analíticas con IA incorporada",
+        description: "Personas, vehículos, intrusión, objetos abandonados y comportamiento anormal. 99% menos eventos falsos.",
+        spec: "Facial 1:N · LPR/ANPR · Heatmap de personas",
+      },
+      {
+        title: "Grabación inteligente multi-nivel",
+        description: "Cambia a 4K al detectar movimiento. RAID 5 local + respaldo en nube cifrado.",
+        spec: "NVR 32 canales · 30 días · SSL remoto",
+      },
+    ],
+  },
+  {
+    tag: "SOL-B · ACCESO",
+    title: "Control de acceso biométrico",
+    tagline: "Solo quien tú decidas, cuando tú decidas.",
+    image: controlDeAcceso,
+    imageAlt: "Persona usando una tarjeta en un lector de control de acceso",
+    price: "Desde $1,899",
+    priceNote: "2 puertas con lectores biométricos",
+    items: [
+      {
+        title: "Lectores multi-tecnología",
+        description: "Huella, rostro, tarjeta RFID, PIN y móvil Bluetooth. La combinación perfecta para cada entrada.",
+        spec: "Óptico 500dpi · Facial 3D · NFC 13.56MHz",
+      },
+      {
+        title: "Gestión en la nube",
+        description: "Usuarios, horarios, áreas restringidas y reportes en tiempo real desde cualquier lugar.",
+        spec: "10,000 usuarios · Active Directory",
+      },
+      {
+        title: "Cerraduras electrónicas",
+        description: "Desde puertas simples hasta torniquetes y barreras vehiculares, con control centralizado.",
+        spec: "Failsafe / Failsecure · Apertura de emergencia",
+      },
+    ],
+  },
+];
+
+const ecosystem = [
+  {
+    title: "App móvil única",
+    description: "Cámaras en vivo, apertura de puertas, armado de alarmas y notificaciones inteligentes.",
+    tags: ["iOS", "Android", "Web"],
+  },
+  {
+    title: "Automatización inteligente",
+    description: "“Al salir” arma la alarma, cierra puertas y activa cámaras. “Al llegar” desarma todo por geolocalización.",
+    tags: [],
+  },
+  {
+    title: "Integraciones enterprise",
+    description: "APIs abiertas para ERP, RR. HH. y CRM. Asistencia y nómina sincronizadas.",
+    tags: ["Active Directory", "Google Workspace", "Azure AD"],
+  },
+];
+
+const advantages = [
+  { title: "Instalación sin interrupciones", description: "Horarios flexibles, fines de semana incluidos. Comerciales típicas en 3–5 días." },
+  { title: "Capacitación incluida", description: "Entrenamos a tu equipo con manuales personalizados y videos de referencia." },
+  { title: "Migración sin dolor", description: "Aprovechamos lo que sirve de tu sistema antiguo y migramos sin desprotegerte." },
+  { title: "Escalabilidad garantizada", description: "Arquitectura modular que crece con tu negocio, sin renovaciones costosas." },
+  { title: "Mantenimiento preventivo", description: "Visitas trimestrales: lentes, ángulos, firmware y almacenamiento." },
+  { title: "Seguridad cibernética", description: "AES-256, VPN dedicada y doble factor. Tus videos no caen en manos equivocadas." },
+];
 ---
 
 <Layout
   title="Videovigilancia Inteligente y Control de Acceso | GVoltscorp"
   description="Sistemas de seguridad con cámaras 4K, IA de detección, control de acceso biométrico y almacenamiento en nube. Monitorea tu propiedad desde cualquier lugar."
-  ogImage="/img/og/security-og.png"
-  schema={schemas}
 >
-  <Header />
-  <PageHero
-      title="Energía Segura y"
-      highlightedTitle="Eficiente"
-      description="Instalaciones y reparaciones eléctricas residenciales y comerciales. Servicio profesional certificado y garantizado."
-      badge="Servicios Eléctricos"
-      backgroundImage="/img/gvolts/control-de-acceso.jpg"
-      icon="shield-check"
+  <Fragment slot="head">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=Hanken+Grotesk:wght@400;500;600&display=swap"
     />
-  <main class="pt-10">
-    <section class="">
-      <div class="container mx-auto px-4">
-        <div class="max-w-6xl mx-auto">
-          
-         <!-- Highlights with icons -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 highlights-grid">
-            {content.introduction.highlights.map((highlight) => (
-              <div class="highlight-card group bg-slate-50 p-6 rounded-2xl border-2 border-slate-200 hover:border-indian-red-500 transition-all duration-500 hover:-translate-y-2 hover:shadow-xl">
-                <div class="w-12 h-12 bg-indian-red-500 text-white rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                  <Icon name={highlight.icon} size="24" class="text-white" />
-                </div>
-                <p class="text-slate-700 font-medium">{highlight.text}</p>
+    {schemas.map((schema) => <script type="application/ld+json" set:html={JSON.stringify(schema)} />)}
+  </Fragment>
+
+  <div class="cr" data-accent="security">
+    <Nav logo={logoSecurity} />
+    <main id="main">
+      <!-- HERO -->
+      <section class="relative overflow-hidden pt-[clamp(40px,10vw,72px)] pb-[clamp(88px,14vw,120px)] sm:pt-[clamp(48px,8vw,110px)] sm:pb-[clamp(64px,9vw,130px)] [background:radial-gradient(60%_50%_at_85%_20%,color-mix(in_srgb,var(--cr-signal)_16%,transparent),transparent_70%),linear-gradient(var(--cr-line)_1px,transparent_1px)_0_0/100%_88px,var(--cr-ink)]">
+        <div class="cr-wrap grid grid-cols-1 min-[960px]:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] gap-[clamp(40px,6vw,96px)] items-center">
+          <div>
+            <p class="cr-label flex items-center gap-[14px] text-[var(--cr-signal)] mb-7" data-reveal>
+              <span class="w-10 h-px bg-current"></span>S-02 · Seguridad electrónica integral
+            </p>
+
+            <h1 class="[font-family:var(--cr-display)] font-black uppercase leading-[0.84] text-[length:clamp(52px,7.4vw,118px)]">
+              <span class="block" data-reveal style="--d:80ms">Vigilancia</span>
+              <span class="block text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]" data-reveal style="--d:160ms">inteligente.</span>
+              <span class="block text-[var(--cr-signal)]" data-reveal style="--d:240ms">Control total.</span>
+            </h1>
+
+            <p class="mt-8 max-w-[48ch] text-[length:clamp(17px,1.4vw,20px)] text-[var(--cr-bone-dim)]" data-reveal style="--d:340ms">
+              Videovigilancia 4K con IA, control de acceso biométrico y alarmas perimetrales. Ve, controla y protege
+              desde cualquier lugar del mundo.
+            </p>
+
+            <div class="flex flex-col items-stretch sm:flex-row sm:flex-wrap gap-[14px] mt-9" data-reveal style="--d:420ms">
+              <a href="/contact" class="cr-btn justify-center sm:justify-normal">Demo en vivo <span aria-hidden="true">→</span></a>
+              <a href="#soluciones" class="cr-btn cr-btn--ghost justify-center sm:justify-normal">Ver soluciones</a>
+            </div>
+
+            <dl class="grid grid-cols-2 gap-y-5 sm:grid-cols-3 sm:gap-y-0 mt-14 border-t border-[var(--cr-line-strong)]" data-reveal style="--d:500ms">
+              <div class="pt-[18px] pr-4">
+                <dt class="cr-label">Ultra HD</dt>
+                <dd class="mt-1.5 [font-family:var(--cr-display)] font-extrabold text-[length:clamp(36px,4vw,56px)] leading-none [font-variant-numeric:tabular-nums]">4<span class="text-[var(--cr-signal)]">K</span></dd>
               </div>
-            ))}
+              <div class="pt-[18px] pr-4 pl-4 border-l border-[var(--cr-line)]">
+                <dt class="cr-label">Grabación en nube</dt>
+                <dd class="mt-1.5 [font-family:var(--cr-display)] font-extrabold text-[length:clamp(36px,4vw,56px)] leading-none [font-variant-numeric:tabular-nums]">30<span class="text-[var(--cr-signal)]"> días</span></dd>
+              </div>
+              <div class="pt-[18px] pr-4 col-span-2 border-t border-[var(--cr-line)] sm:col-span-1 sm:border-t-0 sm:pl-4 sm:border-l sm:border-[var(--cr-line)]">
+                <dt class="cr-label">Uptime garantizado</dt>
+                <dd class="mt-1.5 [font-family:var(--cr-display)] font-extrabold text-[length:clamp(36px,4vw,56px)] leading-none [font-variant-numeric:tabular-nums]"><span data-count="99.9">99.9</span><span class="text-[var(--cr-signal)]">%</span></dd>
+              </div>
+            </dl>
+          </div>
+
+          <div class="relative" data-reveal style="--d:200ms">
+            <CameraViewer />
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Solutions Showcase -->
-    <section class="py-20">
-      <div class="container mx-auto px-4">
-        <div class="max-w-7xl mx-auto">
-          <div class="text-center mb-16">
-            <h2 class="solutions-title font-display text-5xl md:text-6xl font-bold text-slate-900 mb-4">
-              {content.solutions.title}
-            </h2>
+      <!-- INTRO -->
+      <section class="py-[clamp(72px,10vw,140px)] border-t border-[var(--cr-line)]">
+        <div class="cr-wrap grid grid-cols-1 min-[960px]:grid-cols-2 gap-[clamp(48px,6vw,96px)]">
+          <div>
+            <p class="cr-label" data-reveal>01 — Inteligencia</p>
+            <h2 class="mt-[18px] text-[length:clamp(40px,5.4vw,84px)]" data-reveal style="--d:80ms">Seguridad que piensa <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">y actúa por ti.</span></h2>
+          </div>
+          <div data-reveal style="--d:200ms">
+            <p class="text-[19px] leading-[1.7] text-[color-mix(in_srgb,var(--cr-bone)_80%,transparent)]">
+              Olvídate de grabar horas de video que nadie revisa. Nuestra IA detecta comportamientos sospechosos,
+              reconoce caras, lee placas y te alerta solo cuando importa. Cámaras, acceso, alarmas y automatización
+              en una sola plataforma.
+            </p>
+            <ul class="mt-8 p-0 list-none flex flex-col border-t border-[var(--cr-line)]">
+              {highlights.map((h) => (
+                <li class="py-[18px] border-b border-[var(--cr-line)] text-[17px] pl-8 relative before:content-[''] before:absolute before:left-0 before:top-1/2 before:[translate:0_-50%] before:w-2 before:h-2 before:bg-[var(--cr-signal)]">
+                  {h.title}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SOLUTIONS -->
+      <section id="soluciones" class="py-[clamp(72px,10vw,140px)] bg-[var(--cr-ink-2)]">
+        <div class="cr-wrap">
+          <header class="mb-[clamp(48px,6vw,64px)] flex flex-col items-start min-[761px]:block">
+            <div>
+              <p class="cr-label" data-reveal>02 — Soluciones</p>
+              <h2 class="mt-[18px] text-[length:clamp(46px,6.4vw,100px)]" data-reveal style="--d:80ms">Seguridad <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">a medida.</span></h2>
+            </div>
+          </header>
+
+          {
+            solutions.map((s, i) => (
+              <article
+                class={`grid grid-cols-1 min-[960px]:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] gap-[clamp(32px,5vw,64px)] items-stretch ${i > 0 ? "mt-[clamp(56px,8vw,96px)]" : ""}`}
+                data-reveal
+                style={`--d:${i * 90}ms`}
+                data-reverse={i % 2 === 1}
+              >
+                <div class={`relative min-h-[420px] overflow-hidden ${i % 2 === 1 ? "min-[960px]:order-2" : ""}`}>
+                  <Image src={s.image} alt={s.imageAlt} loading="lazy" format="webp" class="w-full h-full object-cover block grayscale-[.6] contrast-[1.1]" />
+                  <span class="absolute left-5 top-5 py-1.5 px-2.5 bg-[var(--cr-ink)] [font-family:var(--cr-mono)] text-xs tracking-[0.12em] text-[var(--cr-signal)]">{s.tag}</span>
+                </div>
+                <div class="flex flex-col gap-6">
+                  <h3 class="text-[length:clamp(34px,4vw,52px)]">{s.title}</h3>
+                  <p class="text-[19px] italic text-[var(--cr-signal)]">{s.tagline}</p>
+                  <div class="flex flex-col border-t border-[var(--cr-line)]">
+                    {s.items.map((it) => (
+                      <div class="py-5 border-b border-[var(--cr-line)] flex flex-col gap-2">
+                        <h4 class="text-lg font-bold">{it.title}</h4>
+                        <p class="text-[15px] leading-[1.55] text-[var(--cr-bone-dim)]">{it.description}</p>
+                        <p class="[font-family:var(--cr-mono)] text-xs text-[var(--cr-amber)]">{it.spec}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <div class="mt-auto flex flex-col items-stretch sm:flex-row sm:justify-between sm:items-center gap-5 py-6 px-7 bg-[var(--cr-ink-3)] border border-[var(--cr-line)] text-left">
+                    <div>
+                      <p class="[font-family:var(--cr-display)] font-extrabold text-[38px] leading-none">{s.price}</p>
+                      <p class="mt-1.5 text-sm text-[var(--cr-bone-dim)]">{s.priceNote}</p>
+                    </div>
+                    <a href="/contact" class="cr-btn">Cotizar <span aria-hidden="true">→</span></a>
+                  </div>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <!-- ECOSYSTEM -->
+      <section class="py-[clamp(72px,10vw,140px)]">
+        <div class="cr-wrap grid grid-cols-1 min-[960px]:grid-cols-[minmax(0,0.55fr)_minmax(0,1fr)] gap-[clamp(48px,6vw,80px)] items-center">
+          <div class="relative w-[min(100%,420px)] aspect-square mx-auto" data-reveal aria-hidden="true">
+            <div class="absolute inset-0 rounded-full border border-dashed border-[var(--cr-line-strong)] animate-[sec-orbit_30s_linear_infinite]">
+              <span class="absolute w-[6%] h-[6%] bg-[var(--cr-signal)] left-[47%] -top-[3%]"></span>
+              <span class="absolute w-[6%] h-[6%] bg-[var(--cr-signal-deep)] -left-[3%] top-[47%]"></span>
+              <span class="absolute w-[6%] h-[6%] bg-[var(--cr-amber)] -right-[3%] top-[47%]"></span>
+            </div>
+            <div class="absolute inset-[17%] rounded-full border border-solid border-[color-mix(in_srgb,var(--cr-signal)_35%,transparent)] animate-[sec-orbit_30s_linear_infinite] [animation-direction:reverse]">
+              <span class="absolute w-[6%] h-[6%] rounded-full bg-[var(--cr-bone)] left-[47%] -bottom-[3%]"></span>
+            </div>
+            <div class="absolute inset-[34.5%] flex flex-col items-center justify-center gap-1.5 bg-[var(--cr-ink-2)] border border-[var(--cr-signal)] rounded-full text-[var(--cr-signal)]">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="6" y="2" width="12" height="20" rx="2" />
+                <path d="M12 18h.01" />
+              </svg>
+              <span class="[font-family:var(--cr-mono)] text-[10px] tracking-[0.12em]">GVOLTS APP</span>
+            </div>
           </div>
 
-          <!-- Solutions Grid -->
-          <div class="space-y-16 solutions-container">
-            {content.solutions.items.map((solution, index) => (
-              <div class="solution-card bg-white rounded-3xl shadow-2xl overflow-hidden border-2 border-slate-100 hover:border-indian-red-500 transition-all">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
-                  <!-- Content Side -->
-                  <div class="p-8 lg:p-12 flex flex-col justify-center">
-                    <div class="flex items-center gap-3 mb-4">
-                      <div class="w-12 h-12 bg-indian-red-500 text-white rounded-xl flex items-center justify-center">
-                        <Icon name={solution.icon} size="24" class="text-white" />
-                      </div>
-                      <div>
-                        <h3 class="text-3xl font-bold text-slate-900">{solution.name}</h3>
-                        <p class="text-sm text-indian-red-500 font-semibold">{solution.tagline}</p>
-                      </div>
-                    </div>
-                    <p class="text-slate-600 mb-6 text-lg">{solution.description}</p>
-
-                    <!-- Features List -->
-                    <div class="space-y-4 mb-6">
-                      {solution.features.map((feature) => (
-                        <div class="bg-slate-50 p-4 rounded-xl">
-                          <h4 class="font-bold text-slate-900 mb-2">{feature.title}</h4>
-                          <p class="text-sm text-slate-600 mb-3">{feature.description}</p>
-                          <ul class="space-y-1">
-                            {feature.specs.map((spec) => (
-                              <li class="flex items-start gap-2 text-sm text-slate-700">
-                                <Check size={14} class="text-indian-red-500 mt-0.5 shrink-0" />
-                                <span>{spec}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ))}
-                    </div>
-
-                    <!-- Pricing -->
-                    {solution.pricing && (
-                      <div class="bg-linear-to-r from-indian-red-50 to-orange-50 p-4 rounded-xl border-2 border-indian-red-200">
-                        <div class="flex items-center justify-between">
-                          <div>
-                            <span class="text-2xl font-bold text-indian-red-600">{solution.pricing.starting}</span>
-                            <p class="text-sm text-slate-600">{solution.pricing.note}</p>
-                          </div>
-                          <CTAButton text="Cotizar" href="/contact" className="px-6 py-3" />
-                        </div>
-                      </div>
+          <div class="flex flex-col gap-9">
+            <div>
+              <p class="cr-label" data-reveal>03 — Ecosistema</p>
+              <h2 class="mt-[18px] text-[length:clamp(40px,5.6vw,84px)]" data-reveal style="--d:80ms">Un ecosistema. <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">Control total.</span></h2>
+            </div>
+            <div class="flex flex-col border-t border-[var(--cr-line)]">
+              {
+                ecosystem.map((e, i) => (
+                  <div class="py-[22px] border-b border-[var(--cr-line)] flex flex-col gap-2.5" data-reveal style={`--d:${i * 90}ms`}>
+                    <h3 class="text-xl font-bold">{e.title}</h3>
+                    <p class="text-[15px] leading-[1.55] text-[var(--cr-bone-dim)]">{e.description}</p>
+                    {e.tags.length > 0 && (
+                      <p class="flex flex-wrap gap-2">
+                        {e.tags.map((t) => <span class="py-1 px-2.5 border border-[var(--cr-line-strong)] [font-family:var(--cr-mono)] text-[11px]">{t}</span>)}
+                      </p>
                     )}
                   </div>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+      </section>
 
-                  <!-- Image Side -->
-                  <div class="relative h-64 lg:h-auto">
-                    <img
-                      src={solution.image}
-                      alt={`${solution.name} - Sistema de seguridad y videovigilancia profesional de GVolts`}
-                      loading="lazy"
-                      class="absolute inset-0 w-full h-full object-cover"
-                    />
-                    <div class="absolute inset-0 bg-linear-to-t from-black/50 to-transparent"></div>
-                  </div>
+      <!-- ADVANTAGES -->
+      <section class="py-[clamp(72px,10vw,140px)] bg-[var(--cr-ink-2)]">
+        <div class="cr-wrap">
+          <header class="mb-[clamp(48px,6vw,64px)] flex flex-col items-start min-[761px]:block">
+            <div>
+              <p class="cr-label" data-reveal>04 — Ventajas</p>
+              <h2 class="mt-[18px] text-[length:clamp(46px,6.4vw,100px)]" data-reveal style="--d:80ms">Ventajas de <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">elegir GVolts.</span></h2>
+            </div>
+          </header>
+
+          <div class="grid grid-cols-1 min-[640px]:grid-cols-2 min-[960px]:grid-cols-3 gap-x-12 gap-y-10">
+            {
+              advantages.map((a, i) => (
+                <div class="flex flex-col gap-3 pt-5 border-t border-[var(--cr-line-strong)]" data-reveal style={`--d:${i * 70}ms`}>
+                  <p class="[font-family:var(--cr-display)] font-black text-[44px] text-[var(--cr-signal)]">{String(i + 1).padStart(2, "0")}</p>
+                  <h3 class="text-[19px] font-bold">{a.title}</h3>
+                  <p class="text-[15px] leading-[1.6] text-[var(--cr-bone-dim)]">{a.description}</p>
                 </div>
-              </div>
-            ))}
+              ))
+            }
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </main>
 
-    <!-- Process Timeline -->
-    <Timeline
-      title={content.process.title}
-      subtitle={content.process.subtitle}
-      steps={content.process.steps}
-    />
-
-    <!-- CTA Section -->
-    <section class="py-20 bg-slate-900 text-white relative overflow-hidden">
-      <!-- Animated background -->
-      <div class="absolute inset-0 opacity-50">
-        <div
-          class="absolute inset-0"
-          style="background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px); background-size: 50px 50px;"
-        />
-      </div>
-
-      <div class="container mx-auto px-4 relative z-10">
-        <div class="max-w-4xl mx-auto text-center">
-          <h2 class="cta-title font-display text-4xl md:text-6xl font-bold mb-6">
-            {content.cta.title}
-          </h2>
-          <p class="cta-description text-xl text-slate-300 mb-12 max-w-2xl mx-auto">
-            {content.cta.description}
-          </p>
-
-          <div class="flex flex-wrap justify-center gap-4 mb-12">
-            <a
-              href={content.cta.primary.href}
-              class="group bg-linear-to-r from-indian-red-500 to-indian-red-600 text-white px-8 py-4 rounded-xl font-bold hover:shadow-2xl hover:shadow-indian-red-500/50 transition-all transform hover:-translate-y-1"
-            >
-              {content.cta.primary.label}
-            </a>
-            <a
-              href={content.cta.secondary.href}
-              class="inline-flex items-center gap-2 bg-white/10 text-white px-8 py-4 rounded-xl font-bold hover:bg-white/20 transition-all backdrop-blur-sm border border-white/20"
-            >
-              <Phone size={20} />
-              <span>{content.cta.secondary.label}</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <Footer />
-  <ScrollToTop />
+    <Finale logo={logoSecurity} />
+  </div>
 </Layout>
 
-<script>
-  // document.addEventListener("DOMContentLoaded", async () => {
-  //   const { gsap } = await import("gsap");
-  //   const { ScrollTrigger } = await import("gsap/ScrollTrigger");
-  //   gsap.registerPlugin(ScrollTrigger);
 
-  //   // Animations can be added here if needed
-  // });
+<style>
+  @keyframes sec-orbit {
+    to { transform: rotate(360deg); }
+  }
+</style>
+
+<script>
+  // Staggered scroll reveals (same behaviour as the home page)
+  const revealEls = document.querySelectorAll<HTMLElement>(".cr [data-reveal]");
+  const revealer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add("is-in");
+          revealer.unobserve(e.target);
+        }
+      });
+    },
+    { rootMargin: "0px 0px -8% 0px" },
+  );
+  revealEls.forEach((el) => revealer.observe(el));
+
+  // Stat counters tick up like a meter settling
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const counters = document.querySelectorAll<HTMLElement>("[data-count]");
+  const counterIO = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      const el = e.target as HTMLElement;
+      counterIO.unobserve(el);
+      const end = Number(el.dataset.count);
+      if (reduce) return;
+      const start = performance.now();
+      const dur = 1600;
+      const step = (now: number) => {
+        const k = Math.min(1, (now - start) / dur);
+        const eased = 1 - Math.pow(1 - k, 4);
+        el.textContent = (end * eased).toFixed(end % 1 !== 0 ? 1 : 0);
+        if (k < 1) requestAnimationFrame(step);
+      };
+      el.textContent = "0";
+      requestAnimationFrame(step);
+    });
+  });
+  counters.forEach((c) => counterIO.observe(c));
 </script>

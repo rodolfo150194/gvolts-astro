@@ -1,0 +1,714 @@
+---
+// "Arma tu obra" — live construction/repair budget & timeline simulator.
+// Mirrors the ProjectsPlanner.dc.html design-canvas artboard, but starts
+// collapsed behind a gate: the user must press "Activar simulador" before
+// any of this mounts or becomes visible.
+---
+
+<section class="pt-[clamp(56px,8vw,96px)] pb-[clamp(56px,8vw,96px)] border-t border-[color:var(--cr-line)]" data-pp>
+  <div class="cr-wrap">
+    <div class="flex flex-wrap items-center justify-between gap-7 p-[clamp(28px,4vw,44px)] [background:var(--cr-ink-2)] border border-[color:var(--cr-line-strong)] max-sm:flex-col max-sm:items-start" data-pp-gate>
+      <div class="flex-[1_1_420px]">
+        <p class="cr-label flex items-center gap-3 [color:var(--cr-amber)] mb-[14px]">
+          <span class="cr-led cr-led--amber cr-blink" aria-hidden="true"></span>Archivo de obra · Planificador
+        </p>
+        <h2 class="text-[clamp(32px,4vw,56px)]">¿Armamos <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">tu obra?</span></h2>
+        <p class="max-w-[560px] mt-3 [color:var(--cr-bone-dim)]">
+          Configura una instalación nueva o diagnostica una existente. Simula la obra día a día y mira el
+          presupuesto armarse en vivo, con las mismas tarifas que usamos para cotizar.
+        </p>
+      </div>
+      <button type="button" class="cr-btn shrink-0" data-pp-activate>
+        Activar simulador <span aria-hidden="true">▶</span>
+      </button>
+    </div>
+
+    <div class="mt-[clamp(32px,5vw,48px)] flex flex-col gap-[clamp(28px,4vw,36px)] [&[hidden]]:hidden" data-pp-content hidden>
+      <!-- HEADER -->
+      <div class="flex flex-wrap justify-between items-end gap-8 max-sm:items-start">
+        <div>
+          <p class="cr-label flex items-center gap-3 [color:var(--cr-signal)] mb-[14px]">
+            <span class="cr-led cr-led--signal cr-blink" aria-hidden="true"></span>Archivo de obra · Planificador
+          </p>
+          <h2 class="text-[clamp(40px,6vw,88px)]">Arma tu <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">obra.</span></h2>
+        </div>
+        <div class="flex flex-col items-end gap-[14px] max-sm:items-start">
+          <p class="max-w-[380px] text-right [color:var(--cr-bone-dim)] text-[15px] max-sm:text-left">
+            Configura una instalación nueva o diagnostica una existente. Simula la obra día a día y mira el
+            presupuesto armarse en vivo.
+          </p>
+          <div class="flex border border-[color:var(--cr-line-strong)]" role="group" aria-label="Tipo de proyecto">
+            <button type="button" class="appearance-none border-0 m-0 h-12 px-5 cursor-pointer bg-transparent [color:var(--cr-bone)] [font-family:var(--cr-mono)] text-xs tracking-[0.1em] uppercase [&.is-active]:bg-[color:var(--cr-bone)] [&.is-active]:[color:var(--cr-ink)] is-active" data-pp-mode="install" aria-pressed="true">Instalación nueva</button>
+            <button type="button" class="appearance-none border-0 m-0 h-12 px-5 cursor-pointer bg-transparent [color:var(--cr-bone)] [font-family:var(--cr-mono)] text-xs tracking-[0.1em] uppercase [&.is-active]:bg-[color:var(--cr-bone)] [&.is-active]:[color:var(--cr-ink)] border-l border-[color:var(--cr-line-strong)]" data-pp-mode="repair" aria-pressed="false">Reparación</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAIN GRID -->
+      <div class="grid grid-cols-[320px_minmax(0,1fr)_340px] gap-5 items-stretch max-[1080px]:grid-cols-1">
+        <!-- LEFT: configuration -->
+        <div class="box-border p-[22px] flex flex-col gap-[18px] [background:var(--cr-ink-2)] border border-[color:var(--cr-line)]">
+          <div class="flex flex-col gap-[14px]" data-pp-install-block>
+            <p class="cr-label">01 · Inmueble</p>
+            <div class="grid grid-cols-2 gap-2" data-pp-types>
+              <button type="button" class="appearance-none m-0 h-[42px] cursor-pointer border border-[color:var(--cr-line-strong)] bg-transparent [color:var(--cr-bone)] [font-family:var(--cr-body)] font-semibold text-[13px] [&.is-active]:bg-[color:var(--cr-bone)] [&.is-active]:[color:var(--cr-ink)] [&.is-active]:border-[color:var(--cr-bone)] is-active" data-pp-type="office" aria-pressed="true">Oficina</button>
+              <button type="button" class="appearance-none m-0 h-[42px] cursor-pointer border border-[color:var(--cr-line-strong)] bg-transparent [color:var(--cr-bone)] [font-family:var(--cr-body)] font-semibold text-[13px] [&.is-active]:bg-[color:var(--cr-bone)] [&.is-active]:[color:var(--cr-ink)] [&.is-active]:border-[color:var(--cr-bone)]" data-pp-type="retail" aria-pressed="false">Comercio</button>
+              <button type="button" class="appearance-none m-0 h-[42px] cursor-pointer border border-[color:var(--cr-line-strong)] bg-transparent [color:var(--cr-bone)] [font-family:var(--cr-body)] font-semibold text-[13px] [&.is-active]:bg-[color:var(--cr-bone)] [&.is-active]:[color:var(--cr-ink)] [&.is-active]:border-[color:var(--cr-bone)]" data-pp-type="home" aria-pressed="false">Residencial</button>
+              <button type="button" class="appearance-none m-0 h-[42px] cursor-pointer border border-[color:var(--cr-line-strong)] bg-transparent [color:var(--cr-bone)] [font-family:var(--cr-body)] font-semibold text-[13px] [&.is-active]:bg-[color:var(--cr-bone)] [&.is-active]:[color:var(--cr-ink)] [&.is-active]:border-[color:var(--cr-bone)]" data-pp-type="plant" aria-pressed="false">Industrial</button>
+            </div>
+
+            <p class="cr-label">02 · Superficie</p>
+            <div class="flex items-center border border-[color:var(--cr-line-strong)]">
+              <button type="button" class="appearance-none m-0 border-0 w-12 h-12 bg-transparent [color:var(--cr-bone)] text-xl cursor-pointer" data-pp-area-down aria-label="Reducir superficie">−</button>
+              <p class="grow text-center [font-family:var(--cr-display)] font-extrabold text-[30px] leading-none"><span data-pp-area-label>1,200</span> <span class="text-[15px] [color:var(--cr-bone-dim)]">m²</span></p>
+              <button type="button" class="appearance-none m-0 border-0 w-12 h-12 bg-transparent [color:var(--cr-bone)] text-xl cursor-pointer" data-pp-area-up aria-label="Aumentar superficie">+</button>
+            </div>
+
+            <p class="cr-label">03 · Sistemas</p>
+            <div class="flex flex-col gap-2" data-pp-systems>
+              <button type="button" class="group appearance-none m-0 min-h-[44px] px-3 flex items-center gap-[10px] cursor-pointer text-left border border-[color:var(--cr-line)] bg-transparent [color:var(--cr-bone)] [font-family:var(--cr-body)] text-[13px] [&.is-active]:bg-[rgba(237,232,224,0.06)] [&.is-active]:border-[color:var(--pp-color,var(--cr-signal))] is-active" data-pp-sys="fire" aria-pressed="true">
+                <span class="w-3 h-3 box-border border-2 border-[color:var(--pp-color)] rounded-[var(--pp-radius)] bg-transparent shrink-0 group-[.is-active]:bg-[color:var(--pp-color)]" data-pp-sys-dot style="--pp-color:#e0605a; --pp-radius:50%"></span>
+                <span class="grow font-semibold">Detección de incendio</span>
+                <span class="[font-family:var(--cr-mono)] text-[11px] [color:var(--cr-bone-dim)] whitespace-nowrap" data-pp-sys-count>—</span>
+              </button>
+              <button type="button" class="group appearance-none m-0 min-h-[44px] px-3 flex items-center gap-[10px] cursor-pointer text-left border border-[color:var(--cr-line)] bg-transparent [color:var(--cr-bone)] [font-family:var(--cr-body)] text-[13px] [&.is-active]:bg-[rgba(237,232,224,0.06)] [&.is-active]:border-[color:var(--pp-color,var(--cr-signal))] is-active" data-pp-sys="cam" aria-pressed="true">
+                <span class="w-3 h-3 box-border border-2 border-[color:var(--pp-color)] rounded-[var(--pp-radius)] bg-transparent shrink-0 group-[.is-active]:bg-[color:var(--pp-color)]" data-pp-sys-dot style="--pp-color:#7ee2a8; --pp-radius:1px"></span>
+                <span class="grow font-semibold">Videovigilancia CCTV</span>
+                <span class="[font-family:var(--cr-mono)] text-[11px] [color:var(--cr-bone-dim)] whitespace-nowrap" data-pp-sys-count>—</span>
+              </button>
+              <button type="button" class="group appearance-none m-0 min-h-[44px] px-3 flex items-center gap-[10px] cursor-pointer text-left border border-[color:var(--cr-line)] bg-transparent [color:var(--cr-bone)] [font-family:var(--cr-body)] text-[13px] [&.is-active]:bg-[rgba(237,232,224,0.06)] [&.is-active]:border-[color:var(--pp-color,var(--cr-signal))]" data-pp-sys="acc" aria-pressed="false">
+                <span class="w-3 h-3 box-border border-2 border-[color:var(--pp-color)] rounded-[var(--pp-radius)] bg-transparent shrink-0 group-[.is-active]:bg-[color:var(--pp-color)]" data-pp-sys-dot style="--pp-color:#7ecbe2; --pp-radius:4px 0"></span>
+                <span class="grow font-semibold">Control de acceso</span>
+                <span class="[font-family:var(--cr-mono)] text-[11px] [color:var(--cr-bone-dim)] whitespace-nowrap" data-pp-sys-count>—</span>
+              </button>
+              <button type="button" class="group appearance-none m-0 min-h-[44px] px-3 flex items-center gap-[10px] cursor-pointer text-left border border-[color:var(--cr-line)] bg-transparent [color:var(--cr-bone)] [font-family:var(--cr-body)] text-[13px] [&.is-active]:bg-[rgba(237,232,224,0.06)] [&.is-active]:border-[color:var(--pp-color,var(--cr-signal))]" data-pp-sys="elec" aria-pressed="false">
+                <span class="w-3 h-3 box-border border-2 border-[color:var(--pp-color)] rounded-[var(--pp-radius)] bg-transparent shrink-0 group-[.is-active]:bg-[color:var(--pp-color)]" data-pp-sys-dot style="--pp-color:#ffd66b; --pp-radius:1px"></span>
+                <span class="grow font-semibold">Tableros eléctricos</span>
+                <span class="[font-family:var(--cr-mono)] text-[11px] [color:var(--cr-bone-dim)] whitespace-nowrap" data-pp-sys-count>—</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-[14px] [&[hidden]]:hidden" data-pp-repair-block hidden>
+            <p class="cr-label">Salud del sistema</p>
+            <p class="[font-family:var(--cr-display)] font-black text-[52px] leading-[0.9]" data-pp-health>—<span class="text-[26px]">%</span></p>
+            <div class="h-[6px] [background:var(--cr-line)]"><div class="h-[6px] transition-[width] duration-500" data-pp-health-bar></div></div>
+
+            <p class="cr-label">Fallas detectadas · toca para agregar</p>
+            <div class="flex flex-col gap-2" data-pp-faults></div>
+          </div>
+
+          <button type="button" class="cr-btn justify-center mt-auto" data-pp-simulate>Simular obra <span aria-hidden="true">▶</span></button>
+        </div>
+
+        <!-- CENTER: blueprint -->
+        <div class="flex flex-col gap-[10px]">
+          <div class="flex justify-between [font-family:var(--cr-mono)] text-[11px] tracking-[0.1em] uppercase [color:var(--cr-bone-dim)]">
+            <span data-pp-plan-title>Plano · 1,200 m² · Esc. esquemática</span>
+            <span class="inline-flex items-center gap-2">
+              <span class="cr-led" data-pp-status-led></span>
+              <span data-pp-status>Proyecto en diseño</span>
+            </span>
+          </div>
+          <div class="relative grow min-h-[420px] box-border p-4 [background:linear-gradient(var(--cr-line)_1px,transparent_1px)_0_0/20px_20px,linear-gradient(90deg,var(--cr-line)_1px,transparent_1px)_0_0/20px_20px,#0d0c0f] border border-[color:var(--cr-line-strong)] overflow-hidden max-[1080px]:min-h-[340px]" data-pp-plan>
+            <div class="absolute pointer-events-none inset-[4%] border-[3px] border-[rgba(237,232,224,0.55)]" aria-hidden="true"></div>
+            <div class="absolute pointer-events-none left-[4%] top-[42%] w-[58%] border-t-2 border-current" aria-hidden="true"></div>
+            <div class="absolute pointer-events-none left-[70%] top-[42%] right-[4%] border-t-2 border-current" aria-hidden="true"></div>
+            <div class="absolute pointer-events-none left-[38%] top-[4%] h-[38%] border-l-2 border-current" aria-hidden="true"></div>
+            <div class="absolute pointer-events-none left-[66%] top-[42%] bottom-[4%] border-l-2 border-current" aria-hidden="true"></div>
+            <div class="absolute pointer-events-none left-[4%] top-[72%] w-[30%] border-t-2 border-current" aria-hidden="true"></div>
+            <span class="absolute [font-family:var(--cr-mono)] text-[10px] tracking-[0.14em] [color:rgba(237,232,224,0.45)] pointer-events-none" style="left:6%;top:6%">ÁREA A</span>
+            <span class="absolute [font-family:var(--cr-mono)] text-[10px] tracking-[0.14em] [color:rgba(237,232,224,0.45)] pointer-events-none" style="left:40%;top:6%">ÁREA B</span>
+            <span class="absolute [font-family:var(--cr-mono)] text-[10px] tracking-[0.14em] [color:rgba(237,232,224,0.45)] pointer-events-none" style="left:6%;top:44%">ÁREA C</span>
+            <span class="absolute [font-family:var(--cr-mono)] text-[10px] tracking-[0.14em] [color:rgba(237,232,224,0.45)] pointer-events-none" style="left:68%;top:44%">ÁREA D</span>
+            <div class="absolute top-0 bottom-0 w-0.5 [background:var(--cr-amber)] shadow-[0_0_22px_4px_rgba(255,214,107,0.4)] pointer-events-none animate-[pp-scan_3.2s_linear_infinite]" data-pp-scan hidden></div>
+            <div data-pp-markers></div>
+            <div data-pp-devices></div>
+          </div>
+          <div class="flex flex-wrap gap-4 [font-family:var(--cr-mono)] text-[10px] tracking-[0.08em] uppercase [color:var(--cr-bone-dim)]">
+            <span class="inline-flex items-center gap-1.5"><span class="inline-flex items-center gap-1.5 w-[10px] h-[10px]" style="border-radius:50%;background:#e0605a"></span>Detector</span>
+            <span class="inline-flex items-center gap-1.5"><span class="inline-flex items-center gap-1.5 w-[10px] h-[10px]" style="background:#7ee2a8"></span>Cámara</span>
+            <span class="inline-flex items-center gap-1.5"><span class="inline-flex items-center gap-1.5 w-[10px] h-[10px]" style="border-radius:3px;transform:rotate(45deg);background:#7ecbe2"></span>Lectora</span>
+            <span class="inline-flex items-center gap-1.5"><span class="inline-flex items-center gap-1.5 w-[10px] h-[10px]" style="border-radius:0;width:14px;height:8px;background:#ffd66b"></span>Tablero</span>
+            <span class="inline-flex items-center gap-1.5 ml-auto" data-pp-plan-hint>—</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: live budget -->
+        <div class="box-border p-[22px] flex flex-col gap-3 [background:var(--cr-bone)] [color:var(--cr-ink)]">
+          <div class="flex justify-between [font-family:var(--cr-mono)] text-[11px] tracking-[0.1em] uppercase">
+            <span>Presupuesto estimado</span><span class="opacity-70" data-pp-quote-id>—</span>
+          </div>
+          <div class="flex flex-col border-t-2 border-[color:var(--cr-ink)]" data-pp-lines></div>
+          <p class="py-[14px] text-[13px] opacity-[0.68]" data-pp-empty hidden>Activa un sistema para ver partidas.</p>
+          <div class="mt-auto flex flex-col gap-1 [font-family:var(--cr-mono)] text-xs">
+            <div class="flex justify-between"><span>Subtotal</span><span data-pp-subtotal>$0</span></div>
+            <div class="flex justify-between"><span>IVA <span data-pp-tax-pct>16</span>%</span><span data-pp-tax>$0</span></div>
+          </div>
+          <div class="pt-[10px] border-t-2 border-[color:var(--cr-ink)] flex justify-between items-baseline">
+            <span class="cr-label">Total</span>
+            <span class="[font-family:var(--cr-display)] font-black text-[40px] leading-none" data-pp-total>$0</span>
+          </div>
+          <p class="[font-family:var(--cr-mono)] text-[9px] opacity-[0.68]">Tarifas de ejemplo · cifras orientativas, no vinculantes.</p>
+        </div>
+      </div>
+
+      <!-- TIMELINE -->
+      <div class="flex flex-col gap-3">
+        <div class="flex justify-between items-baseline">
+          <p class="cr-label" data-pp-timeline-title>Cronograma de obra · días hábiles</p>
+          <p class="[font-family:var(--cr-display)] font-extrabold text-[28px]" data-pp-clock>—</p>
+        </div>
+        <div class="relative h-[56px] [background:var(--cr-ink-2)] border border-[color:var(--cr-line)]" data-pp-track>
+          <div class="absolute inset-2" data-pp-phases></div>
+          <div class="absolute -top-1.5 -bottom-1.5 w-0.5 [background:var(--cr-bone)] transition-[left] duration-[350ms] ease-linear pointer-events-none" data-pp-playhead></div>
+        </div>
+        <p class="text-[14px] leading-[1.5] [color:var(--cr-bone-dim)]" data-pp-message aria-live="polite">
+          Activa al menos un sistema para dimensionar la obra.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* These two keyframe animations have no Tailwind utility equivalent —
+     Tailwind cannot express @keyframes as a class. Applied via the
+     animate-[pp-scan_...] / animate-[pp-pulse_...] arbitrary utilities above
+     and in the client script below. */
+  @keyframes pp-scan {
+    from { left: -2%; }
+    to { left: 102%; }
+  }
+
+  @keyframes pp-pulse {
+    0% { transform: scale(0.6); opacity: 1; }
+    100% { transform: scale(2.4); opacity: 0; }
+  }
+</style>
+
+<script>
+  type SysKey = "fire" | "cam" | "acc" | "elec";
+
+  const root = document.querySelector<HTMLElement>("[data-pp]");
+  if (!root) throw new Error("ProjectsPlanner root not found");
+
+  // ---------- Gate ----------
+  const gate = root.querySelector<HTMLElement>("[data-pp-gate]");
+  const content = root.querySelector<HTMLElement>("[data-pp-content]");
+  const activateBtn = root.querySelector<HTMLButtonElement>("[data-pp-activate]");
+
+  activateBtn?.addEventListener(
+    "click",
+    () => {
+      if (gate) gate.hidden = true;
+      if (content) content.hidden = false;
+      content?.scrollIntoView({ behavior: "smooth", block: "start" });
+      initPlanner();
+    },
+    { once: true },
+  );
+
+  // ---------- Rates (example tariffs) ----------
+  const R = {
+    fire: 1800,
+    cam: 4200,
+    acc: 6500,
+    elec: 14000,
+    crew: 9500,
+    eng: 7000,
+    diag: 1500,
+    hour: 650,
+  };
+  const TAX_PCT = 16;
+  const TICK_MS = 420;
+
+  const money = (n: number) => "$" + Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+  const SYS: Record<SysKey, { label: string; unit: string; color: string; radius: string }> = {
+    fire: { label: "Detección de incendio", unit: "detectores", color: "#e0605a", radius: "50%" },
+    cam: { label: "Videovigilancia CCTV", unit: "cámaras", color: "#7ee2a8", radius: "1px" },
+    acc: { label: "Control de acceso", unit: "lectoras", color: "#7ecbe2", radius: "4px 0" },
+    elec: { label: "Tableros eléctricos", unit: "tableros", color: "#ffd66b", radius: "1px" },
+  };
+
+  const TYPES: Record<string, number> = { office: 1, retail: 1.15, home: 0.9, plant: 1.35 };
+
+  const DEV: [string, SysKey, number, number][] = [
+    ["DET-01", "fire", 14, 16], ["DET-03", "fire", 30, 30], ["DET-05", "fire", 55, 18], ["DET-07", "fire", 82, 60],
+    ["DET-09", "fire", 20, 82], ["DET-11", "fire", 50, 70],
+    ["CAM-01", "cam", 10, 50], ["CAM-02", "cam", 90, 12], ["CAM-03", "cam", 60, 88],
+    ["ACC-01", "acc", 36, 46], ["ACC-02", "acc", 88, 88],
+    ["TAB-01", "elec", 12, 90], ["TAB-02", "elec", 72, 30], ["DET-13", "fire", 75, 80],
+  ];
+
+  const FAULTS: Record<string, { issue: string; fix: string; cost: number; h: number }> = {
+    "DET-03": { issue: "Sensor sucio · falsas alarmas", fix: "Limpieza y recalibración", cost: 0.25 * R.fire, h: 1 },
+    "CAM-02": { issue: "Cámara sin señal", fix: "Cambio de fuente PoE", cost: 0.3 * R.cam, h: 2 },
+    "ACC-01": { issue: "Lectora no lee tarjetas", fix: "Reemplazo de lector", cost: 0.8 * R.acc, h: 2 },
+    "TAB-01": { issue: "Interruptor se dispara", fix: "Sustituir termomagnético", cost: 0.12 * R.elec, h: 3 },
+    "DET-07": { issue: "Batería baja", fix: "Cambio de batería", cost: 0.1 * R.fire, h: 0.5 },
+  };
+
+  let initialized = false;
+
+  function initPlanner() {
+    if (initialized) return;
+    initialized = true;
+
+    // ---------- DOM refs ----------
+    const modeButtons = [...root!.querySelectorAll<HTMLButtonElement>("[data-pp-mode]")];
+    const installBlock = root!.querySelector<HTMLElement>("[data-pp-install-block]")!;
+    const repairBlock = root!.querySelector<HTMLElement>("[data-pp-repair-block]")!;
+    const typeButtons = [...root!.querySelectorAll<HTMLButtonElement>("[data-pp-type]")];
+    const areaLabel = root!.querySelector<HTMLElement>("[data-pp-area-label]")!;
+    const areaDown = root!.querySelector<HTMLButtonElement>("[data-pp-area-down]")!;
+    const areaUp = root!.querySelector<HTMLButtonElement>("[data-pp-area-up]")!;
+    const sysButtons = [...root!.querySelectorAll<HTMLButtonElement>("[data-pp-sys]")];
+    const healthEl = root!.querySelector<HTMLElement>("[data-pp-health]")!;
+    const healthBar = root!.querySelector<HTMLElement>("[data-pp-health-bar]")!;
+    const faultsEl = root!.querySelector<HTMLElement>("[data-pp-faults]")!;
+    const simulateBtn = root!.querySelector<HTMLButtonElement>("[data-pp-simulate]")!;
+    const planTitle = root!.querySelector<HTMLElement>("[data-pp-plan-title]")!;
+    const statusEl = root!.querySelector<HTMLElement>("[data-pp-status]")!;
+    const statusLed = root!.querySelector<HTMLElement>("[data-pp-status-led]")!;
+    const scanEl = root!.querySelector<HTMLElement>("[data-pp-scan]")!;
+    const markersEl = root!.querySelector<HTMLElement>("[data-pp-markers]")!;
+    const devicesEl = root!.querySelector<HTMLElement>("[data-pp-devices]")!;
+    const planHint = root!.querySelector<HTMLElement>("[data-pp-plan-hint]")!;
+    const quoteId = root!.querySelector<HTMLElement>("[data-pp-quote-id]")!;
+    const linesEl = root!.querySelector<HTMLElement>("[data-pp-lines]")!;
+    const emptyEl = root!.querySelector<HTMLElement>("[data-pp-empty]")!;
+    const subtotalEl = root!.querySelector<HTMLElement>("[data-pp-subtotal]")!;
+    const taxEl = root!.querySelector<HTMLElement>("[data-pp-tax]")!;
+    const totalEl = root!.querySelector<HTMLElement>("[data-pp-total]")!;
+    const timelineTitle = root!.querySelector<HTMLElement>("[data-pp-timeline-title]")!;
+    const clockEl = root!.querySelector<HTMLElement>("[data-pp-clock]")!;
+    const phasesEl = root!.querySelector<HTMLElement>("[data-pp-phases]")!;
+    const playhead = root!.querySelector<HTMLElement>("[data-pp-playhead]")!;
+    const messageEl = root!.querySelector<HTMLElement>("[data-pp-message]")!;
+
+    // ---------- State ----------
+    let mode: "install" | "repair" = "install";
+    let type = "office";
+    let area = 1200;
+    let sys: Record<SysKey, boolean> = { fire: true, cam: true, acc: false, elec: false };
+    let sel: Record<string, boolean> = { "DET-03": true };
+    let day = 0;
+    let ran = false;
+    let timer: ReturnType<typeof setInterval> | null = null;
+    let total = 1;
+    let step = 1;
+
+    const stop = () => {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+    };
+
+    const reset = () => {
+      stop();
+      day = 0;
+      ran = false;
+      render();
+    };
+
+    const simulate = () => {
+      if (total <= 0) return;
+      stop();
+      day = 0;
+      ran = true;
+      render();
+      timer = setInterval(() => {
+        if (day >= total) {
+          stop();
+          render();
+          return;
+        }
+        day = Math.min(total, day + step);
+        render();
+      }, TICK_MS);
+    };
+
+    function render() {
+      const running = !!timer;
+      let lines: { label: string; sub: string; amount: string }[] = [];
+      let phases: { label: string; left: number; width: number; color: string; state: "done" | "active" | "idle" }[] = [];
+      let subtotal = 0;
+      let status = "";
+      let message = "";
+      let hint = "";
+
+      installBlock.hidden = mode !== "install";
+      repairBlock.hidden = mode !== "repair";
+      simulateBtn.textContent = "";
+      const btnLabel = document.createElement("span");
+
+      if (mode === "install") {
+        const tm = TYPES[type] ?? 1;
+        const a = area;
+        const counts: Record<SysKey, number> = {
+          fire: Math.ceil((a / 80) * tm),
+          cam: Math.ceil((a / 150) * tm),
+          acc: Math.max(2, Math.ceil(a / 400)),
+          elec: Math.max(1, Math.ceil(a / 600)),
+        };
+        const on = (Object.keys(SYS) as SysKey[]).filter((k) => sys[k]);
+        const devTotal = on.reduce((n, k) => n + counts[k], 0);
+        const dEval = a > 2000 ? 2 : 1;
+        const dDesign = 2 + Math.ceil(a / 2000);
+        const dInstall = devTotal ? Math.max(1, Math.ceil(devTotal / 10)) : 0;
+        const dTest = devTotal ? (a > 2000 ? 2 : 1) : 0;
+        const dTrain = devTotal ? 1 : 0;
+
+        const plan: [string, number, string][] = [
+          ["Evaluación", dEval, "#ede8e0"],
+          ["Diseño", dDesign, "#7ecbe2"],
+          ["Instalación", dInstall, "#ffd66b"],
+          ["Pruebas", dTest, "#7ee2a8"],
+          ["Capacitación", dTrain, "#e0605a"],
+        ].filter((p) => (p[1] as number) > 0) as [string, number, string][];
+
+        total = devTotal ? plan.reduce((n, p) => n + p[1], 0) : 0;
+        step = 1;
+
+        let acc = 0;
+        let installStart = 0;
+        const starts: number[] = [];
+        plan.forEach((p) => {
+          if (p[0] === "Instalación") installStart = acc;
+          starts.push(acc);
+          acc += p[1];
+        });
+
+        const prog = ran && dInstall ? Math.max(0, Math.min(1, (day - installStart) / dInstall)) : 0;
+
+        markersEl.innerHTML = "";
+        on.forEach((k, si) => {
+          const meta = SYS[k];
+          const shown = Math.min(counts[k], 22);
+          const lit = Math.floor(prog * shown + 0.0001);
+          for (let i = 0; i < shown; i++) {
+            const fx = ((i + 1) * 0.618034 + si * 0.23 + 0.11) % 1;
+            const fy = ((i + 1) * 0.754878 + si * 0.37 + 0.07) % 1;
+            const placed = i < lit;
+            const m = document.createElement("span");
+            m.className = "absolute w-3 h-3 -mt-1.5 -ml-1.5 box-border border-2 border-[color:var(--m-color)] rounded-[var(--m-radius)] pointer-events-none";
+            m.style.setProperty("--m-color", meta.color);
+            m.style.setProperty("--m-radius", meta.radius);
+            m.style.left = (8 + fx * 84).toFixed(1) + "%";
+            m.style.top = (9 + fy * 82).toFixed(1) + "%";
+            m.style.background = placed ? meta.color : "transparent";
+            m.style.opacity = placed ? "1" : "0.45";
+            m.style.boxShadow = placed ? `0 0 10px ${meta.color}` : "none";
+            markersEl.appendChild(m);
+          }
+          lines.push({ label: `${counts[k]} ${meta.unit}`, sub: `${meta.label} · ${money(R[k])} c/u`, amount: money(counts[k] * R[k]) });
+          subtotal += counts[k] * R[k];
+        });
+        devicesEl.innerHTML = "";
+
+        if (devTotal) {
+          lines.push({ label: "Ingeniería y planos", sub: `${dDesign} días · ${money(R.eng)}/día`, amount: money(dDesign * R.eng) });
+          lines.push({
+            label: "Mano de obra certificada",
+            sub: `${dInstall + dTest} días-cuadrilla · ${money(R.crew)}/día`,
+            amount: money((dInstall + dTest) * R.crew),
+          });
+          subtotal += dDesign * R.eng + (dInstall + dTest) * R.crew;
+        }
+
+        phases = plan.map((p, i) => {
+          const st = starts[i];
+          const en = st + p[1];
+          const done = ran && day >= en;
+          const act = ran && day >= st && day < en;
+          return {
+            label: `${p[0]} · ${p[1]}d`,
+            left: (st / Math.max(total, 1)) * 100,
+            width: (p[1] / Math.max(total, 1)) * 100,
+            color: p[2],
+            state: done ? "done" : act ? "active" : "idle",
+          };
+        });
+
+        const curIdx = plan.findIndex((p, i) => day >= starts[i] && day < starts[i] + p[1]);
+        const ended = ran && day >= total && total > 0;
+        status = !devTotal ? "Sin sistemas" : ended ? "Obra entregada" : ran && curIdx >= 0 ? plan[curIdx][0] : "Proyecto en diseño";
+        message = !devTotal
+          ? "Activa al menos un sistema para dimensionar la obra."
+          : ended
+            ? `Obra entregada en ${total} días · ${devTotal} dispositivos instalados y certificados.`
+            : ran && curIdx >= 0
+              ? `Día ${Math.floor(day + 1)} · ${plan[curIdx][0].toLowerCase()}${plan[curIdx][0] === "Instalación" ? ` · ${Math.round(prog * 100)}% de dispositivos colocados` : ""}.`
+              : `${devTotal} dispositivos en ${a.toLocaleString("es")} m². Pulsa "Simular obra" para verla avanzar día a día.`;
+        hint = `${devTotal} dispositivos · vista esquemática`;
+
+        typeButtons.forEach((btn) => btn.classList.toggle("is-active", btn.dataset.ppType === type));
+        sysButtons.forEach((btn) => {
+          const k = btn.dataset.ppSys as SysKey;
+          const active = !!sys[k];
+          btn.classList.toggle("is-active", active);
+          btn.setAttribute("aria-pressed", String(active));
+          btn.style.setProperty("--pp-color", SYS[k].color);
+          const countEl = btn.querySelector<HTMLElement>("[data-pp-sys-count]");
+          if (countEl) countEl.textContent = active ? `${counts[k]} ${SYS[k].unit}` : "apagado";
+        });
+
+        areaLabel.textContent = area.toLocaleString("es");
+        planTitle.textContent = `Plano · ${area.toLocaleString("es")} m² · Esc. esquemática`;
+        quoteId.textContent = `COT-${type.slice(0, 3).toUpperCase()}-${area}`;
+        timelineTitle.textContent = "Cronograma de obra · días hábiles";
+        clockEl.textContent = total > 0 ? `Día ${Math.min(Math.floor(day), total)} / ${total}` : "—";
+        simulateBtn.disabled = total <= 0;
+        btnLabel.textContent = running ? "Simulando…" : ended ? "Repetir simulación" : "Simular obra";
+      } else {
+        const chosen = Object.keys(FAULTS).filter((k) => sel[k]);
+        type PlanRow = { label: string; hours: number; color: string; devId: string | null; start: number };
+        const plan: PlanRow[] = [{ label: "Diagnóstico", hours: 1, color: "#ede8e0", devId: null, start: 0 }];
+        let acc = 1;
+        chosen.forEach((k) => {
+          const devKey = DEV.find((d) => d[0] === k)![1];
+          plan.push({ label: k, hours: FAULTS[k].h, color: SYS[devKey].color, devId: k, start: acc });
+          acc += FAULTS[k].h;
+        });
+        plan.push({ label: "Pruebas", hours: 1, color: "#7ee2a8", devId: null, start: acc });
+        acc += 1;
+        total = acc;
+        step = 0.5;
+
+        const fixedK: Record<string, boolean> = {};
+        plan.forEach((p) => {
+          if (p.devId && ran && day >= p.start + p.hours) fixedK[p.devId] = true;
+        });
+
+        devicesEl.innerHTML = "";
+        DEV.forEach(([id, k, x, y]) => {
+          const isFault = !!FAULTS[id];
+          const meta = SYS[k];
+          if (!isFault) {
+            const s = document.createElement("span");
+            s.className = "appearance-none p-0 cursor-pointer opacity-[0.55]";
+            s.style.position = "absolute";
+            s.style.left = x + "%";
+            s.style.top = y + "%";
+            s.style.width = "12px";
+            s.style.height = "12px";
+            s.style.margin = "-6px 0 0 -6px";
+            s.style.border = `2px solid ${meta.color}`;
+            s.style.borderRadius = meta.radius;
+            s.style.background = meta.color;
+            s.style.pointerEvents = "none";
+            devicesEl.appendChild(s);
+            return;
+          }
+          const fixed = !!fixedK[id];
+          const selected = !!sel[id];
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "appearance-none absolute w-10 h-10 -mt-5 -ml-5 p-0 border-0 bg-transparent cursor-pointer";
+          btn.style.left = x + "%";
+          btn.style.top = y + "%";
+          btn.style.setProperty("--m-color", fixed ? "#7ee2a8" : selected ? "#ffd66b" : "#e0605a");
+          btn.style.setProperty("--m-radius", meta.radius);
+          btn.setAttribute(
+            "aria-label",
+            `${id} — ${FAULTS[id].issue}${fixed ? " · reparado" : selected ? " · en orden de trabajo" : " · toca para agregar"}`,
+          );
+          btn.setAttribute("aria-pressed", String(selected));
+          if (!fixed && isFault && !selected) {
+            const pulse = document.createElement("span");
+            pulse.className = "absolute left-[10px] top-[10px] w-5 h-5 box-border border-2 border-[color:var(--cr-signal)] rounded-full animate-[pp-pulse_1.6s_cubic-bezier(0.2,0.6,0.3,1)_infinite]";
+            btn.appendChild(pulse);
+          }
+          const ring = document.createElement("span");
+          ring.className = "absolute left-[12px] top-[12px] w-4 h-4 box-border border-2 border-[color:var(--m-color)] rounded-[var(--m-radius)] bg-transparent";
+          btn.appendChild(ring);
+          const tag = document.createElement("span");
+          tag.className = "absolute left-8 top-0.5 py-0.5 px-[5px] whitespace-nowrap [font-family:var(--cr-mono)] text-[9px] tracking-[0.06em] bg-[color:var(--m-color)] [color:var(--cr-ink)]";
+          tag.textContent = id;
+          btn.appendChild(tag);
+          if (!fixed) {
+            btn.addEventListener("click", () => {
+              sel = { ...sel, [id]: !sel[id] };
+              reset();
+            });
+          }
+          devicesEl.appendChild(btn);
+        });
+        markersEl.innerHTML = "";
+
+        faultsEl.innerHTML = "";
+        Object.keys(FAULTS).forEach((id) => {
+          const fixed = !!fixedK[id];
+          const selected = !!sel[id];
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "appearance-none m-0 min-h-[48px] py-2 px-[10px] flex items-center gap-[10px] cursor-pointer text-left border border-[color:var(--cr-line)] bg-transparent [color:var(--cr-bone)] [font-family:var(--cr-body)] data-[selected=true]:bg-[rgba(255,214,107,0.08)]";
+          btn.dataset.selected = String(selected);
+          const led = document.createElement("span");
+          led.className = "w-[9px] h-[9px] rounded-full shrink-0";
+          led.style.background = fixed ? "#7ee2a8" : selected ? "#ffd66b" : "#e0605a";
+          if (!fixed && !selected) led.classList.add("cr-blink");
+          const body = document.createElement("span");
+          body.className = "flex flex-col gap-0.5";
+          const meta = document.createElement("span");
+          meta.className = "[font-family:var(--cr-mono)] text-[10px] tracking-[0.08em] [color:var(--cr-bone-dim)]";
+          meta.textContent = `${id} · ${fixed ? "REPARADO" : selected ? "EN ORDEN" : "FALLA"}`;
+          const issue = document.createElement("span");
+          issue.className = "text-[13px] font-semibold";
+          issue.textContent = FAULTS[id].issue;
+          body.append(meta, issue);
+          btn.append(led, body);
+          if (!fixed) {
+            btn.addEventListener("click", () => {
+              sel = { ...sel, [id]: !sel[id] };
+              reset();
+            });
+          }
+          faultsEl.appendChild(btn);
+        });
+
+        const nFaults = Object.keys(FAULTS).length;
+        const nFixed = Object.keys(fixedK).length;
+        const health = Math.round(((DEV.length - nFaults + nFixed) / DEV.length) * 100);
+        healthEl.childNodes[0].textContent = String(health);
+        healthEl.style.color = health >= 95 ? "#7ee2a8" : health >= 80 ? "#ffd66b" : "#e0605a";
+        healthBar.style.width = `${health}%`;
+        healthBar.style.background = healthEl.style.color;
+
+        lines.push({ label: "Diagnóstico en sitio", sub: `Revisión de ${DEV.length} dispositivos`, amount: money(R.diag) });
+        subtotal += R.diag;
+        let hrs = 2;
+        chosen.forEach((k) => {
+          lines.push({ label: `${k} · ${FAULTS[k].fix}`, sub: `${FAULTS[k].issue} · ${FAULTS[k].h} h`, amount: money(FAULTS[k].cost) });
+          subtotal += FAULTS[k].cost;
+          hrs += FAULTS[k].h;
+        });
+        if (chosen.length) {
+          lines.push({ label: "Mano de obra técnica", sub: `${hrs} h · ${money(R.hour)}/h`, amount: money(hrs * R.hour) });
+          subtotal += hrs * R.hour;
+        }
+
+        phases = plan.map((p) => {
+          const en = p.start + p.hours;
+          const done = ran && day >= en;
+          const act = ran && day >= p.start && day < en;
+          return {
+            label: `${p.label} · ${p.hours}h`,
+            left: (p.start / total) * 100,
+            width: (p.hours / total) * 100,
+            color: p.color,
+            state: done ? "done" : act ? "active" : "idle",
+          };
+        });
+
+        const cur = plan.find((p) => day >= p.start && day < p.start + p.hours);
+        const ended = ran && day >= total;
+        status = ended ? "Sistema restablecido" : ran && cur ? (cur.devId ? `Reparando ${cur.label}` : cur.label) : `${nFaults - nFixed} fallas activas`;
+        message = ended
+          ? `Servicio cerrado en ${total} h · salud del sistema al ${health}%.${chosen.length < nFaults ? " Quedan fallas fuera de la orden." : ""}`
+          : ran && cur
+            ? cur.devId
+              ? `${cur.label} · ${FAULTS[cur.devId].fix.toLowerCase()}.`
+              : `${cur.label} en curso.`
+            : chosen.length
+              ? `${chosen.length} reparaciones en la orden. Pulsa "Simular reparación" para ver al técnico trabajar.`
+              : "Toca las fallas en el plano o en la lista para armar la orden de trabajo.";
+        hint = "Toca un punto rojo";
+
+        planTitle.textContent = "Plano · levantamiento de fallas";
+        quoteId.textContent = `OT-REP-${chosen.length}`;
+        timelineTitle.textContent = "Orden de trabajo · horas";
+        clockEl.textContent = total > 0 ? `${Math.min(day, total)} h / ${total} h` : "—";
+        simulateBtn.disabled = false;
+        btnLabel.textContent = running ? "Simulando…" : ended ? "Repetir simulación" : "Simular reparación";
+      }
+
+      simulateBtn.appendChild(btnLabel);
+
+      const tax = (subtotal * TAX_PCT) / 100;
+      const ended = ran && day >= total && total > 0;
+
+      linesEl.innerHTML = "";
+      lines.forEach((l) => {
+        const row = document.createElement("div");
+        row.className = "flex justify-between items-baseline gap-[10px] py-[9px] border-b border-[rgba(17,16,18,0.18)]";
+        row.innerHTML = `<span class="flex flex-col gap-0.5"><span class="text-[13px] font-semibold">${l.label}</span><span class="[font-family:var(--cr-mono)] text-[10px] opacity-[0.68]">${l.sub}</span></span><span class="[font-family:var(--cr-mono)] text-[13px] font-bold whitespace-nowrap">${l.amount}</span>`;
+        linesEl.appendChild(row);
+      });
+      emptyEl.hidden = lines.length > 0;
+
+      subtotalEl.textContent = money(subtotal);
+      taxEl.textContent = money(tax);
+      totalEl.textContent = money(subtotal + tax);
+
+      phasesEl.innerHTML = "";
+      phases.forEach((p) => {
+        const el = document.createElement("div");
+        el.className =
+          "absolute top-0 bottom-0 box-border px-2 flex items-center overflow-hidden border border-[color:var(--p-color)] [color:var(--cr-bone)] [font-family:var(--cr-mono)] text-[10px] tracking-[0.06em] uppercase whitespace-nowrap" +
+          (p.state === "active" || p.state === "done" ? " bg-[color:var(--p-color)] [color:var(--cr-ink)]" : "");
+        el.style.setProperty("--p-color", p.color);
+        el.style.left = `${p.left.toFixed(2)}%`;
+        el.style.width = `${p.width.toFixed(2)}%`;
+        el.textContent = p.label;
+        phasesEl.appendChild(el);
+      });
+      playhead.style.left = total > 0 ? `${Math.min(100, (day / total) * 100).toFixed(2)}%` : "0%";
+
+      statusEl.textContent = status;
+      const statusColor = ended ? "#7ee2a8" : running ? "#ffd66b" : mode === "install" ? "rgba(237,232,224,0.62)" : "#e0605a";
+      statusEl.style.color = statusColor;
+      statusLed.style.background = statusColor;
+      statusLed.style.boxShadow = `0 0 12px ${statusColor}`;
+      statusLed.classList.toggle("cr-blink", running || (mode === "repair" && !ended));
+
+      scanEl.hidden = !running;
+      planHint.textContent = hint;
+      messageEl.textContent = message;
+    }
+
+    // ---------- Wiring ----------
+    modeButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        mode = btn.dataset.ppMode as "install" | "repair";
+        modeButtons.forEach((b) => {
+          const active = b === btn;
+          b.classList.toggle("is-active", active);
+          b.setAttribute("aria-pressed", String(active));
+        });
+        reset();
+      });
+    });
+
+    typeButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        type = btn.dataset.ppType!;
+        reset();
+      });
+    });
+
+    areaDown.addEventListener("click", () => {
+      area = Math.max(200, area - 200);
+      reset();
+    });
+    areaUp.addEventListener("click", () => {
+      area = Math.min(8000, area + 200);
+      reset();
+    });
+
+    sysButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const k = btn.dataset.ppSys as SysKey;
+        sys = { ...sys, [k]: !sys[k] };
+        reset();
+      });
+    });
+
+    simulateBtn.addEventListener("click", simulate);
+
+    render();
+  }
+</script>

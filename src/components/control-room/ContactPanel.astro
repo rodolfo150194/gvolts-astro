@@ -1,0 +1,207 @@
+---
+const services = [
+  { id: "fire-alarm", label: "Incendio", color: "var(--cr-signal)", placeholder: "Ej.: restaurante de 300 m², necesitamos pasar la inspección de bomberos." },
+  { id: "security", label: "Seguridad", color: "var(--cr-ok)", placeholder: "Ej.: oficina con 2 accesos, queremos cámaras con IA y control biométrico." },
+  { id: "electricity", label: "Electricidad", color: "var(--cr-amber)", placeholder: "Ej.: casa con panel de 100 A, queremos instalar un cargador para auto eléctrico." },
+  { id: "other", label: "Varios", color: "var(--cr-bone)", placeholder: "Ej.: obra nueva, necesitamos los tres sistemas coordinados." },
+];
+---
+
+<div class="ctp w-full bg-[var(--cr-ink-2)] border border-[var(--cr-line-strong)] shadow-[0_40px_80px_-30px_rgba(0,0,0,0.9)]" data-reveal style="--d:200ms">
+  <div class="flex justify-between items-center px-7 py-[18px] border-b border-[var(--cr-line)] font-[var(--cr-mono)] text-xs tracking-[0.14em] uppercase max-[480px]:flex-wrap max-[480px]:gap-2 max-[480px]:px-[18px] max-[480px]:py-[14px]">
+    <span class="text-[var(--cr-bone-dim)] max-[400px]:text-[10.5px]">Solicitud de visita técnica</span>
+    <span class="flex items-center gap-2 text-[var(--cr-signal)] data-[sent]:text-[var(--cr-ok)]" data-status>
+      <span class="cr-led cr-blink" data-status-led></span>
+      <span data-status-text aria-live="polite">Canal abierto</span>
+    </span>
+  </div>
+
+  <form class="flex flex-col gap-6 py-8 px-7 max-[480px]:gap-5 max-[480px]:py-6 max-[480px]:px-[18px]" id="contact-form" data-form>
+    <fieldset class="m-0 p-0 border-0 flex flex-col gap-3">
+      <legend class="cr-label mb-1">¿Qué sistema te interesa?</legend>
+      <div class="grid grid-cols-4 gap-2 max-sm:grid-cols-2 max-[400px]:grid-cols-1" role="radiogroup" aria-label="Servicio de interés">
+        {
+          services.map((s, i) => (
+            <button
+              type="button"
+              class="group appearance-none cursor-pointer h-14 flex items-center justify-center gap-2 border border-[var(--cr-line-strong)] bg-transparent text-[var(--cr-bone)] font-[var(--cr-body)] text-[15px] font-semibold transition-[background-color,color,border-color] duration-200 aria-checked:bg-[var(--chip-color)] aria-checked:border-[var(--chip-color)] aria-checked:text-[var(--cr-ink)] max-[480px]:h-auto max-[480px]:min-h-[52px] max-[480px]:px-1 max-[480px]:py-2 max-[480px]:text-[13px] max-[480px]:text-center"
+              data-chip
+              data-service={s.id}
+              data-placeholder={s.placeholder}
+              role="radio"
+              aria-checked={i === 0 ? "true" : "false"}
+              style={`--chip-color:${s.color}`}
+            >
+              <span class="w-2 h-2 shrink-0 bg-[var(--chip-color)] group-aria-checked:bg-[var(--cr-ink)]" />
+              {s.label}
+            </button>
+          ))
+        }
+      </div>
+    </fieldset>
+
+    <div class="grid grid-cols-2 gap-4 max-sm:grid-cols-1">
+      <label class="flex flex-col gap-2 text-sm font-semibold">
+        Nombre completo
+        <input class="box-border h-[52px] px-4 bg-[var(--cr-ink)] border border-[var(--cr-line-strong)] text-[var(--cr-bone)] font-[var(--cr-body)] text-base transition-[border-color] duration-200 hover:border-[color-mix(in_srgb,var(--cr-bone)_60%,transparent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--cr-signal)] focus-visible:outline-offset-0 focus-visible:border-[var(--cr-signal)]" type="text" name="name" autocomplete="name" required minlength="2" placeholder="María González" />
+      </label>
+      <label class="flex flex-col gap-2 text-sm font-semibold">
+        Teléfono
+        <input class="box-border h-[52px] px-4 bg-[var(--cr-ink)] border border-[var(--cr-line-strong)] text-[var(--cr-bone)] font-[var(--cr-body)] text-base transition-[border-color] duration-200 hover:border-[color-mix(in_srgb,var(--cr-bone)_60%,transparent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--cr-signal)] focus-visible:outline-offset-0 focus-visible:border-[var(--cr-signal)]" type="tel" name="phone" autocomplete="tel" required minlength="10" placeholder="+1 (555) 000-0000" />
+      </label>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4 max-sm:grid-cols-1">
+      <label class="flex flex-col gap-2 text-sm font-semibold">
+        Email
+        <input class="box-border h-[52px] px-4 bg-[var(--cr-ink)] border border-[var(--cr-line-strong)] text-[var(--cr-bone)] font-[var(--cr-body)] text-base transition-[border-color] duration-200 hover:border-[color-mix(in_srgb,var(--cr-bone)_60%,transparent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--cr-signal)] focus-visible:outline-offset-0 focus-visible:border-[var(--cr-signal)]" type="email" name="email" autocomplete="email" required placeholder="tu@empresa.com" />
+      </label>
+      <label class="flex flex-col gap-2 text-sm font-semibold">
+        Código postal
+        <input class="box-border h-[52px] px-4 bg-[var(--cr-ink)] border border-[var(--cr-line-strong)] text-[var(--cr-bone)] font-[var(--cr-body)] text-base transition-[border-color] duration-200 hover:border-[color-mix(in_srgb,var(--cr-bone)_60%,transparent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--cr-signal)] focus-visible:outline-offset-0 focus-visible:border-[var(--cr-signal)]" type="text" name="zip" autocomplete="postal-code" required minlength="5" maxlength="10" placeholder="12345" />
+      </label>
+    </div>
+
+    <label class="flex flex-col gap-2 text-sm font-semibold">
+      Cuéntanos tu proyecto
+      <textarea class="box-border h-auto px-4 bg-[var(--cr-ink)] border border-[var(--cr-line-strong)] text-[var(--cr-bone)] font-[var(--cr-body)] text-base transition-[border-color] duration-200 hover:border-[color-mix(in_srgb,var(--cr-bone)_60%,transparent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--cr-signal)] focus-visible:outline-offset-0 focus-visible:border-[var(--cr-signal)] py-3.5 leading-normal resize-y" name="message" rows="5" required minlength="10" placeholder={services[0].placeholder} data-message />
+    </label>
+
+    <label class="flex items-start gap-3 text-sm leading-normal text-[var(--cr-bone-dim)] font-normal">
+      <input class="mt-0.5 w-5 h-5 accent-[var(--cr-signal)]" type="checkbox" required />
+      Acepto que GVolts me contacte sobre esta solicitud según la política de privacidad.
+    </label>
+
+    <button class="cr-btn group justify-center h-16 font-[var(--cr-display)] font-extrabold text-2xl disabled:opacity-60 disabled:cursor-not-allowed max-[480px]:text-[19px] max-[480px]:h-14" type="submit">
+      <span aria-live="polite">
+        <span data-submit-text>Enviar solicitud</span>
+        <span class="ctp__submit-loading" data-submit-loading hidden>Enviando…</span>
+      </span>
+      <span class="inline-block transition-transform duration-300 group-hover:translate-x-[6px]" aria-hidden="true">→</span>
+    </button>
+
+    <p class="font-[var(--cr-mono)] text-[11px] tracking-[0.1em] text-center text-[var(--cr-bone-dim)]">Evaluación sin compromiso · cotización con financiamiento</p>
+
+    <p class="m-0 py-3.5 px-4 bg-[color-mix(in_srgb,var(--cr-signal)_14%,transparent)] border border-[var(--cr-signal)] text-[var(--cr-bone)] text-sm" data-error hidden aria-live="assertive"></p>
+  </form>
+
+  <div class="flex flex-col items-start gap-6 py-16 px-10 max-[480px]:py-12 max-[480px]:px-6" data-success hidden tabindex="-1" aria-live="polite">
+    <span class="w-16 h-16 flex items-center justify-center bg-[var(--cr-ok)]">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#111012" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
+    </span>
+    <h2 class="text-[clamp(48px,6vw,72px)] leading-[0.9]">Solicitud<br />recibida.</h2>
+    <p class="text-lg leading-[1.6] text-[var(--cr-bone-dim)]">Un técnico de <strong data-success-service>nuestro equipo</strong> te contactará en menos de 24 horas para agendar la visita.</p>
+    <button type="button" class="cr-btn cr-btn--ghost" data-again>Enviar otra solicitud</button>
+  </div>
+</div>
+
+<script>
+  import { actions } from "astro:actions";
+
+  const panel = document.querySelector<HTMLElement>(".ctp");
+  if (panel) {
+    const form = panel.querySelector<HTMLFormElement>("[data-form]")!;
+    const chips = panel.querySelectorAll<HTMLButtonElement>("[data-chip]");
+    const message = panel.querySelector<HTMLTextAreaElement>("[data-message]")!;
+    const statusEl = panel.querySelector<HTMLElement>("[data-status]")!;
+    const statusText = panel.querySelector<HTMLElement>("[data-status-text]")!;
+    const statusLed = panel.querySelector<HTMLElement>("[data-status-led]")!;
+    const submitText = panel.querySelector<HTMLElement>("[data-submit-text]")!;
+    const submitLoading = panel.querySelector<HTMLElement>("[data-submit-loading]")!;
+    const submitButton = panel.querySelector<HTMLButtonElement>(".ctp__submit")!;
+    const errorEl = panel.querySelector<HTMLElement>("[data-error]")!;
+    const successEl = panel.querySelector<HTMLElement>("[data-success]")!;
+    const successService = panel.querySelector<HTMLElement>("[data-success-service]")!;
+    const againButton = panel.querySelector<HTMLButtonElement>("[data-again]")!;
+
+    const labels: Record<string, string> = {
+      "fire-alarm": "alarmas contra incendios",
+      security: "seguridad",
+      electricity: "electricidad",
+      other: "nuestro equipo",
+    };
+
+    let selected = chips[0]?.dataset.service ?? "fire-alarm";
+
+    const selectChip = (chip: HTMLButtonElement) => {
+      selected = chip.dataset.service ?? "fire-alarm";
+      chips.forEach((c) => {
+        c.setAttribute("aria-checked", c === chip ? "true" : "false");
+        c.tabIndex = c === chip ? 0 : -1;
+      });
+      message.placeholder = chip.dataset.placeholder ?? "";
+    };
+
+    chips.forEach((chip, i) => {
+      chip.tabIndex = i === 0 ? 0 : -1;
+      chip.addEventListener("click", () => selectChip(chip));
+      chip.addEventListener("keydown", (e) => {
+        const arrows = ["ArrowRight", "ArrowDown", "ArrowLeft", "ArrowUp"];
+        if (!arrows.includes(e.key)) return;
+        e.preventDefault();
+        const dir = e.key === "ArrowRight" || e.key === "ArrowDown" ? 1 : -1;
+        const next = chips[(i + dir + chips.length) % chips.length];
+        selectChip(next);
+        next.focus();
+      });
+    });
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      errorEl.hidden = true;
+      submitButton.disabled = true;
+      submitText.hidden = true;
+      submitLoading.hidden = false;
+
+      const formData = new FormData(form);
+      const serviceLabel = labels[selected] ?? "nuestro equipo";
+
+      try {
+        const { error } = await actions.contact({
+          name: formData.get("name") as string,
+          email: formData.get("email") as string,
+          phone: formData.get("phone") as string,
+          zip: formData.get("zip") as string,
+          service: selected as "fire-alarm" | "security" | "electricity" | "other",
+          subject: `Solicitud de visita técnica — ${serviceLabel}`,
+          message: formData.get("message") as string,
+        });
+
+        if (error) {
+          errorEl.textContent = error.message || "Error de validación. Por favor, revisa los campos.";
+          errorEl.hidden = false;
+          return;
+        }
+
+        form.hidden = true;
+        successEl.hidden = false;
+        successService.textContent = serviceLabel;
+        statusText.textContent = "Recibida";
+        statusEl.setAttribute("data-sent", "");
+        statusLed.classList.remove("cr-led--signal");
+        successEl.focus();
+      } catch {
+        errorEl.textContent = "Hubo un error al enviar tu solicitud. Por favor, intenta nuevamente.";
+        errorEl.hidden = false;
+      } finally {
+        submitButton.disabled = false;
+        submitText.hidden = false;
+        submitLoading.hidden = true;
+      }
+    });
+
+    againButton.addEventListener("click", () => {
+      form.reset();
+      form.hidden = false;
+      successEl.hidden = true;
+      statusText.textContent = "Canal abierto";
+      statusEl.removeAttribute("data-sent");
+      chips.forEach((c, i) => {
+        c.setAttribute("aria-checked", i === 0 ? "true" : "false");
+        c.tabIndex = i === 0 ? 0 : -1;
+      });
+      selected = chips[0]?.dataset.service ?? "fire-alarm";
+      message.placeholder = chips[0]?.dataset.placeholder ?? "";
+    });
+  }
+</script>
