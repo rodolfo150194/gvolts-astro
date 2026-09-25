@@ -8,6 +8,7 @@ import generalLean from "@/assets/img/avatar/general-lean.webp";
 import fireInstall from "@/assets/img/avatar/fire-install.webp";
 import elecPanel from "@/assets/img/avatar/elec-panel.webp";
 import securityAccess from "@/assets/img/avatar/security-access.webp";
+import blueprint from "@/assets/img/avatar/blueprint.png";
 
 /** Variantes del técnico de GVolts: mismo personaje, distinto casco y herramienta. */
 export type AvatarKey =
@@ -33,4 +34,5 @@ export const avatars: Record<AvatarKey, { src: ImageMetadata; alt: string }> = {
   fireInstall: { src: fireInstall, alt: "Técnico de incendio fijando un extintor a la pared con un taladro" },
   elecPanel: { src: elecPanel, alt: "Técnico electricista revisando un tablero eléctrico con una tablet" },
   securityAccess: { src: securityAccess, alt: "Técnico de seguridad arrodillado configurando un lector de control de acceso" },
+  blueprint: { src: blueprint, alt: "Técnico de GVolts revisando planos de obra" },
 };

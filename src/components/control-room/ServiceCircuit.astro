@@ -72,10 +72,10 @@ const DATA: Record<Service, { eyebrow: string; title: string; titleOutline: stri
     title: "De la acometida",
     titleOutline: "a cada toma.",
     steps: [
-      { title: "Acometida", tag: "DEMANDA", desc: "Calculamos la demanda y coordinamos con la compañía eléctrica desde el origen.", why: "Tu instalación queda dimensionada para lo que realmente consumes.", spec: "Cálculo de demanda · Planos sellados", icon: iconBlueprint },
+      { title: "Entrada", tag: "DEMANDA", desc: "Calculamos la demanda y coordinamos con la compañía eléctrica desde el origen.", why: "Tu instalación queda dimensionada para lo que realmente consumes.", spec: "Cálculo de demanda · Planos sellados", icon: iconBlueprint },
       { title: "Tablero", tag: "PANEL 200–400 A", desc: "Paneles modernos con espacio para crecer y puesta a tierra correcta.", why: "Capacidad para vehículo eléctrico, ampliaciones y equipos nuevos.", spec: "200 A · 400 A · Transferencia sin interrupción", icon: iconBoxElectric },
       { title: "Protege", tag: "AFCI · GFCI", desc: "Breakers AFCI/GFCI y pruebas de continuidad, aislamiento, polaridad y tierra antes de energizar.", why: "Se previenen arcos, descargas e incendios de origen eléctrico.", spec: "AFCI · GFCI · Pruebas antes de energizar", icon: iconHatElectric },
-      { title: "Distribuye", tag: "CIRCUITOS NEC", desc: "Líneas dedicadas con el calibre correcto para cada equipo de alto consumo.", why: "Aprobado por el inspector sin observaciones.", spec: "Calibre según NEC · EV 240 V · Mini-split", icon: iconToolsElectric },
+      { title: "Circuitos", tag: "DISTRIBUCIÓN", desc: "Líneas dedicadas con el calibre correcto para cada equipo de alto consumo.", why: "Aprobado por el inspector sin observaciones.", spec: "Calibre según NEC · EV 240 V · Mini-split", icon: iconToolsElectric },
       { title: "Respalda", tag: "ATS · UPS", desc: "Transfer switch automático, generadores y UPS mantienen tu operación en apagones.", why: "Tus equipos críticos no se detienen.", spec: "Transfer automático · Diésel / gas · UPS", icon: iconIndustrial },
     ],
   },
@@ -227,7 +227,7 @@ for (let i = 0; i < 4; i++) {
   .sc__icon { width: 84px; height: 84px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
   .sc__icon img { width: 74px; height: 74px; object-fit: contain; }
   .sc__cur-icon img { width: 72px; height: 72px; object-fit: contain; }
-  .sc__node-title { font-family: var(--cr-display); font-weight: 800; font-size: clamp(20px, 1.9vw, 27px); line-height: 1; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sc__node-title { font-family: var(--cr-display); font-weight: 800; font-size: clamp(19px, 1.65vw, 24px); line-height: 1; text-transform: uppercase; white-space: nowrap; overflow: visible; }
   /* Las etiquetas largas pasan a otra línea en vez de cortarse con "…" */
   .sc__node-tag { font-family: var(--cr-mono); font-size: 12px; line-height: 1.25; letter-spacing: 0.04em; opacity: 0.8; overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; line-clamp: 3; }
   .sc__pin { position: absolute; width: 8px; height: 8px; background-color: var(--pin); }

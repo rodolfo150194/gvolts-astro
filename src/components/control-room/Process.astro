@@ -20,12 +20,12 @@ const tabs = [
           <button
             type="button"
             role="tab"
-            class="appearance-none flex items-center gap-2.5 h-[56px] px-[22px] border-0 bg-transparent text-[var(--cr-bone-dim)] [font-family:var(--cr-mono)] text-[14px] tracking-[0.12em] uppercase cursor-pointer transition-[background-color,color] duration-200 hover:text-[var(--cr-bone)] aria-selected:bg-[var(--tab-accent)] aria-selected:text-[var(--cr-ink)]"
+            class="appearance-none flex items-center gap-3.5 h-[72px] px-[26px] border-0 bg-transparent text-[var(--cr-bone-dim)] [font-family:var(--cr-mono)] text-[14px] tracking-[0.12em] uppercase cursor-pointer transition-[background-color,color] duration-200 hover:text-[var(--cr-bone)] aria-selected:bg-[var(--tab-accent)] aria-selected:text-[var(--cr-ink)] max-[640px]:h-[64px] max-[640px]:px-[18px] max-[640px]:gap-2.5"
             aria-selected={i === 0 ? "true" : "false"}
             data-proc-tab={t.key}
             style={`--tab-accent:${t.accent}`}
           >
-            <Image src={t.icon} alt="" width={64} height={64} class="shrink-0 w-[28px] h-[28px] object-contain" />
+            <Image src={t.icon} alt="" width={96} height={96} class="shrink-0 w-[48px] h-[48px] object-contain max-[640px]:w-[40px] max-[640px]:h-[40px]" />
             {t.label}
           </button>
         ))

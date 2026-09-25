@@ -340,8 +340,8 @@ export function mountTwin(container: HTMLElement, root: HTMLElement) {
     renderer.setSize(w, h, false);
     labelRenderer.setSize(w, h);
     camera.aspect = w / h;
-    // Encaja el plano en retratos estrechos alejando la cámara
-    camera.userData.dist = (isSmall ? 33 : 30) / Math.min(1, camera.aspect / 0.82);
+    // The bleed canvas keeps orbiting corners in frame; a closer camera enlarges the twin.
+    camera.userData.dist = (isSmall ? 30 : 27) / Math.min(1, camera.aspect / 0.82);
     camera.updateProjectionMatrix();
   };
   const ro = new ResizeObserver(resize);

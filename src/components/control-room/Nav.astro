@@ -23,7 +23,7 @@ const links = [
 ];
 ---
 
-<header class="sticky top-0 z-50 [background:color-mix(in_srgb,var(--cr-ink)_82%,transparent)] backdrop-blur-[14px] backdrop-saturate-[120%] border-b border-[var(--cr-line)]">
+<header data-site-nav class="fixed inset-x-0 top-0 z-50 [background:color-mix(in_srgb,var(--cr-ink)_82%,transparent)] backdrop-blur-[14px] backdrop-saturate-[120%] border-b border-[var(--cr-line)]">
   <div class="border-b border-[var(--cr-line)] [font-family:var(--cr-mono)] text-[13px] tracking-[0.12em] uppercase text-[var(--cr-bone-dim)]">
     <div class="cr-wrap flex items-center gap-[28px] h-[32px] max-[640px]:gap-[16px] max-[400px]:h-auto max-[400px]:flex-wrap max-[400px]:gap-x-[16px] max-[400px]:gap-y-[6px] max-[400px]:py-[6px]">
       <a href={`mailto:${CONTACT.email}`} class="inline-flex items-center gap-[10px] whitespace-nowrap text-[var(--cr-bone-dim)] hover:text-[var(--cr-signal)] max-[640px]:text-[12px]">{CONTACT.email}</a>
@@ -142,6 +142,7 @@ const links = [
     </li>
   </ul>
 </header>
+<div data-site-nav-spacer class="h-[105px] max-[400px]:h-[112px]" aria-hidden="true"></div>
 
 <!-- Barra fija en móvil: las dos acciones que busca quien llega desde el teléfono -->
 <div class="cr-actionbar fixed inset-x-0 bottom-0 z-[80] hidden grid-cols-2 border-t border-[var(--cr-line-strong)] [background:var(--cr-ink)] max-[860px]:grid pb-[env(safe-area-inset-bottom)]">
@@ -154,6 +155,18 @@ const links = [
 </div>
 
 <script>
+  const siteNav = document.querySelector<HTMLElement>("[data-site-nav]");
+  const navSpacer = document.querySelector<HTMLElement>("[data-site-nav-spacer]");
+  const syncNavSpacer = () => {
+    if (!siteNav || !navSpacer) return;
+    navSpacer.style.height = `${siteNav.offsetHeight}px`;
+  };
+  syncNavSpacer();
+  window.addEventListener("resize", syncNavSpacer, { passive: true });
+  if (siteNav && navSpacer && "ResizeObserver" in window) {
+    new ResizeObserver(syncNavSpacer).observe(siteNav);
+  }
+
   const toggle = document.querySelector<HTMLButtonElement>("[data-nav-toggle]");
   const mobile = document.querySelector<HTMLElement>("[data-nav-mobile]");
   if (toggle && mobile) {
@@ -162,6 +175,7 @@ const links = [
       toggle.setAttribute("aria-expanded", String(!isOpen));
       toggle.setAttribute("aria-label", isOpen ? "Abrir menú" : "Cerrar menú");
       mobile.hidden = isOpen;
+      syncNavSpacer();
     });
 
     mobile.querySelectorAll("a").forEach((link) => {
@@ -169,6 +183,7 @@ const links = [
         toggle.setAttribute("aria-expanded", "false");
         toggle.setAttribute("aria-label", "Abrir menú");
         mobile.hidden = true;
+        syncNavSpacer();
       });
     });
 
@@ -177,6 +192,7 @@ const links = [
         toggle.setAttribute("aria-expanded", "false");
         toggle.setAttribute("aria-label", "Abrir menú");
         mobile.hidden = true;
+        syncNavSpacer();
         toggle.focus();
       }
     });

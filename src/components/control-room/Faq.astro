@@ -4,7 +4,7 @@
  * Las respuestas solo repiten compromisos que la web ya publica
  * (visita sin costo, presupuesto en 24 h, garantía, central 24/7).
  */
-import { CONTACT } from "@/data/company";
+import faqAvatar from "@/assets/img/avatar/faq.png";
 
 const faqs = [
   {
@@ -46,25 +46,40 @@ const faqSchema = {
 
 <section class="faq py-[clamp(96px,12vw,160px)] border-t border-[var(--cr-line)]" id="preguntas">
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-  <div class="cr-wrap grid grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] gap-[clamp(40px,6vw,96px)] max-[960px]:grid-cols-1">
-    <header>
+  <div class="cr-wrap">
+    <header class="mx-auto max-w-[760px] text-center">
       <p class="cr-label" data-reveal>05 — Preguntas</p>
-      <h2 class="mt-[18px] text-[clamp(44px,4.4vw,72px)]" data-reveal style="--d:80ms">Dudas<br /><span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">frecuentes.</span></h2>
-      <p class="mt-6 max-w-[36ch] text-[18px] leading-[1.6] text-[var(--cr-bone-dim)]" data-reveal style="--d:160ms">
-        ¿No está tu pregunta? Llámanos al <a href={CONTACT.phoneHref} class="text-[var(--cr-bone)] underline underline-offset-4 hover:text-[var(--cr-signal)]">{CONTACT.phone}</a>.
-      </p>
+      <h2 class="mt-[18px] text-[clamp(44px,4.4vw,72px)]" data-reveal style="--d:80ms">
+        Dudas <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">frecuentes.</span>
+      </h2>
     </header>
 
-    <div class="border-t border-[var(--cr-line-strong)]" data-reveal style="--d:120ms">
+    <div class="mt-[clamp(44px,6vw,76px)] grid grid-cols-2 gap-x-[clamp(24px,4vw,56px)] gap-y-0 max-[820px]:grid-cols-1" data-reveal style="--d:120ms">
       {
-        faqs.map((f) => (
-          <details class="group border-b border-[var(--cr-line)]">
-            <summary class="flex items-center justify-between gap-6 py-6 cursor-pointer list-none [&::-webkit-details-marker]:hidden [font-family:var(--cr-display)] font-bold text-[clamp(20px,1.8vw,26px)] leading-[1.2] transition-colors duration-200 hover:text-[var(--cr-signal)]">
-              {f.q}
-              <span class="shrink-0 grid place-items-center w-9 h-9 border border-[var(--cr-line-strong)] text-[var(--cr-signal)] text-[20px] transition-transform duration-300 group-open:rotate-45" aria-hidden="true">+</span>
-            </summary>
-            <p class="pb-6 pr-14 text-[18px] leading-[1.65] text-[var(--cr-bone-dim)] max-[640px]:pr-0">{f.a}</p>
-          </details>
+        [faqs.slice(0, 3), faqs.slice(3)].map((column, columnIndex) => (
+          <div class="border-t border-[var(--cr-line-strong)]">
+            {column.map((f, faqIndex) => (
+              <div class="relative border-b border-[var(--cr-line)]">
+                {columnIndex === 1 && faqIndex === 0 && (
+                  <img
+                    src={faqAvatar.src}
+                    alt=""
+                    aria-hidden="true"
+                    loading="lazy"
+                    decoding="async"
+                    class="pointer-events-none absolute -top-24 right-3 z-10 w-[clamp(96px,12vw,164px)] select-none drop-shadow-[0_18px_34px_rgba(0,0,0,0.35)] max-[820px]:-top-16 max-[820px]:right-2 max-[820px]:w-28"
+                  />
+                )}
+                <details class="group">
+                  <summary class="flex min-h-[104px] items-center justify-between gap-6 py-6 cursor-pointer list-none [&::-webkit-details-marker]:hidden [font-family:var(--cr-display)] font-bold text-[clamp(20px,1.8vw,26px)] leading-[1.2] transition-colors duration-200 hover:text-[var(--cr-signal)] max-[640px]:min-h-0">
+                    {f.q}
+                    <span class="shrink-0 grid place-items-center w-9 h-9 border border-[var(--cr-line-strong)] text-[var(--cr-signal)] text-[20px] transition-transform duration-300 group-open:rotate-45" aria-hidden="true">+</span>
+                  </summary>
+                  <p class="pb-6 pr-14 text-[18px] leading-[1.65] text-[var(--cr-bone-dim)] max-[640px]:pr-0">{f.a}</p>
+                </details>
+              </div>
+            ))}
+          </div>
         ))
       }
     </div>
