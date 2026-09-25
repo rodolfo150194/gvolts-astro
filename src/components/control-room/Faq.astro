@@ -50,7 +50,7 @@ const faqSchema = {
     <header>
       <p class="cr-label" data-reveal>05 — Preguntas</p>
       <h2 class="mt-[18px] text-[clamp(44px,4.4vw,72px)]" data-reveal style="--d:80ms">Dudas<br /><span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">frecuentes.</span></h2>
-      <p class="mt-6 max-w-[36ch] text-[17px] leading-[1.6] text-[var(--cr-bone-dim)]" data-reveal style="--d:160ms">
+      <p class="mt-6 max-w-[36ch] text-[18px] leading-[1.6] text-[var(--cr-bone-dim)]" data-reveal style="--d:160ms">
         ¿No está tu pregunta? Llámanos al <a href={CONTACT.phoneHref} class="text-[var(--cr-bone)] underline underline-offset-4 hover:text-[var(--cr-signal)]">{CONTACT.phone}</a>.
       </p>
     </header>
@@ -59,11 +59,11 @@ const faqSchema = {
       {
         faqs.map((f) => (
           <details class="group border-b border-[var(--cr-line)]">
-            <summary class="flex items-center justify-between gap-6 py-6 cursor-pointer list-none [&::-webkit-details-marker]:hidden font-[var(--cr-display)] font-bold text-[clamp(20px,1.8vw,26px)] leading-[1.2] transition-colors duration-200 hover:text-[var(--cr-signal)]">
+            <summary class="flex items-center justify-between gap-6 py-6 cursor-pointer list-none [&::-webkit-details-marker]:hidden [font-family:var(--cr-display)] font-bold text-[clamp(20px,1.8vw,26px)] leading-[1.2] transition-colors duration-200 hover:text-[var(--cr-signal)]">
               {f.q}
               <span class="shrink-0 grid place-items-center w-9 h-9 border border-[var(--cr-line-strong)] text-[var(--cr-signal)] text-[20px] transition-transform duration-300 group-open:rotate-45" aria-hidden="true">+</span>
             </summary>
-            <p class="pb-6 pr-14 text-[17px] leading-[1.65] text-[var(--cr-bone-dim)] max-[640px]:pr-0">{f.a}</p>
+            <p class="pb-6 pr-14 text-[18px] leading-[1.65] text-[var(--cr-bone-dim)] max-[640px]:pr-0">{f.a}</p>
           </details>
         ))
       }

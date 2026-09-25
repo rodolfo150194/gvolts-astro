@@ -46,8 +46,8 @@ const services = [
 </div>
 
 <div class="ctp w-full bg-[var(--cr-ink-2)] border border-[var(--cr-line-strong)] shadow-[0_40px_80px_-30px_rgba(0,0,0,0.9)]" data-reveal style="--d:200ms">
-  <div class="flex justify-between items-center px-7 py-[18px] border-b border-[var(--cr-line)] font-[var(--cr-mono)] text-xs tracking-[0.14em] uppercase max-[480px]:flex-wrap max-[480px]:gap-2 max-[480px]:px-[18px] max-[480px]:py-[14px]">
-    <span class="text-[var(--cr-bone-dim)] max-[400px]:text-[10.5px]">Solicitud de visita técnica</span>
+  <div class="flex justify-between items-center px-7 py-[18px] border-b border-[var(--cr-line)] [font-family:var(--cr-mono)] text-sm tracking-[0.14em] uppercase max-[480px]:flex-wrap max-[480px]:gap-2 max-[480px]:px-[18px] max-[480px]:py-[14px]">
+    <span class="text-[var(--cr-bone-dim)] max-[400px]:text-[12px]">Solicitud de visita técnica</span>
     <span class="flex items-center gap-2 text-[var(--cr-signal)] data-[sent]:text-[var(--cr-ok)]" data-status>
       <span class="cr-led cr-blink" data-status-led></span>
       <span data-status-text aria-live="polite">Canal abierto</span>
@@ -62,7 +62,7 @@ const services = [
           services.map((s, i) => (
             <button
               type="button"
-              class="group appearance-none cursor-pointer h-14 flex items-center justify-center gap-2 border border-[var(--cr-line-strong)] bg-transparent text-[var(--cr-bone)] font-[var(--cr-body)] text-[15px] font-semibold transition-[background-color,color,border-color] duration-200 aria-checked:bg-[var(--chip-color)] aria-checked:border-[var(--chip-color)] aria-checked:text-[var(--cr-ink)] max-[480px]:h-auto max-[480px]:min-h-[52px] max-[480px]:px-1 max-[480px]:py-2 max-[480px]:text-[13px] max-[480px]:text-center"
+              class="group appearance-none cursor-pointer h-14 flex items-center justify-center gap-2 border border-[var(--cr-line-strong)] bg-transparent text-[var(--cr-bone)] [font-family:var(--cr-body)] text-[16px] font-semibold transition-[background-color,color,border-color] duration-200 aria-checked:bg-[var(--chip-color)] aria-checked:border-[var(--chip-color)] aria-checked:text-[var(--cr-ink)] max-[480px]:h-auto max-[480px]:min-h-[52px] max-[480px]:px-1 max-[480px]:py-2 max-[480px]:text-[14px] max-[480px]:text-center"
               data-chip
               data-service={s.id}
               data-placeholder={s.placeholder}
@@ -79,38 +79,38 @@ const services = [
     </fieldset>
 
     <div class="grid grid-cols-2 gap-4 max-sm:grid-cols-1">
-      <label class="flex flex-col gap-2 text-sm font-semibold">
+      <label class="flex flex-col gap-2 text-[15px] font-semibold">
         Nombre completo
-        <input class="box-border h-[52px] px-4 bg-[var(--cr-ink)] border border-[var(--cr-line-strong)] text-[var(--cr-bone)] font-[var(--cr-body)] text-base transition-[border-color] duration-200 hover:border-[color-mix(in_srgb,var(--cr-bone)_60%,transparent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--cr-signal)] focus-visible:outline-offset-0 focus-visible:border-[var(--cr-signal)]" type="text" name="name" autocomplete="name" required minlength="2" placeholder="María González" />
+        <input class="box-border h-[52px] px-4 bg-[var(--cr-ink)] border border-[var(--cr-line-strong)] text-[var(--cr-bone)] [font-family:var(--cr-body)] text-base transition-[border-color] duration-200 hover:border-[color-mix(in_srgb,var(--cr-bone)_60%,transparent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--cr-signal)] focus-visible:outline-offset-0 focus-visible:border-[var(--cr-signal)]" type="text" name="name" autocomplete="name" required minlength="2" placeholder="María González" />
       </label>
-      <label class="flex flex-col gap-2 text-sm font-semibold">
+      <label class="flex flex-col gap-2 text-[15px] font-semibold">
         Teléfono
-        <input class="box-border h-[52px] px-4 bg-[var(--cr-ink)] border border-[var(--cr-line-strong)] text-[var(--cr-bone)] font-[var(--cr-body)] text-base transition-[border-color] duration-200 hover:border-[color-mix(in_srgb,var(--cr-bone)_60%,transparent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--cr-signal)] focus-visible:outline-offset-0 focus-visible:border-[var(--cr-signal)]" type="tel" name="phone" autocomplete="tel" required minlength="10" placeholder="+1 (555) 000-0000" />
+        <input class="box-border h-[52px] px-4 bg-[var(--cr-ink)] border border-[var(--cr-line-strong)] text-[var(--cr-bone)] [font-family:var(--cr-body)] text-base transition-[border-color] duration-200 hover:border-[color-mix(in_srgb,var(--cr-bone)_60%,transparent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--cr-signal)] focus-visible:outline-offset-0 focus-visible:border-[var(--cr-signal)]" type="tel" name="phone" autocomplete="tel" required minlength="10" placeholder="+1 (555) 000-0000" />
       </label>
     </div>
 
     <div class="grid grid-cols-2 gap-4 max-sm:grid-cols-1">
-      <label class="flex flex-col gap-2 text-sm font-semibold">
+      <label class="flex flex-col gap-2 text-[15px] font-semibold">
         Email
-        <input class="box-border h-[52px] px-4 bg-[var(--cr-ink)] border border-[var(--cr-line-strong)] text-[var(--cr-bone)] font-[var(--cr-body)] text-base transition-[border-color] duration-200 hover:border-[color-mix(in_srgb,var(--cr-bone)_60%,transparent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--cr-signal)] focus-visible:outline-offset-0 focus-visible:border-[var(--cr-signal)]" type="email" name="email" autocomplete="email" required placeholder="tu@empresa.com" />
+        <input class="box-border h-[52px] px-4 bg-[var(--cr-ink)] border border-[var(--cr-line-strong)] text-[var(--cr-bone)] [font-family:var(--cr-body)] text-base transition-[border-color] duration-200 hover:border-[color-mix(in_srgb,var(--cr-bone)_60%,transparent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--cr-signal)] focus-visible:outline-offset-0 focus-visible:border-[var(--cr-signal)]" type="email" name="email" autocomplete="email" required placeholder="tu@empresa.com" />
       </label>
-      <label class="flex flex-col gap-2 text-sm font-semibold">
+      <label class="flex flex-col gap-2 text-[15px] font-semibold">
         Código postal
-        <input class="box-border h-[52px] px-4 bg-[var(--cr-ink)] border border-[var(--cr-line-strong)] text-[var(--cr-bone)] font-[var(--cr-body)] text-base transition-[border-color] duration-200 hover:border-[color-mix(in_srgb,var(--cr-bone)_60%,transparent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--cr-signal)] focus-visible:outline-offset-0 focus-visible:border-[var(--cr-signal)]" type="text" name="zip" autocomplete="postal-code" required minlength="5" maxlength="10" placeholder="12345" />
+        <input class="box-border h-[52px] px-4 bg-[var(--cr-ink)] border border-[var(--cr-line-strong)] text-[var(--cr-bone)] [font-family:var(--cr-body)] text-base transition-[border-color] duration-200 hover:border-[color-mix(in_srgb,var(--cr-bone)_60%,transparent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--cr-signal)] focus-visible:outline-offset-0 focus-visible:border-[var(--cr-signal)]" type="text" name="zip" autocomplete="postal-code" required minlength="5" maxlength="10" placeholder="12345" />
       </label>
     </div>
 
-    <label class="flex flex-col gap-2 text-sm font-semibold">
+    <label class="flex flex-col gap-2 text-[15px] font-semibold">
       Cuéntanos tu proyecto
-      <textarea class="box-border h-auto px-4 bg-[var(--cr-ink)] border border-[var(--cr-line-strong)] text-[var(--cr-bone)] font-[var(--cr-body)] text-base transition-[border-color] duration-200 hover:border-[color-mix(in_srgb,var(--cr-bone)_60%,transparent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--cr-signal)] focus-visible:outline-offset-0 focus-visible:border-[var(--cr-signal)] py-3.5 leading-normal resize-y" name="message" rows="5" required minlength="10" placeholder={services[0].placeholder} data-message />
+      <textarea class="box-border h-auto px-4 bg-[var(--cr-ink)] border border-[var(--cr-line-strong)] text-[var(--cr-bone)] [font-family:var(--cr-body)] text-base transition-[border-color] duration-200 hover:border-[color-mix(in_srgb,var(--cr-bone)_60%,transparent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--cr-signal)] focus-visible:outline-offset-0 focus-visible:border-[var(--cr-signal)] py-3.5 leading-normal resize-y" name="message" rows="5" required minlength="10" placeholder={services[0].placeholder} data-message />
     </label>
 
-    <label class="flex items-start gap-3 text-sm leading-normal text-[var(--cr-bone-dim)] font-normal">
+    <label class="flex items-start gap-3 text-[15px] leading-normal text-[var(--cr-bone-dim)] font-normal">
       <input class="mt-0.5 w-5 h-5 accent-[var(--cr-signal)]" type="checkbox" required />
       Acepto que GVolts me contacte sobre esta solicitud según la política de privacidad.
     </label>
 
-    <button class="cr-btn group justify-center h-16 font-[var(--cr-display)] font-extrabold text-2xl disabled:opacity-60 disabled:cursor-not-allowed max-[480px]:text-[19px] max-[480px]:h-14" type="submit">
+    <button class="cr-btn group justify-center h-16 [font-family:var(--cr-display)] font-extrabold text-2xl disabled:opacity-60 disabled:cursor-not-allowed max-[480px]:text-[19px] max-[480px]:h-14" type="submit">
       <span aria-live="polite">
         <span data-submit-text>Enviar solicitud</span>
         <span class="ctp__submit-loading" data-submit-loading hidden>Enviando…</span>
@@ -118,9 +118,9 @@ const services = [
       <span class="inline-block transition-transform duration-300 group-hover:translate-x-[6px]" aria-hidden="true">→</span>
     </button>
 
-    <p class="font-[var(--cr-mono)] text-[11px] tracking-[0.1em] text-center text-[var(--cr-bone-dim)]">Evaluación sin compromiso · cotización con financiamiento</p>
+    <p class="[font-family:var(--cr-mono)] text-[13px] tracking-[0.1em] text-center text-[var(--cr-bone-dim)]">Evaluación sin compromiso · cotización con financiamiento</p>
 
-    <p class="m-0 py-3.5 px-4 bg-[color-mix(in_srgb,var(--cr-signal)_14%,transparent)] border border-[var(--cr-signal)] text-[var(--cr-bone)] text-sm" data-error hidden aria-live="assertive"></p>
+    <p class="m-0 py-3.5 px-4 bg-[color-mix(in_srgb,var(--cr-signal)_14%,transparent)] border border-[var(--cr-signal)] text-[var(--cr-bone)] text-[15px]" data-error hidden aria-live="assertive"></p>
   </form>
 
   <div class="flex flex-col items-start gap-6 py-16 px-10 max-[480px]:py-12 max-[480px]:px-6" data-success hidden tabindex="-1" aria-live="polite">
@@ -160,14 +160,14 @@ const services = [
     content: ""; position: absolute; left: -11px; bottom: 16px; width: 0; height: 0;
     border: 8px solid transparent; border-right-color: var(--tech-color); border-left: 0;
   }
-  .tech__label { display: flex; align-items: center; gap: 8px; font-family: var(--cr-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tech-color); }
+  .tech__label { display: flex; align-items: center; gap: 8px; font-family: var(--cr-mono); font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tech-color); }
   .tech__led { width: 7px; height: 7px; border-radius: 50%; background: var(--tech-color); box-shadow: 0 0 10px var(--tech-color); }
-  .tech__line { margin-top: 6px; font-size: 15px; line-height: 1.5; color: var(--cr-bone); }
+  .tech__line { margin-top: 6px; font-size: 16px; line-height: 1.5; color: var(--cr-bone); }
   .tech[data-switching] .tech__line { animation: tech-type 0.45s ease-out both; }
   @media (max-width: 480px) {
     .tech__screen { width: 46vw; }
     .tech__bubble { padding: 10px 12px; margin-bottom: 10px; }
-    .tech__line { font-size: 13.5px; }
+    .tech__line { font-size: 15px; }
   }
   @keyframes tech-on {
     0% { clip-path: inset(49% 0 49% 0); filter: brightness(3) saturate(0); }

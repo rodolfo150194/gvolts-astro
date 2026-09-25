@@ -307,7 +307,7 @@ export function mountTwin(container: HTMLElement, root: HTMLElement) {
   LABELS.forEach(({ text, x, y, amber: isAmber }) => {
     const el = document.createElement("p");
     el.textContent = text;
-    el.style.cssText = `margin:0;font-family:var(--cr-mono);font-size:${isSmall ? 9.5 : 11}px;letter-spacing:.08em;white-space:nowrap;color:${
+    el.style.cssText = `margin:0;font-family:var(--cr-mono);font-size:${isSmall ? 11 : 13}px;letter-spacing:.08em;white-space:nowrap;color:${
       isAmber ? "var(--cr-amber)" : "var(--cr-bone-dim)"
     };text-shadow:0 1px 6px rgba(0,0,0,.8)`;
     const obj = new CSS2DObject(el);

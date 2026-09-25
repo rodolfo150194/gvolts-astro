@@ -24,9 +24,9 @@ const links = [
 ---
 
 <header class="sticky top-0 z-50 [background:color-mix(in_srgb,var(--cr-ink)_82%,transparent)] backdrop-blur-[14px] backdrop-saturate-[120%] border-b border-[var(--cr-line)]">
-  <div class="border-b border-[var(--cr-line)] [font-family:var(--cr-mono)] text-[11px] tracking-[0.12em] uppercase text-[var(--cr-bone-dim)]">
+  <div class="border-b border-[var(--cr-line)] [font-family:var(--cr-mono)] text-[13px] tracking-[0.12em] uppercase text-[var(--cr-bone-dim)]">
     <div class="cr-wrap flex items-center gap-[28px] h-[32px] max-[640px]:gap-[16px] max-[400px]:h-auto max-[400px]:flex-wrap max-[400px]:gap-x-[16px] max-[400px]:gap-y-[6px] max-[400px]:py-[6px]">
-      <a href={`mailto:${CONTACT.email}`} class="inline-flex items-center gap-[10px] whitespace-nowrap text-[var(--cr-bone-dim)] hover:text-[var(--cr-signal)] max-[640px]:text-[10px]">{CONTACT.email}</a>
+      <a href={`mailto:${CONTACT.email}`} class="inline-flex items-center gap-[10px] whitespace-nowrap text-[var(--cr-bone-dim)] hover:text-[var(--cr-signal)] max-[640px]:text-[12px]">{CONTACT.email}</a>
       <a class="inline-flex items-center gap-[10px] whitespace-nowrap text-[var(--cr-bone)] hover:text-[var(--cr-signal)]" href={CONTACT.phoneHref}>{CONTACT.phone}</a>
       
       <div class="inline-flex items-center gap-[18px] ml-auto max-[400px]:ml-0 max-[400px]:basis-full max-[400px]:justify-between">
@@ -53,16 +53,16 @@ const links = [
       ) : (
         <span class="inline-flex items-stretch [font-family:var(--cr-display)] font-black text-[30px] leading-none tracking-[0.02em] max-[640px]:text-[24px] max-[400px]:text-[19px]">
           <span class="bg-[var(--cr-bone)] text-[var(--cr-ink)] pt-[6px] pr-[6px] pb-[4px] pl-[8px]">G</span><span class="bg-[var(--cr-signal-deep)] text-[var(--cr-ink)] pt-[6px] pr-[8px] pb-[4px] pl-[4px]">VOLTS</span>
-          <span class="[writing-mode:vertical-rl] [font-family:var(--cr-mono)] text-[8px] font-bold tracking-[0.2em] bg-[var(--cr-ink-3)] text-[var(--cr-bone)] px-[4px] py-[3px] grid place-items-center max-[400px]:hidden">CORP</span>
+          <span class="[writing-mode:vertical-rl] [font-family:var(--cr-mono)] text-[10px] font-bold tracking-[0.2em] bg-[var(--cr-ink-3)] text-[var(--cr-bone)] px-[4px] py-[3px] grid place-items-center max-[400px]:hidden">CORP</span>
         </span>
       )}
     </a>
 
-    <ul class="flex gap-[36px] list-none m-0 p-0 [font-family:var(--cr-mono)] text-[13px] tracking-[0.1em] uppercase max-[860px]:hidden">
+    <ul class="flex gap-[36px] list-none m-0 p-0 [font-family:var(--cr-mono)] text-[14px] tracking-[0.1em] uppercase max-[860px]:hidden">
       <li class="relative group flex items-center">
         <button
           type="button"
-          class="flex items-center gap-[6px] relative py-[6px] m-0 bg-transparent border-0 appearance-none cursor-pointer [font-family:var(--cr-mono)] text-[13px] leading-none tracking-[0.1em] uppercase text-[var(--cr-bone)] after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-px after:w-full after:bg-[var(--cr-signal)] after:origin-right after:scale-x-0 after:transition-transform after:duration-[350ms] after:ease-[cubic-bezier(0.2,0.7,0.1,1)] group-hover:after:origin-left group-hover:after:scale-x-100"
+          class="flex items-center gap-[6px] relative py-[6px] m-0 bg-transparent border-0 appearance-none cursor-pointer [font-family:var(--cr-mono)] text-[14px] leading-none tracking-[0.1em] uppercase text-[var(--cr-bone)] after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-px after:w-full after:bg-[var(--cr-signal)] after:origin-right after:scale-x-0 after:transition-transform after:duration-[350ms] after:ease-[cubic-bezier(0.2,0.7,0.1,1)] group-hover:after:origin-left group-hover:after:scale-x-100"
         >
           Servicios
           <ChevronDown size={14} class="transition-transform duration-300 group-hover:rotate-180" />
@@ -72,7 +72,7 @@ const links = [
         >
           {services.map((s) => (
             <li>
-              <a href={s.href} class="block px-[14px] py-[12px] text-[13px] [font-family:var(--cr-body)] text-[var(--cr-bone-dim)] hover:text-[var(--cr-signal)] hover:bg-[var(--cr-ink-3)] transition-colors">
+              <a href={s.href} class="block px-[14px] py-[12px] text-[14px] [font-family:var(--cr-body)] text-[var(--cr-bone-dim)] hover:text-[var(--cr-signal)] hover:bg-[var(--cr-ink-3)] transition-colors">
                 {s.label}
               </a>
             </li>
@@ -105,7 +105,7 @@ const links = [
     </button>
   </nav>
 
-  <ul id="nav-mobile" class="flex-col list-none m-0 pt-[12px] pb-[20px] px-[var(--cr-gutter,24px)] [font-family:var(--cr-mono)] text-[14px] tracking-[0.08em] uppercase border-t border-[var(--cr-line)] [&:not([hidden])]:flex" data-nav-mobile hidden>
+  <ul id="nav-mobile" class="flex-col list-none m-0 pt-[12px] pb-[20px] px-[var(--cr-gutter,24px)] [font-family:var(--cr-mono)] text-[15px] tracking-[0.08em] uppercase border-t border-[var(--cr-line)] [&:not([hidden])]:flex" data-nav-mobile hidden>
     <li class="border-b border-[var(--cr-line)]">
       <details class="group">
         <summary class="flex items-center justify-between py-[14px] cursor-pointer list-none [&::-webkit-details-marker]:hidden">
@@ -114,7 +114,7 @@ const links = [
         </summary>
         <ul class="list-none m-0 pb-[10px] pl-[16px] normal-case tracking-normal">
           {services.map((s) => (
-            <li><a href={s.href} class="block py-[10px] text-[13px] text-[var(--cr-bone-dim)]">{s.label}</a></li>
+            <li><a href={s.href} class="block py-[10px] text-[14px] text-[var(--cr-bone-dim)]">{s.label}</a></li>
           ))}
         </ul>
       </details>
@@ -145,10 +145,10 @@ const links = [
 
 <!-- Barra fija en móvil: las dos acciones que busca quien llega desde el teléfono -->
 <div class="cr-actionbar fixed inset-x-0 bottom-0 z-[80] hidden grid-cols-2 border-t border-[var(--cr-line-strong)] [background:var(--cr-ink)] max-[860px]:grid pb-[env(safe-area-inset-bottom)]">
-  <a href={CONTACT.phoneHref} class="flex items-center justify-center gap-[10px] h-[56px] [font-family:var(--cr-mono)] text-[13px] font-semibold tracking-[0.1em] uppercase text-[var(--cr-bone)] border-r border-[var(--cr-line-strong)]">
+  <a href={CONTACT.phoneHref} class="flex items-center justify-center gap-[10px] h-[56px] [font-family:var(--cr-mono)] text-[14px] font-semibold tracking-[0.1em] uppercase text-[var(--cr-bone)] border-r border-[var(--cr-line-strong)]">
     <Phone size={16} aria-hidden="true" />Llamar
   </a>
-  <a href="/contact" class="flex items-center justify-center gap-[10px] h-[56px] [font-family:var(--cr-mono)] text-[13px] font-semibold tracking-[0.1em] uppercase bg-[var(--cr-signal)] text-[var(--cr-ink)]">
+  <a href="/contact" class="flex items-center justify-center gap-[10px] h-[56px] [font-family:var(--cr-mono)] text-[14px] font-semibold tracking-[0.1em] uppercase bg-[var(--cr-signal)] text-[var(--cr-ink)]">
     Cotizar gratis <span aria-hidden="true">→</span>
   </a>
 </div>

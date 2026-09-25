@@ -36,13 +36,13 @@ import { avatars } from "@/data/avatar";
           <h2 class="text-[clamp(40px,6vw,88px)]">Arma tu <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">obra.</span></h2>
         </div>
         <div class="flex flex-col items-end gap-[14px] max-sm:items-start">
-          <p class="max-w-[380px] text-right [color:var(--cr-bone-dim)] text-[15px] max-sm:text-left">
+          <p class="max-w-[380px] text-right [color:var(--cr-bone-dim)] text-[16px] max-sm:text-left">
             Configura una instalación nueva o diagnostica una existente. Simula la obra día a día y mira el
             presupuesto armarse en vivo.
           </p>
           <div class="flex border border-[color:var(--cr-line-strong)]" role="group" aria-label="Tipo de proyecto">
-            <button type="button" class="appearance-none border-0 m-0 h-12 px-5 cursor-pointer bg-transparent [color:var(--cr-bone)] [font-family:var(--cr-mono)] text-xs tracking-[0.1em] uppercase [&.is-active]:bg-[color:var(--cr-bone)] [&.is-active]:[color:var(--cr-ink)] is-active" data-pp-mode="install" aria-pressed="true">Instalación nueva</button>
-            <button type="button" class="appearance-none border-0 m-0 h-12 px-5 cursor-pointer bg-transparent [color:var(--cr-bone)] [font-family:var(--cr-mono)] text-xs tracking-[0.1em] uppercase [&.is-active]:bg-[color:var(--cr-bone)] [&.is-active]:[color:var(--cr-ink)] border-l border-[color:var(--cr-line-strong)]" data-pp-mode="repair" aria-pressed="false">Reparación</button>
+            <button type="button" class="appearance-none border-0 m-0 h-12 px-5 cursor-pointer bg-transparent [color:var(--cr-bone)] [font-family:var(--cr-mono)] text-sm tracking-[0.1em] uppercase [&.is-active]:bg-[color:var(--cr-bone)] [&.is-active]:[color:var(--cr-ink)] is-active" data-pp-mode="install" aria-pressed="true">Instalación nueva</button>
+            <button type="button" class="appearance-none border-0 m-0 h-12 px-5 cursor-pointer bg-transparent [color:var(--cr-bone)] [font-family:var(--cr-mono)] text-sm tracking-[0.1em] uppercase [&.is-active]:bg-[color:var(--cr-bone)] [&.is-active]:[color:var(--cr-ink)] border-l border-[color:var(--cr-line-strong)]" data-pp-mode="repair" aria-pressed="false">Reparación</button>
           </div>
         </div>
       </div>
@@ -54,40 +54,40 @@ import { avatars } from "@/data/avatar";
           <div class="flex flex-col gap-[14px]" data-pp-install-block>
             <p class="cr-label">01 · Inmueble</p>
             <div class="grid grid-cols-2 gap-2" data-pp-types>
-              <button type="button" class="appearance-none m-0 h-[42px] cursor-pointer border border-[color:var(--cr-line-strong)] bg-transparent [color:var(--cr-bone)] [font-family:var(--cr-body)] font-semibold text-[13px] [&.is-active]:bg-[color:var(--cr-bone)] [&.is-active]:[color:var(--cr-ink)] [&.is-active]:border-[color:var(--cr-bone)] is-active" data-pp-type="office" aria-pressed="true">Oficina</button>
-              <button type="button" class="appearance-none m-0 h-[42px] cursor-pointer border border-[color:var(--cr-line-strong)] bg-transparent [color:var(--cr-bone)] [font-family:var(--cr-body)] font-semibold text-[13px] [&.is-active]:bg-[color:var(--cr-bone)] [&.is-active]:[color:var(--cr-ink)] [&.is-active]:border-[color:var(--cr-bone)]" data-pp-type="retail" aria-pressed="false">Comercio</button>
-              <button type="button" class="appearance-none m-0 h-[42px] cursor-pointer border border-[color:var(--cr-line-strong)] bg-transparent [color:var(--cr-bone)] [font-family:var(--cr-body)] font-semibold text-[13px] [&.is-active]:bg-[color:var(--cr-bone)] [&.is-active]:[color:var(--cr-ink)] [&.is-active]:border-[color:var(--cr-bone)]" data-pp-type="home" aria-pressed="false">Residencial</button>
-              <button type="button" class="appearance-none m-0 h-[42px] cursor-pointer border border-[color:var(--cr-line-strong)] bg-transparent [color:var(--cr-bone)] [font-family:var(--cr-body)] font-semibold text-[13px] [&.is-active]:bg-[color:var(--cr-bone)] [&.is-active]:[color:var(--cr-ink)] [&.is-active]:border-[color:var(--cr-bone)]" data-pp-type="plant" aria-pressed="false">Industrial</button>
+              <button type="button" class="appearance-none m-0 h-[42px] cursor-pointer border border-[color:var(--cr-line-strong)] bg-transparent [color:var(--cr-bone)] [font-family:var(--cr-body)] font-semibold text-[14px] [&.is-active]:bg-[color:var(--cr-bone)] [&.is-active]:[color:var(--cr-ink)] [&.is-active]:border-[color:var(--cr-bone)] is-active" data-pp-type="office" aria-pressed="true">Oficina</button>
+              <button type="button" class="appearance-none m-0 h-[42px] cursor-pointer border border-[color:var(--cr-line-strong)] bg-transparent [color:var(--cr-bone)] [font-family:var(--cr-body)] font-semibold text-[14px] [&.is-active]:bg-[color:var(--cr-bone)] [&.is-active]:[color:var(--cr-ink)] [&.is-active]:border-[color:var(--cr-bone)]" data-pp-type="retail" aria-pressed="false">Comercio</button>
+              <button type="button" class="appearance-none m-0 h-[42px] cursor-pointer border border-[color:var(--cr-line-strong)] bg-transparent [color:var(--cr-bone)] [font-family:var(--cr-body)] font-semibold text-[14px] [&.is-active]:bg-[color:var(--cr-bone)] [&.is-active]:[color:var(--cr-ink)] [&.is-active]:border-[color:var(--cr-bone)]" data-pp-type="home" aria-pressed="false">Residencial</button>
+              <button type="button" class="appearance-none m-0 h-[42px] cursor-pointer border border-[color:var(--cr-line-strong)] bg-transparent [color:var(--cr-bone)] [font-family:var(--cr-body)] font-semibold text-[14px] [&.is-active]:bg-[color:var(--cr-bone)] [&.is-active]:[color:var(--cr-ink)] [&.is-active]:border-[color:var(--cr-bone)]" data-pp-type="plant" aria-pressed="false">Industrial</button>
             </div>
 
             <p class="cr-label">02 · Superficie</p>
             <div class="flex items-center border border-[color:var(--cr-line-strong)]">
               <button type="button" class="appearance-none m-0 border-0 w-12 h-12 bg-transparent [color:var(--cr-bone)] text-xl cursor-pointer" data-pp-area-down aria-label="Reducir superficie">−</button>
-              <p class="grow text-center [font-family:var(--cr-display)] font-extrabold text-[30px] leading-none"><span data-pp-area-label>1,200</span> <span class="text-[15px] [color:var(--cr-bone-dim)]">m²</span></p>
+              <p class="grow text-center [font-family:var(--cr-display)] font-extrabold text-[30px] leading-none"><span data-pp-area-label>1,200</span> <span class="text-[16px] [color:var(--cr-bone-dim)]">m²</span></p>
               <button type="button" class="appearance-none m-0 border-0 w-12 h-12 bg-transparent [color:var(--cr-bone)] text-xl cursor-pointer" data-pp-area-up aria-label="Aumentar superficie">+</button>
             </div>
 
             <p class="cr-label">03 · Sistemas</p>
             <div class="flex flex-col gap-2" data-pp-systems>
-              <button type="button" class="group appearance-none m-0 min-h-[44px] px-3 flex items-center gap-[10px] cursor-pointer text-left border border-[color:var(--cr-line)] bg-transparent [color:var(--cr-bone)] [font-family:var(--cr-body)] text-[13px] [&.is-active]:bg-[rgba(237,232,224,0.06)] [&.is-active]:border-[color:var(--pp-color,var(--cr-signal))] is-active" data-pp-sys="fire" aria-pressed="true">
+              <button type="button" class="group appearance-none m-0 min-h-[44px] px-3 flex items-center gap-[10px] cursor-pointer text-left border border-[color:var(--cr-line)] bg-transparent [color:var(--cr-bone)] [font-family:var(--cr-body)] text-[14px] [&.is-active]:bg-[rgba(237,232,224,0.06)] [&.is-active]:border-[color:var(--pp-color,var(--cr-signal))] is-active" data-pp-sys="fire" aria-pressed="true">
                 <span class="w-3 h-3 box-border border-2 border-[color:var(--pp-color)] rounded-[var(--pp-radius)] bg-transparent shrink-0 group-[.is-active]:bg-[color:var(--pp-color)]" data-pp-sys-dot style="--pp-color:#e0605a; --pp-radius:50%"></span>
                 <span class="grow font-semibold">Detección de incendio</span>
-                <span class="[font-family:var(--cr-mono)] text-[11px] [color:var(--cr-bone-dim)] whitespace-nowrap" data-pp-sys-count>—</span>
+                <span class="[font-family:var(--cr-mono)] text-[13px] [color:var(--cr-bone-dim)] whitespace-nowrap" data-pp-sys-count>—</span>
               </button>
-              <button type="button" class="group appearance-none m-0 min-h-[44px] px-3 flex items-center gap-[10px] cursor-pointer text-left border border-[color:var(--cr-line)] bg-transparent [color:var(--cr-bone)] [font-family:var(--cr-body)] text-[13px] [&.is-active]:bg-[rgba(237,232,224,0.06)] [&.is-active]:border-[color:var(--pp-color,var(--cr-signal))] is-active" data-pp-sys="cam" aria-pressed="true">
+              <button type="button" class="group appearance-none m-0 min-h-[44px] px-3 flex items-center gap-[10px] cursor-pointer text-left border border-[color:var(--cr-line)] bg-transparent [color:var(--cr-bone)] [font-family:var(--cr-body)] text-[14px] [&.is-active]:bg-[rgba(237,232,224,0.06)] [&.is-active]:border-[color:var(--pp-color,var(--cr-signal))] is-active" data-pp-sys="cam" aria-pressed="true">
                 <span class="w-3 h-3 box-border border-2 border-[color:var(--pp-color)] rounded-[var(--pp-radius)] bg-transparent shrink-0 group-[.is-active]:bg-[color:var(--pp-color)]" data-pp-sys-dot style="--pp-color:#7ee2a8; --pp-radius:1px"></span>
                 <span class="grow font-semibold">Videovigilancia CCTV</span>
-                <span class="[font-family:var(--cr-mono)] text-[11px] [color:var(--cr-bone-dim)] whitespace-nowrap" data-pp-sys-count>—</span>
+                <span class="[font-family:var(--cr-mono)] text-[13px] [color:var(--cr-bone-dim)] whitespace-nowrap" data-pp-sys-count>—</span>
               </button>
-              <button type="button" class="group appearance-none m-0 min-h-[44px] px-3 flex items-center gap-[10px] cursor-pointer text-left border border-[color:var(--cr-line)] bg-transparent [color:var(--cr-bone)] [font-family:var(--cr-body)] text-[13px] [&.is-active]:bg-[rgba(237,232,224,0.06)] [&.is-active]:border-[color:var(--pp-color,var(--cr-signal))]" data-pp-sys="acc" aria-pressed="false">
+              <button type="button" class="group appearance-none m-0 min-h-[44px] px-3 flex items-center gap-[10px] cursor-pointer text-left border border-[color:var(--cr-line)] bg-transparent [color:var(--cr-bone)] [font-family:var(--cr-body)] text-[14px] [&.is-active]:bg-[rgba(237,232,224,0.06)] [&.is-active]:border-[color:var(--pp-color,var(--cr-signal))]" data-pp-sys="acc" aria-pressed="false">
                 <span class="w-3 h-3 box-border border-2 border-[color:var(--pp-color)] rounded-[var(--pp-radius)] bg-transparent shrink-0 group-[.is-active]:bg-[color:var(--pp-color)]" data-pp-sys-dot style="--pp-color:#7ecbe2; --pp-radius:4px 0"></span>
                 <span class="grow font-semibold">Control de acceso</span>
-                <span class="[font-family:var(--cr-mono)] text-[11px] [color:var(--cr-bone-dim)] whitespace-nowrap" data-pp-sys-count>—</span>
+                <span class="[font-family:var(--cr-mono)] text-[13px] [color:var(--cr-bone-dim)] whitespace-nowrap" data-pp-sys-count>—</span>
               </button>
-              <button type="button" class="group appearance-none m-0 min-h-[44px] px-3 flex items-center gap-[10px] cursor-pointer text-left border border-[color:var(--cr-line)] bg-transparent [color:var(--cr-bone)] [font-family:var(--cr-body)] text-[13px] [&.is-active]:bg-[rgba(237,232,224,0.06)] [&.is-active]:border-[color:var(--pp-color,var(--cr-signal))]" data-pp-sys="elec" aria-pressed="false">
+              <button type="button" class="group appearance-none m-0 min-h-[44px] px-3 flex items-center gap-[10px] cursor-pointer text-left border border-[color:var(--cr-line)] bg-transparent [color:var(--cr-bone)] [font-family:var(--cr-body)] text-[14px] [&.is-active]:bg-[rgba(237,232,224,0.06)] [&.is-active]:border-[color:var(--pp-color,var(--cr-signal))]" data-pp-sys="elec" aria-pressed="false">
                 <span class="w-3 h-3 box-border border-2 border-[color:var(--pp-color)] rounded-[var(--pp-radius)] bg-transparent shrink-0 group-[.is-active]:bg-[color:var(--pp-color)]" data-pp-sys-dot style="--pp-color:#ffd66b; --pp-radius:1px"></span>
                 <span class="grow font-semibold">Tableros eléctricos</span>
-                <span class="[font-family:var(--cr-mono)] text-[11px] [color:var(--cr-bone-dim)] whitespace-nowrap" data-pp-sys-count>—</span>
+                <span class="[font-family:var(--cr-mono)] text-[13px] [color:var(--cr-bone-dim)] whitespace-nowrap" data-pp-sys-count>—</span>
               </button>
             </div>
           </div>
@@ -106,7 +106,7 @@ import { avatars } from "@/data/avatar";
 
         <!-- CENTER: blueprint -->
         <div class="flex flex-col gap-[10px]">
-          <div class="flex justify-between [font-family:var(--cr-mono)] text-[11px] tracking-[0.1em] uppercase [color:var(--cr-bone-dim)]">
+          <div class="flex justify-between [font-family:var(--cr-mono)] text-[13px] tracking-[0.1em] uppercase [color:var(--cr-bone-dim)]">
             <span data-pp-plan-title>Plano · 1,200 m² · Esc. esquemática</span>
             <span class="inline-flex items-center gap-2">
               <span class="cr-led" data-pp-status-led></span>
@@ -120,15 +120,15 @@ import { avatars } from "@/data/avatar";
             <div class="absolute pointer-events-none left-[38%] top-[4%] h-[38%] border-l-2 border-current" aria-hidden="true"></div>
             <div class="absolute pointer-events-none left-[66%] top-[42%] bottom-[4%] border-l-2 border-current" aria-hidden="true"></div>
             <div class="absolute pointer-events-none left-[4%] top-[72%] w-[30%] border-t-2 border-current" aria-hidden="true"></div>
-            <span class="absolute [font-family:var(--cr-mono)] text-[10px] tracking-[0.14em] [color:rgba(237,232,224,0.45)] pointer-events-none" style="left:6%;top:6%">ÁREA A</span>
-            <span class="absolute [font-family:var(--cr-mono)] text-[10px] tracking-[0.14em] [color:rgba(237,232,224,0.45)] pointer-events-none" style="left:40%;top:6%">ÁREA B</span>
-            <span class="absolute [font-family:var(--cr-mono)] text-[10px] tracking-[0.14em] [color:rgba(237,232,224,0.45)] pointer-events-none" style="left:6%;top:44%">ÁREA C</span>
-            <span class="absolute [font-family:var(--cr-mono)] text-[10px] tracking-[0.14em] [color:rgba(237,232,224,0.45)] pointer-events-none" style="left:68%;top:44%">ÁREA D</span>
+            <span class="absolute [font-family:var(--cr-mono)] text-[12px] tracking-[0.14em] [color:rgba(237,232,224,0.45)] pointer-events-none" style="left:6%;top:6%">ÁREA A</span>
+            <span class="absolute [font-family:var(--cr-mono)] text-[12px] tracking-[0.14em] [color:rgba(237,232,224,0.45)] pointer-events-none" style="left:40%;top:6%">ÁREA B</span>
+            <span class="absolute [font-family:var(--cr-mono)] text-[12px] tracking-[0.14em] [color:rgba(237,232,224,0.45)] pointer-events-none" style="left:6%;top:44%">ÁREA C</span>
+            <span class="absolute [font-family:var(--cr-mono)] text-[12px] tracking-[0.14em] [color:rgba(237,232,224,0.45)] pointer-events-none" style="left:68%;top:44%">ÁREA D</span>
             <div class="absolute top-0 bottom-0 w-0.5 [background:var(--cr-amber)] shadow-[0_0_22px_4px_rgba(255,214,107,0.4)] pointer-events-none animate-[pp-scan_3.2s_linear_infinite]" data-pp-scan hidden></div>
             <div data-pp-markers></div>
             <div data-pp-devices></div>
           </div>
-          <div class="flex flex-wrap gap-4 [font-family:var(--cr-mono)] text-[10px] tracking-[0.08em] uppercase [color:var(--cr-bone-dim)]">
+          <div class="flex flex-wrap gap-4 [font-family:var(--cr-mono)] text-[12px] tracking-[0.08em] uppercase [color:var(--cr-bone-dim)]">
             <span class="inline-flex items-center gap-1.5"><span class="inline-flex items-center gap-1.5 w-[10px] h-[10px]" style="border-radius:50%;background:#e0605a"></span>Detector</span>
             <span class="inline-flex items-center gap-1.5"><span class="inline-flex items-center gap-1.5 w-[10px] h-[10px]" style="background:#7ee2a8"></span>Cámara</span>
             <span class="inline-flex items-center gap-1.5"><span class="inline-flex items-center gap-1.5 w-[10px] h-[10px]" style="border-radius:3px;transform:rotate(45deg);background:#7ecbe2"></span>Lectora</span>
@@ -139,12 +139,12 @@ import { avatars } from "@/data/avatar";
 
         <!-- RIGHT: live budget -->
         <div class="box-border p-[22px] flex flex-col gap-3 [background:var(--cr-bone)] [color:var(--cr-ink)]">
-          <div class="flex justify-between [font-family:var(--cr-mono)] text-[11px] tracking-[0.1em] uppercase">
+          <div class="flex justify-between [font-family:var(--cr-mono)] text-[13px] tracking-[0.1em] uppercase">
             <span>Presupuesto estimado</span><span class="opacity-70" data-pp-quote-id>—</span>
           </div>
           <div class="flex flex-col border-t-2 border-[color:var(--cr-ink)]" data-pp-lines></div>
-          <p class="py-[14px] text-[13px] opacity-[0.68]" data-pp-empty hidden>Activa un sistema para ver partidas.</p>
-          <div class="mt-auto flex flex-col gap-1 [font-family:var(--cr-mono)] text-xs">
+          <p class="py-[14px] text-[14px] opacity-[0.68]" data-pp-empty hidden>Activa un sistema para ver partidas.</p>
+          <div class="mt-auto flex flex-col gap-1 [font-family:var(--cr-mono)] text-sm">
             <div class="flex justify-between"><span>Subtotal</span><span data-pp-subtotal>$0</span></div>
             <div class="flex justify-between"><span>IVA <span data-pp-tax-pct>16</span>%</span><span data-pp-tax>$0</span></div>
           </div>
@@ -152,7 +152,7 @@ import { avatars } from "@/data/avatar";
             <span class="cr-label">Total</span>
             <span class="[font-family:var(--cr-display)] font-black text-[40px] leading-none" data-pp-total>$0</span>
           </div>
-          <p class="[font-family:var(--cr-mono)] text-[9px] opacity-[0.68]">Tarifas de ejemplo · cifras orientativas, no vinculantes.</p>
+          <p class="[font-family:var(--cr-mono)] text-[11px] opacity-[0.68]">Tarifas de ejemplo · cifras orientativas, no vinculantes.</p>
         </div>
       </div>
 
@@ -166,7 +166,7 @@ import { avatars } from "@/data/avatar";
           <div class="absolute inset-2" data-pp-phases></div>
           <div class="absolute -top-1.5 -bottom-1.5 w-0.5 [background:var(--cr-bone)] transition-[left] duration-[350ms] ease-linear pointer-events-none" data-pp-playhead></div>
         </div>
-        <p class="text-[14px] leading-[1.5] [color:var(--cr-bone-dim)]" data-pp-message aria-live="polite">
+        <p class="text-[15px] leading-[1.5] [color:var(--cr-bone-dim)]" data-pp-message aria-live="polite">
           Activa al menos un sistema para dimensionar la obra.
         </p>
       </div>
@@ -532,7 +532,7 @@ import { avatars } from "@/data/avatar";
           ring.className = "absolute left-[12px] top-[12px] w-4 h-4 box-border border-2 border-[color:var(--m-color)] rounded-[var(--m-radius)] bg-transparent";
           btn.appendChild(ring);
           const tag = document.createElement("span");
-          tag.className = "absolute left-8 top-0.5 py-0.5 px-[5px] whitespace-nowrap [font-family:var(--cr-mono)] text-[9px] tracking-[0.06em] bg-[color:var(--m-color)] [color:var(--cr-ink)]";
+          tag.className = "absolute left-8 top-0.5 py-0.5 px-[5px] whitespace-nowrap [font-family:var(--cr-mono)] text-[11px] tracking-[0.06em] bg-[color:var(--m-color)] [color:var(--cr-ink)]";
           tag.textContent = id;
           btn.appendChild(tag);
           if (!fixed) {
@@ -560,10 +560,10 @@ import { avatars } from "@/data/avatar";
           const body = document.createElement("span");
           body.className = "flex flex-col gap-0.5";
           const meta = document.createElement("span");
-          meta.className = "[font-family:var(--cr-mono)] text-[10px] tracking-[0.08em] [color:var(--cr-bone-dim)]";
+          meta.className = "[font-family:var(--cr-mono)] text-[12px] tracking-[0.08em] [color:var(--cr-bone-dim)]";
           meta.textContent = `${id} · ${fixed ? "REPARADO" : selected ? "EN ORDEN" : "FALLA"}`;
           const issue = document.createElement("span");
-          issue.className = "text-[13px] font-semibold";
+          issue.className = "text-[14px] font-semibold";
           issue.textContent = FAULTS[id].issue;
           body.append(meta, issue);
           btn.append(led, body);
@@ -641,7 +641,7 @@ import { avatars } from "@/data/avatar";
       lines.forEach((l) => {
         const row = document.createElement("div");
         row.className = "flex justify-between items-baseline gap-[10px] py-[9px] border-b border-[rgba(17,16,18,0.18)]";
-        row.innerHTML = `<span class="flex flex-col gap-0.5"><span class="text-[13px] font-semibold">${l.label}</span><span class="[font-family:var(--cr-mono)] text-[10px] opacity-[0.68]">${l.sub}</span></span><span class="[font-family:var(--cr-mono)] text-[13px] font-bold whitespace-nowrap">${l.amount}</span>`;
+        row.innerHTML = `<span class="flex flex-col gap-0.5"><span class="text-[14px] font-semibold">${l.label}</span><span class="[font-family:var(--cr-mono)] text-[12px] opacity-[0.68]">${l.sub}</span></span><span class="[font-family:var(--cr-mono)] text-[14px] font-bold whitespace-nowrap">${l.amount}</span>`;
         linesEl.appendChild(row);
       });
       emptyEl.hidden = lines.length > 0;
@@ -654,7 +654,7 @@ import { avatars } from "@/data/avatar";
       phases.forEach((p) => {
         const el = document.createElement("div");
         el.className =
-          "absolute top-0 bottom-0 box-border px-2 flex items-center overflow-hidden border border-[color:var(--p-color)] [color:var(--cr-bone)] [font-family:var(--cr-mono)] text-[10px] tracking-[0.06em] uppercase whitespace-nowrap" +
+          "absolute top-0 bottom-0 box-border px-2 flex items-center overflow-hidden border border-[color:var(--p-color)] [color:var(--cr-bone)] [font-family:var(--cr-mono)] text-[12px] tracking-[0.06em] uppercase whitespace-nowrap" +
           (p.state === "active" || p.state === "done" ? " bg-[color:var(--p-color)] [color:var(--cr-ink)]" : "");
         el.style.setProperty("--p-color", p.color);
         el.style.left = `${p.left.toFixed(2)}%`;

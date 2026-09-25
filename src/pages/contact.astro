@@ -22,7 +22,7 @@ const breadcrumbSchema = generateBreadcrumbSchema([
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=Hanken+Grotesk:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700;800;900&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
     />
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
   </Fragment>
@@ -37,7 +37,7 @@ const breadcrumbSchema = generateBreadcrumbSchema([
               <span class="cr-led cr-blink"></span>Canal abierto · Respuesta en 24 h
             </p>
 
-            <h1 class="font-[var(--cr-display)] font-black uppercase leading-[0.84] text-[clamp(60px,8.6vw,128px)]" data-reveal style="--d:80ms">
+            <h1 class="[font-family:var(--cr-display)] font-black uppercase leading-[0.84] text-[clamp(60px,8.6vw,128px)]" data-reveal style="--d:80ms">
               Habl<span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">emos.</span>
             </h1>
 
@@ -49,23 +49,23 @@ const breadcrumbSchema = generateBreadcrumbSchema([
             <div class="flex flex-col border-t border-[var(--cr-line-strong)]" data-reveal style="--d:240ms">
               <a class="flex justify-between items-center gap-4 py-6 border-b border-[var(--cr-line)] max-sm:flex-col max-sm:items-start max-sm:gap-[6px] text-[var(--cr-bone)] transition-colors duration-200 hover:text-[var(--cr-signal)]" href={CONTACT.phoneHref}>
                 <span class="cr-label">Teléfono</span>
-                <span class="font-[var(--cr-display)] font-extrabold text-[clamp(24px,3vw,40px)]">{CONTACT.phone}</span>
+                <span class="[font-family:var(--cr-display)] font-extrabold text-[clamp(24px,3vw,40px)]">{CONTACT.phone}</span>
               </a>
               <a class="flex justify-between items-center gap-4 py-6 border-b border-[var(--cr-line)] max-sm:flex-col max-sm:items-start max-sm:gap-[6px] text-[var(--cr-bone)] transition-colors duration-200 hover:text-[var(--cr-signal)]" href={`mailto:${CONTACT.email}`}>
                 <span class="cr-label">Email</span>
-                <span class="font-[var(--cr-display)] font-extrabold text-[clamp(24px,3vw,40px)]">{CONTACT.email}</span>
+                <span class="[font-family:var(--cr-display)] font-extrabold text-[clamp(24px,3vw,40px)]">{CONTACT.email}</span>
               </a>
               <div class="flex justify-between items-center gap-4 py-6 border-b border-[var(--cr-line)] max-sm:flex-col max-sm:items-start max-sm:gap-[6px]">
                 <span class="cr-label">Oficina</span>
-                <span class="font-[var(--cr-body)] font-normal text-[18px] text-right leading-[1.4] max-sm:text-left">{CONTACT.address[0]}<br />{CONTACT.address[1]}</span>
+                <span class="[font-family:var(--cr-body)] font-normal text-[18px] text-right leading-[1.4] max-sm:text-left">{CONTACT.address[0]}<br />{CONTACT.address[1]}</span>
               </div>
             </div>
 
             <div class="flex items-center gap-6 p-7 bg-[var(--cr-signal)] text-[var(--cr-ink)] max-sm:flex-wrap" data-reveal style="--d:320ms">
               <span class="cr-led cr-led--signal cr-blink bg-[var(--cr-ink)] shadow-[0_0_0_3px_color-mix(in_srgb,var(--cr-ink)_22%,transparent),0_0_14px_var(--cr-ink)]"></span>
               <div class="grow">
-                <p class="font-[var(--cr-display)] font-extrabold text-[30px] uppercase">¿Emergencia?</p>
-                <p class="text-[15px]">Eléctrica o de seguridad: estamos disponibles 24/7.</p>
+                <p class="[font-family:var(--cr-display)] font-extrabold text-[30px] uppercase">¿Emergencia?</p>
+                <p class="text-[16px]">Eléctrica o de seguridad: estamos disponibles 24/7.</p>
               </div>
               <a href={CONTACT.phoneHref} class="cr-btn shrink-0 bg-[var(--cr-ink)] border-[var(--cr-ink)] text-[var(--cr-bone)] hover:bg-[var(--cr-bone)] hover:border-[var(--cr-bone)] hover:text-[var(--cr-ink)] max-sm:w-full max-sm:justify-center">Llamar ahora</a>
             </div>

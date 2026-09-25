@@ -26,7 +26,7 @@ const breadcrumbSchema = generateBreadcrumbSchema([
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=Hanken+Grotesk:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700;800;900&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
     />
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
   </Fragment>
@@ -42,7 +42,7 @@ const breadcrumbSchema = generateBreadcrumbSchema([
               <span class="ab-hero__tick w-[40px] h-[1px] bg-current"></span>{hero.kicker}
             </p>
 
-            <h1 class="ab-hero__title font-[var(--cr-display)] font-black uppercase leading-[0.84] text-[length:clamp(60px,8.6vw,140px)]">
+            <h1 class="ab-hero__title [font-family:var(--cr-display)] font-black uppercase leading-[0.84] text-[length:clamp(60px,8.6vw,140px)]">
               <span class="line block" data-reveal style="--d:80ms">{hero.title.line1}</span>
               <span class="line block" data-reveal style="--d:160ms">{hero.title.line2}</span>
               <span class="line line--signal block text-[var(--cr-signal)]" data-reveal style="--d:240ms">{hero.title.highlight}<span class="dot text-[var(--cr-bone)]">.</span></span>
@@ -71,7 +71,7 @@ const breadcrumbSchema = generateBreadcrumbSchema([
             </div>
 
             <div class="ab-badge static w-full mt-[16px] bg-[color-mix(in_srgb,var(--cr-ink-2)_92%,transparent)] backdrop-blur-[10px] border border-[var(--cr-line-strong)] [box-shadow:0_30px_60px_-20px_rgba(0,0,0,0.7)] px-[24px] py-[22px] sm:absolute sm:left-[12px] sm:bottom-[-32px] sm:w-[min(260px,78%)] sm:mt-0 min-[960px]:left-[clamp(-56px,-4vw,-16px)] min-[960px]:bottom-[clamp(-40px,-4vw,-20px)]">
-              <p class="ab-badge__value font-[var(--cr-display)] font-extrabold text-[length:clamp(40px,4.6vw,56px)] leading-none text-[var(--cr-signal)] mb-[8px] tabular-nums"><span data-count={CLIENTS}>0</span></p>
+              <p class="ab-badge__value [font-family:var(--cr-display)] font-extrabold text-[length:clamp(40px,4.6vw,56px)] leading-none text-[var(--cr-signal)] mb-[8px] tabular-nums"><span data-count={CLIENTS}>0</span></p>
               <p class="cr-label">{hero.badge.label}</p>
             </div>
           </div>

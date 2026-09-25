@@ -36,7 +36,7 @@ const footerCompany = [
     <h2 class="mt-[18px] text-[length:clamp(60px,11vw,176px)] min-[900px]:text-[length:clamp(60px,8.4vw,140px)] max-[720px]:text-[length:clamp(38px,13vw,60px)]" data-reveal style="--d:80ms">¿Tu inmueble<br />está protegido?</h2>
     <div class="flex flex-wrap justify-between items-end gap-[32px] mt-[48px] max-[720px]:items-start max-[520px]:flex-col max-[520px]:items-stretch" data-reveal style="--d:160ms">
       <p class="max-w-[42ch] text-[19px]">Agenda una visita técnica sin costo. Te entregamos un diagnóstico y un presupuesto cerrado en 24 horas.</p>
-      <a href="/contact" class="group inline-flex items-center gap-[28px] pt-[20px] pr-[20px] pb-[20px] pl-[32px] bg-[var(--cr-ink)] !text-[var(--cr-bone)] [font-family:var(--cr-mono)] text-[14px] font-semibold tracking-[0.14em] uppercase transition-[background] duration-300 max-[720px]:gap-[18px] max-[720px]:pt-[16px] max-[720px]:pr-[16px] max-[720px]:pb-[16px] max-[720px]:pl-[22px] max-[520px]:justify-between">
+      <a href="/contact" class="group inline-flex items-center gap-[28px] pt-[20px] pr-[20px] pb-[20px] pl-[32px] bg-[var(--cr-ink)] !text-[var(--cr-bone)] [font-family:var(--cr-mono)] text-[15px] font-semibold tracking-[0.14em] uppercase transition-[background] duration-300 max-[720px]:gap-[18px] max-[720px]:pt-[16px] max-[720px]:pr-[16px] max-[720px]:pb-[16px] max-[720px]:pl-[22px] max-[520px]:justify-between">
         <span>Agendar visita</span>
         <span class="fin__arrow grid place-items-center w-[48px] h-[48px] bg-[var(--cr-signal)] text-[var(--cr-ink)] text-[20px] max-[720px]:w-[40px] max-[720px]:h-[40px]" aria-hidden="true"><span>→</span><span>→</span></span>
       </a>
@@ -62,7 +62,10 @@ const footerCompany = [
   .fin__tag {
     position: absolute; left: 16%; top: -40px; z-index: 1; display: flex; align-items: center; gap: 8px;
     padding: 8px 12px; background: var(--cr-ink); color: var(--cr-bone);
-    font-family: var(--cr-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; white-space: nowrap;
+    font-family: var(--cr-mono); font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; white-space: nowrap;
+  }
+  @media (max-width: 480px) {
+    .fin__tag { left: auto; right: 0; font-size: 12px; letter-spacing: 0.08em; }
   }
   .fin__led { width: 8px; height: 8px; border-radius: 50%; background: var(--cr-ok); box-shadow: 0 0 10px var(--cr-ok); animation: fin-blink 1.4s steps(1, end) infinite; }
   /* Entra "subiendo" desde el borde de la sección en lugar del reveal estándar */
@@ -155,7 +158,7 @@ const footerCompany = [
               </div>
               <div class="flex items-center gap-[16px] py-[13px] border-y border-[var(--cr-line)]">
                 <dt class="sr-only">Estado</dt>
-                <dd class="m-0 flex items-center gap-[10px] [font-family:var(--cr-mono)] text-[11px] tracking-[0.1em] uppercase text-[var(--cr-bone-dim)]"><span class="cr-led"></span>Central operativa 24/7/365</dd>
+                <dd class="m-0 flex items-center gap-[10px] [font-family:var(--cr-mono)] text-[13px] tracking-[0.1em] uppercase text-[var(--cr-bone-dim)]"><span class="cr-led"></span>Central operativa 24/7/365</dd>
               </div>
             </dl>
           </div>
@@ -166,7 +169,7 @@ const footerCompany = [
               {footerServices.map((s, i) => (
                 <li class="border-t border-[var(--cr-line)]">
                   <a href={s.href} class="group flex items-center gap-[12px] py-[13px] text-[var(--cr-bone-dim)] transition-colors duration-200 hover:text-[var(--cr-signal)]">
-                    <span class="[font-family:var(--cr-mono)] text-[10.5px] tracking-[0.1em] opacity-60 transition-opacity duration-200 group-hover:opacity-100" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+                    <span class="[font-family:var(--cr-mono)] text-[12px] tracking-[0.1em] opacity-60 transition-opacity duration-200 group-hover:opacity-100" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
                     <span>{s.label}</span>
                     <span class="ml-auto translate-x-[-6px] opacity-0 transition-[opacity,transform] duration-300 group-hover:translate-x-0 group-hover:opacity-100" aria-hidden="true">→</span>
                   </a>
@@ -181,7 +184,7 @@ const footerCompany = [
               {footerCompany.map((l, i) => (
                 <li class="border-t border-[var(--cr-line)]">
                   <a href={l.href} class="group flex items-center gap-[12px] py-[13px] text-[var(--cr-bone-dim)] transition-colors duration-200 hover:text-[var(--cr-signal)]">
-                    <span class="[font-family:var(--cr-mono)] text-[10.5px] tracking-[0.1em] opacity-60 transition-opacity duration-200 group-hover:opacity-100" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+                    <span class="[font-family:var(--cr-mono)] text-[12px] tracking-[0.1em] opacity-60 transition-opacity duration-200 group-hover:opacity-100" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
                     <span>{l.label}</span>
                     <span class="ml-auto translate-x-[-6px] opacity-0 transition-[opacity,transform] duration-300 group-hover:translate-x-0 group-hover:opacity-100" aria-hidden="true">→</span>
                   </a>

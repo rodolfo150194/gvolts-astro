@@ -87,7 +87,7 @@ const chips = [
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=Hanken+Grotesk:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700;800;900&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
     />
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
   </Fragment>
@@ -136,7 +136,7 @@ const chips = [
               chips.map((c, i) => (
                 <button
                   type="button"
-                  class="[font-family:var(--cr-mono)] text-xs font-semibold tracking-widest uppercase px-5 py-[10px] bg-transparent [color:var(--cr-bone-dim)] border border-[color:var(--cr-line-strong)] [clip-path:polygon(0_0,calc(100%-10px)_0,100%_10px,100%_100%,10px_100%,0_calc(100%-10px))] cursor-pointer transition-[background,color,border-color] duration-[250ms] hover:[color:var(--cr-bone)] hover:border-[color:var(--cr-bone-dim)] aria-pressed:[background:var(--cr-signal)] aria-pressed:[color:var(--cr-ink)] aria-pressed:border-[color:var(--cr-signal)]"
+                  class="[font-family:var(--cr-mono)] text-sm font-semibold tracking-widest uppercase px-5 py-[10px] bg-transparent [color:var(--cr-bone-dim)] border border-[color:var(--cr-line-strong)] [clip-path:polygon(0_0,calc(100%-10px)_0,100%_10px,100%_100%,10px_100%,0_calc(100%-10px))] cursor-pointer transition-[background,color,border-color] duration-[250ms] hover:[color:var(--cr-bone)] hover:border-[color:var(--cr-bone-dim)] aria-pressed:[background:var(--cr-signal)] aria-pressed:[color:var(--cr-ink)] aria-pressed:border-[color:var(--cr-signal)]"
                   data-filter-btn={c.filter}
                   aria-pressed={i === 0 ? "true" : "false"}
                 >
@@ -164,14 +164,14 @@ const chips = [
                       {p.category}
                     </span>
                     <h3 class="text-[clamp(24px,2.2vw,30px)]">{p.title}</h3>
-                    <p class="text-[14.5px] leading-[1.55] [color:var(--cr-bone-dim)]">{p.description}</p>
+                    <p class="text-[16px] leading-[1.55] [color:var(--cr-bone-dim)]">{p.description}</p>
                   </div>
                 </li>
               ))
             }
           </ul>
 
-          <p class="mt-8 [font-family:var(--cr-mono)] text-[13px] [color:var(--cr-bone-dim)] text-center" data-empty-state hidden>No hay proyectos en esta categoría todavía.</p>
+          <p class="mt-8 [font-family:var(--cr-mono)] text-[14px] [color:var(--cr-bone-dim)] text-center" data-empty-state hidden>No hay proyectos en esta categoría todavía.</p>
         </div>
       </section>
 

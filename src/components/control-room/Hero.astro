@@ -54,11 +54,11 @@ const zones = [
                   class="group flex h-full flex-col gap-1 p-4 bg-[var(--cr-ink-2)] border border-[var(--cr-line)] border-t-[3px] text-[var(--cr-bone)] transition-colors duration-300 hover:border-[var(--cr-bone-dim)]"
                   style={`border-top-color:${n.accent}`}
                 >
-                  <span class="flex items-center justify-between gap-2 font-[var(--cr-display)] font-extrabold uppercase text-[20px] leading-[1.05]">
+                  <span class="flex items-center justify-between gap-2 [font-family:var(--cr-display)] font-extrabold uppercase text-[20px] leading-[1.05]">
                     {n.label}
                     <span class="transition-transform duration-300 group-hover:translate-x-1" style={`color:${n.accent}`} aria-hidden="true">→</span>
                   </span>
-                  <span class="text-[13px] leading-[1.4] text-[var(--cr-bone-dim)]">{n.hint}</span>
+                  <span class="text-[14px] leading-[1.4] text-[var(--cr-bone-dim)]">{n.hint}</span>
                 </a>
               </li>
             ))
@@ -98,36 +98,36 @@ const zones = [
         <div class="twin__marker twin__marker--cam absolute [aspect-ratio:1] [translate:-50%_-50%] w-[3.8%] bg-[var(--cr-ok)] shadow-[0_0_18px_var(--cr-ok)]" style="left:93.27%;top:2.88%"></div>
         <div class="twin__marker twin__marker--amber cr-blink absolute [aspect-ratio:1] [translate:-50%_-50%] w-[4.6%] bg-[var(--cr-amber)] shadow-[0_0_22px_var(--cr-amber)]" style="left:82.3%;top:82.3%"></div>
 
-        <p class="twin__label absolute m-0 font-[var(--cr-mono)] text-[11px] tracking-[0.08em] text-[var(--cr-bone-dim)] whitespace-nowrap" style="left:3.46%;top:3.46%">Z01 · LOBBY</p>
-        <p class="twin__label absolute m-0 font-[var(--cr-mono)] text-[11px] tracking-[0.08em] text-[var(--cr-bone-dim)] whitespace-nowrap" style="left:3.46%;top:46.15%">Z02 · BODEGA</p>
-        <p class="twin__label absolute m-0 font-[var(--cr-mono)] text-[11px] tracking-[0.08em] text-[var(--cr-bone-dim)] whitespace-nowrap" style="left:61.15%;top:55.77%">Z03 · SERVIDORES</p>
-        <p class="twin__label twin__label--amber absolute m-0 font-[var(--cr-mono)] text-[11px] tracking-[0.08em] text-[var(--cr-amber)] whitespace-nowrap" style="left:61.15%;top:92.3%">TABLERO 220V</p>
+        <p class="twin__label absolute m-0 [font-family:var(--cr-mono)] text-[13px] max-[640px]:text-[11px] tracking-[0.08em] text-[var(--cr-bone-dim)] whitespace-nowrap" style="left:3.46%;top:3.46%">Z01 · LOBBY</p>
+        <p class="twin__label absolute m-0 [font-family:var(--cr-mono)] text-[13px] max-[640px]:text-[11px] tracking-[0.08em] text-[var(--cr-bone-dim)] whitespace-nowrap" style="left:3.46%;top:46.15%">Z02 · BODEGA</p>
+        <p class="twin__label absolute m-0 [font-family:var(--cr-mono)] text-[13px] max-[640px]:text-[11px] tracking-[0.08em] text-[var(--cr-bone-dim)] whitespace-nowrap" style="left:61.15%;top:55.77%">Z03 · SERVIDORES</p>
+        <p class="twin__label twin__label--amber absolute m-0 [font-family:var(--cr-mono)] text-[13px] max-[640px]:text-[11px] tracking-[0.08em] text-[var(--cr-amber)] whitespace-nowrap" style="left:61.15%;top:92.3%">TABLERO 220V</p>
 
         <div class="twin__frame twin__frame--dashed absolute inset-0 box-border border border-dashed border-[var(--cr-line-strong)] [transform:translateZ(70px)]"></div>
         <div class="twin__frame twin__frame--red absolute inset-0 box-border border border-[color-mix(in_srgb,var(--cr-signal)_40%,transparent)] [transform:translateZ(150px)]"></div>
       </div>
 
-      <div class="cam-card absolute right-0 top-[3.2%] w-[40%] box-border py-[14px] px-4 bg-[color-mix(in_srgb,var(--cr-ink-3)_92%,transparent)] border border-[var(--cr-line-strong)] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.8)] animate-[twin-drift_7s_ease-in-out_infinite]">
-        <p class="cam-card__head flex justify-between m-0 font-[var(--cr-mono)] text-[11px] tracking-[0.1em] text-[var(--cr-bone-dim)]">
+      <div class="cam-card absolute right-0 top-[3.2%] w-[40%] max-[640px]:w-[48%] box-border py-[14px] px-4 max-[640px]:px-3 bg-[color-mix(in_srgb,var(--cr-ink-3)_92%,transparent)] border border-[var(--cr-line-strong)] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.8)] animate-[twin-drift_7s_ease-in-out_infinite]">
+        <p class="cam-card__head flex justify-between gap-3 m-0 [font-family:var(--cr-mono)] text-[13px] max-[640px]:text-[11px] tracking-[0.1em] max-[640px]:tracking-[0.04em] text-[var(--cr-bone-dim)]">
           <span>CAM-04 · 4K</span>
           <span class="cam-card__rec flex items-center gap-1.5 text-[var(--cr-signal)]"><span class="cr-led cr-led--signal cr-blink"></span>REC</span>
         </p>
-        <p class="cam-card__body mt-2.5 font-[var(--cr-display)] font-bold text-[clamp(18px,2vw,24px)] leading-[1.15] max-[640px]:text-[16px]">Perímetro norte<br /><span class="cam-card__ok text-[var(--cr-ok)]">Sin intrusión</span></p>
+        <p class="cam-card__body mt-2.5 [font-family:var(--cr-display)] font-bold text-[clamp(18px,2vw,24px)] leading-[1.15] max-[640px]:text-[17px]">Perímetro norte<br /><span class="cam-card__ok text-[var(--cr-ok)]">Sin intrusión</span></p>
       </div>
 
       <div class="panel absolute left-0 bottom-[2.6%] w-[54%] bg-[color-mix(in_srgb,var(--cr-ink-3)_94%,transparent)] backdrop-blur-[10px] border border-[var(--cr-line-strong)] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.8)] animate-[twin-drift_9s_ease-in-out_infinite] [animation-delay:-3s]">
         <Image src={avatars.lean.src} alt={avatars.lean.alt} widths={[240, 360, 520]} sizes="(min-width: 960px) 280px, 50vw" class="panel__tech" loading="eager" />
-        <div class="panel__head flex justify-between py-[10px] px-[14px] border-b border-[var(--cr-line)]">
-          <span class="cr-label">Panel de zonas</span>
-          <span class="cr-label panel__armed text-[var(--cr-ok)]">Armado</span>
+        <div class="panel__head flex justify-between gap-2 whitespace-nowrap py-[10px] px-[14px] border-b border-[var(--cr-line)]">
+          <span class="cr-label max-[640px]:text-[11px]! max-[640px]:tracking-[0.08em]!">Panel de zonas</span>
+          <span class="cr-label panel__armed text-[var(--cr-ok)] max-[640px]:text-[11px]! max-[640px]:tracking-[0.08em]!">Armado</span>
         </div>
         <ul class="list-none m-0 py-1">
           {
             zones.map((z) => (
-              <li class="zone grid grid-cols-[34px_1fr_auto] gap-2 items-center py-[7px] px-[14px] text-[12.5px] max-[640px]:text-[11px]">
-                <span class="zone__id font-[var(--cr-mono)] text-[10px] tracking-[0.08em] uppercase text-[var(--cr-bone-dim)]">{z.id}</span>
+              <li class="zone grid grid-cols-[34px_1fr_auto] gap-2 items-center py-[7px] px-[14px] text-[14px] max-[640px]:text-[12px]">
+                <span class="zone__id [font-family:var(--cr-mono)] text-[12px] max-[640px]:text-[11px] tracking-[0.08em] uppercase text-[var(--cr-bone-dim)]">{z.id}</span>
                 <span class="zone__name">{z.name}</span>
-                <span class="zone__state font-[var(--cr-mono)] text-[10px] tracking-[0.08em] uppercase inline-flex items-center gap-1.5 text-[var(--cr-bone)]">
+                <span class="zone__state [font-family:var(--cr-mono)] text-[12px] max-[640px]:text-[11px] whitespace-nowrap tracking-[0.08em] uppercase inline-flex items-center gap-1.5 text-[var(--cr-bone)]">
                   <span class={`cr-led ${z.led}`} />
                   {z.state}
                 </span>

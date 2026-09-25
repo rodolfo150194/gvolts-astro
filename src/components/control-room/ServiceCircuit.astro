@@ -146,12 +146,12 @@ for (let i = 0; i < 4; i++) {
                   </span>
                   {pad(i + 1)} · {st.title}
                 </h3>
-                <p class="max-w-[560px] text-[17px] leading-[1.55] text-[var(--cr-bone-dim)]">{st.desc}</p>
+                <p class="max-w-[560px] text-[18px] leading-[1.55] text-[var(--cr-bone-dim)]">{st.desc}</p>
               </div>
               <div class="sc__rise sc__why">
                 <p class="cr-label text-[var(--cr-signal)]">Por qué importa</p>
-                <p class="text-[17px] font-semibold leading-[1.45]">{st.why}</p>
-                <p class="[font-family:var(--cr-mono)] text-[12px] text-[var(--cr-bone-dim)]">{st.spec}</p>
+                <p class="text-[18px] font-semibold leading-[1.45]">{st.why}</p>
+                <p class="[font-family:var(--cr-mono)] text-[14px] text-[var(--cr-bone-dim)]">{st.spec}</p>
               </div>
             </div>
           ))
@@ -178,7 +178,7 @@ for (let i = 0; i < 4; i++) {
   .sc__head { display: flex; justify-content: space-between; align-items: flex-end; gap: 48px; }
   .sc__title { font-size: clamp(48px, 6.2vw, 88px); line-height: 0.88; }
   .sc__meter { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0; }
-  .sc__meter .cr-label { font-size: 11px; color: var(--cr-bone-dim); }
+  .sc__meter .cr-label { font-size: 13px; color: var(--cr-bone-dim); }
   .sc__blink { width: 8px; height: 8px; border-radius: 50%; background: var(--cr-signal); animation: sc-blink 1.1s steps(1, end) infinite; }
   .sc__pct { font-family: var(--cr-display); font-weight: 900; font-size: clamp(52px, 5vw, 72px); line-height: 0.85; color: var(--cr-signal); }
   .sc__pct small { font-size: 0.45em; }
@@ -208,7 +208,8 @@ for (let i = 0; i < 4; i++) {
   .sc__node[data-state="here"] { border-color: var(--cr-signal); background-color: var(--cr-signal); color: var(--cr-ink); --pin: var(--cr-signal); --ring: rgba(17, 16, 18, 0.5); }
   .sc__icon { width: 44px; height: 44px; flex-shrink: 0; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 1.5px solid var(--ring); }
   .sc__node-title { font-family: var(--cr-display); font-weight: 800; font-size: clamp(18px, 1.7vw, 24px); line-height: 1; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .sc__node-tag { font-family: var(--cr-mono); font-size: 10px; letter-spacing: 0.08em; opacity: 0.8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  /* Las etiquetas largas pasan a otra línea en vez de cortarse con "…" */
+  .sc__node-tag { font-family: var(--cr-mono); font-size: 12px; line-height: 1.25; letter-spacing: 0.04em; opacity: 0.8; overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; line-clamp: 3; }
   .sc__pin { position: absolute; width: 8px; height: 8px; background-color: var(--pin); }
   .sc__pin--tl { left: 12px; top: -8px; } .sc__pin--tr { right: 12px; top: -8px; }
   .sc__pin--bl { left: 12px; bottom: -8px; } .sc__pin--br { right: 12px; bottom: -8px; }
@@ -226,13 +227,17 @@ for (let i = 0; i < 4; i++) {
   .sc__nav { display: flex; flex-direction: column; gap: 8px; }
   .sc__btn {
     appearance: none; margin: 0; flex-grow: 1; min-height: 48px; cursor: pointer; border: 1px solid var(--cr-line-strong); background: transparent;
-    color: var(--cr-bone); font-family: var(--cr-mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--cr-bone); font-family: var(--cr-mono); font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase;
     transition: border-color 0.2s;
   }
   .sc__btn--dim { color: rgba(237, 232, 224, 0.8); }
   .sc__btn:hover, .sc__btn:focus-visible { border-color: var(--cr-bone); }
 
   /* ---------- Tablet / móvil: circuito vertical ---------- */
+  @media (min-width: 1200px) and (max-width: 1439px) {
+    .sc__node { padding: 0 12px; gap: 10px; }
+    .sc__icon { width: 36px; height: 36px; }
+  }
   @media (max-width: 1199px) {
     .sc__board { height: auto; }
     .sc__trace { display: none; }

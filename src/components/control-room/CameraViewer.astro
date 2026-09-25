@@ -46,16 +46,16 @@ const modes: Mode[] = [
 
     <div class="absolute inset-0 opacity-0 transition-opacity duration-300 group-[.is-ai]:opacity-100" data-cv-ai aria-hidden="true">
       <div class="absolute box-border border-2 border-solid animate-[cv-lock_1.8s_ease-out_infinite] motion-reduce:animate-none!" style="left:13.9%;top:67.1%;width:20%;height:21.7%;border-color:var(--cr-signal)">
-        <span class="absolute -left-[2px] -top-[24px] py-[3px] px-2 text-[var(--cr-ink)] [font-family:var(--cr-mono)] text-[10px] font-bold whitespace-nowrap" style="background:var(--cr-signal)">ZONA 01 · GARAJE</span>
+        <span class="absolute -left-[2px] -top-[24px] py-[3px] px-2 text-[var(--cr-ink)] [font-family:var(--cr-mono)] text-[12px] font-bold whitespace-nowrap" style="background:var(--cr-signal)">ZONA 01 · GARAJE</span>
       </div>
       <div class="absolute box-border border-2 border-solid animate-[cv-lock_1.8s_ease-out_infinite] motion-reduce:animate-none!" style="left:42.9%;top:62.5%;width:9.4%;height:28.75%;border-color:var(--cr-amber)">
-        <span class="absolute -left-[2px] -top-[24px] py-[3px] px-2 text-[var(--cr-ink)] [font-family:var(--cr-mono)] text-[10px] font-bold whitespace-nowrap" style="background:var(--cr-amber)">ACCESO PRINCIPAL</span>
+        <span class="absolute -left-[2px] -top-[24px] py-[3px] px-2 text-[var(--cr-ink)] [font-family:var(--cr-mono)] text-[12px] font-bold whitespace-nowrap" style="background:var(--cr-amber)">ACCESO PRINCIPAL</span>
       </div>
       <div class="absolute box-border border border-dashed border-[rgba(237,232,224,0.7)]" style="left:23.5%;top:20.8%;width:33.9%;height:28.75%">
-        <span class="absolute left-[6px] bottom-[6px] [font-family:var(--cr-mono)] text-[9px] tracking-[0.08em] text-[var(--cr-bone)]">VENTANAS · SIN MOVIMIENTO</span>
+        <span class="absolute left-[6px] bottom-[6px] [font-family:var(--cr-mono)] text-[11px] tracking-[0.08em] text-[var(--cr-bone)]">VENTANAS · SIN MOVIMIENTO</span>
       </div>
       <div class="absolute left-0 top-[94.2%] w-[74.2%] border-t-2 border-dashed border-[#e0605a]"></div>
-      <span class="absolute left-[1.9%] top-[89.6%] [font-family:var(--cr-mono)] text-[9px] tracking-[0.1em] text-[#e0605a]">LÍNEA VIRTUAL · PERÍMETRO</span>
+      <span class="absolute left-[1.9%] top-[89.6%] [font-family:var(--cr-mono)] text-[11px] tracking-[0.1em] text-[#e0605a]">LÍNEA VIRTUAL · PERÍMETRO</span>
     </div>
 
     <div
@@ -68,7 +68,7 @@ const modes: Mode[] = [
     <span class="absolute w-5 h-5 border-solid border-0 border-[var(--cr-bone)] left-3 bottom-3 border-b-2 border-l-2 max-[480px]:w-3.5 max-[480px]:h-3.5 max-[480px]:left-2 max-[480px]:bottom-2" aria-hidden="true"></span>
     <span class="absolute w-5 h-5 border-solid border-0 border-[var(--cr-bone)] right-3 bottom-3 border-b-2 border-r-2 max-[480px]:w-3.5 max-[480px]:h-3.5 max-[480px]:right-2 max-[480px]:bottom-2" aria-hidden="true"></span>
 
-    <div class="absolute left-11 right-11 top-[18px] flex justify-between [font-family:var(--cr-mono)] text-[10px] tracking-[0.12em] text-[var(--cr-bone)] max-[480px]:left-[30px] max-[480px]:right-[30px] max-[480px]:top-3 max-[480px]:text-[9px]">
+    <div class="absolute left-11 right-11 top-[18px] flex justify-between [font-family:var(--cr-mono)] text-[12px] tracking-[0.12em] text-[var(--cr-bone)] max-[480px]:left-[30px] max-[480px]:right-[30px] max-[480px]:top-3 max-[480px]:text-[11px]">
       <span class="inline-flex items-center gap-2"><span class="w-[7px] h-[7px] rounded-full bg-[#e0605a] animate-[cv-blink_1.1s_steps(1,end)_infinite] motion-reduce:animate-none!"></span>REC · CAM-02 · 4K</span>
       <span data-cv-tag>{modes[2].tag}</span>
     </div>
@@ -79,7 +79,7 @@ const modes: Mode[] = [
       modes.map((m) => (
         <button
           type="button"
-          class={`appearance-none h-12 border border-[var(--cr-line-strong)] bg-transparent text-[var(--cr-bone)] [font-family:var(--cr-mono)] text-[11px] tracking-[0.1em] uppercase cursor-pointer transition-[background-color,color,border-color] duration-200 hover:border-[var(--cr-signal)] aria-pressed:bg-[var(--cr-signal)] aria-pressed:border-[var(--cr-signal)] aria-pressed:text-[var(--cr-ink)] max-[480px]:h-auto max-[480px]:min-h-[44px] max-[480px]:py-2 max-[480px]:px-1.5 max-[480px]:text-[10px] max-[480px]:tracking-[0.06em] ${m.id === "ai" ? "max-[480px]:col-span-2" : ""}`}
+          class={`appearance-none h-12 border border-[var(--cr-line-strong)] bg-transparent text-[var(--cr-bone)] [font-family:var(--cr-mono)] text-[13px] tracking-[0.1em] uppercase cursor-pointer transition-[background-color,color,border-color] duration-200 hover:border-[var(--cr-signal)] aria-pressed:bg-[var(--cr-signal)] aria-pressed:border-[var(--cr-signal)] aria-pressed:text-[var(--cr-ink)] max-[480px]:h-auto max-[480px]:min-h-[44px] max-[480px]:py-2 max-[480px]:px-1.5 max-[480px]:text-[12px] max-[480px]:tracking-[0.06em] ${m.id === "ai" ? "max-[480px]:col-span-2" : ""}`}
           data-cv-mode={m.id}
           data-tag={m.tag}
           data-note={m.note}
@@ -91,7 +91,7 @@ const modes: Mode[] = [
     }
   </div>
 
-  <p class="m-0 text-sm leading-[1.55] text-[var(--cr-bone-dim)]" data-cv-note>{modes[2].note}</p>
+  <p class="m-0 text-[15px] leading-[1.55] text-[var(--cr-bone-dim)]" data-cv-note>{modes[2].note}</p>
 </div>
 
 <style>

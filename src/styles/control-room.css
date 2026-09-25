@@ -22,7 +22,7 @@
   background: var(--cr-ink);
   color: var(--cr-bone);
   font-family: var(--cr-body);
-  font-size: 17px;
+  font-size: 18px;
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   position: relative;
@@ -107,7 +107,7 @@
 
 .cr-label {
   font-family: var(--cr-mono);
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--cr-bone-dim);
@@ -148,7 +148,7 @@
   min-height: 52px;
   padding: 0 26px;
   font-family: var(--cr-mono);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;

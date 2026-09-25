@@ -125,7 +125,7 @@ const advantages = [
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=Hanken+Grotesk:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700;800;900&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
     />
     {schemas.map((schema) => <script type="application/ld+json" set:html={JSON.stringify(schema)} />)}
   </Fragment>
@@ -194,7 +194,7 @@ const advantages = [
             </p>
             <ul class="mt-8 p-0 list-none flex flex-col border-t border-[var(--cr-line)]">
               {highlights.map((h) => (
-                <li class="py-[18px] border-b border-[var(--cr-line)] text-[17px] pl-8 relative before:content-[''] before:absolute before:left-0 before:top-1/2 before:[translate:0_-50%] before:w-2 before:h-2 before:bg-[var(--cr-signal)]">
+                <li class="py-[18px] border-b border-[var(--cr-line)] text-[18px] pl-8 relative before:content-[''] before:absolute before:left-0 before:top-1/2 before:[translate:0_-50%] before:w-2 before:h-2 before:bg-[var(--cr-signal)]">
                   {h.title}
                 </li>
               ))}
@@ -226,7 +226,7 @@ const advantages = [
               >
                 <div class={`relative min-h-[420px] overflow-hidden ${i % 2 === 1 ? "min-[960px]:order-2" : ""}`}>
                   <Image src={s.image} alt={s.imageAlt} loading="lazy" format="webp" class="w-full h-full object-cover block grayscale-[.6] contrast-[1.1]" />
-                  <span class="absolute left-5 top-5 py-1.5 px-2.5 bg-[var(--cr-ink)] [font-family:var(--cr-mono)] text-xs tracking-[0.12em] text-[var(--cr-signal)]">{s.tag}</span>
+                  <span class="absolute left-5 top-5 py-1.5 px-2.5 bg-[var(--cr-ink)] [font-family:var(--cr-mono)] text-sm tracking-[0.12em] text-[var(--cr-signal)]">{s.tag}</span>
                 </div>
                 <div class="flex flex-col gap-6">
                   <h3 class="text-[length:clamp(34px,4vw,52px)]">{s.title}</h3>
@@ -235,15 +235,15 @@ const advantages = [
                     {s.items.map((it) => (
                       <div class="py-5 border-b border-[var(--cr-line)] flex flex-col gap-2">
                         <h4 class="text-lg font-bold">{it.title}</h4>
-                        <p class="text-[15px] leading-[1.55] text-[var(--cr-bone-dim)]">{it.description}</p>
-                        <p class="[font-family:var(--cr-mono)] text-xs text-[var(--cr-amber)]">{it.spec}</p>
+                        <p class="text-[16px] leading-[1.55] text-[var(--cr-bone-dim)]">{it.description}</p>
+                        <p class="[font-family:var(--cr-mono)] text-sm text-[var(--cr-amber)]">{it.spec}</p>
                       </div>
                     ))}
                   </div>
                   <div class="mt-auto flex flex-col items-stretch sm:flex-row sm:justify-between sm:items-center gap-5 py-6 px-7 bg-[var(--cr-ink-3)] border border-[var(--cr-line)] text-left">
                     <div>
                       <p class="[font-family:var(--cr-display)] font-extrabold text-[38px] leading-none">{s.price}</p>
-                      <p class="mt-1.5 text-sm text-[var(--cr-bone-dim)]">{s.priceNote}</p>
+                      <p class="mt-1.5 text-[15px] text-[var(--cr-bone-dim)]">{s.priceNote}</p>
                     </div>
                     <a href="/contact" class="cr-btn">Cotizar <span aria-hidden="true">→</span></a>
                   </div>
@@ -271,7 +271,7 @@ const advantages = [
                 <rect x="6" y="2" width="12" height="20" rx="2" />
                 <path d="M12 18h.01" />
               </svg>
-              <span class="[font-family:var(--cr-mono)] text-[10px] tracking-[0.12em]">GVOLTS APP</span>
+              <span class="[font-family:var(--cr-mono)] text-[12px] tracking-[0.12em]">GVOLTS APP</span>
             </div>
           </div>
 
@@ -285,10 +285,10 @@ const advantages = [
                 ecosystem.map((e, i) => (
                   <div class="py-[22px] border-b border-[var(--cr-line)] flex flex-col gap-2.5" data-reveal style={`--d:${i * 90}ms`}>
                     <h3 class="text-xl font-bold">{e.title}</h3>
-                    <p class="text-[15px] leading-[1.55] text-[var(--cr-bone-dim)]">{e.description}</p>
+                    <p class="text-[16px] leading-[1.55] text-[var(--cr-bone-dim)]">{e.description}</p>
                     {e.tags.length > 0 && (
                       <p class="flex flex-wrap gap-2">
-                        {e.tags.map((t) => <span class="py-1 px-2.5 border border-[var(--cr-line-strong)] [font-family:var(--cr-mono)] text-[11px]">{t}</span>)}
+                        {e.tags.map((t) => <span class="py-1 px-2.5 border border-[var(--cr-line-strong)] [font-family:var(--cr-mono)] text-[13px]">{t}</span>)}
                       </p>
                     )}
                   </div>
@@ -315,7 +315,7 @@ const advantages = [
                 <div class="flex flex-col gap-3 pt-5 border-t border-[var(--cr-line-strong)]" data-reveal style={`--d:${i * 70}ms`}>
                   <p class="[font-family:var(--cr-display)] font-black text-[44px] text-[var(--cr-signal)]">{String(i + 1).padStart(2, "0")}</p>
                   <h3 class="text-[19px] font-bold">{a.title}</h3>
-                  <p class="text-[15px] leading-[1.6] text-[var(--cr-bone-dim)]">{a.description}</p>
+                  <p class="text-[16px] leading-[1.6] text-[var(--cr-bone-dim)]">{a.description}</p>
                 </div>
               ))
             }

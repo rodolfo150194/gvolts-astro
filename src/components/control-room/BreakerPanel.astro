@@ -28,7 +28,7 @@ const pct = Math.round((load / MAX_AMPS) * 100);
   data-max={MAX_AMPS}
 >
   <div
-    class="flex justify-between items-center px-[20px] py-[16px] border-b border-[var(--cr-line)] font-[var(--cr-mono)] text-[12px] tracking-[0.14em] uppercase text-[var(--cr-bone-dim)] max-[480px]:flex-wrap max-[480px]:gap-[8px] max-[480px]:px-[16px] max-[480px]:py-[12px]"
+    class="flex justify-between items-center px-[20px] py-[16px] border-b border-[var(--cr-line)] [font-family:var(--cr-mono)] text-[14px] tracking-[0.14em] uppercase text-[var(--cr-bone-dim)] max-[480px]:flex-wrap max-[480px]:gap-[8px] max-[480px]:px-[16px] max-[480px]:py-[12px]"
   >
     <span>Tablero principal · 240 V</span>
     <span class="flex items-center gap-[8px]" data-bp-status>
@@ -42,10 +42,10 @@ const pct = Math.round((load / MAX_AMPS) * 100);
 
   <div class="px-[20px] pt-[24px] pb-[20px] flex flex-col gap-[14px] border-b border-[var(--cr-line)]">
     <div class="flex justify-between items-end">
-      <p class="font-[var(--cr-display)] font-black text-[clamp(56px,6vw,88px)] leading-[0.9]">
+      <p class="[font-family:var(--cr-display)] font-black text-[clamp(56px,6vw,88px)] leading-[0.9]">
         <span data-bp-load>{load}</span><span class="text-[clamp(24px,2.6vw,40px)] text-[var(--cr-bone-dim)]"> / {MAX_AMPS} A</span>
       </p>
-      <p class="font-[var(--cr-mono)] text-[13px]" data-bp-pct><span data-bp-pct-value>{pct}</span>% CARGA</p>
+      <p class="[font-family:var(--cr-mono)] text-[14px]" data-bp-pct><span data-bp-pct-value>{pct}</span>% CARGA</p>
     </div>
     <div class="h-[10px] bg-[var(--cr-ink-3)]">
       <div class="h-[10px] transition-[width,background-color] duration-500 [transition-timing-function:cubic-bezier(0.16,0.84,0.24,1)]" data-bp-bar style={`width:${pct}%`}></div>
@@ -71,8 +71,8 @@ const pct = Math.round((load / MAX_AMPS) * 100);
             />
           </span>
           <span class="grow flex flex-col gap-[4px] min-w-0">
-            <span class="breaker__name text-[15px] font-semibold max-[480px]:text-[14px]">{c.name}</span>
-            <span class="font-[var(--cr-mono)] text-[11px] tracking-[0.08em] text-[var(--cr-bone-dim)]">
+            <span class="breaker__name text-[16px] font-semibold max-[480px]:text-[15px]">{c.name}</span>
+            <span class="[font-family:var(--cr-mono)] text-[13px] tracking-[0.08em] text-[var(--cr-bone-dim)]">
               {c.id} · {c.amps} A
             </span>
           </span>
@@ -85,7 +85,7 @@ const pct = Math.round((load / MAX_AMPS) * 100);
     }
   </div>
 
-  <p class="px-[20px] pb-[18px] text-[14px] text-[var(--cr-bone-dim)]">Activa o corta circuitos y mira la carga del tablero en tiempo real.</p>
+  <p class="px-[20px] pb-[18px] text-[15px] text-[var(--cr-bone-dim)]">Activa o corta circuitos y mira la carga del tablero en tiempo real.</p>
 </div>
 
 <style>

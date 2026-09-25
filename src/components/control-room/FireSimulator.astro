@@ -33,13 +33,13 @@ const pct = (n: number, base: number) => `${(n / base) * 100}%`;
     <div class="grid grid-cols-2 border border-[var(--cr-line-strong)]" role="group" aria-label="Escenario de la simulación">
       <button
         type="button"
-        class="fsim__seg is-active appearance-none border-0 m-0 h-[40px] px-[14px] cursor-pointer bg-transparent text-[var(--cr-bone-dim)] font-[var(--cr-mono)] text-[11px] tracking-[0.1em] uppercase transition-[background-color,color] duration-200"
+        class="fsim__seg is-active appearance-none border-0 m-0 h-[40px] px-[14px] cursor-pointer bg-transparent text-[var(--cr-bone-dim)] [font-family:var(--cr-mono)] text-[13px] tracking-[0.1em] uppercase transition-[background-color,color] duration-200"
         data-fsim-mode="off"
         aria-pressed="true">Sin sistema</button
       >
       <button
         type="button"
-        class="fsim__seg appearance-none border-0 m-0 h-[40px] px-[14px] cursor-pointer bg-transparent text-[var(--cr-bone-dim)] font-[var(--cr-mono)] text-[11px] tracking-[0.1em] uppercase transition-[background-color,color] duration-200 border-l border-[var(--cr-line-strong)]"
+        class="fsim__seg appearance-none border-0 m-0 h-[40px] px-[14px] cursor-pointer bg-transparent text-[var(--cr-bone-dim)] [font-family:var(--cr-mono)] text-[13px] tracking-[0.1em] uppercase transition-[background-color,color] duration-200 border-l border-[var(--cr-line-strong)]"
         data-fsim-mode="on"
         aria-pressed="false">Con GVolts</button
       >
@@ -49,22 +49,22 @@ const pct = (n: number, base: number) => `${(n / base) * 100}%`;
   <dl class="grid grid-cols-3 border-t border-[var(--cr-line-strong)] m-0">
     <div class="pt-[14px] pr-[10px] pb-0 pl-0">
       <dt class="cr-label">Tiempo</dt>
-      <dd class="mt-[6px] font-[var(--cr-display)] font-extrabold text-[clamp(28px,3vw,36px)] leading-none tabular-nums max-[520px]:text-[24px]" data-fsim-clock>00:00</dd>
+      <dd class="mt-[6px] [font-family:var(--cr-display)] font-extrabold text-[clamp(28px,3vw,36px)] leading-none tabular-nums max-[520px]:text-[24px]" data-fsim-clock>00:00</dd>
     </div>
     <div class="pt-[14px] pr-[10px] pb-0 pl-[10px] border-l border-[var(--cr-line)]">
       <dt class="cr-label">Zonas en fuego</dt>
-      <dd class="mt-[6px] font-[var(--cr-display)] font-extrabold text-[clamp(28px,3vw,36px)] leading-none tabular-nums max-[520px]:text-[24px]"><span data-fsim-burning>0</span><span class="text-[var(--cr-bone-dim)] text-[0.5em]">/7</span></dd>
+      <dd class="mt-[6px] [font-family:var(--cr-display)] font-extrabold text-[clamp(28px,3vw,36px)] leading-none tabular-nums max-[520px]:text-[24px]"><span data-fsim-burning>0</span><span class="text-[var(--cr-bone-dim)] text-[0.5em]">/7</span></dd>
     </div>
     <div class="pt-[14px] pr-[10px] pb-0 pl-[10px] border-l border-[var(--cr-line)]">
       <dt class="cr-label">Daño estimado</dt>
-      <dd class="mt-[6px] font-[var(--cr-display)] font-extrabold text-[clamp(28px,3vw,36px)] leading-none tabular-nums max-[520px]:text-[24px]"><span data-fsim-damage>0</span><span class="text-[var(--cr-bone-dim)] text-[0.5em]">%</span></dd>
+      <dd class="mt-[6px] [font-family:var(--cr-display)] font-extrabold text-[clamp(28px,3vw,36px)] leading-none tabular-nums max-[520px]:text-[24px]"><span data-fsim-damage>0</span><span class="text-[var(--cr-bone-dim)] text-[0.5em]">%</span></dd>
     </div>
   </dl>
 
   <div class="h-[3px] bg-[var(--cr-line)]"><div class="h-[3px] w-0 bg-[var(--cr-signal)] [transition:width_0.6s_linear,background-color_0.3s]" data-fsim-bar></div></div>
 
   <div class="flex flex-col gap-[10px]">
-    <div class="flex justify-between items-center font-[var(--cr-mono)] text-[10px] tracking-[0.1em] uppercase text-[var(--cr-bone-dim)]">
+    <div class="flex justify-between items-center [font-family:var(--cr-mono)] text-[12px] tracking-[0.1em] uppercase text-[var(--cr-bone-dim)]">
       <span>Planta baja · Esc. 1:200</span>
       <span class="inline-flex items-center gap-[8px]">
         <span class="cr-led cr-led--ok" data-fsim-led></span>
@@ -79,7 +79,7 @@ const pct = (n: number, base: number) => `${(n / base) * 100}%`;
           rooms.map((r) => (
             <button
               type="button"
-              class="fsim__room appearance-none absolute box-border m-0 p-[12px] max-[520px]:p-[8px] border-2 border-[var(--cr-line-strong)] bg-transparent text-[var(--cr-bone)] cursor-pointer text-left flex flex-col justify-between font-[var(--cr-body)] transition-[background-color,border-color] duration-200 hover:border-[var(--cr-amber)]"
+              class="fsim__room appearance-none absolute box-border m-0 p-[12px] max-[520px]:p-[8px] border-2 border-[var(--cr-line-strong)] bg-transparent text-[var(--cr-bone)] cursor-pointer text-left flex flex-col justify-between [font-family:var(--cr-body)] transition-[background-color,border-color] duration-200 hover:border-[var(--cr-amber)]"
               data-fsim-room
               data-room-id={r.id}
               data-room-name={r.name}
@@ -87,21 +87,21 @@ const pct = (n: number, base: number) => `${(n / base) * 100}%`;
               aria-label={`${r.name} — Encender conato aquí`}
             >
               <span class="flex justify-between items-start">
-                <span class="font-[var(--cr-mono)] text-[10px] tracking-[0.1em] opacity-80">{r.id}</span>
+                <span class="[font-family:var(--cr-mono)] text-[12px] tracking-[0.1em] opacity-80">{r.id}</span>
                 <span class="w-[9px] h-[9px] rounded-full border-[1.5px] border-current box-border" data-room-det></span>
               </span>
               <span class="flex flex-col gap-[4px]">
-                <span class="font-[var(--cr-display)] font-extrabold text-[20px] leading-none uppercase max-[520px]:text-[14px]">{r.name}</span>
-                <span class="font-[var(--cr-mono)] text-[9px] tracking-[0.1em]" data-room-label>NORMAL</span>
+                <span class="[font-family:var(--cr-display)] font-extrabold text-[20px] leading-none uppercase max-[520px]:text-[15px]">{r.name}</span>
+                <span class="[font-family:var(--cr-mono)] text-[11px] tracking-[0.1em]" data-room-label>NORMAL</span>
               </span>
             </button>
           ))
         }
       </div>
-      <p class="absolute left-1/2 bottom-[16px] -translate-x-1/2 m-0 py-[8px] px-[14px] bg-[var(--cr-bone)] text-[var(--cr-ink)] font-[var(--cr-mono)] text-[10px] tracking-[0.1em] uppercase whitespace-nowrap pointer-events-none" data-fsim-idle>Toca una sala para encender un conato</p>
+      <p class="absolute left-1/2 bottom-[16px] -translate-x-1/2 m-0 py-[8px] px-[14px] bg-[var(--cr-bone)] text-[var(--cr-ink)] [font-family:var(--cr-mono)] text-[12px] tracking-[0.1em] uppercase whitespace-nowrap pointer-events-none" data-fsim-idle>Toca una sala para encender un conato</p>
     </div>
 
-    <ul class="m-0 p-0 list-none flex flex-wrap gap-[14px] font-[var(--cr-mono)] text-[10px] tracking-[0.08em] uppercase text-[var(--cr-bone-dim)]">
+    <ul class="m-0 p-0 list-none flex flex-wrap gap-[14px] [font-family:var(--cr-mono)] text-[12px] tracking-[0.08em] uppercase text-[var(--cr-bone-dim)]">
       <li class="flex items-center gap-[6px]"><span class="w-[10px] h-[10px] inline-block bg-[rgba(237,232,224,0.24)]" data-swatch="smoke"></span>Humo</li>
       <li class="flex items-center gap-[6px]"><span class="w-[10px] h-[10px] inline-block bg-[var(--cr-signal)]" data-swatch="fire"></span>Fuego</li>
       <li class="flex items-center gap-[6px]"><span class="w-[10px] h-[10px] inline-block bg-[var(--cr-amber)]" data-swatch="detected"></span>Detectado</li>
@@ -111,7 +111,7 @@ const pct = (n: number, base: number) => `${(n / base) * 100}%`;
   </div>
 
   <div class="flex justify-between items-center gap-[16px] pt-[14px] border-t border-[var(--cr-line)]">
-    <p class="m-0 text-[13px] leading-[1.45] text-[var(--cr-bone-dim)]" data-fsim-message>Elige un escenario y toca una sala del plano.</p>
+    <p class="m-0 text-[14px] leading-[1.45] text-[var(--cr-bone-dim)]" data-fsim-message>Elige un escenario y toca una sala del plano.</p>
     <button type="button" class="cr-btn cr-btn--ghost shrink-0" data-fsim-reset>Reiniciar</button>
   </div>
 </div>

@@ -23,9 +23,9 @@ const { phases } = Astro.props;
       {
         phases.map((p, i) => (
           <li class="phase relative p-[36px_32px_40px] bg-[var(--cr-ink-2)] flex flex-col gap-[14px] transition-colors duration-300 hover:bg-[var(--cr-ink-3)]" data-reveal style={`--d:${i * 110}ms`}>
-            <span class="phase__n font-[var(--cr-display)] font-black text-[length:clamp(56px,6vw,88px)] leading-[0.8] text-transparent [-webkit-text-stroke:1.5px_var(--cr-signal)]">{p.n}</span>
+            <span class="phase__n [font-family:var(--cr-display)] font-black text-[length:clamp(56px,6vw,88px)] leading-[0.8] text-transparent [-webkit-text-stroke:1.5px_var(--cr-signal)]">{p.n}</span>
             <h3 class="text-[length:clamp(26px,2.4vw,34px)]">{p.title}</h3>
-            <p class="text-[15.5px] leading-[1.6] text-[var(--cr-bone-dim)]">{p.text}</p>
+            <p class="text-[17px] leading-[1.6] text-[var(--cr-bone-dim)]">{p.text}</p>
           </li>
         ))
       }

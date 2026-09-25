@@ -160,7 +160,7 @@ const benefits = [
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=Hanken+Grotesk:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700;800;900&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
     />
     {schemas.map((schema) => <script type="application/ld+json" set:html={JSON.stringify(schema)} />)}
   </Fragment>
@@ -176,7 +176,7 @@ const benefits = [
               <span class="w-[40px] h-px bg-current"></span>S-01 · Protección contra incendios
             </p>
 
-            <h1 class="font-[var(--cr-display)] font-black uppercase leading-[0.84] text-[clamp(60px,8.6vw,140px)]">
+            <h1 class="[font-family:var(--cr-display)] font-black uppercase leading-[0.84] text-[clamp(60px,8.6vw,140px)]">
               <span class="block" data-reveal style="--d:80ms">Alarmas</span>
               <span class="block" data-reveal style="--d:160ms">contra</span>
               <span class="block text-[var(--cr-signal)]" data-reveal style="--d:240ms">incendios<span class="text-[var(--cr-bone)]">.</span></span>
@@ -195,15 +195,15 @@ const benefits = [
             <dl class="grid grid-cols-3 mt-[56px] border-t border-[var(--cr-line-strong)] max-[640px]:grid-cols-2 max-[640px]:gap-y-[20px]" data-reveal style="--d:500ms">
               <div class="pt-[18px] pr-[16px] pb-0 pl-0">
                 <dt class="cr-label">Tasa de detección</dt>
-                <dd class="mt-[6px] font-[var(--cr-display)] font-extrabold text-[clamp(40px,4.6vw,64px)] leading-none tabular-nums"><span data-count="99.8">99.8</span><span class="text-[var(--cr-signal)]">%</span></dd>
+                <dd class="mt-[6px] [font-family:var(--cr-display)] font-extrabold text-[clamp(40px,4.6vw,64px)] leading-none tabular-nums"><span data-count="99.8">99.8</span><span class="text-[var(--cr-signal)]">%</span></dd>
               </div>
               <div class="pt-[18px] pr-[16px] pb-0 pl-[16px] border-l border-[var(--cr-line)]">
                 <dt class="cr-label">Tiempo de respuesta</dt>
-                <dd class="mt-[6px] font-[var(--cr-display)] font-extrabold text-[clamp(40px,4.6vw,64px)] leading-none tabular-nums"><span class="text-[var(--cr-signal)]">&lt;</span>30s</dd>
+                <dd class="mt-[6px] [font-family:var(--cr-display)] font-extrabold text-[clamp(40px,4.6vw,64px)] leading-none tabular-nums"><span class="text-[var(--cr-signal)]">&lt;</span>30s</dd>
               </div>
               <div class="pt-[18px] pr-[16px] pb-0 pl-[16px] border-l border-[var(--cr-line)] max-[640px]:col-[1/-1] max-[640px]:pl-0 max-[640px]:border-l-0 max-[640px]:border-t max-[640px]:border-t-[var(--cr-line)] max-[640px]:pt-[18px]">
                 <dt class="cr-label">Certificación</dt>
-                <dd class="mt-[6px] font-[var(--cr-display)] font-extrabold text-[clamp(40px,4.6vw,64px)] leading-none tabular-nums">NFPA</dd>
+                <dd class="mt-[6px] [font-family:var(--cr-display)] font-extrabold text-[clamp(40px,4.6vw,64px)] leading-none tabular-nums">NFPA</dd>
               </div>
             </dl>
           </div>
@@ -229,9 +229,9 @@ const benefits = [
               complejos industriales.
             </p>
             <ul class="mt-[32px] p-0 list-none flex flex-col border-t border-[var(--cr-line)]">
-              <li class="py-[18px] border-b border-[var(--cr-line)] text-[17px] pl-[32px] relative before:content-[''] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-[8px] before:h-[8px] before:bg-[var(--cr-signal)]">Certificación NFPA 72 y códigos locales</li>
-              <li class="py-[18px] border-b border-[var(--cr-line)] text-[17px] pl-[32px] relative before:content-[''] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-[8px] before:h-[8px] before:bg-[var(--cr-signal)]">Instalación en 48–72 horas</li>
-              <li class="py-[18px] border-b border-[var(--cr-line)] text-[17px] pl-[32px] relative before:content-[''] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-[8px] before:h-[8px] before:bg-[var(--cr-signal)]">Monitoreo 24/7 por central certificada</li>
+              <li class="py-[18px] border-b border-[var(--cr-line)] text-[18px] pl-[32px] relative before:content-[''] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-[8px] before:h-[8px] before:bg-[var(--cr-signal)]">Certificación NFPA 72 y códigos locales</li>
+              <li class="py-[18px] border-b border-[var(--cr-line)] text-[18px] pl-[32px] relative before:content-[''] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-[8px] before:h-[8px] before:bg-[var(--cr-signal)]">Instalación en 48–72 horas</li>
+              <li class="py-[18px] border-b border-[var(--cr-line)] text-[18px] pl-[32px] relative before:content-[''] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-[8px] before:h-[8px] before:bg-[var(--cr-signal)]">Monitoreo 24/7 por central certificada</li>
             </ul>
           </div>
         </div>
@@ -254,10 +254,10 @@ const benefits = [
             {
               features.map((f, i) => (
                 <article class="p-[36px] flex flex-col gap-[16px] bg-[var(--cr-ink-3)] border border-[var(--cr-line)] [transition:transform_0.5s_cubic-bezier(0.16,0.84,0.24,1),border-color_0.3s] hover:-translate-y-[10px] hover:border-[var(--cr-signal)]" data-reveal style={`--d:${i * 90}ms`}>
-                  <p class="font-[var(--cr-display)] font-black text-[48px] leading-none text-[var(--cr-signal)]">{f.number}</p>
+                  <p class="[font-family:var(--cr-display)] font-black text-[48px] leading-none text-[var(--cr-signal)]">{f.number}</p>
                   <h3 class="text-[clamp(28px,2.6vw,36px)]">{f.title}</h3>
-                  <p class="text-[15px] leading-[1.6] text-[var(--cr-bone-dim)]">{f.description}</p>
-                  <ul class="m-0 p-0 list-none flex flex-col gap-[10px] text-[15px]">
+                  <p class="text-[16px] leading-[1.6] text-[var(--cr-bone-dim)]">{f.description}</p>
+                  <ul class="m-0 p-0 list-none flex flex-col gap-[10px] text-[16px]">
                     {f.items.map((it) => <li class="flex gap-[12px] items-center before:content-[''] before:w-[8px] before:h-[8px] before:shrink-0 before:bg-[var(--cr-signal)]">{it}</li>)}
                   </ul>
                 </article>
@@ -285,8 +285,8 @@ const benefits = [
                   <div>
                     <p class="cr-label text-[var(--cr-signal)]">PASO {s.step} · {s.duration.toUpperCase()}</p>
                     <h3 class="mt-[10px] text-[40px]">{s.title}</h3>
-                    <p class="mt-[10px] text-[16px] leading-[1.6] text-[var(--cr-bone-dim)]">{s.description}</p>
-                    <p class="mt-[10px] font-[var(--cr-mono)] text-[12px] tracking-[0.08em] text-[var(--cr-amber)]">ENTREGABLE → {s.deliverable}</p>
+                    <p class="mt-[10px] text-[17px] leading-[1.6] text-[var(--cr-bone-dim)]">{s.description}</p>
+                    <p class="mt-[10px] [font-family:var(--cr-mono)] text-[14px] tracking-[0.08em] text-[var(--cr-amber)]">ENTREGABLE → {s.deliverable}</p>
                   </div>
                 </li>
               ))
@@ -310,8 +310,8 @@ const benefits = [
               industries.map((ind, i) => (
                 <article class="p-[36px] flex flex-col gap-[16px] bg-[var(--cr-ink-3)] border border-[var(--cr-line)] [transition:transform_0.5s_cubic-bezier(0.16,0.84,0.24,1),border-color_0.3s] hover:-translate-y-[10px] hover:border-[var(--cr-signal)]" data-reveal style={`--d:${i * 90}ms`}>
                   <h3 class="text-[clamp(28px,2.6vw,36px)]">{ind.title}</h3>
-                  <p class="text-[15px] leading-[1.6] text-[var(--cr-bone-dim)]">{ind.description}</p>
-                  <ul class="m-0 p-0 list-none flex flex-col gap-[10px] text-[15px] mt-auto pt-[16px] border-t border-[var(--cr-line)] font-[var(--cr-mono)] text-[13px] text-[var(--cr-bone-dim)]">
+                  <p class="text-[16px] leading-[1.6] text-[var(--cr-bone-dim)]">{ind.description}</p>
+                  <ul class="m-0 p-0 list-none flex flex-col gap-[10px] text-[16px] mt-auto pt-[16px] border-t border-[var(--cr-line)] [font-family:var(--cr-mono)] text-[14px] text-[var(--cr-bone-dim)]">
                     {ind.items.map((it) => <li class="flex gap-[12px] items-center">{it}</li>)}
                   </ul>
                 </article>
@@ -346,16 +346,16 @@ const benefits = [
                         : "border-l border-[var(--cr-line)] max-[960px]:border-l-0! max-[960px]:pl-0! max-[640px]:border-l-0! max-[640px]:pl-0! max-[640px]:border-t max-[640px]:border-t-[var(--cr-line)]"
                   }`}
                 >
-                  <p class="font-[var(--cr-display)] font-black text-[56px] leading-none text-[var(--cr-signal)]">{c.code}</p>
+                  <p class="[font-family:var(--cr-display)] font-black text-[56px] leading-none text-[var(--cr-signal)]">{c.code}</p>
                   <h3 class="text-[18px] font-bold normal-case">{c.title}</h3>
-                  <p class="text-[15px] leading-[1.55] text-[var(--cr-bone-dim)]">{c.description}</p>
+                  <p class="text-[16px] leading-[1.55] text-[var(--cr-bone-dim)]">{c.description}</p>
                 </div>
               ))
             }
           </div>
 
           <div class="mt-[36px] flex flex-wrap gap-[12px]" data-reveal style="--d:280ms">
-            {credentials.map((c) => <span class="py-[12px] px-[18px] border border-[var(--cr-line-strong)] font-[var(--cr-mono)] text-[13px] tracking-[0.06em]">{c}</span>)}
+            {credentials.map((c) => <span class="py-[12px] px-[18px] border border-[var(--cr-line-strong)] [font-family:var(--cr-mono)] text-[14px] tracking-[0.06em]">{c}</span>)}
           </div>
         </div>
       </section>
@@ -375,7 +375,7 @@ const benefits = [
               benefits.map((b, i) => (
                 <div class="p-[30px] flex flex-col gap-[16px] bg-[var(--cr-ink-3)] border border-[var(--cr-line)] [transition:transform_0.5s_cubic-bezier(0.16,0.84,0.24,1),border-color_0.3s] hover:-translate-y-[10px] hover:border-[var(--cr-signal)]" data-reveal style={`--d:${i * 70}ms`}>
                   <h3 class="text-[clamp(28px,2.6vw,36px)]">{b.title}</h3>
-                  <p class="text-[15px] leading-[1.6] text-[var(--cr-bone-dim)]">{b.description}</p>
+                  <p class="text-[16px] leading-[1.6] text-[var(--cr-bone-dim)]">{b.description}</p>
                 </div>
               ))
             }
