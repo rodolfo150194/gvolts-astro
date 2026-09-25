@@ -1,0 +1,1107 @@
+---
+/*
+ * Gemelo digital · laboratorio de simulaciones.
+ * One shared isometric floor plan (CSS 3D) whose overlays change per tab.
+ * Each scenario is a deterministic render(t) driven by a single rAF loop,
+ * so pausing (off-screen / hidden tab) and reduced motion are trivial.
+ */
+interface Tab {
+  id: "fire" | "intruder" | "access" | "power";
+  n: string;
+  label: string;
+  accent: string;
+}
+
+const tabs: Tab[] = [
+  { id: "fire", n: "01", label: "Incendio controlado", accent: "var(--cr-signal)" },
+  { id: "intruder", n: "02", label: "Detección de intruso", accent: "var(--cr-ok)" },
+  { id: "access", n: "03", label: "Acceso por huella", accent: "var(--lab-blue)" },
+  { id: "power", n: "04", label: "Control eléctrico", accent: "var(--cr-amber)" },
+];
+
+const circuits = [
+  { id: "c1", name: "C1 · Luces" },
+  { id: "c2", name: "C2 · Servidores" },
+  { id: "c3", name: "C3 · Clima" },
+];
+---
+
+<section
+  class="lab relative overflow-hidden py-[clamp(96px,12vw,180px)] border-t border-[var(--cr-line)] [--lab-blue:#4da8ff] [--lab-water:#7ecbe2]"
+  id="gemelo-digital"
+  aria-labelledby="lab-title"
+  data-lab
+  data-scenario="fire"
+>
+  <div class="absolute inset-0 opacity-50 bg-[linear-gradient(var(--cr-line)_1px,transparent_1px),linear-gradient(90deg,var(--cr-line)_1px,transparent_1px)] bg-[size:88px_88px] [mask-image:radial-gradient(ellipse_at_70%_60%,#000_10%,transparent_70%)]" aria-hidden="true"></div>
+
+  <div class="cr-wrap relative">
+    <header class="flex justify-between items-end gap-12 mb-[clamp(36px,5vw,56px)] max-[960px]:flex-col max-[960px]:items-start max-[960px]:gap-6">
+      <div>
+        <p class="cr-label inline-flex items-center gap-3 text-[var(--cr-ok)]" data-reveal><span class="cr-led cr-blink"></span>Gemelo digital · Simulación en vivo</p>
+        <h2 id="lab-title" class="mt-[18px] text-[clamp(44px,6.4vw,104px)]" data-reveal style="--d:80ms">Mira tu inmueble<br /><span class="outline text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">reaccionar solo.</span></h2>
+      </div>
+      <p class="max-w-[420px] text-[18px] leading-[1.65] text-[var(--cr-bone-dim)] max-[640px]:text-[16px]" data-reveal style="--d:160ms">
+        Cuatro escenarios reales sobre el mismo plano. Detección, alerta y respuesta automática, tal como los ve
+        nuestra central de monitoreo.
+      </p>
+    </header>
+
+    <div
+      class="grid grid-cols-4 gap-px bg-[var(--cr-line-strong)] border border-[var(--cr-line-strong)] max-[760px]:grid-cols-2"
+      role="tablist"
+      aria-label="Escenarios del gemelo digital"
+      data-reveal
+      style="--d:200ms"
+    >
+      {
+        tabs.map((t, i) => (
+          <button
+            type="button"
+            role="tab"
+            id={`lab-tab-${t.id}`}
+            aria-controls="lab-panel"
+            aria-selected={i === 0 ? "true" : "false"}
+            tabindex={i === 0 ? 0 : -1}
+            data-lab-tab={t.id}
+            style={`--tab-accent:${t.accent}`}
+            class="group appearance-none m-0 min-h-[60px] flex items-center gap-[12px] px-[18px] py-[10px] border-0 bg-[var(--cr-ink)] text-left text-[var(--cr-bone-dim)] cursor-pointer [font-family:var(--cr-mono)] text-[11.5px] tracking-[0.1em] uppercase transition-[background-color,color,box-shadow] duration-200 hover:text-[var(--cr-bone)] aria-selected:bg-[var(--cr-ink-3)] aria-selected:text-[var(--cr-bone)] aria-selected:shadow-[inset_0_-3px_0_var(--tab-accent)] max-[480px]:px-[12px] max-[480px]:gap-[8px] max-[480px]:text-[10px] max-[480px]:tracking-[0.06em] max-[480px]:min-h-[56px]"
+          >
+            <span class="shrink-0 text-[var(--tab-accent)] opacity-60 group-aria-selected:opacity-100">{t.n}</span>
+            <span class="min-w-0 leading-[1.35]">{t.label}</span>
+            <span class="ml-auto shrink-0 w-[8px] h-[8px] rounded-full bg-[var(--cr-line-strong)] group-aria-selected:bg-[var(--tab-accent)] group-aria-selected:shadow-[0_0_10px_var(--tab-accent)] max-[480px]:hidden" aria-hidden="true"></span>
+          </button>
+        ))
+      }
+    </div>
+
+    <div
+      id="lab-panel"
+      role="tabpanel"
+      aria-labelledby="lab-tab-fire"
+      tabindex="0"
+      class="grid grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)] gap-[clamp(16px,2.4vw,32px)] mt-[clamp(16px,2vw,24px)] items-stretch max-[1080px]:grid-cols-1"
+      data-reveal
+      style="--d:260ms"
+    >
+      <p class="sr-only" data-lab-desc>Simulación: un detector de humo identifica un conato en la sala de servidores, activa la alarma y los rociadores hasta controlar el fuego.</p>
+
+      <!-- Stage: the shared 3D plan -->
+      <div class="lab__stage-box relative flex flex-col border border-[var(--cr-line-strong)] bg-[color-mix(in_srgb,var(--cr-ink-2)_70%,transparent)] min-w-0">
+        <div class="flex justify-between items-center gap-3 px-[16px] py-[12px] border-b border-[var(--cr-line)] [font-family:var(--cr-mono)] text-[10.5px] tracking-[0.12em] uppercase text-[var(--cr-bone-dim)] max-[480px]:px-[12px] max-[480px]:text-[9.5px] max-[480px]:tracking-[0.08em]">
+          <span class="truncate">Planta 01 · Gemelo digital</span>
+          <span class="inline-flex items-center gap-[8px] shrink-0"><span class="cr-led" data-lab-led></span><span data-lab-code>SIM-01</span></span>
+        </div>
+
+        <div class="lab__stage relative w-full my-auto aspect-[16/11] [container-type:inline-size] max-[1080px]:max-w-[760px] max-[1080px]:mx-auto max-[520px]:aspect-[4/3]" aria-hidden="true">
+          <div class="absolute left-[48.5%] top-[55%] w-[61%] aspect-square max-[520px]:w-[63%] max-[520px]:top-[56%] -translate-x-1/2 -translate-y-1/2 [perspective:240cqw]">
+            <div class="lab__glow absolute -inset-[12%] rounded-full bg-[radial-gradient(closest-side,color-mix(in_srgb,var(--lab-accent)_20%,transparent),transparent)] animate-[lab-glow_4s_ease-in-out_infinite] [transform:rotateX(58deg)_rotateZ(-36deg)]"></div>
+
+            <div class="lab__plan absolute inset-0 [transform-style:preserve-3d] [transform:rotateX(58deg)_rotateZ(-36deg)] animate-[lab-sway_16s_ease-in-out_infinite]">
+              <div class="absolute inset-0 box-border border-2 border-[var(--cr-line-strong)] bg-[color-mix(in_srgb,var(--cr-ink-3)_92%,transparent)] bg-[image:linear-gradient(var(--cr-line)_1px,transparent_1px),linear-gradient(90deg,var(--cr-line)_1px,transparent_1px)] bg-[size:5%_5%]"></div>
+
+              <!-- Overlays: always above the floor (translateZ) and clipped to it (svg overflow hidden) -->
+              <svg viewBox="0 0 520 520" class="lab__fx absolute inset-0 w-full h-full overflow-hidden [transform:translateZ(1px)]">
+                <defs>
+                  <radialGradient id="lab-g-fire">
+                    <stop offset="0" stop-color="#ffd66b" stop-opacity="0.95"></stop>
+                    <stop offset="0.35" stop-color="#ff8a4c" stop-opacity="0.8"></stop>
+                    <stop offset="0.7" stop-color="#e0605a" stop-opacity="0.4"></stop>
+                    <stop offset="1" stop-color="#e0605a" stop-opacity="0"></stop>
+                  </radialGradient>
+                  <radialGradient id="lab-g-smoke">
+                    <stop offset="0" stop-color="#ede8e0" stop-opacity="0.34"></stop>
+                    <stop offset="1" stop-color="#ede8e0" stop-opacity="0"></stop>
+                  </radialGradient>
+                  <radialGradient id="lab-g-water">
+                    <stop offset="0" stop-color="#7ecbe2" stop-opacity="0.5"></stop>
+                    <stop offset="1" stop-color="#7ecbe2" stop-opacity="0"></stop>
+                  </radialGradient>
+                  <radialGradient id="lab-g-cone" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="330">
+                    <stop offset="0" stop-color="var(--lab-cone)" stop-opacity="0.6"></stop>
+                    <stop offset="1" stop-color="var(--lab-cone)" stop-opacity="0"></stop>
+                  </radialGradient>
+                  <clipPath id="lab-clip-z02"><rect x="0" y="220" width="300" height="300"></rect></clipPath>
+                  <clipPath id="lab-clip-z03"><rect x="300" y="0" width="220" height="320"></rect></clipPath>
+                </defs>
+
+                <!-- Zone state fills (shared) -->
+                <rect class="lab__zone" data-zone="Z01" x="0" y="0" width="300" height="220"></rect>
+                <rect class="lab__zone" data-zone="Z02" x="0" y="220" width="300" height="300"></rect>
+                <rect class="lab__zone" data-zone="Z03" x="300" y="0" width="220" height="320"></rect>
+                <rect class="lab__zone" data-zone="Z04" x="300" y="320" width="220" height="200"></rect>
+
+                <!-- 01 · Incendio -->
+                <g data-only="fire">
+                  <g clip-path="url(#lab-clip-z03)">
+                    <circle data-fire-smoke cx="430" cy="190" r="0" fill="url(#lab-g-smoke)"></circle>
+                    <circle class="lab__flicker" data-fire-glow cx="430" cy="190" r="0" fill="url(#lab-g-fire)"></circle>
+                    <circle data-fire-water cx="410" cy="150" r="0" fill="url(#lab-g-water)"></circle>
+                  </g>
+                  <g class="lab__rings" data-fire-alarm>
+                    <circle class="lab__ring" cx="410" cy="150" r="16" fill="none" stroke="var(--cr-signal)" stroke-width="3"></circle>
+                    <circle class="lab__ring lab__ring--2" cx="410" cy="150" r="16" fill="none" stroke="var(--cr-signal)" stroke-width="3"></circle>
+                  </g>
+                  {
+                    [
+                      [350, 70],
+                      [480, 70],
+                      [470, 270],
+                    ].map(([x, y]) => (
+                      <g class="lab__rings" data-sprinkler>
+                        <circle class="lab__spray" cx={x} cy={y} r="14" fill="none" stroke="var(--lab-water)" stroke-width="2.5" />
+                        <circle class="lab__spray lab__spray--2" cx={x} cy={y} r="14" fill="none" stroke="var(--lab-water)" stroke-width="2.5" />
+                        <circle cx={x} cy={y} r="5" fill="var(--cr-bone-dim)" data-sprinkler-head />
+                      </g>
+                    ))
+                  }
+                  <circle data-fire-det cx="410" cy="150" r="8" fill="var(--cr-ok)"></circle>
+                  <text x="424" y="140" class="lab__svgtext">DET-07</text>
+                </g>
+
+                <!-- 02 · Intruso -->
+                <g data-only="intruder">
+                  <g clip-path="url(#lab-clip-z02)">
+                    <path data-cone d="M0 0 L310.1 -112.9 A330 330 0 0 1 310.1 112.9 Z" fill="url(#lab-g-cone)" transform="translate(285 232) rotate(145)"></path>
+                  </g>
+                  <polyline data-intr-trail points="4,470 70,430 135,385 175,345" fill="none" stroke="var(--cr-signal)" stroke-width="2" stroke-dasharray="4 8" opacity="0"></polyline>
+                  <polyline data-guard-route fill="none" stroke="var(--cr-ok)" stroke-width="2" stroke-dasharray="4 8" opacity="0" points=""></polyline>
+                  <g data-intr transform="translate(4 470)" opacity="0">
+                    <g class="lab__rings is-on"><circle class="lab__ring" r="12" fill="none" stroke="var(--cr-signal)" stroke-width="2.5"></circle></g>
+                    <circle r="8" data-intr-dot fill="var(--cr-signal)"></circle>
+                  </g>
+                  <g data-guard transform="translate(120 120)">
+                    <circle r="8" fill="var(--cr-ok)"></circle>
+                    <circle r="3" fill="var(--cr-ink)"></circle>
+                  </g>
+                  <rect x="277" y="224" width="16" height="16" fill="var(--cr-ok)" data-cam></rect>
+                  <text x="206" y="252" class="lab__svgtext">CAM-03</text>
+                </g>
+
+                <!-- 03 · Acceso -->
+                <g data-only="access">
+                  <path d="M300 140 A62 62 0 0 0 360 94" fill="none" stroke="var(--cr-line-strong)" stroke-width="2" stroke-dasharray="3 6"></path>
+                  <line data-door x1="300" y1="78" x2="300" y2="140" stroke="var(--lab-blue)" stroke-width="6" stroke-linecap="round"></line>
+                  <g class="lab__rings" data-reader-rings>
+                    <circle class="lab__ring" cx="283" cy="158" r="12" fill="none" stroke="currentColor" stroke-width="2.5"></circle>
+                  </g>
+                  <rect data-reader x="275" y="150" width="16" height="16" fill="var(--lab-blue)"></rect>
+                  <text x="150" y="214" class="lab__svgtext">LECTOR L-02</text>
+                  <g data-person-a transform="translate(60 180)" opacity="0">
+                    <circle r="8" fill="var(--cr-bone)"></circle>
+                  </g>
+                  <g data-person-b transform="translate(60 180)" opacity="0">
+                    <circle r="8" fill="var(--lab-blue)"></circle>
+                    <circle r="3" fill="var(--cr-ink)"></circle>
+                  </g>
+                </g>
+
+                <!-- 04 · Eléctrico -->
+                <g data-only="power">
+                  <path class="lab__wire-base" d="M440 440 L440 270 L230 270 L230 110 L150 110"></path>
+                  <path class="lab__wire-base" d="M440 440 L495 440 L495 40 L420 40"></path>
+                  <path class="lab__wire-base" d="M440 440 L440 400 L150 400"></path>
+                  <path class="lab__wire-base" d="M440 440 L440 490 L150 490 L150 400"></path>
+                  <path class="lab__wire" data-wire="c1" d="M440 440 L440 270 L230 270 L230 110 L150 110"></path>
+                  <path class="lab__wire" data-wire="c2" d="M440 440 L495 440 L495 40 L420 40"></path>
+                  <path class="lab__wire" data-wire="c3" d="M440 440 L440 400 L150 400"></path>
+                  <path class="lab__wire lab__wire--backup" data-wire="c3b" d="M440 440 L440 490 L150 490 L150 400"></path>
+                  <rect x="140" y="100" width="20" height="20" class="lab__node" data-node="c1"></rect>
+                  <rect x="410" y="30" width="20" height="20" class="lab__node" data-node="c2"></rect>
+                  <rect x="140" y="390" width="20" height="20" class="lab__node" data-node="c3"></rect>
+                  <text x="168" y="104" class="lab__svgtext">C1</text>
+                  <text x="386" y="30" class="lab__svgtext">C2</text>
+                  <text x="168" y="392" class="lab__svgtext">C3</text>
+                  <g class="lab__rings" data-trip-rings>
+                    <circle class="lab__ring" cx="440" cy="440" r="18" fill="none" stroke="var(--cr-signal)" stroke-width="3"></circle>
+                    <circle class="lab__ring lab__ring--2" cx="440" cy="440" r="18" fill="none" stroke="var(--cr-signal)" stroke-width="3"></circle>
+                  </g>
+                  <rect x="426" y="426" width="28" height="28" fill="var(--cr-amber)" data-panel-box></rect>
+                </g>
+              </svg>
+
+              <!-- Walls (door gap on the vertical wall, doorway on h1) -->
+              <div class="absolute bg-[var(--cr-line-strong)] left-[57.7%] top-0 w-[2px] h-[15%] [transform:translateZ(1px)]"></div>
+              <div class="absolute bg-[var(--cr-line-strong)] left-[57.7%] top-[27%] w-[2px] h-[73%] [transform:translateZ(1px)]"></div>
+              <div class="absolute bg-[var(--cr-line-strong)] left-0 top-[42.3%] w-[44%] h-[2px] [transform:translateZ(1px)]"></div>
+              <div class="absolute bg-[var(--cr-line-strong)] left-[54%] top-[42.3%] w-[3.9%] h-[2px] [transform:translateZ(1px)]"></div>
+              <div class="absolute bg-[var(--cr-line-strong)] left-[57.7%] top-[61.5%] w-[42.3%] h-[2px] [transform:translateZ(1px)]"></div>
+
+              <p class="lab__label absolute m-0 [transform:translateZ(1px)]" style="left:3.5%;top:3.5%">Z01 · LOBBY</p>
+              <p class="lab__label absolute m-0 [transform:translateZ(1px)]" style="left:3.5%;top:45.5%">Z02 · BODEGA</p>
+              <p class="lab__label absolute m-0 [transform:translateZ(1px)]" style="left:61%;top:3.5%">Z03 · SERVIDORES</p>
+              <p class="lab__label absolute m-0 [transform:translateZ(1px)]" style="left:61%;top:65%">Z04 · ELÉCTRICO</p>
+              <p class="lab__label absolute m-0 text-[var(--cr-amber)]! [transform:translateZ(1px)]" style="left:61%;top:92%">TABLERO 220V</p>
+
+              <div class="lab__frame absolute inset-0 box-border border border-dashed [transform:translateZ(7cqw)]"></div>
+            </div>
+          </div>
+
+          <p class="lab__chip absolute right-[12px] top-[12px] max-w-[46%] m-0 inline-flex items-center gap-[8px] py-[7px] px-[10px] bg-[color-mix(in_srgb,var(--cr-ink-3)_92%,transparent)] border border-[var(--cr-line-strong)] shadow-[0_20px_40px_-16px_rgba(0,0,0,0.8)] [font-family:var(--cr-mono)] text-[10.5px] tracking-[0.08em] uppercase leading-[1.3] animate-[lab-drift_7s_ease-in-out_infinite] max-[480px]:right-[8px] max-[480px]:top-[8px] max-[480px]:text-[9px] max-[480px]:py-[5px] max-[480px]:px-[8px]">
+            <span class="cr-led shrink-0" data-lab-chip-led></span><span class="min-w-0" data-lab-chip>Sistema armado</span>
+          </p>
+        </div>
+
+        <div class="h-[3px] bg-[var(--cr-line)] mt-auto"><div class="h-[3px] w-0 bg-[var(--lab-accent)]" data-lab-progress></div></div>
+      </div>
+
+      <!-- Side: status, timeline, readouts -->
+      <div class="flex flex-col gap-[18px] p-[20px] min-w-0 bg-[color-mix(in_srgb,var(--cr-ink-2)_92%,transparent)] backdrop-blur-[10px] border border-[var(--cr-line-strong)] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.7)] max-[480px]:p-[16px]">
+        <div class="flex flex-col gap-[8px]">
+          <p class="flex justify-between items-center gap-3 [font-family:var(--cr-mono)] text-[10.5px] tracking-[0.12em] uppercase text-[var(--cr-bone-dim)]">
+            <span>Estado del evento</span>
+            <span class="inline-flex items-center gap-[8px]" ><span class="cr-led" data-lab-status-led></span><span data-lab-status>Normal</span></span>
+          </p>
+          <p class="[font-family:var(--cr-display)] font-extrabold uppercase text-[clamp(28px,3vw,40px)] leading-[0.95] min-h-[1.9em] [overflow-wrap:anywhere]" data-lab-headline>Sistema normal</p>
+          <p class="text-[14px] leading-[1.5] text-[var(--cr-bone-dim)] min-h-[3em]" data-lab-message></p>
+        </div>
+
+        <ol class="list-none m-0 p-0 grid grid-cols-4 max-[480px]:grid-cols-2 max-[480px]:gap-y-[14px] border-t border-[var(--cr-line-strong)]" aria-label="Línea de tiempo del evento">
+          {
+            [0, 1, 2, 3].map((i) => (
+              <li class="lab__step relative pt-[14px] pr-[6px] min-w-0" data-lab-step={i}>
+                <span class="lab__step-bar absolute left-0 right-0 top-[-2px] h-[3px]" />
+                <span class="flex items-center gap-[6px] [font-family:var(--cr-mono)] text-[9.5px] tracking-[0.08em] text-[var(--cr-bone-dim)]">
+                  <span class="lab__step-dot w-[8px] h-[8px] shrink-0 border border-[var(--cr-line-strong)]" />
+                  <span data-lab-step-time>—</span>
+                </span>
+                <span class="lab__step-label block mt-[6px] [font-family:var(--cr-display)] font-bold uppercase text-[clamp(13px,1.05vw,15px)] leading-[1.05] [hyphens:auto] [overflow-wrap:break-word] max-[480px]:text-[14px]" data-lab-step-label>Paso</span>
+              </li>
+            ))
+          }
+        </ol>
+
+        <dl class="grid grid-cols-3 border-t border-[var(--cr-line)] m-0">
+          {
+            [0, 1, 2].map((i) => (
+              <div class={`pt-[14px] min-w-0 ${i > 0 ? "pl-[10px] border-l border-[var(--cr-line)]" : "pr-[10px]"}`}>
+                <dt class="cr-label text-[10px] tracking-[0.1em]" data-lab-stat-label={i}>—</dt>
+                <dd class="m-0 mt-[6px] [font-family:var(--cr-display)] font-extrabold text-[clamp(20px,2vw,26px)] leading-none tabular-nums [overflow-wrap:anywhere] max-[480px]:text-[18px]" data-lab-stat={i}>—</dd>
+              </div>
+            ))
+          }
+        </dl>
+
+        <!-- Fingerprint reader (03) -->
+        <div class="items-center gap-[16px] pt-[14px] border-t border-[var(--cr-line)]" data-only="access" data-lab-extra="flex">
+          <div class="relative shrink-0 w-[84px] h-[84px] border border-[var(--cr-line-strong)] bg-[var(--cr-ink)] max-[480px]:w-[72px] max-[480px]:h-[72px]">
+            <svg viewBox="0 0 64 64" class="absolute inset-[8px] w-[calc(100%-16px)] h-[calc(100%-16px)]" aria-hidden="true">
+              <defs>
+                <clipPath id="lab-fp-clip"><rect data-fp-clip x="0" y="0" width="64" height="0"></rect></clipPath>
+              </defs>
+              <g class="lab__fp" fill="none" stroke="var(--cr-line-strong)" stroke-width="2.2" stroke-linecap="round">
+                <path d="M16 12 C24 5 42 4 51 12"></path>
+                <path d="M12 44 C10 34 12 24 19 17 C27 10 40 9 48 16"></path>
+                <path d="M52 22 C55 28 56 36 54 44"></path>
+                <path d="M20 50 C16 42 16 30 22 23 C28 16 38 16 44 22 C49 27 50 34 49 40"></path>
+                <path d="M24 55 C20 46 20 34 25 28 C29 23 37 23 41 28 C44 32 45 38 44 45"></path>
+                <path d="M29 58 C25 49 25 38 28 33 C30 30 35 30 37 33 C39 37 39 44 38 51"></path>
+                <path d="M33 59 C31 51 31 42 32 37"></path>
+                <path d="M44 51 C46 46 47 41 47 36"></path>
+              </g>
+              <g class="lab__fp" fill="none" stroke="var(--lab-fp)" stroke-width="2.2" stroke-linecap="round" clip-path="url(#lab-fp-clip)">
+                <path d="M16 12 C24 5 42 4 51 12"></path>
+                <path d="M12 44 C10 34 12 24 19 17 C27 10 40 9 48 16"></path>
+                <path d="M52 22 C55 28 56 36 54 44"></path>
+                <path d="M20 50 C16 42 16 30 22 23 C28 16 38 16 44 22 C49 27 50 34 49 40"></path>
+                <path d="M24 55 C20 46 20 34 25 28 C29 23 37 23 41 28 C44 32 45 38 44 45"></path>
+                <path d="M29 58 C25 49 25 38 28 33 C30 30 35 30 37 33 C39 37 39 44 38 51"></path>
+                <path d="M33 59 C31 51 31 42 32 37"></path>
+                <path d="M44 51 C46 46 47 41 47 36"></path>
+              </g>
+              <rect data-fp-line x="2" y="0" width="60" height="2" fill="var(--lab-fp)" opacity="0"></rect>
+            </svg>
+          </div>
+          <div class="flex flex-col gap-[6px] min-w-0">
+            <span class="cr-label text-[10px]">Lector biométrico · L-02</span>
+            <span class="[font-family:var(--cr-display)] font-extrabold uppercase text-[22px] leading-none [overflow-wrap:anywhere]" data-fp-result>Coloque su huella</span>
+            <span class="[font-family:var(--cr-mono)] text-[11px] tracking-[0.06em] text-[var(--cr-bone-dim)]" data-fp-user>Sala de servidores · Z03</span>
+          </div>
+        </div>
+
+        <!-- Load monitor (04) -->
+        <div class="flex-col gap-[12px] pt-[14px] border-t border-[var(--cr-line)]" data-only="power" data-lab-extra="flex">
+          <div class="flex justify-between items-end gap-3">
+            <p class="shrink-0 whitespace-nowrap [font-family:var(--cr-display)] font-black text-[clamp(40px,4vw,56px)] leading-[0.9] tabular-nums max-[480px]:text-[36px]"><span data-kw>7.4</span><span class="text-[0.45em] text-[var(--cr-bone-dim)]"> kW</span></p>
+            <svg viewBox="0 0 200 48" preserveAspectRatio="none" class="w-[55%] h-[48px] overflow-visible" aria-hidden="true">
+              <line x1="0" y1="10" x2="200" y2="10" stroke="var(--cr-signal)" stroke-width="1" stroke-dasharray="3 4" vector-effect="non-scaling-stroke" opacity="0.6"></line>
+              <polyline data-spark fill="none" stroke="var(--cr-amber)" stroke-width="1.5" vector-effect="non-scaling-stroke" points=""></polyline>
+            </svg>
+          </div>
+          <ul class="list-none m-0 p-0 flex flex-col gap-[8px]">
+            {
+              circuits.map((c) => (
+                <li class="grid grid-cols-[minmax(0,130px)_1fr_48px] items-center gap-[10px] [font-family:var(--cr-mono)] text-[10.5px] tracking-[0.06em] uppercase text-[var(--cr-bone-dim)] max-[480px]:grid-cols-[minmax(0,110px)_1fr_42px] max-[480px]:text-[9.5px]">
+                  <span class="truncate">{c.name}</span>
+                  <span class="relative h-[6px] bg-[var(--cr-ink-3)]">
+                    <span class="absolute top-[-3px] bottom-[-3px] left-[80%] w-px bg-[var(--cr-signal)] opacity-70" />
+                    <span class="absolute left-0 top-0 bottom-0 bg-[var(--cr-ok)]" data-bar={c.id} />
+                  </span>
+                  <span class="text-right tabular-nums text-[var(--cr-bone)]" data-amps={c.id}>0 A</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <div class="flex flex-col gap-[8px] pt-[14px] border-t border-[var(--cr-line)] min-h-[128px]">
+          <span class="cr-label text-[10px]">Registro de eventos</span>
+          <ul class="list-none m-0 p-0 flex flex-col gap-[6px] [font-family:var(--cr-mono)] text-[11px] leading-[1.4] tracking-[0.02em]" data-lab-log></ul>
+        </div>
+
+        <div class="flex justify-between items-center gap-[16px] pt-[14px] mt-auto border-t border-[var(--cr-line)]">
+          <p class="m-0 [font-family:var(--cr-mono)] text-[10.5px] tracking-[0.1em] uppercase text-[var(--cr-bone-dim)]" data-lab-clock>T+00.0 s</p>
+          <button type="button" class="cr-btn cr-btn--ghost shrink-0 min-h-[44px]! px-[20px]!" data-lab-reset>Reiniciar <span aria-hidden="true">↺</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .lab {
+    --lab-accent: var(--cr-signal);
+    --lab-cone: var(--cr-ok);
+    --lab-fp: var(--lab-blue);
+    --lab-frame: var(--cr-line-strong);
+  }
+  .lab[data-scenario="intruder"] { --lab-accent: var(--cr-ok); }
+  .lab[data-scenario="access"] { --lab-accent: var(--lab-blue); }
+  .lab[data-scenario="power"] { --lab-accent: var(--cr-amber); }
+
+  /* Per-scenario overlays: only the active tab's layer is shown */
+  .lab:not([data-scenario="fire"]) [data-only="fire"],
+  .lab:not([data-scenario="intruder"]) [data-only="intruder"],
+  .lab:not([data-scenario="access"]) [data-only="access"],
+  .lab:not([data-scenario="power"]) [data-only="power"] {
+    display: none;
+  }
+  .lab[data-scenario="access"] [data-only="access"][data-lab-extra],
+  .lab[data-scenario="power"] [data-only="power"][data-lab-extra] {
+    display: flex;
+  }
+  [data-lab-extra] { display: none; }
+
+  .lab__label {
+    font-family: var(--cr-mono);
+    font-size: clamp(8px, 1.35cqw, 11px);
+    letter-spacing: 0.08em;
+    color: var(--cr-bone-dim);
+    white-space: nowrap;
+  }
+  .lab__svgtext {
+    font-family: var(--cr-mono);
+    font-size: 15px;
+    letter-spacing: 0.06em;
+    fill: var(--cr-bone-dim);
+  }
+
+  .lab__frame {
+    border-color: var(--lab-frame);
+    transition: border-color 0.4s;
+  }
+
+  .lab__zone {
+    fill: transparent;
+    transition: fill 0.35s;
+  }
+  .lab__zone[data-state="alert"] { fill: color-mix(in srgb, var(--cr-signal) 24%, transparent); animation: lab-zone 1s ease-in-out infinite; }
+  .lab__zone[data-state="warn"] { fill: color-mix(in srgb, var(--cr-amber) 16%, transparent); }
+  .lab__zone[data-state="info"] { fill: color-mix(in srgb, var(--lab-water) 16%, transparent); }
+  .lab__zone[data-state="ok"] { fill: color-mix(in srgb, var(--cr-ok) 14%, transparent); }
+  .lab__zone[data-state="blue"] { fill: color-mix(in srgb, var(--lab-blue) 14%, transparent); }
+
+  .lab__ring,
+  .lab__spray {
+    transform-box: fill-box;
+    transform-origin: center;
+    opacity: 0;
+  }
+  .lab__rings.is-on .lab__ring { animation: lab-ring 1.6s cubic-bezier(0.2, 0.6, 0.3, 1) infinite; }
+  .lab__rings.is-on .lab__ring--2 { animation-delay: 0.8s; }
+  .lab__rings.is-on .lab__spray { animation: lab-spray 1.1s ease-out infinite; }
+  .lab__rings.is-on .lab__spray--2 { animation-delay: 0.55s; }
+  [data-reader-rings] { color: var(--lab-fp); }
+
+  .lab__flicker { animation: lab-flicker 0.45s ease-in-out infinite alternate; }
+
+  .lab__wire-base {
+    fill: none;
+    stroke: var(--cr-line-strong);
+    stroke-width: 2;
+  }
+  .lab__wire {
+    fill: none;
+    stroke: var(--cr-amber);
+    stroke-width: 3;
+    stroke-dasharray: 6 14;
+    animation: lab-flow 3.2s linear infinite;
+    transition: stroke 0.3s, opacity 0.3s;
+  }
+  .lab__wire[data-state="hot"] { stroke: var(--cr-signal); animation-duration: 0.7s; stroke-width: 4; }
+  .lab__wire[data-state="off"] { opacity: 0; animation-play-state: paused; }
+  .lab__wire--backup { stroke: var(--cr-ok); }
+  .lab__node { fill: var(--cr-ink); stroke: var(--cr-amber); stroke-width: 2.5; }
+  .lab__node[data-state="hot"] { stroke: var(--cr-signal); fill: color-mix(in srgb, var(--cr-signal) 40%, var(--cr-ink)); }
+  .lab__node[data-state="off"] { stroke: var(--cr-line-strong); }
+  .lab__node[data-state="ok"] { stroke: var(--cr-ok); }
+
+  /* Timeline stepper */
+  .lab__step-bar { background: var(--cr-line); }
+  .lab__step-label { color: var(--cr-bone-dim); transition: color 0.3s; }
+  .lab__step[data-state="active"] .lab__step-bar { background: var(--lab-accent); box-shadow: 0 0 12px var(--lab-accent); }
+  .lab__step[data-state="active"] .lab__step-dot { background: var(--lab-accent); border-color: var(--lab-accent); animation: cr-blink 1.2s steps(2, jump-none) infinite; }
+  .lab__step[data-state="active"] .lab__step-label { color: var(--cr-bone); }
+  .lab__step[data-state="done"] .lab__step-bar { background: var(--cr-ok); }
+  .lab__step[data-state="done"] .lab__step-dot { background: var(--cr-ok); border-color: var(--cr-ok); }
+  .lab__step[data-state="done"] .lab__step-label { color: var(--cr-bone); }
+  .lab__step[data-state="fail"] .lab__step-bar { background: var(--cr-signal); }
+  .lab__step[data-state="fail"] .lab__step-dot { background: var(--cr-signal); border-color: var(--cr-signal); }
+  .lab__step[data-state="fail"] .lab__step-label { color: var(--cr-signal); }
+
+  /* Off-screen / hidden: freeze every CSS animation too */
+  .lab.is-paused *,
+  .lab.is-paused *::before,
+  .lab.is-paused *::after {
+    animation-play-state: paused !important;
+  }
+
+  @keyframes lab-sway {
+    0%, 100% { transform: rotateX(58deg) rotateZ(-40deg); }
+    50% { transform: rotateX(55deg) rotateZ(-32deg); }
+  }
+  @keyframes lab-glow {
+    0%, 100% { opacity: 0.45; }
+    50% { opacity: 1; }
+  }
+  @keyframes lab-drift {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+  @keyframes lab-ring {
+    0% { transform: scale(0.5); opacity: 1; }
+    100% { transform: scale(3.2); opacity: 0; }
+  }
+  @keyframes lab-spray {
+    0% { transform: scale(0.4); opacity: 0.9; }
+    100% { transform: scale(4); opacity: 0; }
+  }
+  @keyframes lab-flicker {
+    from { opacity: 0.8; }
+    to { opacity: 1; }
+  }
+  @keyframes lab-flow {
+    to { stroke-dashoffset: -200; }
+  }
+  @keyframes lab-zone {
+    50% { fill: color-mix(in srgb, var(--cr-signal) 10%, transparent); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lab__plan { animation: none; }
+    .lab__wire { stroke-dasharray: none; }
+  }
+</style>
+
+<script>
+  type ScenarioId = "fire" | "intruder" | "access" | "power";
+  type Tone = "ok" | "amber" | "signal" | "blue";
+  type ZoneState = "" | "alert" | "warn" | "info" | "ok" | "blue";
+  type P = [number, number];
+
+  interface Frame {
+    tone: Tone;
+    status: string;
+    headline: string;
+    message: string;
+    chip: string;
+    step: number;
+    fail?: boolean;
+    stats: [string, string, string];
+    zones?: Partial<Record<"Z01" | "Z02" | "Z03" | "Z04", ZoneState>>;
+  }
+
+  interface Scenario {
+    code: string;
+    dur: number;
+    final: number;
+    desc: string;
+    statLabels: [string, string, string];
+    steps: { label: string; at: number }[];
+    events: { at: number; text: string; tone: Tone }[];
+    render: (t: number) => Frame;
+  }
+
+  const clamp = (v: number, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const seg = (t: number, a: number, b: number) => clamp((t - a) / (b - a));
+  const ease = (k: number) => (k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2);
+  const lerp = (a: number, b: number, k: number) => a + (b - a) * k;
+  const along = (pts: P[], k: number): P => {
+    const lens: number[] = [];
+    let total = 0;
+    for (let i = 1; i < pts.length; i++) {
+      const l = Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]);
+      lens.push(l);
+      total += l;
+    }
+    let d = clamp(k) * total;
+    for (let i = 0; i < lens.length; i++) {
+      if (d <= lens[i] || i === lens.length - 1) {
+        const f = lens[i] ? clamp(d / lens[i]) : 0;
+        return [lerp(pts[i][0], pts[i + 1][0], f), lerp(pts[i][1], pts[i + 1][1], f)];
+      }
+      d -= lens[i];
+    }
+    return pts[pts.length - 1];
+  };
+  const toneVar: Record<Tone, string> = {
+    ok: "var(--cr-ok)",
+    amber: "var(--cr-amber)",
+    signal: "var(--cr-signal)",
+    blue: "var(--lab-blue)",
+  };
+
+  const init = (root: HTMLElement) => {
+    const $ = <T extends Element = HTMLElement>(sel: string) => root.querySelector<T>(sel);
+    const $$ = <T extends Element = HTMLElement>(sel: string) => [...root.querySelectorAll<T>(sel)];
+
+    const tabs = $$<HTMLButtonElement>("[data-lab-tab]");
+    const panel = $("#lab-panel");
+    const desc = $("[data-lab-desc]");
+    const led = $("[data-lab-led]");
+    const codeEl = $("[data-lab-code]");
+    const statusLed = $("[data-lab-status-led]");
+    const statusEl = $("[data-lab-status]");
+    const headlineEl = $("[data-lab-headline]");
+    const messageEl = $("[data-lab-message]");
+    const chipEl = $("[data-lab-chip]");
+    const chipLed = $("[data-lab-chip-led]");
+    const progress = $("[data-lab-progress]");
+    const clockEl = $("[data-lab-clock]");
+    const logEl = $("[data-lab-log]");
+    const resetBtn = $<HTMLButtonElement>("[data-lab-reset]");
+    const steps = $$("[data-lab-step]");
+    const statLabels = $$("[data-lab-stat-label]");
+    const statVals = $$("[data-lab-stat]");
+    const zones = $$<SVGRectElement>("[data-zone]");
+
+    // 01 · fire
+    const fSmoke = $<SVGCircleElement>("[data-fire-smoke]");
+    const fGlow = $<SVGCircleElement>("[data-fire-glow]");
+    const fWater = $<SVGCircleElement>("[data-fire-water]");
+    const fAlarm = $<SVGGElement>("[data-fire-alarm]");
+    const fDet = $<SVGCircleElement>("[data-fire-det]");
+    const sprinklers = $$<SVGGElement>("[data-sprinkler]");
+    // 02 · intruder
+    const cone = $<SVGPathElement>("[data-cone]");
+    const intr = $<SVGGElement>("[data-intr]");
+    const intrDot = $<SVGCircleElement>("[data-intr-dot]");
+    const intrTrail = $<SVGPolylineElement>("[data-intr-trail]");
+    const guard = $<SVGGElement>("[data-guard]");
+    const guardRoute = $<SVGPolylineElement>("[data-guard-route]");
+    // 03 · access
+    const door = $<SVGLineElement>("[data-door]");
+    const reader = $<SVGRectElement>("[data-reader]");
+    const readerRings = $<SVGGElement>("[data-reader-rings]");
+    const personA = $<SVGGElement>("[data-person-a]");
+    const personB = $<SVGGElement>("[data-person-b]");
+    const fpClip = $<SVGRectElement>("[data-fp-clip]");
+    const fpLine = $<SVGRectElement>("[data-fp-line]");
+    const fpResult = $("[data-fp-result]");
+    const fpUser = $("[data-fp-user]");
+    // 04 · power
+    const wires = Object.fromEntries($$<SVGPathElement>("[data-wire]").map((w) => [w.dataset.wire!, w]));
+    const nodes = Object.fromEntries($$<SVGRectElement>("[data-node]").map((n) => [n.dataset.node!, n]));
+    const tripRings = $<SVGGElement>("[data-trip-rings]");
+    const panelBox = $<SVGRectElement>("[data-panel-box]");
+    const kwEl = $("[data-kw]");
+    const spark = $<SVGPolylineElement>("[data-spark]");
+    const bars = Object.fromEntries($$("[data-bar]").map((b) => [b.dataset.bar!, b]));
+    const amps = Object.fromEntries($$("[data-amps]").map((b) => [b.dataset.amps!, b]));
+
+    const setAttr = (el: Element | null | undefined, name: string, v: string | number) => el?.setAttribute(name, String(v));
+    const pos = (el: Element | null, p: P) => setAttr(el, "transform", `translate(${p[0].toFixed(1)} ${p[1].toFixed(1)})`);
+
+    /* ---------------- 01 · Incendio controlado ---------------- */
+    const fire: Scenario = {
+      code: "SIM-01",
+      dur: 15,
+      final: 11.5,
+      desc: "Simulación: un detector de humo identifica un conato en la sala de servidores, activa la alarma y los rociadores hasta controlar el fuego.",
+      statLabels: ["Temperatura", "Humo", "Rociadores"],
+      steps: [
+        { label: "Detección", at: 2.5 },
+        { label: "Alarma", at: 4 },
+        { label: "Supresión", at: 6.5 },
+        { label: "Controlado", at: 10 },
+      ],
+      events: [
+        { at: 0.2, text: "Sistema armado · 4 zonas", tone: "ok" },
+        { at: 2.5, text: "Humo detectado · DET-07 · Z03", tone: "amber" },
+        { at: 4, text: "Alarma general · central UL notificada", tone: "signal" },
+        { at: 6.5, text: "Rociadores activados · 3/3", tone: "blue" },
+        { at: 10, text: "Incendio controlado · 0 heridos", tone: "ok" },
+        { at: 12, text: "Sistema rearmado", tone: "ok" },
+      ],
+      render(t) {
+        const grow = ease(seg(t, 1.8, 6.5));
+        const shrink = ease(seg(t, 6.5, 10));
+        const fireK = grow * (1 - shrink);
+        const smokeK = ease(seg(t, 1.2, 4)) * (1 - ease(seg(t, 8, 12)));
+        const waterK = ease(seg(t, 6.5, 7.5)) * (1 - ease(seg(t, 10.5, 12.5)));
+        setAttr(fGlow, "r", (fireK * 150).toFixed(1));
+        setAttr(fSmoke, "r", (smokeK * 230).toFixed(1));
+        setAttr(fWater, "r", (waterK * 260).toFixed(1));
+        const alarm = t >= 4 && t < 10;
+        const spraying = t >= 6.5 && t < 10.5;
+        fAlarm?.classList.toggle("is-on", alarm);
+        sprinklers.forEach((s) => s.classList.toggle("is-on", spraying));
+        sprinklers.forEach((s) => setAttr(s.querySelector("[data-sprinkler-head]"), "fill", spraying ? "var(--lab-water)" : "var(--cr-bone-dim)"));
+        setAttr(fDet, "fill", t >= 2.5 && t < 10 ? (alarm ? "var(--cr-signal)" : "var(--cr-amber)") : "var(--cr-ok)");
+
+        const temp = Math.round(24 + 47 * fireK + (t >= 10 ? 2 * (1 - seg(t, 10, 14)) : 0));
+        const smoke = Math.round(smokeK * 38);
+        const stats: Frame["stats"] = [`${temp} °C`, `${smoke}%`, spraying ? "3/3 ON" : t >= 10.5 ? "Cerrados" : "0/3"];
+
+        if (t < 2.5)
+          return { tone: "ok", status: "Normal", headline: "Sistema normal", message: t < 1.2 ? "Detectores multicriterio vigilando humo, calor y CO en las 4 zonas." : "Un conato empieza en la sala de servidores…", chip: "Sistema armado", step: -1, stats };
+        if (t < 4)
+          return { tone: "amber", status: "Detección · Z03", headline: "Humo detectado · Z03", message: "DET-07 confirma humo en menos de 30 s y verifica con el sensor de calor.", chip: "DET-07 · Humo", step: 0, stats, zones: { Z03: "warn" } };
+        if (t < 6.5)
+          return { tone: "signal", status: "Alarma · Z03", headline: "Alarma activada", message: "Sirenas y estrobos activos, central UL notificada y evacuación en curso.", chip: "Alarma · Z03", step: 1, stats, zones: { Z03: "alert" } };
+        if (t < 10)
+          return { tone: "blue", status: "Supresión", headline: "Supresión en curso", message: "Rociadores de la zona afectada liberan agua; el resto del inmueble sigue seco.", chip: "Rociadores ON", step: 2, stats, zones: { Z03: "info" } };
+        return { tone: "ok", status: "Controlado", headline: "Incendio controlado", message: "Fuego extinguido en 1 zona. Temperatura normalizada y sistema rearmado.", chip: "Controlado · Z03", step: 3, stats, zones: { Z03: "ok" } };
+      },
+    };
+
+    /* ---------------- 02 · Detección de intruso ---------------- */
+    const CAM: P = [285, 232];
+    const HALF = 20;
+    const RANGE = 330;
+    const INTR_PATH: P[] = [
+      [4, 470],
+      [70, 430],
+      [135, 385],
+      [175, 345],
+    ];
+    const INTR_T0 = 1;
+    const INTR_T1 = 9;
+    const sweep = (t: number) => 148 + 36 * Math.sin(t * 1.15 + 0.6);
+    const intrAt = (t: number) => along(INTR_PATH, seg(t, INTR_T0, INTR_T1));
+    const angleTo = (p: P) => (Math.atan2(p[1] - CAM[1], p[0] - CAM[0]) * 180) / Math.PI;
+    const inCone = (p: P, a: number) => {
+      if (Math.hypot(p[0] - CAM[0], p[1] - CAM[1]) > RANGE * 0.92) return false;
+      let d = angleTo(p) - a;
+      d = ((d + 540) % 360) - 180;
+      return Math.abs(d) < HALF * 0.8;
+    };
+    let TD = INTR_T1;
+    for (let t = INTR_T0 + 0.8; t < INTR_T1; t += 0.02) {
+      if (inCone(intrAt(t), sweep(t))) {
+        TD = t;
+        break;
+      }
+    }
+    const intrStop = intrAt(TD + 0.6);
+    const GUARD_START: P = [120, 120];
+    const guardPath: P[] = [GUARD_START, [255, 190], [255, 262], [intrStop[0] + 26, intrStop[1] - 18]];
+    setAttr(guardRoute, "points", guardPath.map((p) => p.join(",")).join(" "));
+    const r1 = (n: number) => Math.round(n * 10) / 10;
+
+    const intruder: Scenario = {
+      code: "SIM-02",
+      dur: r1(TD + 10),
+      final: r1(TD + 6.5),
+      desc: "Simulación: la cámara CAM-03 barre la bodega, detecta a un intruso, alerta a la central y un guardia llega a la zona.",
+      statLabels: ["Cámara", "Objetivo", "Guardia"],
+      steps: [
+        { label: "Patrulla", at: 0 },
+        { label: "Detección", at: r1(TD) },
+        { label: "Despacho", at: r1(TD + 1.5) },
+        { label: "Resuelto", at: r1(TD + 5.5) },
+      ],
+      events: [
+        { at: 0.2, text: "Ronda automática · CAM-03", tone: "ok" },
+        { at: r1(TD), text: "Movimiento en Z02 · IA verifica persona", tone: "amber" },
+        { at: r1(TD + 0.6), text: "Intrusión detectada · CAM-03", tone: "signal" },
+        { at: r1(TD + 1.5), text: "Guardia despachado · ETA 4 s", tone: "amber" },
+        { at: r1(TD + 5.5), text: "Intruso interceptado · zona asegurada", tone: "ok" },
+      ],
+      render(t) {
+        const detected = t >= TD;
+        const p = detected ? along([intrAt(TD), intrStop], seg(t, TD, TD + 0.6)) : intrAt(t);
+        let a = sweep(t);
+        if (detected) {
+          const target = angleTo(p);
+          let d = target - sweep(TD);
+          d = ((d + 540) % 360) - 180;
+          a = sweep(TD) + d * ease(seg(t, TD, TD + 0.4));
+        }
+        const resolved = t >= TD + 5.5;
+        setAttr(cone, "transform", `translate(${CAM[0]} ${CAM[1]}) rotate(${a.toFixed(2)})`);
+        root.style.setProperty("--lab-cone", detected && !resolved ? "var(--cr-signal)" : "var(--cr-ok)");
+        pos(intr, p);
+        setAttr(intr, "opacity", t < INTR_T0 ? 0 : resolved ? 1 - seg(t, TD + 6.5, TD + 7.5) : 1);
+        setAttr(intrDot, "fill", resolved ? "var(--cr-bone-dim)" : "var(--cr-signal)");
+        intr?.querySelector(".lab__rings")?.classList.toggle("is-on", detected && !resolved);
+        setAttr(intrTrail, "opacity", detected && !resolved ? 0.6 : 0);
+        const gk = ease(seg(t, TD + 1.5, TD + 5.5));
+        const back = ease(seg(t, TD + 7.5, TD + 9.8));
+        pos(guard, back > 0 ? along([...guardPath].reverse(), back) : along(guardPath, gk));
+        setAttr(guardRoute, "opacity", t >= TD + 1.5 && t < TD + 5.5 ? 0.7 : 0);
+
+        const eta = Math.max(0, Math.ceil(TD + 5.5 - t));
+        const stats: Frame["stats"] = [
+          detected && !resolved ? "Siguiendo" : "Barrido",
+          detected ? (resolved ? "Retenido" : "1 persona") : "—",
+          t < TD + 1.5 ? "En base" : resolved ? (back > 0 ? "Regresa" : "En sitio") : `ETA ${eta} s`,
+        ];
+        if (!detected)
+          return { tone: "ok", status: "Patrulla", headline: "Perímetro seguro", message: "CAM-03 barre la bodega con analítica IA: solo alerta si detecta una persona.", chip: "CAM-03 · REC", step: 0, stats };
+        if (t < TD + 1.5)
+          return { tone: "signal", status: "Alerta · Z02", headline: "Intrusión detectada · CAM-03", message: "La IA confirma una persona en Z02 fuera de horario. Central notificada con video en vivo.", chip: "Intrusión · CAM-03", step: 1, stats, zones: { Z02: "alert" } };
+        if (!resolved)
+          return { tone: "amber", status: "Despacho", headline: "Guardia en camino", message: "El guardia recibe la ruta más corta y el video en su móvil mientras la cámara sigue al objetivo.", chip: "Guardia · ETA", step: 2, stats, zones: { Z02: "alert" } };
+        return { tone: "ok", status: "Resuelto", headline: "Zona asegurada", message: "Intruso interceptado en Z02. Evento guardado con clip de video para la policía.", chip: "Resuelto · Z02", step: 3, stats, zones: { Z02: "ok" } };
+      },
+    };
+
+    /* ---------------- 03 · Acceso por huella ---------------- */
+    const READER_A: P = [262, 138];
+    const READER_B: P = [262, 112];
+    const access: Scenario = {
+      code: "SIM-03",
+      dur: 17,
+      final: 14.2,
+      desc: "Simulación: un visitante sin registro es rechazado por el lector de huella; después un usuario autorizado entra a la sala de servidores.",
+      statLabels: ["Lector", "Usuario", "Puerta"],
+      steps: [
+        { label: "Llegada", at: 8 },
+        { label: "Escaneo", at: 10 },
+        { label: "Verificación", at: 12 },
+        { label: "Acceso", at: 12.8 },
+      ],
+      events: [
+        { at: 2.5, text: "Lectura de huella · L-02", tone: "blue" },
+        { at: 4.5, text: "Acceso denegado · huella no registrada", tone: "signal" },
+        { at: 10, text: "Lectura de huella · L-02", tone: "blue" },
+        { at: 12, text: "Acceso concedido · M. Rivera", tone: "ok" },
+        { at: 15.8, text: "Puerta cerrada · Z03 asegurada", tone: "ok" },
+      ],
+      render(t) {
+        // attempt A (denied)
+        const aIn = ease(seg(t, 0.5, 2.5));
+        const aOut = ease(seg(t, 5.5, 7.5));
+        const aPos = aOut > 0 ? along([READER_A, [90, 60]], aOut) : along([[40, 190], READER_A], aIn);
+        pos(personA, aPos);
+        setAttr(personA, "opacity", t < 0.5 ? 0 : 1 - seg(t, 7, 7.6));
+        // attempt B (granted)
+        const bPath: P[] = [[40, 190], READER_B];
+        const bThrough: P[] = [READER_B, [335, 110], [420, 170]];
+        const bPos = t < 12.8 ? along(bPath, ease(seg(t, 8, 10))) : along(bThrough, ease(seg(t, 12.8, 14.8)));
+        pos(personB, bPos);
+        setAttr(personB, "opacity", t < 8 ? 0 : 1 - seg(t, 16, 16.8));
+        // door
+        const open = ease(seg(t, 12, 12.8)) * (1 - ease(seg(t, 15, 15.8)));
+        setAttr(door, "transform", `rotate(${(-78 * open).toFixed(1)} 300 78)`);
+
+        const scanA = t >= 2.5 && t < 4.5;
+        const scanB = t >= 10 && t < 12;
+        const scanning = scanA || scanB;
+        const denied = t >= 4.5 && t < 7.5;
+        const granted = t >= 12 && t < 16;
+        const k = scanA ? seg(t, 2.5, 4.5) : scanB ? seg(t, 10, 12) : denied || granted ? 1 : 0;
+        const fp = denied ? "var(--cr-signal)" : granted ? "var(--cr-ok)" : "var(--lab-blue)";
+        root.style.setProperty("--lab-fp", fp);
+        setAttr(fpClip, "height", (k * 64).toFixed(1));
+        const lineY = 4 + ((Math.sin(k * Math.PI * 3 - Math.PI / 2) + 1) / 2) * 56;
+        setAttr(fpLine, "y", lineY.toFixed(1));
+        setAttr(fpLine, "opacity", scanning ? 1 : 0);
+        readerRings?.classList.toggle("is-on", scanning || denied || granted);
+        setAttr(reader, "fill", fp);
+        if (fpResult) {
+          fpResult.textContent = scanning ? "Escaneando…" : denied ? "Acceso denegado" : granted ? "Acceso concedido" : "Coloque su huella";
+          fpResult.style.color = denied ? "var(--cr-signal)" : granted ? "var(--cr-ok)" : "";
+        }
+        if (fpUser) fpUser.textContent = denied ? "Huella no registrada · intento 1/3" : granted ? "M. Rivera · TI · nivel 2" : "Sala de servidores · Z03";
+
+        const stats: Frame["stats"] = [
+          scanning ? "Leyendo" : denied ? "Bloqueo" : "Listo",
+          denied ? "Desconocido" : granted || t >= 16 ? "M. Rivera" : "—",
+          open > 0.05 ? "Abierta" : "Cerrada",
+        ];
+        if (t < 2.5)
+          return { tone: "blue", status: "En espera", headline: "Lector listo", message: "Solo el personal registrado puede entrar a la sala de servidores.", chip: "L-02 · Listo", step: 0, stats };
+        if (t < 4.5)
+          return { tone: "blue", status: "Escaneo", headline: "Leyendo huella…", message: "Comparando la huella con la base cifrada de usuarios autorizados.", chip: "L-02 · Escaneo", step: 1, stats };
+        if (t < 8)
+          return { tone: "signal", status: "Denegado", headline: "Acceso denegado", message: "Huella no registrada: la puerta sigue bloqueada y la central recibe el intento.", chip: "Denegado · L-02", step: 2, fail: true, stats, zones: { Z01: "alert" } };
+        if (t < 10)
+          return { tone: "blue", status: "En espera", headline: "Nuevo intento", message: "Un usuario autorizado se acerca al lector L-02.", chip: "L-02 · Listo", step: 0, stats };
+        if (t < 12)
+          return { tone: "blue", status: "Escaneo", headline: "Leyendo huella…", message: "Comparando la huella con la base cifrada de usuarios autorizados.", chip: "L-02 · Escaneo", step: 1, stats };
+        if (t < 12.8)
+          return { tone: "ok", status: "Concedido", headline: "Acceso concedido · M. Rivera", message: "Identidad verificada en 0,4 s. Cerradura liberada.", chip: "Concedido · M. Rivera", step: 2, stats, zones: { Z03: "blue" } };
+        return { tone: "ok", status: "Concedido", headline: "Acceso concedido · M. Rivera", message: "Entrada registrada con fecha, hora y usuario. La puerta se cierra sola.", chip: "Concedido · M. Rivera", step: 3, stats, zones: { Z03: "blue" } };
+      },
+    };
+
+    /* ---------------- 04 · Control eléctrico ---------------- */
+    const LIMIT = 32;
+    const load = (t: number) => {
+      const c1 = 8 + 0.6 * Math.sin(t * 2.1);
+      const c2 = 14 + 0.8 * Math.sin(t * 1.3 + 1);
+      let c3 = 12 + 0.5 * Math.sin(t * 1.7 + 2);
+      if (t >= 4 && t < 6) c3 = lerp(12, 41, Math.pow(seg(t, 4, 6), 1.6));
+      else if (t >= 6 && t < 8.5) c3 = 0;
+      else if (t >= 8.5 && t < 10) c3 = lerp(0, 11, ease(seg(t, 8.5, 10)));
+      else if (t >= 10) c3 = 11 + 0.4 * Math.sin(t * 1.7 + 2);
+      return [c1, c2, c3];
+    };
+    const power: Scenario = {
+      code: "SIM-04",
+      dur: 15,
+      final: 11,
+      desc: "Simulación: el tablero de 220 V alimenta tres circuitos; una sobrecarga en la bodega dispara el breaker automáticamente y la carga se restablece por una ruta de respaldo.",
+      statLabels: ["Tensión", "Corriente", "Circuitos"],
+      steps: [
+        { label: "Normal", at: 0 },
+        { label: "Sobrecarga", at: 4.8 },
+        { label: "Disparo", at: 6 },
+        { label: "Restablecido", at: 10 },
+      ],
+      events: [
+        { at: 0.2, text: "Tablero 220 V · 3 circuitos activos", tone: "ok" },
+        { at: 4.8, text: "Sobrecarga C3 · >32 A", tone: "amber" },
+        { at: 6, text: "Disparo automático · breaker C3", tone: "signal" },
+        { at: 8.5, text: "Transferencia a ruta de respaldo", tone: "amber" },
+        { at: 10, text: "C3 restablecido · carga estable", tone: "ok" },
+      ],
+      render(t) {
+        const [c1, c2, c3] = load(t);
+        const over = t >= 4.8 && t < 6;
+        const tripped = t >= 6 && t < 8.5;
+        const backup = t >= 8.5;
+        setAttr(wires.c1, "data-state", "");
+        setAttr(wires.c2, "data-state", "");
+        setAttr(wires.c3, "data-state", t >= 4 && t < 6 ? "hot" : t >= 6 ? "off" : "");
+        setAttr(wires.c3b, "data-state", backup ? "" : "off");
+        setAttr(nodes.c3, "data-state", over ? "hot" : tripped ? "off" : backup ? "ok" : "");
+        tripRings?.classList.toggle("is-on", t >= 5.6 && t < 7.4);
+        setAttr(panelBox, "fill", tripped ? "var(--cr-signal)" : "var(--cr-amber)");
+
+        const vals = { c1, c2, c3 };
+        (Object.keys(vals) as (keyof typeof vals)[]).forEach((id) => {
+          const v = vals[id];
+          const bar = bars[id];
+          if (bar) {
+            bar.style.width = `${Math.min(100, (v / (LIMIT * 1.25)) * 100).toFixed(1)}%`;
+            bar.style.background = v > LIMIT ? "var(--cr-signal)" : v > LIMIT * 0.8 ? "var(--cr-amber)" : "var(--cr-ok)";
+          }
+          if (amps[id]) amps[id].textContent = id === "c3" && tripped ? "OFF" : `${Math.round(v)} A`;
+        });
+        const total = c1 + c2 + c3;
+        if (kwEl) kwEl.textContent = ((total * 220) / 1000).toFixed(1);
+        if (spark) {
+          const pts: string[] = [];
+          const N = 60;
+          for (let i = 0; i <= N; i++) {
+            let tt = t - 10 + (i / N) * 10;
+            if (tt < 0) tt += 15;
+            const kw = (load(tt).reduce((s, v) => s + v, 0) * 220) / 1000;
+            pts.push(`${((i / N) * 200).toFixed(1)},${(48 - (kw / 16) * 48).toFixed(1)}`);
+          }
+          setAttr(spark, "points", pts.join(" "));
+          setAttr(spark, "stroke", over ? "var(--cr-signal)" : "var(--cr-amber)");
+        }
+        const stats: Frame["stats"] = ["220 V", `${Math.round(total)} A`, tripped ? "2/3" : "3/3"];
+        if (t < 4.8)
+          return { tone: "ok", status: "Estable", headline: "Carga estable", message: t < 4 ? "El tablero reparte 220 V a tres circuitos y mide cada uno en tiempo real." : "El clima de la bodega empieza a exigir más corriente…", chip: "Tablero · 220 V", step: 0, stats, zones: t >= 4 ? { Z02: "warn" } : {} };
+        if (t < 6)
+          return { tone: "signal", status: "Sobrecarga", headline: "Sobrecarga en C3", message: `C3 supera su límite de ${LIMIT} A: riesgo de calentamiento en el cableado de la bodega.`, chip: "C3 · Sobrecarga", step: 1, stats, zones: { Z02: "alert", Z04: "warn" } };
+        if (t < 8.5)
+          return { tone: "amber", status: "Disparo C3", headline: "Breaker disparado", message: "El breaker inteligente corta C3 en milisegundos. Servidores e iluminación no se enteran.", chip: "Disparo · C3", step: 2, stats, zones: { Z02: "warn" } };
+        if (t < 10)
+          return { tone: "amber", status: "Transferencia", headline: "Ruta de respaldo", message: "La carga de la bodega se transfiere a la ruta de respaldo con consumo limitado.", chip: "C3 · Respaldo", step: 2, stats };
+        return { tone: "ok", status: "Restablecido", headline: "Energía restablecida", message: "C3 vuelve a operar dentro de su límite. Evento registrado para mantenimiento.", chip: "C3 · Restablecido", step: 3, stats, zones: { Z02: "ok" } };
+      },
+    };
+
+    const scenarios: Record<ScenarioId, Scenario> = { fire, intruder, access, power };
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    let current: ScenarioId = "fire";
+    let t = 0;
+    let last = 0;
+    let raf = 0;
+    let visible = false;
+    let logKey = "";
+
+    const fmt = (s: number) => `T+${s.toFixed(1).padStart(4, "0")} s`;
+
+    const applyTone = (el: HTMLElement | null, tone: Tone, blink: boolean) => {
+      if (!el) return;
+      el.classList.toggle("cr-led--signal", tone === "signal");
+      el.classList.toggle("cr-led--amber", tone === "amber");
+      el.classList.toggle("cr-blink", blink);
+      el.style.background = tone === "blue" ? "var(--lab-blue)" : "";
+      el.style.boxShadow = tone === "blue" ? "0 0 0 3px color-mix(in srgb, var(--lab-blue) 22%, transparent), 0 0 12px var(--lab-blue)" : "";
+    };
+
+    const draw = () => {
+      const sc = scenarios[current];
+      const f = sc.render(t);
+      const alerting = f.tone === "signal";
+      applyTone(statusLed, f.tone, alerting);
+      applyTone(chipLed, f.tone, alerting);
+      applyTone(led, f.tone, alerting);
+      if (statusEl) statusEl.textContent = f.status;
+      if (headlineEl && headlineEl.textContent !== f.headline) headlineEl.textContent = f.headline;
+      if (messageEl && messageEl.textContent !== f.message) messageEl.textContent = f.message;
+      if (chipEl) chipEl.textContent = f.chip;
+      root.style.setProperty("--lab-frame", alerting ? "color-mix(in srgb, var(--cr-signal) 70%, transparent)" : "var(--cr-line-strong)");
+      f.stats.forEach((v, i) => {
+        if (statVals[i]) statVals[i].textContent = v;
+      });
+      zones.forEach((z) => setAttr(z, "data-state", f.zones?.[z.dataset.zone as "Z01"] ?? ""));
+      steps.forEach((s, i) => {
+        const last = i === sc.steps.length - 1;
+        let state = "";
+        if (i < f.step) state = "done";
+        else if (i === f.step) state = f.fail ? "fail" : last ? "done" : "active";
+        s.dataset.state = state;
+      });
+      if (progress) progress.style.width = `${((t / sc.dur) * 100).toFixed(2)}%`;
+      if (clockEl) clockEl.textContent = fmt(t);
+
+      const shown = sc.events.filter((e) => e.at <= t);
+      const key = `${current}:${shown.length}`;
+      if (key !== logKey && logEl) {
+        logKey = key;
+        logEl.replaceChildren(
+          ...shown
+            .slice(-4)
+            .reverse()
+            .map((e, i) => {
+              const li = document.createElement("li");
+              li.className = "flex gap-[10px] min-w-0";
+              li.style.opacity = i === 0 ? "1" : "0.6";
+              const time = document.createElement("span");
+              time.className = "shrink-0 text-[var(--cr-bone-dim)] tabular-nums";
+              time.textContent = e.at.toFixed(1).padStart(4, "0");
+              const txt = document.createElement("span");
+              txt.className = "min-w-0 [overflow-wrap:anywhere]";
+              txt.style.color = toneVar[e.tone];
+              txt.textContent = e.text;
+              li.append(time, txt);
+              return li;
+            }),
+        );
+      }
+    };
+
+    const tick = (now: number) => {
+      const dt = Math.min(0.1, (now - last) / 1000);
+      last = now;
+      t += dt;
+      const sc = scenarios[current];
+      if (t >= sc.dur) {
+        t = 0;
+        logKey = "";
+      }
+      draw();
+      raf = requestAnimationFrame(tick);
+    };
+
+    const stop = () => {
+      cancelAnimationFrame(raf);
+      raf = 0;
+      root.classList.add("is-paused");
+    };
+    const start = () => {
+      if (reduce.matches) {
+        t = scenarios[current].final;
+        draw();
+        return;
+      }
+      if (raf || !visible || document.hidden) return;
+      root.classList.remove("is-paused");
+      last = performance.now();
+      raf = requestAnimationFrame(tick);
+    };
+
+    const select = (id: ScenarioId, focus = false) => {
+      current = id;
+      root.dataset.scenario = id;
+      const sc = scenarios[id];
+      tabs.forEach((tab) => {
+        const on = tab.dataset.labTab === id;
+        tab.setAttribute("aria-selected", String(on));
+        tab.tabIndex = on ? 0 : -1;
+        if (on && focus) tab.focus();
+      });
+      panel?.setAttribute("aria-labelledby", `lab-tab-${id}`);
+      if (desc) desc.textContent = sc.desc;
+      if (codeEl) codeEl.textContent = sc.code;
+      sc.statLabels.forEach((l, i) => {
+        if (statLabels[i]) statLabels[i].textContent = l;
+      });
+      steps.forEach((s, i) => {
+        const st = sc.steps[i];
+        const lab = s.querySelector("[data-lab-step-label]");
+        const time = s.querySelector("[data-lab-step-time]");
+        if (lab) lab.textContent = st?.label ?? "";
+        if (time) time.textContent = st ? `${st.at.toFixed(1)} s` : "";
+      });
+      t = reduce.matches ? sc.final : 0;
+      logKey = "";
+      draw();
+    };
+
+    tabs.forEach((tab, i) => {
+      tab.addEventListener("click", () => select(tab.dataset.labTab as ScenarioId));
+      tab.addEventListener("keydown", (e) => {
+        let next = -1;
+        if (e.key === "ArrowRight" || e.key === "ArrowDown") next = (i + 1) % tabs.length;
+        else if (e.key === "ArrowLeft" || e.key === "ArrowUp") next = (i - 1 + tabs.length) % tabs.length;
+        else if (e.key === "Home") next = 0;
+        else if (e.key === "End") next = tabs.length - 1;
+        if (next < 0) return;
+        e.preventDefault();
+        select(tabs[next].dataset.labTab as ScenarioId, true);
+      });
+    });
+
+    resetBtn?.addEventListener("click", () => {
+      t = reduce.matches ? scenarios[current].final : 0;
+      logKey = "";
+      draw();
+    });
+
+    new IntersectionObserver(
+      (entries) => {
+        visible = entries.some((e) => e.isIntersecting);
+        if (visible) start();
+        else stop();
+      },
+      { threshold: 0.05 },
+    ).observe(root);
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) stop();
+      else start();
+    });
+    reduce.addEventListener("change", () => {
+      stop();
+      select(current);
+      start();
+    });
+
+    root.classList.add("is-paused");
+    select("fire");
+  };
+
+  const labRoot = document.querySelector<HTMLElement>("[data-lab]");
+  if (labRoot) init(labRoot);
+</script>
