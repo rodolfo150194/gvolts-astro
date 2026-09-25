@@ -89,9 +89,13 @@
   margin: 0;
 }
 
-.cr a {
-  color: inherit;
-  text-decoration: none;
+/* En la capa base: las clases de color de Tailwind (text-*) deben poder
+   ganarle; fuera de capa esta regla pisaba el color de todos los enlaces */
+@layer base {
+  .cr a {
+    color: inherit;
+    text-decoration: none;
+  }
 }
 
 .cr-wrap {
