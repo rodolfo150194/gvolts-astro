@@ -11,9 +11,9 @@ const needs = [
 ];
 
 const zones = [
-  { id: "Z01", name: "Detección de incendio", state: "Normal", led: "" },
-  { id: "Z02", name: "CCTV perimetral", state: "Grabando", led: "cr-led--signal cr-blink" },
-  { id: "Z03", name: "Tablero eléctrico", state: "220 V", led: "cr-led--amber" },
+  { id: "Z01", name: "Rociadores", state: "Descarga", led: "cr-led--signal cr-blink" },
+  { id: "Z02", name: "Control de acceso", state: "Acceso OK", led: "" },
+  { id: "Z03", name: "CCTV servidores", state: "Grabando", led: "cr-led--signal cr-blink" },
 ];
 ---
 
@@ -68,10 +68,10 @@ const zones = [
     </div>
 
     <!-- 3D digital twin -->
-    <div class="twin relative z-[2] w-full max-w-[min(640px,74vh)] [aspect-ratio:620/760] mx-auto [perspective:1600px] [container-type:inline-size] max-[960px]:max-w-[460px]" data-reveal style="--d:200ms">
+    <div class="twin relative z-[2] w-full max-w-[min(640px,74vh)] [aspect-ratio:620/760] mx-auto [perspective:1600px] [container-type:inline-size] max-[960px]:max-w-[460px] max-[640px]:[aspect-ratio:620/1000]" data-reveal style="--d:200ms">
       <div class="twin__glow absolute left-[5%] top-[10.5%] w-[90%] h-[73.7%] rounded-full bg-[radial-gradient(closest-side,color-mix(in_srgb,var(--cr-signal)_24%,transparent),transparent)] animate-[twin-glow_4s_ease-in-out_infinite]" aria-hidden="true"></div>
       <!-- Escena WebGL (Three.js); si no carga, queda el plano CSS de abajo -->
-      <div class="twin__3d absolute isolate -inset-x-[7%] -top-[4%] h-[94%] opacity-0 transition-opacity duration-700" aria-hidden="true"></div>
+      <div class="twin__3d absolute isolate -inset-x-[7%] -top-[4%] h-[94%] max-[640px]:top-[13%] max-[640px]:h-[60%] opacity-0 transition-opacity duration-700" aria-hidden="true"></div>
       <div class="twin__plan absolute left-[12%] top-[14.5%] w-[76%] [aspect-ratio:1] [transform-style:preserve-3d] [transform:rotateX(60deg)_rotateZ(-36deg)] animate-[twin-sway_18s_ease-in-out_infinite]" aria-hidden="true">
         <div class="twin__floor absolute inset-0 box-border border-2 border-[var(--cr-line-strong)] bg-[color-mix(in_srgb,var(--cr-ink-3)_90%,transparent)] bg-[image:linear-gradient(var(--cr-line)_1px,transparent_1px),linear-gradient(90deg,var(--cr-line)_1px,transparent_1px)] bg-[size:5%_5%]"></div>
         <div class="twin__sweep-wrap absolute inset-0 overflow-hidden">
@@ -91,10 +91,6 @@ const zones = [
           <span class="twin__pulse absolute inset-0 border-2 border-[var(--cr-signal)] rounded-full animate-[twin-pulse_2.6s_cubic-bezier(0.2,0.6,0.3,1)_infinite]"></span><span class="twin__pulse twin__pulse--2 absolute inset-0 border-2 border-[var(--cr-signal)] rounded-full animate-[twin-pulse_2.6s_cubic-bezier(0.2,0.6,0.3,1)_infinite] [animation-delay:1.3s]"></span>
           <span class="twin__dot absolute inset-[25%] rounded-full bg-[var(--cr-signal)] shadow-[0_0_18px_var(--cr-signal)]"></span>
         </div>
-        <div class="twin__marker twin__marker--fire absolute w-[5.4%] [aspect-ratio:1] [translate:-50%_-50%]" style="left:26.15%;top:74.23%">
-          <span class="twin__pulse twin__pulse--2 absolute inset-0 border-2 border-[var(--cr-signal)] rounded-full animate-[twin-pulse_2.6s_cubic-bezier(0.2,0.6,0.3,1)_infinite] [animation-delay:1.3s]"></span>
-          <span class="twin__dot absolute inset-[25%] rounded-full bg-[var(--cr-signal)] shadow-[0_0_18px_var(--cr-signal)]"></span>
-        </div>
         <div class="twin__marker twin__marker--cam absolute [aspect-ratio:1] [translate:-50%_-50%] w-[3.8%] bg-[var(--cr-ok)] shadow-[0_0_18px_var(--cr-ok)]" style="left:93.27%;top:2.88%"></div>
         <div class="twin__marker twin__marker--amber cr-blink absolute [aspect-ratio:1] [translate:-50%_-50%] w-[4.6%] bg-[var(--cr-amber)] shadow-[0_0_22px_var(--cr-amber)]" style="left:82.3%;top:82.3%"></div>
 
@@ -102,24 +98,21 @@ const zones = [
         <p class="twin__label absolute m-0 [font-family:var(--cr-mono)] text-[13px] max-[640px]:text-[11px] tracking-[0.08em] text-[var(--cr-bone-dim)] whitespace-nowrap" style="left:3.46%;top:46.15%">Z02 · BODEGA</p>
         <p class="twin__label absolute m-0 [font-family:var(--cr-mono)] text-[13px] max-[640px]:text-[11px] tracking-[0.08em] text-[var(--cr-bone-dim)] whitespace-nowrap" style="left:61.15%;top:55.77%">Z03 · SERVIDORES</p>
         <p class="twin__label twin__label--amber absolute m-0 [font-family:var(--cr-mono)] text-[13px] max-[640px]:text-[11px] tracking-[0.08em] text-[var(--cr-amber)] whitespace-nowrap" style="left:61.15%;top:92.3%">TABLERO 220V</p>
-
-        <div class="twin__frame twin__frame--dashed absolute inset-0 box-border border border-dashed border-[var(--cr-line-strong)] [transform:translateZ(11cqw)]"></div>
-        <div class="twin__frame twin__frame--red absolute inset-0 box-border border border-[color-mix(in_srgb,var(--cr-signal)_40%,transparent)] [transform:translateZ(24cqw)]"></div>
       </div>
 
-      <div class="cam-card absolute right-0 top-[3.2%] w-[40%] max-[640px]:w-[48%] box-border py-[14px] px-4 max-[640px]:px-3 bg-[color-mix(in_srgb,var(--cr-ink-3)_92%,transparent)] border border-[var(--cr-line-strong)] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.8)] animate-[twin-drift_7s_ease-in-out_infinite]">
+      <div class="cam-card absolute right-0 top-[3.2%] max-[640px]:top-0 w-[40%] max-[640px]:w-[56%] box-border py-[14px] px-4 max-[640px]:px-3 bg-[color-mix(in_srgb,var(--cr-ink-3)_92%,transparent)] border border-[var(--cr-line-strong)] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.8)] animate-[twin-drift_7s_ease-in-out_infinite]">
         <p class="cam-card__head flex justify-between gap-3 m-0 [font-family:var(--cr-mono)] text-[13px] max-[640px]:text-[11px] tracking-[0.1em] max-[640px]:tracking-[0.04em] text-[var(--cr-bone-dim)]">
-          <span>CAM-04 · 4K</span>
+          <span>CAM-04 · Z03</span>
           <span class="cam-card__rec flex items-center gap-1.5 text-[var(--cr-signal)]"><span class="cr-led cr-led--signal cr-blink"></span>REC</span>
         </p>
-        <p class="cam-card__body mt-2.5 [font-family:var(--cr-display)] font-bold text-[clamp(18px,2vw,24px)] leading-[1.15] max-[640px]:text-[17px]">Perímetro norte<br /><span class="cam-card__ok text-[var(--cr-ok)]">Sin intrusión</span></p>
+        <p class="cam-card__body mt-2.5 [font-family:var(--cr-display)] font-bold text-[clamp(18px,2vw,24px)] leading-[1.15] max-[640px]:text-[17px]">Sala de servidores<br /><span class="cam-card__ok text-[var(--cr-ok)]">Sin intrusión</span></p>
       </div>
 
-      <div class="panel absolute left-0 bottom-[2.6%] w-[54%] bg-[color-mix(in_srgb,var(--cr-ink-3)_94%,transparent)] backdrop-blur-[10px] border border-[var(--cr-line-strong)] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.8)] animate-[twin-drift_9s_ease-in-out_infinite] [animation-delay:-3s]">
+      <div class="panel absolute left-0 bottom-[2.6%] w-[54%] max-[640px]:w-full max-[640px]:bottom-0 bg-[color-mix(in_srgb,var(--cr-ink-3)_94%,transparent)] backdrop-blur-[10px] border border-[var(--cr-line-strong)] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.8)] animate-[twin-drift_9s_ease-in-out_infinite] [animation-delay:-3s]">
         <Image src={avatars.lean.src} alt={avatars.lean.alt} widths={[240, 360, 520]} sizes="(min-width: 960px) 280px, 50vw" class="panel__tech" loading="eager" />
         <div class="panel__head flex justify-between gap-2 whitespace-nowrap py-[10px] px-[14px] border-b border-[var(--cr-line)]">
           <span class="cr-label max-[640px]:text-[11px]! max-[640px]:tracking-[0.08em]!">Panel de zonas</span>
-          <span class="cr-label panel__armed text-[var(--cr-ok)] max-[640px]:text-[11px]! max-[640px]:tracking-[0.08em]!">Armado</span>
+          <span class="cr-label panel__armed text-[var(--cr-signal)] max-[640px]:text-[11px]! max-[640px]:tracking-[0.08em]!">Alarma</span>
         </div>
         <ul class="list-none m-0 py-1">
           {
@@ -177,6 +170,10 @@ const zones = [
     position: absolute; left: 21%; bottom: 100%; width: 68%; height: auto; z-index: 2;
     transform: translateY(17%); pointer-events: none;
     filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.55));
+  }
+  @media (max-width: 640px) {
+    /* En móvil el panel ocupa todo el ancho: el técnico se apoya a la derecha y deja ver la planta */
+    .panel__tech { left: auto; right: 2%; width: 34%; transform: translateY(2%); }
   }
   @keyframes hero-scan {
     from { top: -4%; }
