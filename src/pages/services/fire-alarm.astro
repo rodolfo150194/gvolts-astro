@@ -5,7 +5,6 @@ import Nav from "@/components/control-room/Nav.astro";
 import FireSimulator from "@/components/control-room/FireSimulator.astro";
 import Finale from "@/components/control-room/Finale.astro";
 import { avatars } from "@/data/avatar";
-import ServiceCircuit from "@/components/control-room/ServiceCircuit.astro";
 import logoFireAlarm from "@/assets/img/logo/G_VOLTS_llama_completo.webp";
 import "@/styles/control-room.css";
 import { generateServiceSchema, generateBreadcrumbSchema } from "@/utils/schemas";
@@ -213,30 +212,6 @@ const benefits = [
           </div>
         </div>
       </section>
-
-      <!-- INTRO -->
-      <section class="py-[clamp(72px,10vw,140px)] border-t border-[var(--cr-line)]">
-        <div class="cr-wrap grid grid-cols-2 gap-[clamp(48px,6vw,96px)] max-[960px]:grid-cols-1">
-          <div>
-            <p class="cr-label" data-reveal>01 — Prevención</p>
-            <h2 class="mt-[18px] text-[clamp(44px,6vw,92px)]" data-reveal style="--d:80ms">Cada segundo <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">cuenta.</span></h2>
-            <p class="mt-[20px] text-[20px] text-[var(--cr-bone-dim)]" data-reveal style="--d:140ms">Prevención que marca la diferencia.</p>
-          </div>
-          <div data-reveal style="--d:200ms">
-            <p class="text-[19px] leading-[1.7] text-[color-mix(in_srgb,var(--cr-bone)_80%,transparent)]">
-              Nuestros sistemas no solo cumplen con las normativas más exigentes: usan detección multi-sensor que
-              identifica amenazas invisibles antes de que se conviertan en tragedia. Desde pequeños negocios hasta
-              complejos industriales.
-            </p>
-            <ul class="mt-[32px] p-0 list-none flex flex-col border-t border-[var(--cr-line)]">
-              <li class="py-[18px] border-b border-[var(--cr-line)] text-[18px] pl-[32px] relative before:content-[''] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-[8px] before:h-[8px] before:bg-[var(--cr-signal)]">Certificación NFPA 72 y códigos locales</li>
-              <li class="py-[18px] border-b border-[var(--cr-line)] text-[18px] pl-[32px] relative before:content-[''] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-[8px] before:h-[8px] before:bg-[var(--cr-signal)]">Instalación en 48–72 horas</li>
-              <li class="py-[18px] border-b border-[var(--cr-line)] text-[18px] pl-[32px] relative before:content-[''] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-[8px] before:h-[8px] before:bg-[var(--cr-signal)]">Monitoreo 24/7 por central certificada</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
       <!-- FEATURES -->
       <section class="py-[clamp(72px,10vw,140px)] bg-[var(--cr-ink-2)]">
         <div class="cr-wrap">
@@ -382,8 +357,6 @@ const benefits = [
           </div>
         </div>
       </section>
-
-      <ServiceCircuit service="fire" num="07" />
     </main>
 
     <Finale avatar="fire" logo={logoFireAlarm} />

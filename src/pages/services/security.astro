@@ -1,11 +1,9 @@
 ---
-import { Image } from "astro:assets";
 import Layout from "@/layouts/Layout.astro";
 import Nav from "@/components/control-room/Nav.astro";
 import CameraViewer from "@/components/control-room/CameraViewer.astro";
 import Finale from "@/components/control-room/Finale.astro";
 import { avatars } from "@/data/avatar";
-import ServiceCircuit from "@/components/control-room/ServiceCircuit.astro";
 import logoSecurity from "@/assets/img/logo/G_VOLTS_huella_completo.webp";
 import "@/styles/control-room.css";
 import { generateServiceSchema, generateBreadcrumbSchema } from "@/utils/schemas";
@@ -298,31 +296,6 @@ const advantages = [
           </div>
         </div>
       </section>
-
-      <!-- ADVANTAGES -->
-      <section class="py-[clamp(72px,10vw,140px)] bg-[var(--cr-ink-2)]">
-        <div class="cr-wrap">
-          <header class="mb-[clamp(48px,6vw,64px)] flex flex-col items-start min-[761px]:block">
-            <div>
-              <p class="cr-label" data-reveal>04 — Ventajas</p>
-              <h2 class="mt-[18px] text-[length:clamp(46px,6.4vw,100px)]" data-reveal style="--d:80ms">Ventajas de <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">elegir GVolts.</span></h2>
-            </div>
-          </header>
-
-          <div class="grid grid-cols-1 min-[640px]:grid-cols-2 min-[960px]:grid-cols-3 gap-x-12 gap-y-10">
-            {
-              advantages.map((a, i) => (
-                <div class="flex flex-col gap-3 pt-5 border-t border-[var(--cr-line-strong)]" data-reveal style={`--d:${i * 70}ms`}>
-                  <p class="[font-family:var(--cr-display)] font-black text-[44px] text-[var(--cr-signal)]">{String(i + 1).padStart(2, "0")}</p>
-                  <h3 class="text-[19px] font-bold">{a.title}</h3>
-                  <p class="text-[16px] leading-[1.6] text-[var(--cr-bone-dim)]">{a.description}</p>
-                </div>
-              ))
-            }
-          </div>
-        </div>
-      </section>
-      <ServiceCircuit service="security" num="05" />
     </main>
 
     <Finale avatar="security" logo={logoSecurity} />
