@@ -54,9 +54,9 @@ const zones = [
     </div>
 
     <!-- 3D digital twin -->
-    <div class="twin relative w-full max-w-[560px] [aspect-ratio:620/760] mx-auto [perspective:1600px] max-[960px]:max-w-[420px]" data-reveal style="--d:200ms">
+    <div class="twin relative w-full max-w-[560px] [aspect-ratio:620/760] mx-auto [perspective:1600px] [container-type:inline-size] max-[960px]:max-w-[420px]" data-reveal style="--d:200ms">
       <div class="twin__glow absolute left-[5%] top-[10.5%] w-[90%] h-[73.7%] rounded-full bg-[radial-gradient(closest-side,color-mix(in_srgb,var(--cr-signal)_24%,transparent),transparent)] animate-[twin-glow_4s_ease-in-out_infinite]" aria-hidden="true"></div>
-      <div class="twin__plan absolute left-[8%] top-[14.5%] w-[84%] [aspect-ratio:1] [transform-style:preserve-3d] [transform:rotateX(60deg)_rotateZ(-36deg)] animate-[twin-sway_18s_ease-in-out_infinite]" aria-hidden="true">
+      <div class="twin__plan absolute left-[17%] top-[19%] w-[66%] [aspect-ratio:1] [transform-style:preserve-3d] [transform:rotateX(60deg)_rotateZ(-36deg)] animate-[twin-sway_18s_ease-in-out_infinite]" aria-hidden="true">
         <div class="twin__floor absolute inset-0 box-border border-2 border-[var(--cr-line-strong)] bg-[color-mix(in_srgb,var(--cr-ink-3)_90%,transparent)] bg-[image:linear-gradient(var(--cr-line)_1px,transparent_1px),linear-gradient(90deg,var(--cr-line)_1px,transparent_1px)] bg-[size:5%_5%]"></div>
         <div class="twin__sweep-wrap absolute inset-0 overflow-hidden">
           <div class="twin__sweep absolute left-[59.6%] top-[-32.7%] w-[73.1%] [aspect-ratio:1] rounded-full bg-[conic-gradient(color-mix(in_srgb,var(--cr-ok)_0%,transparent)_0deg,color-mix(in_srgb,var(--cr-ok)_0%,transparent)_290deg,color-mix(in_srgb,var(--cr-ok)_42%,transparent)_358deg,color-mix(in_srgb,var(--cr-ok)_0%,transparent)_360deg)] animate-[twin-sweep_6s_linear_infinite]"></div>
@@ -87,8 +87,8 @@ const zones = [
         <p class="twin__label absolute m-0 font-[var(--cr-mono)] text-[11px] tracking-[0.08em] text-[var(--cr-bone-dim)] whitespace-nowrap" style="left:61.15%;top:55.77%">Z03 · SERVIDORES</p>
         <p class="twin__label twin__label--amber absolute m-0 font-[var(--cr-mono)] text-[11px] tracking-[0.08em] text-[var(--cr-amber)] whitespace-nowrap" style="left:61.15%;top:92.3%">TABLERO 220V</p>
 
-        <div class="twin__frame twin__frame--dashed absolute inset-0 box-border border border-dashed border-[var(--cr-line-strong)] [transform:translateZ(70px)]"></div>
-        <div class="twin__frame twin__frame--red absolute inset-0 box-border border border-[color-mix(in_srgb,var(--cr-signal)_40%,transparent)] [transform:translateZ(150px)]"></div>
+        <div class="twin__frame twin__frame--dashed absolute inset-0 box-border border border-dashed border-[var(--cr-line-strong)] [transform:translateZ(11cqw)]"></div>
+        <div class="twin__frame twin__frame--red absolute inset-0 box-border border border-[color-mix(in_srgb,var(--cr-signal)_40%,transparent)] [transform:translateZ(24cqw)]"></div>
       </div>
 
       <div class="cam-card absolute right-0 top-[3.2%] w-[40%] box-border py-[14px] px-4 bg-[color-mix(in_srgb,var(--cr-ink-3)_92%,transparent)] border border-[var(--cr-line-strong)] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.8)] animate-[twin-drift_7s_ease-in-out_infinite]">
@@ -128,6 +128,13 @@ const zones = [
     from { top: -4%; }
     to { top: 104%; }
   }
+
+  /* Overlays sit slightly above the floor so the camera light, wires and
+     markers never z-fight with (or render beneath) the plane. */
+  .twin__sweep-wrap { transform: translateZ(1px); }
+  .twin__wires { transform: translateZ(2px); }
+  .twin__marker,
+  .twin__label { transform: translateZ(3px); }
 
   @keyframes twin-glow {
     0%, 100% { opacity: 0.5; }
