@@ -11,7 +11,7 @@ interface Cert {
   pending?: boolean;
   /** Enlace externo para verificar la licencia (se abre en otra pestaña). */
   url?: string;
-  /** Documento descargable, p. ej. "/docs/certificaciones/nicet.pdf" (archivo en /public). Tiene prioridad sobre `url`. */
+  /** Documento descargable, p. ej. "/docs/certificaciones/nicet.pdf" (archivo en /public). Puede convivir con `url`. */
   doc?: string;
 }
 
@@ -68,19 +68,9 @@ const codeSize = (code: string) => (code.length > 6 ? 22 : code.length > 4 ? 26 
 
 const colorOf = (c: Cert, filter: string) => (c.pending ? PENDING_COLOR : filter !== "all" ? COLORS[filter] : COLORS[c.k[0]]);
 
-type Cta = { href: string; label: string; external: boolean; download: boolean };
-
-const ctaOf = (c: Cert): Cta =>
-  c.doc
-    ? { href: c.doc, label: "Descargar documento", external: false, download: true }
-    : c.url
-      ? { href: c.url, label: "Verificar licencia", external: true, download: false }
-      : { href: "/contact", label: "Pide el documento en tu visita técnica", external: false, download: false };
-
 const shown = certs.filter((c) => service === "all" || c.k.includes(service));
 const initial = shown[0] ?? certs[0];
 const initialColor = colorOf(initial, service);
-const initialCta = ctaOf(initial);
 ---
 
 <section class="certifications relative border-t border-[var(--cr-line)] bg-[#0b0a0c] py-[clamp(96px,12vw,160px)]" id="certificaciones" data-cert-section data-initial-filter={service}>
@@ -191,17 +181,32 @@ const initialCta = ctaOf(initial);
             ))
           }
         </div>
-        <a
-          href={initialCta.href}
-          target={initialCta.external ? "_blank" : undefined}
-          rel={initialCta.external ? "noopener noreferrer" : undefined}
-          download={initialCta.download ? "" : undefined}
-          class="cert-inkbtn mt-auto flex items-center justify-between h-14 px-[22px] bg-[var(--cr-bone)] text-[var(--cr-ink)] font-bold text-[16px]"
-          data-cert-detail-cta
-        >
-          <span data-cert-detail-cta-label>{initialCta.label}</span>
-          <span aria-hidden="true" data-cert-detail-cta-icon>{initialCta.download ? "↓" : initialCta.external ? "↗" : "→"}</span>
-        </a>
+        <div class="mt-auto flex flex-col gap-2">
+          <a
+            href={initial.url ?? "#"}
+            target="_blank"
+            rel="noopener noreferrer"
+            class:list={["cert-inkbtn flex items-center justify-between h-14 px-[22px] bg-[var(--cr-bone)] text-[var(--cr-ink)] font-bold text-[16px]", { hidden: !initial.url }]}
+            data-cert-cta-url
+          >
+            Verificar licencia <span aria-hidden="true">↗</span>
+          </a>
+          <a
+            href={initial.doc ?? "#"}
+            download
+            class:list={["cert-inkbtn flex items-center justify-between h-14 px-[22px] bg-[var(--cr-bone)] text-[var(--cr-ink)] font-bold text-[16px]", { hidden: !initial.doc }]}
+            data-cert-cta-doc
+          >
+            Descargar documento <span aria-hidden="true">↓</span>
+          </a>
+          <a
+            href="/contact"
+            class:list={["cert-inkbtn flex items-center justify-between h-14 px-[22px] bg-[var(--cr-bone)] text-[var(--cr-ink)] font-bold text-[16px]", { hidden: initial.url || initial.doc }]}
+            data-cert-cta-contact
+          >
+            Pide el documento en tu visita técnica <span aria-hidden="true">→</span>
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -331,7 +336,9 @@ const initialCta = ctaOf(initial);
     const areaEl = detail.querySelector<HTMLElement>("[data-cert-detail-area]");
     const statusEl = detail.querySelector<HTMLElement>("[data-cert-detail-status]");
     const tagsEl = detail.querySelector<HTMLElement>("[data-cert-detail-tags]");
-    const ctaEl = detail.querySelector<HTMLAnchorElement>("[data-cert-detail-cta]");
+    const urlBtn = detail.querySelector<HTMLAnchorElement>("[data-cert-cta-url]");
+    const docBtn = detail.querySelector<HTMLAnchorElement>("[data-cert-cta-doc]");
+    const contactBtn = detail.querySelector<HTMLAnchorElement>("[data-cert-cta-contact]");
 
     if (codeEl) {
       codeEl.textContent = seal.dataset.certCode ?? "";
@@ -358,23 +365,16 @@ const initialCta = ctaOf(initial);
       });
     }
 
-    if (ctaEl) {
-      const { certDoc: doc, certUrl: url } = seal.dataset;
-      const labelEl = ctaEl.querySelector<HTMLElement>("[data-cert-detail-cta-label]");
-      const iconEl = ctaEl.querySelector<HTMLElement>("[data-cert-detail-cta-icon]");
-      ctaEl.href = doc || url || "/contact";
-      if (url && !doc) {
-        ctaEl.target = "_blank";
-        ctaEl.rel = "noopener noreferrer";
-      } else {
-        ctaEl.removeAttribute("target");
-        ctaEl.removeAttribute("rel");
-      }
-      if (doc) ctaEl.setAttribute("download", "");
-      else ctaEl.removeAttribute("download");
-      if (labelEl) labelEl.textContent = doc ? "Descargar documento" : url ? "Verificar licencia" : "Pide el documento en tu visita técnica";
-      if (iconEl) iconEl.textContent = doc ? "↓" : url ? "↗" : "→";
+    const { certDoc: doc, certUrl: url } = seal.dataset;
+    if (urlBtn) {
+      urlBtn.href = url || "#";
+      urlBtn.classList.toggle("hidden", !url);
     }
+    if (docBtn) {
+      docBtn.href = doc || "#";
+      docBtn.classList.toggle("hidden", !doc);
+    }
+    contactBtn?.classList.toggle("hidden", Boolean(url || doc));
 
     detail.classList.remove("cert-detail--stamp");
     void detail.offsetWidth;
