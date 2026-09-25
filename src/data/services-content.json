@@ -236,7 +236,7 @@
           {
             "icon": "award",
             "title": "Experiencia Certificada",
-            "description": "Más de 10 años protegiendo propiedades. Técnicos con certificaciones NICET y capacitación continua en las últimas tecnologías de detección y supresión."
+            "description": "Técnicos con certificaciones NICET y capacitación continua en las últimas tecnologías de detección y supresión."
           },
           {
             "icon": "clock-fast",
@@ -873,10 +873,7 @@
       "items": [
         "Certificación UL y ETL",
         "Licencia estatal activa",
-        "Seguro de responsabilidad completo",
-        "Miembro BBB con rating A+",
-        "10+ años en el mercado",
-        "+500 proyectos completados"
+        "Seguro de responsabilidad completo"
       ]
     },
     "testimonials": {
@@ -923,14 +920,13 @@
       "lede": "Diseñamos, instalamos y vigilamos sistemas de alarma contra incendios, videovigilancia y electricidad certificada para hogares y negocios. Un solo equipo, de plano a monitoreo.",
       "image": "/img/gvolts/about.jpg",
       "badge": {
-        "value": "500+",
-        "label": "Proyectos instalados"
+        "label": "Clientes activos"
       }
     },
     "manifesto": {
       "label": "01 — Filosofía",
       "title": "No vendemos equipos. Vendemos tranquilidad.",
-      "text": "Más de 10 años protegiendo hogares y negocios con certificaciones UL, NFPA y licencias estatales activas. Cada proyecto empieza con una visita técnica real, no con un catálogo: escuchamos cómo usas tu propiedad y diseñamos el sistema alrededor de eso, no al revés."
+      "text": "Protegemos hogares y negocios con certificaciones UL, NFPA y licencias estatales activas. Cada proyecto empieza con una visita técnica real, no con un catálogo: escuchamos cómo usas tu propiedad y diseñamos el sistema alrededor de eso, no al revés."
     },
     "phases": [
       {
@@ -963,16 +959,16 @@
         "label": "Membresía activa en NFPA"
       },
       {
-        "value": "A+",
-        "label": "Miembro BBB con calificación A+"
+        "value": "24/7",
+        "label": "Monitoreo desde central certificada UL"
       },
       {
-        "value": "10+",
-        "label": "Años en el mercado"
+        "value": "2 años",
+        "label": "Garantía en mano de obra"
       },
       {
-        "value": "500+",
-        "label": "Proyectos completados"
+        "value": "$2M",
+        "label": "Seguro de responsabilidad general"
       }
     ]
   }

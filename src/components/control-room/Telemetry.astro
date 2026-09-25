@@ -2,10 +2,10 @@
 /**
  * Telemetría de la operación — 4 "instrumentos", cada uno con su propio
  * estilo de medidor y color de la paleta control-room.
- * Métricas de una empresa que está arrancando: actualiza CLIENTS a mano
- * cuando entre un cliente nuevo (la matriz de LEDs crece sola).
+ * Métricas de una empresa que está arrancando: CLIENTS vive en
+ * src/data/company.ts (la matriz de LEDs crece sola).
  */
-const CLIENTS = 12; // clientes activos reales — mantener al día
+import { CLIENTS, DISCIPLINES } from "@/data/company";
 
 // CH-01 · matriz de LEDs: 1 LED encendido = 1 cliente
 const COLS = 8, GAP = 26, R = 7;
@@ -73,7 +73,7 @@ const cellW = 200 / MONTHS;
           <text x="120" y="134" class="tm__cap" text-anchor="middle">UN SOLO CONTRATISTA</text>
         </svg>
         <p class="tm__label">Servicios bajo un mismo equipo</p>
-        <p class="tm__value"><span data-count="3">3</span></p>
+        <p class="tm__value"><span data-count={DISCIPLINES}>{DISCIPLINES}</span></p>
         <p class="tm__note">Seguridad, incendio y electricidad.</p>
       </div>
 

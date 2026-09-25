@@ -4,6 +4,7 @@ import Nav from "@/components/control-room/Nav.astro";
 import ProjectsPlanner from "@/components/control-room/ProjectsPlanner.astro";
 import Finale from "@/components/control-room/Finale.astro";
 import "@/styles/control-room.css";
+import { CLIENTS, DISCIPLINES } from "@/data/company";
 import { Image } from 'astro:assets';
 import menInstallCamera from "@/assets/img/gvolts/men-install-camera.png";
 import instalacion2 from "@/assets/img/gvolts/instalacion2.jpg";
@@ -97,7 +98,7 @@ const chips = [
       <!-- HERO -->
       <section class="relative box-border pt-[clamp(48px,8vw,110px)] px-[var(--cr-gutter)] pb-[clamp(64px,9vw,130px)] flex flex-col gap-[clamp(24px,4vw,40px)] overflow-hidden [background:radial-gradient(60%_50%_at_85%_20%,color-mix(in_srgb,var(--cr-signal)_16%,transparent),transparent_70%),linear-gradient(var(--cr-line)_1px,transparent_1px)_0_0/100%_88px,var(--cr-ink)]">
         <p class="cr-label flex items-center gap-[14px] [color:var(--cr-signal)]" data-reveal>
-          <span class="cr-led cr-led--signal cr-blink" aria-hidden="true"></span>Archivo de obra · 2014 — 2026
+          <span class="cr-led cr-led--signal cr-blink" aria-hidden="true"></span>Archivo de obra
         </p>
 
         <h1 class="[font-family:var(--cr-display)] font-black uppercase leading-[0.9] tracking-[-0.02em] text-[clamp(60px,8.6vw,140px)]" data-reveal style="--d:80ms">Proyec<span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">tos.</span></h1>
@@ -109,12 +110,12 @@ const chips = [
           </p>
           <dl class="flex gap-[clamp(28px,4vw,48px)] max-sm:gap-8">
             <div>
-              <dd class="m-0 [font-family:var(--cr-display)] font-black text-[clamp(40px,6vw,88px)] leading-[0.9] [font-variant-numeric:tabular-nums]"><span data-count="500">0</span>+</dd>
-              <dt class="cr-label mt-1">Proyectos</dt>
+              <dd class="m-0 [font-family:var(--cr-display)] font-black text-[clamp(40px,6vw,88px)] leading-[0.9] [font-variant-numeric:tabular-nums]"><span data-count={CLIENTS}>0</span></dd>
+              <dt class="cr-label mt-1">Clientes</dt>
             </div>
             <div>
-              <dd class="m-0 [font-family:var(--cr-display)] font-black text-[clamp(40px,6vw,88px)] leading-[0.9] [font-variant-numeric:tabular-nums]"><span data-count="10">0</span>+</dd>
-              <dt class="cr-label mt-1">Años</dt>
+              <dd class="m-0 [font-family:var(--cr-display)] font-black text-[clamp(40px,6vw,88px)] leading-[0.9] [font-variant-numeric:tabular-nums]"><span data-count={DISCIPLINES}>0</span></dd>
+              <dt class="cr-label mt-1">Disciplinas</dt>
             </div>
           </dl>
         </div>

@@ -7,6 +7,7 @@ import Finale from "@/components/control-room/Finale.astro";
 import "@/styles/control-room.css";
 import { generateBreadcrumbSchema } from "@/utils/schemas";
 import content from "@/data/services-content.json";
+import { CLIENTS } from "@/data/company";
 
 const { hero, manifesto, phases, credentials } = content.about;
 
@@ -18,7 +19,7 @@ const breadcrumbSchema = generateBreadcrumbSchema([
 
 <Layout
   title="Quiénes Somos | GVoltscorp"
-  description="Más de 10 años protegiendo hogares y negocios. Certificaciones UL, NFPA y licencias estatales activas. Diseñamos, instalamos y vigilamos."
+  description="Protegemos hogares y negocios con certificaciones UL, NFPA y licencias estatales activas. Diseñamos, instalamos y vigilamos."
 >
   <Fragment slot="head">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -70,7 +71,7 @@ const breadcrumbSchema = generateBreadcrumbSchema([
             </div>
 
             <div class="ab-badge static w-full mt-[16px] bg-[color-mix(in_srgb,var(--cr-ink-2)_92%,transparent)] backdrop-blur-[10px] border border-[var(--cr-line-strong)] [box-shadow:0_30px_60px_-20px_rgba(0,0,0,0.7)] px-[24px] py-[22px] sm:absolute sm:left-[12px] sm:bottom-[-32px] sm:w-[min(260px,78%)] sm:mt-0 min-[960px]:left-[clamp(-56px,-4vw,-16px)] min-[960px]:bottom-[clamp(-40px,-4vw,-20px)]">
-              <p class="ab-badge__value font-[var(--cr-display)] font-extrabold text-[length:clamp(40px,4.6vw,56px)] leading-none text-[var(--cr-signal)] mb-[8px] tabular-nums"><span data-count={hero.badge.value.replace(/\D/g, "")}>0</span>+</p>
+              <p class="ab-badge__value font-[var(--cr-display)] font-extrabold text-[length:clamp(40px,4.6vw,56px)] leading-none text-[var(--cr-signal)] mb-[8px] tabular-nums"><span data-count={CLIENTS}>0</span></p>
               <p class="cr-label">{hero.badge.label}</p>
             </div>
           </div>
