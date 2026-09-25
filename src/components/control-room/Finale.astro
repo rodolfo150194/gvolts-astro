@@ -1,13 +1,18 @@
 ---
 import type { ImageMetadata } from "astro";
 import { ArrowUp } from "@lucide/astro";
+import { Image } from "astro:assets";
 import { socials } from "@/data/socials";
+import { avatars, type AvatarKey } from "@/data/avatar";
 
 interface Props {
   logo?: ImageMetadata;
+  /** Variante del técnico que se asoma en el cierre (casco y herramienta del servicio). */
+  avatar?: AvatarKey;
 }
 
-const { logo } = Astro.props;
+const { logo, avatar = "general" } = Astro.props;
+const tech = avatars[avatar];
 const year = new Date().getFullYear();
 
 const footerServices = [
@@ -23,19 +28,55 @@ const footerCompany = [
 ];
 ---
 
-<section class="bg-[var(--cr-signal-deep)] text-[var(--cr-ink)] py-[clamp(96px,12vw,170px)] [clip-path:polygon(0_48px,48px_0,100%_0,100%_100%,0_100%)]">
-  <div class="cr-wrap">
+<section class="fin bg-[var(--cr-signal-deep)] text-[var(--cr-ink)] py-[clamp(96px,12vw,170px)] [clip-path:polygon(0_48px,48px_0,100%_0,100%_100%,0_100%)]">
+  <div class="cr-wrap relative">
+    <div class="fin__content">
     <p class="cr-label !text-[var(--cr-ink)]" data-reveal>04 — Siguiente paso</p>
-    <h2 class="mt-[18px] text-[length:clamp(60px,11vw,176px)] max-[720px]:text-[length:clamp(38px,13vw,60px)]" data-reveal style="--d:80ms">¿Tu inmueble<br />está protegido?</h2>
+    <h2 class="mt-[18px] text-[length:clamp(60px,11vw,176px)] min-[900px]:text-[length:clamp(60px,8.4vw,140px)] max-[720px]:text-[length:clamp(38px,13vw,60px)]" data-reveal style="--d:80ms">¿Tu inmueble<br />está protegido?</h2>
     <div class="flex flex-wrap justify-between items-end gap-[32px] mt-[48px] max-[720px]:items-start max-[520px]:flex-col max-[520px]:items-stretch" data-reveal style="--d:160ms">
       <p class="max-w-[42ch] text-[19px]">Agenda una visita técnica sin costo. Te entregamos un diagnóstico y un presupuesto cerrado en 24 horas.</p>
-      <a href="/contact" class="group inline-flex items-center gap-[28px] pt-[20px] pr-[20px] pb-[20px] pl-[32px] bg-[var(--cr-ink)] text-[var(--cr-bone)] [font-family:var(--cr-mono)] text-[14px] font-semibold tracking-[0.14em] uppercase transition-[background] duration-300 max-[720px]:gap-[18px] max-[720px]:pt-[16px] max-[720px]:pr-[16px] max-[720px]:pb-[16px] max-[720px]:pl-[22px] max-[520px]:justify-between">
+      <a href="/contact" class="group inline-flex items-center gap-[28px] pt-[20px] pr-[20px] pb-[20px] pl-[32px] bg-[var(--cr-ink)] !text-[var(--cr-bone)] [font-family:var(--cr-mono)] text-[14px] font-semibold tracking-[0.14em] uppercase transition-[background] duration-300 max-[720px]:gap-[18px] max-[720px]:pt-[16px] max-[720px]:pr-[16px] max-[720px]:pb-[16px] max-[720px]:pl-[22px] max-[520px]:justify-between">
         <span>Agendar visita</span>
         <span class="grid place-items-center w-[48px] h-[48px] bg-[var(--cr-signal)] text-[var(--cr-ink)] text-[20px] transition-transform duration-[350ms] ease-[cubic-bezier(0.5,1.6,0.4,1)] group-hover:translate-x-[8px] group-hover:-rotate-45 max-[720px]:w-[40px] max-[720px]:h-[40px]" aria-hidden="true">→</span>
       </a>
     </div>
+    </div>
+
+    <!-- Técnico de guardia: sube desde el borde inferior al entrar en pantalla -->
+    <div class="fin__av" data-reveal style="--d:240ms">
+      <p class="fin__tag"><span class="fin__led" aria-hidden="true"></span>Técnico de guardia · en línea</p>
+      <Image src={tech.src} alt={tech.alt} widths={[320, 480, 640, 960]} sizes="(min-width: 900px) min(34vw, 500px), 82vw" class="fin__img" loading="lazy" />
+    </div>
   </div>
 </section>
+
+<style>
+  .fin__av {
+    position: relative;
+    width: min(82vw, 380px);
+    margin: 72px 0 calc(-1 * clamp(96px, 12vw, 170px)) auto;
+    pointer-events: none;
+  }
+  .fin__img { display: block; width: 100%; height: auto; filter: drop-shadow(0 24px 40px rgba(17, 16, 18, 0.35)); }
+  .fin__tag {
+    position: absolute; left: 16%; top: -40px; z-index: 1; display: flex; align-items: center; gap: 8px;
+    padding: 8px 12px; background: var(--cr-ink); color: var(--cr-bone);
+    font-family: var(--cr-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; white-space: nowrap;
+  }
+  .fin__led { width: 8px; height: 8px; border-radius: 50%; background: var(--cr-ok); box-shadow: 0 0 10px var(--cr-ok); animation: fin-blink 1.4s steps(1, end) infinite; }
+  /* Entra "subiendo" desde el borde de la sección en lugar del reveal estándar */
+  .fin__av[data-reveal]:not(.is-in) { transform: translateY(30%); }
+
+  @media (min-width: 900px) {
+    .fin__content { padding-right: calc(min(34vw, 500px) - 40px); }
+    .fin__av { position: absolute; right: -24px; bottom: calc(-1 * clamp(96px, 12vw, 170px)); width: min(34vw, 500px); margin: 0; }
+  }
+  @keyframes fin-blink { 0%, 60% { opacity: 1; } 61%, 100% { opacity: 0.3; } }
+  @media (prefers-reduced-motion: reduce) {
+    .fin__av[data-reveal]:not(.is-in) { transform: none; }
+    .fin__led { animation: none; }
+  }
+</style>
 
 <footer class="pt-[clamp(72px,8vw,120px)] bg-[var(--cr-ink)]">
   <div class="cr-wrap">
