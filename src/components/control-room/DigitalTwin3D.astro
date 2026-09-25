@@ -1,0 +1,49 @@
+---
+/*
+ * Gemelo digital 3D: the same lab (tabs, status card, timeline, log, readouts)
+ * with the CSS plan swapped for a procedural three.js building.
+ *
+ * - three.js is loaded with a dynamic import() only when the section gets
+ *   within ~200px of the viewport, so it never lands in the page's initial JS.
+ * - Without WebGL, or with prefers-reduced-motion, nothing is loaded and the
+ *   CSS DigitalTwinLab (static final states for reduced motion) stays in place.
+ */
+import DigitalTwinLab from "./DigitalTwinLab.astro";
+---
+
+<DigitalTwinLab enhance3d />
+
+<script>
+  const root = document.querySelector<HTMLElement>("[data-lab][data-twin3d]");
+  const mount = root?.querySelector<HTMLElement>("[data-twin3d-mount]");
+
+  const hasWebGL = () => {
+    try {
+      const canvas = document.createElement("canvas");
+      const gl = (canvas.getContext("webgl2") || canvas.getContext("webgl")) as WebGLRenderingContext | null;
+      gl?.getExtension("WEBGL_lose_context")?.loseContext();
+      return !!gl;
+    } catch {
+      return false;
+    }
+  };
+
+  if (root && mount && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((e) => e.isIntersecting)) return;
+        io.disconnect();
+        if (!hasWebGL()) return;
+        import("@/scripts/twin3d/scene")
+          .then(({ mountTwin3D }) => {
+            const dispose = mountTwin3D(root, mount);
+            // Only relevant if view transitions are ever enabled
+            document.addEventListener("astro:before-swap", dispose, { once: true });
+          })
+          .catch((err) => console.warn("[twin3d] se mantiene la versión CSS:", err));
+      },
+      { rootMargin: "200px 0px" },
+    );
+    io.observe(root);
+  }
+</script>

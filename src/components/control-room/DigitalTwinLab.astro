@@ -5,6 +5,13 @@
  * Each scenario is a deterministic render(t) driven by a single rAF loop,
  * so pausing (off-screen / hidden tab) and reduced motion are trivial.
  */
+interface Props {
+  /** Adds a mount point that DigitalTwin3D fills with a three.js scene (the CSS plan stays as fallback). */
+  enhance3d?: boolean;
+}
+
+const { enhance3d = false } = Astro.props;
+
 interface Tab {
   id: "fire" | "intruder" | "access" | "power";
   n: string;
@@ -31,6 +38,7 @@ const circuits = [
   id="gemelo-digital"
   aria-labelledby="lab-title"
   data-lab
+  data-twin3d={enhance3d ? "" : undefined}
   data-scenario="fire"
 >
   <div class="absolute inset-0 opacity-50 bg-[linear-gradient(var(--cr-line)_1px,transparent_1px),linear-gradient(90deg,var(--cr-line)_1px,transparent_1px)] bg-[size:88px_88px] [mask-image:radial-gradient(ellipse_at_70%_60%,#000_10%,transparent_70%)]" aria-hidden="true"></div>
@@ -94,7 +102,7 @@ const circuits = [
         </div>
 
         <div class="lab__stage relative w-full my-auto aspect-[16/11] [container-type:inline-size] max-[1080px]:max-w-[760px] max-[1080px]:mx-auto max-[520px]:aspect-[4/3]" aria-hidden="true">
-          <div class="absolute left-[48.5%] top-[55%] w-[61%] aspect-square max-[520px]:w-[63%] max-[520px]:top-[56%] -translate-x-1/2 -translate-y-1/2 [perspective:240cqw]">
+          <div class="lab__css-plan absolute left-[48.5%] top-[55%] w-[61%] aspect-square max-[520px]:w-[63%] max-[520px]:top-[56%] -translate-x-1/2 -translate-y-1/2 [perspective:240cqw]">
             <div class="lab__glow absolute -inset-[12%] rounded-full bg-[radial-gradient(closest-side,color-mix(in_srgb,var(--lab-accent)_20%,transparent),transparent)] animate-[lab-glow_4s_ease-in-out_infinite] [transform:rotateX(58deg)_rotateZ(-36deg)]"></div>
 
             <div class="lab__plan absolute inset-0 [transform-style:preserve-3d] [transform:rotateX(58deg)_rotateZ(-36deg)] animate-[lab-sway_16s_ease-in-out_infinite]">
@@ -237,6 +245,8 @@ const circuits = [
             </div>
           </div>
 
+          {enhance3d && <div class="lab__three absolute inset-0 hidden" data-twin3d-mount />}
+
           <p class="lab__chip absolute right-[12px] top-[12px] max-w-[46%] m-0 inline-flex items-center gap-[8px] py-[7px] px-[10px] bg-[color-mix(in_srgb,var(--cr-ink-3)_92%,transparent)] border border-[var(--cr-line-strong)] shadow-[0_20px_40px_-16px_rgba(0,0,0,0.8)] [font-family:var(--cr-mono)] text-[10.5px] tracking-[0.08em] uppercase leading-[1.3] animate-[lab-drift_7s_ease-in-out_infinite] max-[480px]:right-[8px] max-[480px]:top-[8px] max-[480px]:text-[9px] max-[480px]:py-[5px] max-[480px]:px-[8px]">
             <span class="cr-led shrink-0" data-lab-chip-led></span><span class="min-w-0" data-lab-chip>Sistema armado</span>
           </p>
@@ -368,6 +378,10 @@ const circuits = [
   .lab[data-scenario="intruder"] { --lab-accent: var(--cr-ok); }
   .lab[data-scenario="access"] { --lab-accent: var(--lab-blue); }
   .lab[data-scenario="power"] { --lab-accent: var(--cr-amber); }
+
+  /* three.js enhancement (DigitalTwin3D): swap the CSS plan for the canvas */
+  .lab.is-3d .lab__css-plan { display: none; }
+  .lab.is-3d .lab__three { display: block; }
 
   /* Per-scenario overlays: only the active tab's layer is shown */
   .lab:not([data-scenario="fire"]) [data-only="fire"],
@@ -620,6 +634,9 @@ const circuits = [
     const amps = Object.fromEntries($$("[data-amps]").map((b) => [b.dataset.amps!, b]));
 
     const setAttr = (el: Element | null | undefined, name: string, v: string | number) => el?.setAttribute(name, String(v));
+    // Semantic per-frame state, published with every draw so an enhanced
+    // renderer (DigitalTwin3D) can mirror the same simulation.
+    let sim: Record<string, unknown> = {};
     const pos = (el: Element | null, p: P) => setAttr(el, "transform", `translate(${p[0].toFixed(1)} ${p[1].toFixed(1)})`);
 
     /* ---------------- 01 · Incendio controlado ---------------- */
@@ -657,7 +674,9 @@ const circuits = [
         fAlarm?.classList.toggle("is-on", alarm);
         sprinklers.forEach((s) => s.classList.toggle("is-on", spraying));
         sprinklers.forEach((s) => setAttr(s.querySelector("[data-sprinkler-head]"), "fill", spraying ? "var(--lab-water)" : "var(--cr-bone-dim)"));
-        setAttr(fDet, "fill", t >= 2.5 && t < 10 ? (alarm ? "var(--cr-signal)" : "var(--cr-amber)") : "var(--cr-ok)");
+        const det = t >= 2.5 && t < 10 ? (alarm ? "signal" : "amber") : "ok";
+        setAttr(fDet, "fill", `var(--cr-${det})`);
+        sim = { fireK, smokeK, waterK, alarm, spraying, det };
 
         const temp = Math.round(24 + 47 * fireK + (t >= 10 ? 2 * (1 - seg(t, 10, 14)) : 0));
         const smoke = Math.round(smokeK * 38);
@@ -750,6 +769,19 @@ const circuits = [
         const back = ease(seg(t, TD + 7.5, TD + 9.8));
         pos(guard, back > 0 ? along([...guardPath].reverse(), back) : along(guardPath, gk));
         setAttr(guardRoute, "opacity", t >= TD + 1.5 && t < TD + 5.5 ? 0.7 : 0);
+        sim = {
+          cam: CAM,
+          angle: a,
+          half: HALF,
+          range: RANGE,
+          intr: p,
+          intrOpacity: t < INTR_T0 ? 0 : resolved ? 1 - seg(t, TD + 6.5, TD + 7.5) : 1,
+          detected,
+          resolved,
+          guard: back > 0 ? along([...guardPath].reverse(), back) : along(guardPath, gk),
+          route: guardPath,
+          routeOn: t >= TD + 1.5 && t < TD + 5.5,
+        };
 
         const eta = Math.max(0, Math.ceil(TD + 5.5 - t));
         const stats: Frame["stats"] = [
@@ -820,6 +852,7 @@ const circuits = [
         setAttr(fpLine, "opacity", scanning ? 1 : 0);
         readerRings?.classList.toggle("is-on", scanning || denied || granted);
         setAttr(reader, "fill", fp);
+        sim = { aPos, aOpacity: t < 0.5 ? 0 : 1 - seg(t, 7, 7.6), bPos, bOpacity: t < 8 ? 0 : 1 - seg(t, 16, 16.8), open, scanning, denied, granted };
         if (fpResult) {
           fpResult.textContent = scanning ? "Escaneando…" : denied ? "Acceso denegado" : granted ? "Acceso concedido" : "Coloque su huella";
           fpResult.style.color = denied ? "var(--cr-signal)" : granted ? "var(--cr-ok)" : "";
@@ -890,6 +923,7 @@ const circuits = [
         setAttr(nodes.c3, "data-state", over ? "hot" : tripped ? "off" : backup ? "ok" : "");
         tripRings?.classList.toggle("is-on", t >= 5.6 && t < 7.4);
         setAttr(panelBox, "fill", tripped ? "var(--cr-signal)" : "var(--cr-amber)");
+        sim = { amps: [c1, c2, c3], limit: LIMIT, over, tripped, backup, c3: t >= 4 && t < 6 ? "hot" : t >= 6 ? "off" : "", trip: t >= 5.6 && t < 7.4 };
 
         const vals = { c1, c2, c3 };
         (Object.keys(vals) as (keyof typeof vals)[]).forEach((id) => {
@@ -952,6 +986,7 @@ const circuits = [
     const draw = () => {
       const sc = scenarios[current];
       const f = sc.render(t);
+      root.dispatchEvent(new CustomEvent("lab:draw", { detail: { scenario: current, t, dur: sc.dur, tone: f.tone, zones: f.zones ?? {}, sim } }));
       const alerting = f.tone === "signal";
       applyTone(statusLed, f.tone, alerting);
       applyTone(chipLed, f.tone, alerting);
