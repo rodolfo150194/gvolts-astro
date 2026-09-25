@@ -3,6 +3,7 @@ import Layout from "@/layouts/Layout.astro";
 import Nav from "@/components/control-room/Nav.astro";
 import CameraViewer from "@/components/control-room/CameraViewer.astro";
 import Finale from "@/components/control-room/Finale.astro";
+import ServiceCircuit from "@/components/control-room/ServiceCircuit.astro";
 import logoSecurity from "@/assets/img/logo/G_VOLTS_huella_completo.webp";
 import "@/styles/control-room.css";
 import { generateServiceSchema, generateBreadcrumbSchema } from "@/utils/schemas";
@@ -316,6 +317,7 @@ const advantages = [
           </div>
         </div>
       </section>
+      <ServiceCircuit service="security" num="05" />
     </main>
 
     <Finale logo={logoSecurity} />

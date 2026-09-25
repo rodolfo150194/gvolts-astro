@@ -3,6 +3,7 @@ import Layout from "@/layouts/Layout.astro";
 import Nav from "@/components/control-room/Nav.astro";
 import FireSimulator from "@/components/control-room/FireSimulator.astro";
 import Finale from "@/components/control-room/Finale.astro";
+import ServiceCircuit from "@/components/control-room/ServiceCircuit.astro";
 import logoFireAlarm from "@/assets/img/logo/G_VOLTS_llama_completo.webp";
 import "@/styles/control-room.css";
 import { generateServiceSchema, generateBreadcrumbSchema } from "@/utils/schemas";
@@ -377,6 +378,7 @@ const benefits = [
         </div>
       </section>
 
+      <ServiceCircuit service="fire" num="07" />
     </main>
 
     <Finale logo={logoFireAlarm} />

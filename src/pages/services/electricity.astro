@@ -3,6 +3,7 @@ import Layout from "@/layouts/Layout.astro";
 import Nav from "@/components/control-room/Nav.astro";
 import BreakerPanel from "@/components/control-room/BreakerPanel.astro";
 import Finale from "@/components/control-room/Finale.astro";
+import ServiceCircuit from "@/components/control-room/ServiceCircuit.astro";
 import logoElectricity from "@/assets/img/logo/G_VOLTS_rayo_completo.webp";
 import "@/styles/control-room.css";
 import { generateServiceSchema, generateBreadcrumbSchema } from "@/utils/schemas";
@@ -361,6 +362,7 @@ const safety = [
           </div>
         </div>
       </section>
+      <ServiceCircuit service="elec" num="06" />
     </main>
 
     <Finale logo={logoElectricity} />
