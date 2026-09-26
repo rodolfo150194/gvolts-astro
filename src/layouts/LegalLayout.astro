@@ -1,0 +1,126 @@
+---
+import ControlRoomLayout from "@/layouts/ControlRoomLayout.astro";
+import { LEGAL, NAV_LEGAL } from "@/data/site";
+
+/**
+ * Plantilla de las páginas legales: cabecera con fecha de revisión, índice
+ * lateral fijo y cuerpo de texto con tipografía de lectura.
+ */
+interface Props {
+  title: string;
+  description: string;
+  /** Titular visible (h1). */
+  heading: string;
+  lede: string;
+  path: string;
+  toc: { id: string; label: string }[];
+}
+
+const { title, description, heading, lede, path, toc } = Astro.props;
+
+const updated = new Date(`${LEGAL.updated}T12:00:00`);
+const updatedLabel = new Intl.DateTimeFormat("es-ES", { dateStyle: "long" }).format(updated);
+
+const pageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: heading,
+  description,
+  dateModified: LEGAL.updated,
+  inLanguage: "es",
+};
+---
+
+<ControlRoomLayout title={title} description={description} breadcrumbs={[{ name: heading, path }]} schema={pageSchema} hideCta>
+  <header class="border-b border-[var(--cr-line)] pt-[clamp(40px,7vw,96px)] pb-[clamp(40px,6vw,72px)] [background:radial-gradient(60%_60%_at_90%_0%,color-mix(in_srgb,var(--cr-signal)_12%,transparent),transparent_70%),var(--cr-ink)]">
+    <div class="cr-wrap">
+      <nav aria-label="Migas de pan" class="cr-label mb-[28px]" data-reveal>
+        <ol class="flex flex-wrap gap-[10px] list-none m-0 p-0">
+          <li><a href="/" class="hover:text-[var(--cr-signal)]">Inicio</a></li>
+          <li aria-hidden="true">/</li>
+          <li aria-current="page" class="text-[var(--cr-bone)]">{heading}</li>
+        </ol>
+      </nav>
+      <h1 class="text-[length:clamp(48px,8vw,120px)] max-w-[14ch]" data-reveal style="--d:80ms">{heading}</h1>
+      <p class="mt-[24px] max-w-[60ch] text-[length:clamp(17px,1.4vw,20px)] text-[var(--cr-bone-dim)]" data-reveal style="--d:160ms">{lede}</p>
+      <p class="cr-label mt-[28px] flex items-center gap-[10px]" data-reveal style="--d:240ms">
+        <span class="cr-led" aria-hidden="true"></span><span>Última actualización: <time datetime={LEGAL.updated}>{updatedLabel}</time></span>
+      </p>
+    </div>
+  </header>
+
+  <div class="cr-wrap grid grid-cols-[260px_minmax(0,1fr)] gap-[clamp(40px,6vw,96px)] py-[clamp(56px,8vw,112px)] max-[960px]:grid-cols-1">
+    <aside class="max-[960px]:border-b max-[960px]:border-[var(--cr-line)] max-[960px]:pb-[32px]">
+      <nav aria-labelledby="toc-title" class="min-[961px]:sticky min-[961px]:top-[140px]">
+        <p id="toc-title" class="cr-label mb-[16px]">Contenido</p>
+        <ol class="list-none m-0 p-0 border-l border-[var(--cr-line)]">
+          {toc.map((item, i) => (
+            <li>
+              <a href={`#${item.id}`} class="legal-toc__link flex gap-[12px] py-[8px] pl-[16px] -ml-px border-l border-transparent text-[15px] leading-[1.35] text-[var(--cr-bone-dim)] transition-colors hover:text-[var(--cr-bone)]" data-toc-link={item.id}>
+                <span class="[font-family:var(--cr-mono)] text-[12px] pt-[2px] opacity-60" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ol>
+
+        <p class="cr-label mt-[36px] mb-[12px]">Otros documentos</p>
+        <ul class="list-none m-0 p-0">
+          {NAV_LEGAL.filter((l) => l.href !== path).map((l) => (
+            <li><a href={l.href} class="text-[15px] underline underline-offset-4 text-[var(--cr-bone-dim)] hover:text-[var(--cr-signal)]">{l.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+    </aside>
+
+    <article class="legal-prose max-w-[72ch]">
+      <slot />
+    </article>
+  </div>
+</ControlRoomLayout>
+
+<style>
+  .legal-prose { font-size: 17px; line-height: 1.75; color: color-mix(in srgb, var(--cr-bone) 86%, transparent); }
+  .legal-prose :global(section) { scroll-margin-top: 140px; padding-block: 8px 40px; }
+  .legal-prose :global(section + section) { border-top: 1px solid var(--cr-line); padding-top: 40px; }
+  .legal-prose :global(h2) { font-size: clamp(32px, 3.4vw, 44px); color: var(--cr-bone); margin-bottom: 20px; }
+  .legal-prose :global(h3) {
+    font-family: var(--cr-body); font-size: 19px; font-weight: 700; text-transform: none;
+    letter-spacing: 0; line-height: 1.35; color: var(--cr-bone); margin: 28px 0 10px;
+  }
+  .legal-prose :global(p + p), .legal-prose :global(p + ul), .legal-prose :global(ul + p),
+  .legal-prose :global(p + .legal-table), .legal-prose :global(.legal-table + p) { margin-top: 16px; }
+  .legal-prose :global(ul) { list-style: none; margin: 12px 0 0; padding: 0; }
+  .legal-prose :global(li) { position: relative; padding-left: 24px; }
+  .legal-prose :global(li + li) { margin-top: 8px; }
+  .legal-prose :global(li::before) {
+    content: ""; position: absolute; left: 4px; top: 0.72em; width: 8px; height: 2px; background: var(--cr-signal);
+  }
+  .legal-prose :global(strong) { color: var(--cr-bone); font-weight: 600; }
+  .legal-prose :global(a:not(.cr-btn)) { color: var(--cr-bone); text-decoration: underline; text-underline-offset: 4px; }
+  .legal-prose :global(a:not(.cr-btn):hover) { color: var(--cr-signal); }
+
+  .legal-toc__link[aria-current="true"] { color: var(--cr-bone); border-left-color: var(--cr-signal); }
+</style>
+
+<script>
+  // Resalta en el índice la sección que se está leyendo
+  const links = new Map(
+    [...document.querySelectorAll<HTMLAnchorElement>("[data-toc-link]")].map((a) => [a.dataset.tocLink!, a]),
+  );
+  const sections = [...links.keys()].map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+
+  if (sections.length && "IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (!e.isIntersecting) return;
+          links.forEach((a) => a.removeAttribute("aria-current"));
+          links.get(e.target.id)?.setAttribute("aria-current", "true");
+        });
+      },
+      { rootMargin: "-30% 0px -60% 0px" },
+    );
+    sections.forEach((s) => observer.observe(s));
+  }
+</script>

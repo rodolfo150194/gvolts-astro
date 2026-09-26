@@ -42,6 +42,14 @@ export default defineConfig({
   }),
   integrations: [
      sitemap({
+       // El panel de administración no debe indexarse
+       filter: (page) => !new URL(page).pathname.startsWith('/admin'),
+       // Coherente con las URL canónicas (sin barra final)
+       serialize: (item) => {
+         const url = new URL(item.url);
+         if (url.pathname !== '/') url.pathname = url.pathname.replace(/\/$/, '');
+         return { ...item, url: url.href };
+       },
        i18n: {
          defaultLocale: 'es',
          locales: {

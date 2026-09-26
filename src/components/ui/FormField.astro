@@ -1,0 +1,27 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+/**
+ * Campo de formulario con su etiqueta. Acepta cualquier atributo nativo
+ * de <input> o <textarea> (required, autocomplete, minlength, data-*, …).
+ */
+type Props = (HTMLAttributes<"input"> | HTMLAttributes<"textarea">) & {
+  label: string;
+  as?: "input" | "textarea";
+};
+
+const { label, as = "input", class: className, ...attrs } = Astro.props;
+const Tag = as;
+---
+
+<label class="flex flex-col gap-2 text-[15px] font-semibold">
+  {label}
+  <Tag
+    class:list={[
+      "box-border px-4 bg-[var(--cr-ink)] border border-[var(--cr-line-strong)] text-[var(--cr-bone)] [font-family:var(--cr-body)] text-base font-normal transition-[border-color] duration-200 hover:border-[color-mix(in_srgb,var(--cr-bone)_60%,transparent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--cr-signal)] focus-visible:outline-offset-0 focus-visible:border-[var(--cr-signal)] user-invalid:border-[var(--cr-signal)]",
+      as === "textarea" ? "h-auto py-3.5 leading-normal resize-y" : "h-[52px]",
+      className,
+    ]}
+    {...attrs}
+  />
+</label>

@@ -1,6 +1,5 @@
 ---
-import Layout from "@/layouts/Layout.astro";
-import Nav from "@/components/control-room/Nav.astro";
+import ControlRoomLayout from "@/layouts/ControlRoomLayout.astro";
 import Hero from "@/components/control-room/Hero.astro";
 import CertTicker from "@/components/control-room/CertTicker.astro";
 import Services from "@/components/control-room/Services.astro";
@@ -8,87 +7,32 @@ import DigitalTwin3D from "@/components/control-room/DigitalTwin3D.astro";
 import Process from "@/components/control-room/Process.astro";
 import Certifications from "@/components/control-room/Certifications.astro";
 import Faq from "@/components/control-room/Faq.astro";
-import Finale from "@/components/control-room/Finale.astro";
-import "@/styles/control-room.css";
 import { generateOrganizationSchema } from "@/utils/schemas";
 import { CONTACT } from "@/data/company";
+import { socials } from "@/data/socials";
+import { absoluteUrl, SITE } from "@/data/site";
 
 const organizationSchema = generateOrganizationSchema({
-  name: "GVoltsCorp",
-  url: "https://gvoltscorp.cloud",
-  logo: "https://gvoltscorp.cloud/img/logo/logo-gvoltscorp2.png",
-  description: "Diseñamos, instalamos y monitoreamos alarmas contra incendios, videovigilancia y sistemas eléctricos certificados para hogares y negocios.",
+  name: SITE.legalName,
+  url: SITE.url,
+  logo: absoluteUrl(SITE.logo),
+  description: SITE.description,
   telephone: CONTACT.phone,
   email: CONTACT.email,
+  socialMedia: socials.map((s) => s.url),
 });
 ---
 
-<Layout
+<ControlRoomLayout
   title="GVolts Corp — Alarmas de incendio, seguridad y electricidad"
-  description="Diseñamos, instalamos y monitoreamos alarmas contra incendios, videovigilancia y sistemas eléctricos certificados para hogares y negocios."
+  description={SITE.description}
+  schema={organizationSchema}
 >
-  <Fragment slot="head">
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700;800;900&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
-    />
-    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
-  </Fragment>
-
-  <div class="cr">
-    <Nav />
-    <main id="main">
-      <Hero />
-      <CertTicker />
-      <Services />
-      <DigitalTwin3D />
-      <Process />
-      <Certifications />
-      <Faq />
-    </main>
-    <Finale />
-  </div>
-</Layout>
-
-<script>
-  // Staggered scroll reveals
-  const revealEls = document.querySelectorAll<HTMLElement>(".cr [data-reveal]");
-  const revealer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) {
-          e.target.classList.add("is-in");
-          revealer.unobserve(e.target);
-        }
-      });
-    },
-    { rootMargin: "0px 0px -8% 0px" },
-  );
-  revealEls.forEach((el) => revealer.observe(el));
-
-  // Stat counters tick up like a meter settling
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const counters = document.querySelectorAll<HTMLElement>("[data-count]");
-  const counterIO = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if (!e.isIntersecting) return;
-      const el = e.target as HTMLElement;
-      counterIO.unobserve(el);
-      const end = Number(el.dataset.count);
-      if (reduce) return;
-      const start = performance.now();
-      const dur = 1600;
-      const step = (now: number) => {
-        const k = Math.min(1, (now - start) / dur);
-        const eased = 1 - Math.pow(1 - k, 4);
-        el.textContent = String(Math.round(end * eased));
-        if (k < 1) requestAnimationFrame(step);
-      };
-      el.textContent = "0";
-      requestAnimationFrame(step);
-    });
-  });
-  counters.forEach((c) => counterIO.observe(c));
-</script>
+  <Hero />
+  <CertTicker />
+  <Services />
+  <DigitalTwin3D />
+  <Process />
+  <Certifications />
+  <Faq />
+</ControlRoomLayout>

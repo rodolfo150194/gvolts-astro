@@ -1,13 +1,7 @@
 # GVolts Robots.txt
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /_actions/
 
-# Sitemap location
 Sitemap: https://gvoltscorp.cloud/sitemap-index.xml
-
-# Crawl-delay for polite crawling
-Crawl-delay: 1
-
-# Allow search engines to crawl images
-User-agent: Googlebot-Image
-Allow: /img/

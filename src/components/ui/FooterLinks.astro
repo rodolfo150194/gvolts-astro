@@ -1,0 +1,26 @@
+---
+import type { NavLink } from "@/data/site";
+
+/** Columna numerada de enlaces del pie de página. */
+interface Props {
+  title: string;
+  links: NavLink[];
+}
+
+const { title, links } = Astro.props;
+---
+
+<nav aria-label={title}>
+  <p class="cr-label mb-[18px]">{title}</p>
+  <ul class="list-none m-0 p-0">
+    {links.map((l, i) => (
+      <li class="border-t border-[var(--cr-line)]">
+        <a href={l.href} class="group flex items-center gap-[12px] py-[13px] text-[var(--cr-bone-dim)] transition-colors duration-200 hover:text-[var(--cr-signal)]">
+          <span class="[font-family:var(--cr-mono)] text-[12px] tracking-[0.1em] opacity-60 transition-opacity duration-200 group-hover:opacity-100" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+          <span>{l.label}</span>
+          <span class="ml-auto translate-x-[-6px] opacity-0 transition-[opacity,transform] duration-300 group-hover:translate-x-0 group-hover:opacity-100" aria-hidden="true">→</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>

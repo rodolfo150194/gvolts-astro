@@ -1,0 +1,87 @@
+---
+import LegalLayout from "@/layouts/LegalLayout.astro";
+import LegalSection from "@/components/legal/LegalSection.astro";
+import CookieTable from "@/components/legal/CookieTable.astro";
+import { CONTACT } from "@/data/company";
+import { LEGAL, SITE } from "@/data/site";
+
+export const prerender = true;
+
+const toc = [
+  { id: "que-son", label: "Qué son las cookies" },
+  { id: "como-usamos", label: "Cómo las usamos" },
+  { id: "listado", label: "Cookies de este sitio" },
+  { id: "gestionar", label: "Cómo gestionarlas" },
+  { id: "navegador", label: "Desde tu navegador" },
+  { id: "cambios", label: "Cambios y contacto" },
+];
+
+const browsers = [
+  { name: "Google Chrome", url: "https://support.google.com/chrome/answer/95647" },
+  { name: "Mozilla Firefox", url: "https://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-sitios-web-rastrear-preferencias" },
+  { name: "Safari", url: "https://support.apple.com/es-es/guide/safari/sfri11471/mac" },
+  { name: "Microsoft Edge", url: "https://support.microsoft.com/es-es/microsoft-edge/eliminar-cookies-en-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09" },
+];
+---
+
+<LegalLayout
+  title={`Política de cookies | ${SITE.name}`}
+  description="Qué cookies y tecnologías similares usa el sitio de GVolts Corp, para qué sirven y cómo puedes aceptarlas, rechazarlas o cambiar tu elección."
+  heading="Política de cookies"
+  lede="Usamos las mínimas cookies posibles. Las necesarias hacen que el sitio funcione; la analítica y el chat solo se activan si tú lo decides, y puedes cambiar de opinión cuando quieras."
+  path="/cookies"
+  toc={toc}
+>
+  <LegalSection id="que-son" title="Qué son las cookies">
+    <p>
+      Las cookies son pequeños archivos que un sitio web guarda en tu navegador para recordar información sobre tu
+      visita. Tecnologías parecidas, como el almacenamiento local del navegador (<em>localStorage</em>), cumplen una
+      función similar. En esta política usamos "cookies" para referirnos a todas ellas.
+    </p>
+  </LegalSection>
+
+  <LegalSection id="como-usamos" title="Cómo las usamos">
+    <ul>
+      <li><strong>Necesarias:</strong> permiten que el sitio funcione y recuerdan tu elección de cookies. No requieren consentimiento.</li>
+      <li><strong>Analítica:</strong> estadísticas agregadas y anónimas con una herramienta autoalojada (Umami). No se comparten con terceros ni se usan para publicidad.</li>
+      <li><strong>Funcionales:</strong> activan el chat en vivo (Chatwoot) y guardan tu conversación entre visitas.</li>
+    </ul>
+    <p><strong>No usamos cookies publicitarias</strong> ni de redes sociales para seguirte por otros sitios. Los enlaces a nuestras redes sociales solo te llevan a sus páginas; esas plataformas aplican sus propias políticas.</p>
+  </LegalSection>
+
+  <LegalSection id="listado" title="Cookies de este sitio">
+    <p>Este es el inventario actualizado de las cookies y tecnologías similares que puede instalar este sitio:</p>
+    <CookieTable />
+  </LegalSection>
+
+  <LegalSection id="gestionar" title="Cómo gestionarlas">
+    <p>
+      La primera vez que visitas el sitio te mostramos un aviso para que aceptes, rechaces o configures las cookies
+      opcionales. Rechazar es tan fácil como aceptar, y ninguna cookie opcional se activa antes de que elijas.
+      Guardamos tu elección durante {LEGAL.consentMonths} meses; pasado ese tiempo te volveremos a preguntar.
+    </p>
+    <p>Puedes cambiar o retirar tu consentimiento en cualquier momento:</p>
+    <p class="!mt-[24px]">
+      <button type="button" class="cr-btn" data-cookie-settings>Configurar cookies <span aria-hidden="true">→</span></button>
+    </p>
+    <p class="!mt-[24px]">También encontrarás el enlace "Preferencias de cookies" al pie de todas las páginas.</p>
+  </LegalSection>
+
+  <LegalSection id="navegador" title="Desde tu navegador">
+    <p>Además, puedes bloquear o eliminar las cookies desde la configuración de tu navegador. Ten en cuenta que bloquear las necesarias puede impedir que algunas partes del sitio funcionen.</p>
+    <ul>
+      {browsers.map((b) => (
+        <li><a href={b.url} target="_blank" rel="noopener noreferrer">{b.name}</a></li>
+      ))}
+    </ul>
+    <p>La analítica respeta la señal "Do Not Track" de tu navegador: si la tienes activada, no se registra tu visita.</p>
+  </LegalSection>
+
+  <LegalSection id="cambios" title="Cambios y contacto">
+    <p>
+      Si incorporamos nuevas herramientas actualizaremos esta página y te pediremos de nuevo tu consentimiento.
+      Para cualquier duda escríbenos a <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>. Para saber más sobre cómo
+      tratamos tus datos, consulta nuestra <a href="/privacy">Política de privacidad</a>.
+    </p>
+  </LegalSection>
+</LegalLayout>

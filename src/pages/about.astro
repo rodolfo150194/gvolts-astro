@@ -1,142 +1,76 @@
 ---
-import Layout from "@/layouts/Layout.astro";
-import Nav from "@/components/control-room/Nav.astro";
+import ControlRoomLayout from "@/layouts/ControlRoomLayout.astro";
 import AboutPhases from "@/components/control-room/AboutPhases.astro";
 import AboutCredentials from "@/components/control-room/AboutCredentials.astro";
-import Finale from "@/components/control-room/Finale.astro";
-import "@/styles/control-room.css";
-import { generateBreadcrumbSchema } from "@/utils/schemas";
 import content from "@/data/services-content.json";
 import { CLIENTS } from "@/data/company";
 
 const { hero, manifesto, phases, credentials } = content.about;
-
-const breadcrumbSchema = generateBreadcrumbSchema([
-  { name: "Inicio", url: "https://gvoltscorp.cloud" },
-  { name: "Nosotros", url: "https://gvoltscorp.cloud/about" },
-]);
 ---
 
-<Layout
+<ControlRoomLayout
   title="Quiénes Somos | GVoltscorp"
   description="Protegemos hogares y negocios con certificaciones UL, NFPA y licencias estatales activas. Diseñamos, instalamos y vigilamos."
+  breadcrumbs={[{ name: "Nosotros", path: "/about" }]}
 >
-  <Fragment slot="head">
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700;800;900&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
-    />
-    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
-  </Fragment>
+  <!-- HERO -->
+  <section class="ab-hero relative overflow-hidden pt-[clamp(40px,10vw,72px)] pb-[clamp(88px,14vw,120px)] sm:pt-[clamp(48px,8vw,110px)] sm:pb-[clamp(64px,9vw,130px)] [background:radial-gradient(60%_50%_at_85%_20%,color-mix(in_srgb,var(--cr-signal)_16%,transparent),transparent_70%),linear-gradient(var(--cr-line)_1px,transparent_1px)_0_0/100%_88px,var(--cr-ink)]">
+    <div class="cr-wrap ab-hero__grid grid grid-cols-1 min-[960px]:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] gap-[clamp(40px,6vw,96px)] items-center">
+      <div class="ab-hero__copy">
+        <p class="cr-label ab-hero__kicker flex items-center gap-[14px] text-[var(--cr-signal)] mb-[28px]" data-reveal>
+          <span class="ab-hero__tick w-[40px] h-[1px] bg-current"></span>{hero.kicker}
+        </p>
 
-  <div class="cr">
-    <Nav />
-    <main id="main">
-      <!-- HERO -->
-      <section class="ab-hero relative overflow-hidden pt-[clamp(40px,10vw,72px)] pb-[clamp(88px,14vw,120px)] sm:pt-[clamp(48px,8vw,110px)] sm:pb-[clamp(64px,9vw,130px)] [background:radial-gradient(60%_50%_at_85%_20%,color-mix(in_srgb,var(--cr-signal)_16%,transparent),transparent_70%),linear-gradient(var(--cr-line)_1px,transparent_1px)_0_0/100%_88px,var(--cr-ink)]">
-        <div class="cr-wrap ab-hero__grid grid grid-cols-1 min-[960px]:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] gap-[clamp(40px,6vw,96px)] items-center">
-          <div class="ab-hero__copy">
-            <p class="cr-label ab-hero__kicker flex items-center gap-[14px] text-[var(--cr-signal)] mb-[28px]" data-reveal>
-              <span class="ab-hero__tick w-[40px] h-[1px] bg-current"></span>{hero.kicker}
-            </p>
+        <h1 class="ab-hero__title [font-family:var(--cr-display)] font-black uppercase leading-[0.84] text-[length:clamp(60px,8.6vw,140px)]">
+          <span class="line block" data-reveal style="--d:80ms">{hero.title.line1}</span>
+          <span class="line block" data-reveal style="--d:160ms">{hero.title.line2}</span>
+          <span class="line line--signal block text-[var(--cr-signal)]" data-reveal style="--d:240ms">{hero.title.highlight}<span class="dot text-[var(--cr-bone)]">.</span></span>
+        </h1>
 
-            <h1 class="ab-hero__title [font-family:var(--cr-display)] font-black uppercase leading-[0.84] text-[length:clamp(60px,8.6vw,140px)]">
-              <span class="line block" data-reveal style="--d:80ms">{hero.title.line1}</span>
-              <span class="line block" data-reveal style="--d:160ms">{hero.title.line2}</span>
-              <span class="line line--signal block text-[var(--cr-signal)]" data-reveal style="--d:240ms">{hero.title.highlight}<span class="dot text-[var(--cr-bone)]">.</span></span>
-            </h1>
+        <p class="ab-hero__lede mt-[32px] max-w-[46ch] text-[length:clamp(17px,1.4vw,20px)] text-[var(--cr-bone-dim)]" data-reveal style="--d:340ms">{hero.lede}</p>
 
-            <p class="ab-hero__lede mt-[32px] max-w-[46ch] text-[length:clamp(17px,1.4vw,20px)] text-[var(--cr-bone-dim)]" data-reveal style="--d:340ms">{hero.lede}</p>
-
-            <div class="ab-hero__actions flex flex-wrap gap-[14px] mt-[36px] flex-col items-stretch sm:flex-row sm:items-normal" data-reveal style="--d:420ms">
-              <a href="/contact" class="cr-btn max-sm:justify-center">Hablemos <span aria-hidden="true">→</span></a>
-              <a href="/projects" class="cr-btn cr-btn--ghost max-sm:justify-center">Ver proyectos</a>
-            </div>
-          </div>
-
-          <div class="ab-portrait relative mb-[56px] min-[960px]:mb-0" data-reveal style="--d:200ms">
-            <div class="ab-portrait__frame relative aspect-[4/5] overflow-hidden bg-[var(--cr-ink-2)]">
-              <img
-                class="ab-portrait__img absolute inset-0 w-full h-full object-cover saturate-[0.85] contrast-[1.05]"
-                src={hero.image}
-                alt="Equipo técnico de GVolts Corp en campo"
-                width="1024"
-                height="1200"
-                fetchpriority="high"
-              />
-              <span class="corner corner--tl absolute w-[22px] h-[22px] border-2 border-[var(--cr-bone)] pointer-events-none top-[14px] left-[14px] border-r-0 border-b-0"></span><span class="corner corner--tr absolute w-[22px] h-[22px] border-2 border-[var(--cr-bone)] pointer-events-none top-[14px] right-[14px] border-l-0 border-b-0"></span>
-              <span class="corner corner--bl absolute w-[22px] h-[22px] border-2 border-[var(--cr-bone)] pointer-events-none bottom-[14px] left-[14px] border-r-0 border-t-0"></span><span class="corner corner--br absolute w-[22px] h-[22px] border-2 border-[var(--cr-bone)] pointer-events-none bottom-[14px] right-[14px] border-l-0 border-t-0"></span>
-            </div>
-
-            <div class="ab-badge static w-full mt-[16px] bg-[color-mix(in_srgb,var(--cr-ink-2)_92%,transparent)] backdrop-blur-[10px] border border-[var(--cr-line-strong)] [box-shadow:0_30px_60px_-20px_rgba(0,0,0,0.7)] px-[24px] py-[22px] sm:absolute sm:left-[12px] sm:bottom-[-32px] sm:w-[min(260px,78%)] sm:mt-0 min-[960px]:left-[clamp(-56px,-4vw,-16px)] min-[960px]:bottom-[clamp(-40px,-4vw,-20px)]">
-              <p class="ab-badge__value [font-family:var(--cr-display)] font-extrabold text-[length:clamp(40px,4.6vw,56px)] leading-none text-[var(--cr-signal)] mb-[8px] tabular-nums"><span data-count={CLIENTS}>0</span></p>
-              <p class="cr-label">{hero.badge.label}</p>
-            </div>
-          </div>
+        <div class="ab-hero__actions flex flex-wrap gap-[14px] mt-[36px] flex-col items-stretch sm:flex-row sm:items-normal" data-reveal style="--d:420ms">
+          <a href="/contact" class="cr-btn max-sm:justify-center">Hablemos <span aria-hidden="true">→</span></a>
+          <a href="/projects" class="cr-btn cr-btn--ghost max-sm:justify-center">Ver proyectos</a>
         </div>
-      </section>
+      </div>
 
-      <!-- MANIFESTO -->
-      <section class="ab-manifesto py-[clamp(72px,10vw,140px)] border-t border-[var(--cr-line)]">
-        <div class="cr-wrap ab-manifesto__grid grid grid-cols-1 min-[960px]:grid-cols-2 gap-[clamp(48px,6vw,96px)]">
-          <div class="ab-manifesto__lead">
-            <p class="cr-label" data-reveal>{manifesto.label}</p>
-            <h2 class="mt-[18px] text-[length:clamp(40px,5.4vw,76px)]" data-reveal style="--d:80ms">{manifesto.title}</h2>
-          </div>
-          <p class="ab-manifesto__text text-[19px] leading-[1.7] text-[color-mix(in_srgb,var(--cr-bone)_80%,transparent)] self-center" data-reveal style="--d:160ms">{manifesto.text}</p>
+      <div class="ab-portrait relative mb-[56px] min-[960px]:mb-0" data-reveal style="--d:200ms">
+        <div class="ab-portrait__frame relative aspect-[4/5] overflow-hidden bg-[var(--cr-ink-2)]">
+          <img
+            class="ab-portrait__img absolute inset-0 w-full h-full object-cover saturate-[0.85] contrast-[1.05]"
+            src={hero.image}
+            alt="Equipo técnico de GVolts Corp en campo"
+            width="1024"
+            height="1200"
+            fetchpriority="high"
+          />
+          <span class="corner corner--tl absolute w-[22px] h-[22px] border-2 border-[var(--cr-bone)] pointer-events-none top-[14px] left-[14px] border-r-0 border-b-0"></span><span class="corner corner--tr absolute w-[22px] h-[22px] border-2 border-[var(--cr-bone)] pointer-events-none top-[14px] right-[14px] border-l-0 border-b-0"></span>
+          <span class="corner corner--bl absolute w-[22px] h-[22px] border-2 border-[var(--cr-bone)] pointer-events-none bottom-[14px] left-[14px] border-r-0 border-t-0"></span><span class="corner corner--br absolute w-[22px] h-[22px] border-2 border-[var(--cr-bone)] pointer-events-none bottom-[14px] right-[14px] border-l-0 border-t-0"></span>
         </div>
-      </section>
 
-      <!-- PHASES -->
-      <AboutPhases phases={phases} />
+        <div class="ab-badge static w-full mt-[16px] bg-[color-mix(in_srgb,var(--cr-ink-2)_92%,transparent)] backdrop-blur-[10px] border border-[var(--cr-line-strong)] [box-shadow:0_30px_60px_-20px_rgba(0,0,0,0.7)] px-[24px] py-[22px] sm:absolute sm:left-[12px] sm:bottom-[-32px] sm:w-[min(260px,78%)] sm:mt-0 min-[960px]:left-[clamp(-56px,-4vw,-16px)] min-[960px]:bottom-[clamp(-40px,-4vw,-20px)]">
+          <p class="ab-badge__value [font-family:var(--cr-display)] font-extrabold text-[length:clamp(40px,4.6vw,56px)] leading-none text-[var(--cr-signal)] mb-[8px] tabular-nums"><span data-count={CLIENTS}>{CLIENTS}</span></p>
+          <p class="cr-label">{hero.badge.label}</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-      <!-- CREDENTIALS -->
-      <AboutCredentials items={credentials} />
-    </main>
+  <!-- MANIFESTO -->
+  <section class="ab-manifesto py-[clamp(72px,10vw,140px)] border-t border-[var(--cr-line)]">
+    <div class="cr-wrap ab-manifesto__grid grid grid-cols-1 min-[960px]:grid-cols-2 gap-[clamp(48px,6vw,96px)]">
+      <div class="ab-manifesto__lead">
+        <p class="cr-label" data-reveal>{manifesto.label}</p>
+        <h2 class="mt-[18px] text-[length:clamp(40px,5.4vw,76px)]" data-reveal style="--d:80ms">{manifesto.title}</h2>
+      </div>
+      <p class="ab-manifesto__text text-[19px] leading-[1.7] text-[color-mix(in_srgb,var(--cr-bone)_80%,transparent)] self-center" data-reveal style="--d:160ms">{manifesto.text}</p>
+    </div>
+  </section>
 
-    <Finale />
-  </div>
-</Layout>
+  <!-- PHASES -->
+  <AboutPhases phases={phases} />
 
-<script>
-  // Staggered scroll reveals (same behaviour as the rest of the Control Room pages)
-  const revealEls = document.querySelectorAll<HTMLElement>(".cr [data-reveal]");
-  const revealer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) {
-          e.target.classList.add("is-in");
-          revealer.unobserve(e.target);
-        }
-      });
-    },
-    { rootMargin: "0px 0px -8% 0px" },
-  );
-  revealEls.forEach((el) => revealer.observe(el));
-
-  // Badge counter ticks up like a meter settling
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const counters = document.querySelectorAll<HTMLElement>("[data-count]");
-  const counterIO = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if (!e.isIntersecting) return;
-      const el = e.target as HTMLElement;
-      counterIO.unobserve(el);
-      const end = Number(el.dataset.count);
-      if (reduce || Number.isNaN(end)) return;
-      const start = performance.now();
-      const dur = 1600;
-      const step = (now: number) => {
-        const k = Math.min(1, (now - start) / dur);
-        const eased = 1 - Math.pow(1 - k, 4);
-        el.textContent = Math.round(end * eased).toString();
-        if (k < 1) requestAnimationFrame(step);
-      };
-      el.textContent = "0";
-      requestAnimationFrame(step);
-    });
-  });
-  counters.forEach((c) => counterIO.observe(c));
-</script>
+  <!-- CREDENTIALS -->
+  <AboutCredentials items={credentials} />
+</ControlRoomLayout>

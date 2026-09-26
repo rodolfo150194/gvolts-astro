@@ -1,0 +1,79 @@
+---
+import type { ImageMetadata } from "astro";
+import Layout from "@/layouts/Layout.astro";
+import Nav from "@/components/control-room/Nav.astro";
+import Finale from "@/components/control-room/Finale.astro";
+import CookieConsent from "@/components/legal/CookieConsent.astro";
+import JsonLd from "@/components/seo/JsonLd.astro";
+import { generateBreadcrumbSchema } from "@/utils/schemas";
+import { absoluteUrl, GOOGLE_FONTS_URL } from "@/data/site";
+import type { AvatarKey } from "@/data/avatar";
+import "@/styles/control-room.css";
+
+/**
+ * Esqueleto común de todas las páginas públicas: metadatos, tipografías,
+ * datos estructurados, menú, cierre con pie de página, aviso de cookies y
+ * las animaciones de entrada compartidas.
+ */
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  noindex?: boolean;
+  /** Tema de color por servicio (ver control-room.css). */
+  accent?: "fire" | "security" | "electricity" | "projects";
+  /** Logo del servicio para el menú y el pie. */
+  logo?: ImageMetadata;
+  /** Técnico que se asoma en el cierre. */
+  avatar?: AvatarKey;
+  /** Migas de pan (sin "Inicio", se añade solo). Genera su schema BreadcrumbList. */
+  breadcrumbs?: { name: string; path: string }[];
+  /** Datos estructurados adicionales de la página. */
+  schema?: object | object[];
+  /** Oculta el bloque "¿Tu inmueble está protegido?" del cierre. */
+  hideCta?: boolean;
+}
+
+const { title, description, image, noindex, accent, logo, avatar, breadcrumbs, schema, hideCta } = Astro.props;
+
+const schemas = [
+  ...(schema ? (Array.isArray(schema) ? schema : [schema]) : []),
+  ...(breadcrumbs?.length
+    ? [
+        generateBreadcrumbSchema([
+          { name: "Inicio", url: absoluteUrl("/") },
+          ...breadcrumbs.map((b) => ({ name: b.name, url: absoluteUrl(b.path) })),
+        ]),
+      ]
+    : []),
+];
+---
+
+<Layout title={title} description={description} image={image} noindex={noindex}>
+  <Fragment slot="head">
+    <link rel="preload" href="/fonts/JetBrainsMono-VariableFont_wght.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href={GOOGLE_FONTS_URL} />
+    <noscript><style>.cr [data-reveal] { opacity: 1 !important; transform: none !important; }</style></noscript>
+    {schemas.length > 0 && <JsonLd schema={schemas} />}
+    <slot name="head" />
+  </Fragment>
+
+  <div class="cr" data-accent={accent}>
+    <Nav logo={logo} />
+    <main id="main" tabindex="-1" class="outline-none">
+      <slot />
+    </main>
+    <Finale logo={logo} avatar={avatar} hideCta={hideCta} />
+    <CookieConsent />
+  </div>
+</Layout>
+
+<script>
+  import { initReveal } from "@/scripts/reveal";
+  import { initCounters } from "@/scripts/counters";
+
+  initReveal();
+  initCounters();
+</script>

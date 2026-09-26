@@ -1,27 +1,16 @@
 ---
 import { Image } from "astro:assets";
-import Layout from "@/layouts/Layout.astro";
-import Nav from "@/components/control-room/Nav.astro";
+import ControlRoomLayout from "@/layouts/ControlRoomLayout.astro";
 import FireSimulator from "@/components/control-room/FireSimulator.astro";
-import Finale from "@/components/control-room/Finale.astro";
 import { avatars } from "@/data/avatar";
 import logoFireAlarm from "@/assets/img/logo/G_VOLTS_llama_completo.webp";
-import "@/styles/control-room.css";
-import { generateServiceSchema, generateBreadcrumbSchema } from "@/utils/schemas";
+import { generateServiceSchema } from "@/utils/schemas";
 
 const serviceSchema = generateServiceSchema(
   "Instalación de Alarmas Contra Incendios",
   "Sistemas de detección y alarma contra incendios con certificación NFPA 72. Monitoreo 24/7, instalación profesional y mantenimiento preventivo.",
   "https://gvoltscorp.cloud/services/fire-alarm",
 );
-
-const breadcrumbSchema = generateBreadcrumbSchema([
-  { name: "Inicio", url: "https://gvoltscorp.cloud" },
-  { name: "Servicios", url: "https://gvoltscorp.cloud/#servicios" },
-  { name: "Alarmas Contra Incendios", url: "https://gvoltscorp.cloud/services/fire-alarm" },
-]);
-
-const schemas = [serviceSchema, breadcrumbSchema];
 
 const features = [
   {
@@ -150,256 +139,203 @@ const benefits = [
 ];
 ---
 
-<Layout
+<ControlRoomLayout
   title="Sistemas de Alarmas Contra Incendios Certificados | GVoltscorp"
   description="Instalación profesional de alarmas contra incendios con certificación NFPA 72. Detección multi-sensor inteligente, monitoreo 24/7 y respuesta en menos de 30 segundos."
+  accent="fire"
+  logo={logoFireAlarm}
+  avatar="fire"
+  breadcrumbs={[{ name: "Servicios", path: "/#servicios" }, { name: "Alarmas Contra Incendios", path: "/services/fire-alarm" }]}
+  schema={serviceSchema}
 >
-  <Fragment slot="head">
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700;800;900&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
-    />
-    {schemas.map((schema) => <script type="application/ld+json" set:html={JSON.stringify(schema)} />)}
-  </Fragment>
+  <!-- HERO -->
+  <section class="relative overflow-hidden pt-[clamp(48px,8vw,110px)] pb-[clamp(64px,9vw,130px)] [background:radial-gradient(60%_50%_at_85%_20%,color-mix(in_srgb,var(--cr-signal)_16%,transparent),transparent_70%),linear-gradient(var(--cr-line)_1px,transparent_1px)_0_0/100%_88px,var(--cr-ink)] max-[640px]:pt-[clamp(40px,10vw,72px)] max-[640px]:pb-[clamp(88px,14vw,120px)]">
+    <div class="cr-wrap grid grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] gap-[clamp(32px,5vw,72px)] items-center max-[960px]:grid-cols-1">
+      <div>
+        <p class="cr-label flex items-center gap-[14px] text-[var(--cr-signal)] mb-[28px]" data-reveal>
+          <span class="w-[40px] h-px bg-current"></span>S-01 · Protección contra incendios
+        </p>
 
-  <div class="cr" data-accent="fire">
-    <Nav logo={logoFireAlarm} />
-    <main id="main">
-      <!-- HERO -->
-      <section class="relative overflow-hidden pt-[clamp(48px,8vw,110px)] pb-[clamp(64px,9vw,130px)] [background:radial-gradient(60%_50%_at_85%_20%,color-mix(in_srgb,var(--cr-signal)_16%,transparent),transparent_70%),linear-gradient(var(--cr-line)_1px,transparent_1px)_0_0/100%_88px,var(--cr-ink)] max-[640px]:pt-[clamp(40px,10vw,72px)] max-[640px]:pb-[clamp(88px,14vw,120px)]">
-        <div class="cr-wrap grid grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] gap-[clamp(32px,5vw,72px)] items-center max-[960px]:grid-cols-1">
-          <div>
-            <p class="cr-label flex items-center gap-[14px] text-[var(--cr-signal)] mb-[28px]" data-reveal>
-              <span class="w-[40px] h-px bg-current"></span>S-01 · Protección contra incendios
-            </p>
+        <h1 class="[font-family:var(--cr-display)] font-black uppercase leading-[0.84] text-[clamp(60px,8.6vw,140px)]">
+          <span class="block" data-reveal style="--d:80ms">Alarmas</span>
+          <span class="block" data-reveal style="--d:160ms">contra</span>
+          <span class="block text-[var(--cr-signal)]" data-reveal style="--d:240ms">incendios<span class="text-[var(--cr-bone)]">.</span></span>
+        </h1>
 
-            <h1 class="[font-family:var(--cr-display)] font-black uppercase leading-[0.84] text-[clamp(60px,8.6vw,140px)]">
-              <span class="block" data-reveal style="--d:80ms">Alarmas</span>
-              <span class="block" data-reveal style="--d:160ms">contra</span>
-              <span class="block text-[var(--cr-signal)]" data-reveal style="--d:240ms">incendios<span class="text-[var(--cr-bone)]">.</span></span>
-            </h1>
+        <p class="mt-[32px] max-w-[46ch] text-[clamp(17px,1.4vw,20px)] text-[var(--cr-bone-dim)]" data-reveal style="--d:340ms">
+          Detecta, alerta y protege. Tecnología certificada que puede salvar vidas y patrimonio antes de que sea
+          demasiado tarde.
+        </p>
 
-            <p class="mt-[32px] max-w-[46ch] text-[clamp(17px,1.4vw,20px)] text-[var(--cr-bone-dim)]" data-reveal style="--d:340ms">
-              Detecta, alerta y protege. Tecnología certificada que puede salvar vidas y patrimonio antes de que sea
-              demasiado tarde.
-            </p>
-
-            <div class="flex flex-wrap gap-[14px] mt-[36px] max-[640px]:flex-col max-[640px]:items-stretch" data-reveal style="--d:420ms">
-              <a href="/contact" class="cr-btn max-[640px]:justify-center">Cotización gratuita <span aria-hidden="true">→</span></a>
-              <a href="/projects" class="cr-btn cr-btn--ghost max-[640px]:justify-center">Ver proyectos</a>
-            </div>
-
-            <dl class="grid grid-cols-3 mt-[56px] border-t border-[var(--cr-line-strong)] max-[640px]:grid-cols-2 max-[640px]:gap-y-[20px]" data-reveal style="--d:500ms">
-              <div class="pt-[18px] pr-[16px] pb-0 pl-0">
-                <dt class="cr-label">Tasa de detección</dt>
-                <dd class="mt-[6px] [font-family:var(--cr-display)] font-extrabold text-[clamp(40px,4.6vw,64px)] leading-none tabular-nums"><span data-count="99.8">99.8</span><span class="text-[var(--cr-signal)]">%</span></dd>
-              </div>
-              <div class="pt-[18px] pr-[16px] pb-0 pl-[16px] border-l border-[var(--cr-line)]">
-                <dt class="cr-label">Tiempo de respuesta</dt>
-                <dd class="mt-[6px] [font-family:var(--cr-display)] font-extrabold text-[clamp(40px,4.6vw,64px)] leading-none tabular-nums"><span class="text-[var(--cr-signal)]">&lt;</span>30s</dd>
-              </div>
-              <div class="pt-[18px] pr-[16px] pb-0 pl-[16px] border-l border-[var(--cr-line)] max-[640px]:col-[1/-1] max-[640px]:pl-0 max-[640px]:border-l-0 max-[640px]:border-t max-[640px]:border-t-[var(--cr-line)] max-[640px]:pt-[18px]">
-                <dt class="cr-label">Certificación</dt>
-                <dd class="mt-[6px] [font-family:var(--cr-display)] font-extrabold text-[clamp(40px,4.6vw,64px)] leading-none tabular-nums">NFPA</dd>
-              </div>
-            </dl>
-          </div>
-
-          <div class="relative" data-reveal style="--d:200ms">
-            <FireSimulator />
-          </div>
+        <div class="flex flex-wrap gap-[14px] mt-[36px] max-[640px]:flex-col max-[640px]:items-stretch" data-reveal style="--d:420ms">
+          <a href="/contact" class="cr-btn max-[640px]:justify-center">Cotización gratuita <span aria-hidden="true">→</span></a>
+          <a href="/projects" class="cr-btn cr-btn--ghost max-[640px]:justify-center">Ver proyectos</a>
         </div>
-      </section>
-      <!-- FEATURES -->
-      <section class="py-[clamp(72px,10vw,140px)] bg-[var(--cr-ink-2)]">
-        <div class="cr-wrap">
-          <header class="flex justify-between items-end gap-[48px] mb-[clamp(48px,6vw,64px)] max-[760px]:flex-col max-[760px]:items-start">
-            <div>
-              <p class="cr-label" data-reveal>02 — Componentes</p>
-              <h2 class="mt-[18px] text-[clamp(52px,7vw,112px)]" data-reveal style="--d:80ms">Tecnología que<br /><span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">salva vidas.</span></h2>
-            </div>
-            <p class="max-w-[380px] text-[18px] leading-[1.65] text-[var(--cr-bone-dim)]" data-reveal style="--d:160ms">
-              Componentes de última generación que trabajan en perfecta sincronía.
-            </p>
-          </header>
 
-          <div class="grid grid-cols-2 gap-[24px] max-[640px]:grid-cols-1">
-            {
-              features.map((f, i) => (
-                <article class="p-[36px] flex flex-col gap-[16px] bg-[var(--cr-ink-3)] border border-[var(--cr-line)] [transition:transform_0.5s_cubic-bezier(0.16,0.84,0.24,1),border-color_0.3s] hover:-translate-y-[10px] hover:border-[var(--cr-signal)]" data-reveal style={`--d:${i * 90}ms`}>
-                  <p class="[font-family:var(--cr-display)] font-black text-[48px] leading-none text-[var(--cr-signal)]">{f.number}</p>
-                  <h3 class="text-[clamp(28px,2.6vw,36px)]">{f.title}</h3>
-                  <p class="text-[16px] leading-[1.6] text-[var(--cr-bone-dim)]">{f.description}</p>
-                  <ul class="m-0 p-0 list-none flex flex-col gap-[10px] text-[16px]">
-                    {f.items.map((it) => <li class="flex gap-[12px] items-center before:content-[''] before:w-[8px] before:h-[8px] before:shrink-0 before:bg-[var(--cr-signal)]">{it}</li>)}
-                  </ul>
-                </article>
-              ))
-            }
+        <dl class="grid grid-cols-3 mt-[56px] border-t border-[var(--cr-line-strong)] max-[640px]:grid-cols-2 max-[640px]:gap-y-[20px]" data-reveal style="--d:500ms">
+          <div class="pt-[18px] pr-[16px] pb-0 pl-0">
+            <dt class="cr-label">Tasa de detección</dt>
+            <dd class="mt-[6px] [font-family:var(--cr-display)] font-extrabold text-[clamp(40px,4.6vw,64px)] leading-none tabular-nums"><span data-count="99.8">99.8</span><span class="text-[var(--cr-signal)]">%</span></dd>
           </div>
+          <div class="pt-[18px] pr-[16px] pb-0 pl-[16px] border-l border-[var(--cr-line)]">
+            <dt class="cr-label">Tiempo de respuesta</dt>
+            <dd class="mt-[6px] [font-family:var(--cr-display)] font-extrabold text-[clamp(40px,4.6vw,64px)] leading-none tabular-nums"><span class="text-[var(--cr-signal)]">&lt;</span>30s</dd>
+          </div>
+          <div class="pt-[18px] pr-[16px] pb-0 pl-[16px] border-l border-[var(--cr-line)] max-[640px]:col-[1/-1] max-[640px]:pl-0 max-[640px]:border-l-0 max-[640px]:border-t max-[640px]:border-t-[var(--cr-line)] max-[640px]:pt-[18px]">
+            <dt class="cr-label">Certificación</dt>
+            <dd class="mt-[6px] [font-family:var(--cr-display)] font-extrabold text-[clamp(40px,4.6vw,64px)] leading-none tabular-nums">NFPA</dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="relative" data-reveal style="--d:200ms">
+        <FireSimulator />
+      </div>
+    </div>
+  </section>
+  <!-- FEATURES -->
+  <section class="py-[clamp(72px,10vw,140px)] bg-[var(--cr-ink-2)]">
+    <div class="cr-wrap">
+      <header class="flex justify-between items-end gap-[48px] mb-[clamp(48px,6vw,64px)] max-[760px]:flex-col max-[760px]:items-start">
+        <div>
+          <p class="cr-label" data-reveal>02 — Componentes</p>
+          <h2 class="mt-[18px] text-[clamp(52px,7vw,112px)]" data-reveal style="--d:80ms">Tecnología que<br /><span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">salva vidas.</span></h2>
         </div>
-      </section>
+        <p class="max-w-[380px] text-[18px] leading-[1.65] text-[var(--cr-bone-dim)]" data-reveal style="--d:160ms">
+          Componentes de última generación que trabajan en perfecta sincronía.
+        </p>
+      </header>
 
-      <!-- PROCESS -->
-      <section class="py-[clamp(96px,12vw,180px)]">
-        <div class="cr-wrap grid grid-cols-[minmax(0,0.45fr)_minmax(0,1fr)] gap-[clamp(48px,6vw,96px)] max-[960px]:grid-cols-1">
-          <div class="min-[961px]:sticky min-[961px]:top-[110px] self-start">
-            <p class="cr-label" data-reveal>03 — Implementación</p>
-            <h2 class="mt-[18px] text-[clamp(44px,6vw,96px)]" data-reveal style="--d:80ms">De la evaluación <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">a la protección total.</span></h2>
-            <div class="mt-12 max-w-[340px] max-[960px]:max-w-[240px]" data-reveal style="--d:160ms">
-              <Image src={avatars.fireInstall.src} alt={avatars.fireInstall.alt} widths={[240, 340, 520]} sizes="(min-width: 961px) 340px, 240px" class="w-full h-auto [filter:drop-shadow(0_24px_40px_rgba(0,0,0,0.5))]" loading="lazy" />
-            </div>
-          </div>
-          <ol class="m-0 p-0 list-none relative before:content-[''] before:absolute before:left-[11px] before:top-[12px] before:bottom-[12px] before:w-[2px] before:bg-[var(--cr-line-strong)]">
-            {
-              steps.map((s, i) => (
-                <li class="relative flex gap-[40px] pb-[40px] pl-0 last:pb-0 group" data-reveal style={`--d:${i * 90}ms`}>
-                  <span class="shrink-0 w-[24px] h-[24px] box-border border-2 border-[var(--cr-signal)] bg-[var(--cr-ink)] z-[1] group-last:bg-[var(--cr-signal)] group-last:shadow-[0_0_20px_var(--cr-signal)] group-last:border-[var(--cr-signal)]" />
-                  <div>
-                    <p class="cr-label text-[var(--cr-signal)]">PASO {s.step} · {s.duration.toUpperCase()}</p>
-                    <h3 class="mt-[10px] text-[40px]">{s.title}</h3>
-                    <p class="mt-[10px] text-[17px] leading-[1.6] text-[var(--cr-bone-dim)]">{s.description}</p>
-                    <p class="mt-[10px] [font-family:var(--cr-mono)] text-[14px] tracking-[0.08em] text-[var(--cr-amber)]">ENTREGABLE → {s.deliverable}</p>
-                  </div>
-                </li>
-              ))
-            }
-          </ol>
-        </div>
-      </section>
-
-      <!-- INDUSTRIES -->
-      <section class="py-[clamp(72px,10vw,140px)]">
-        <div class="cr-wrap">
-          <header class="flex justify-between items-end gap-[48px] mb-[clamp(48px,6vw,64px)] max-[760px]:flex-col max-[760px]:items-start">
-            <div>
-              <p class="cr-label" data-reveal>04 — Industrias</p>
-              <h2 class="mt-[18px] text-[clamp(52px,7vw,112px)]" data-reveal style="--d:80ms">Soluciones para <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">cada industria.</span></h2>
-            </div>
-          </header>
-
-          <div class="grid grid-cols-4 gap-[20px] max-[960px]:grid-cols-2 max-[640px]:grid-cols-1">
-            {
-              industries.map((ind, i) => (
-                <article class="p-[36px] flex flex-col gap-[16px] bg-[var(--cr-ink-3)] border border-[var(--cr-line)] [transition:transform_0.5s_cubic-bezier(0.16,0.84,0.24,1),border-color_0.3s] hover:-translate-y-[10px] hover:border-[var(--cr-signal)]" data-reveal style={`--d:${i * 90}ms`}>
-                  <h3 class="text-[clamp(28px,2.6vw,36px)]">{ind.title}</h3>
-                  <p class="text-[16px] leading-[1.6] text-[var(--cr-bone-dim)]">{ind.description}</p>
-                  <ul class="m-0 p-0 list-none flex flex-col gap-[10px] text-[16px] mt-auto pt-[16px] border-t border-[var(--cr-line)] [font-family:var(--cr-mono)] text-[14px] text-[var(--cr-bone-dim)]">
-                    {ind.items.map((it) => <li class="flex gap-[12px] items-center">{it}</li>)}
-                  </ul>
-                </article>
-              ))
-            }
-          </div>
-        </div>
-      </section>
-
-      <!-- COMPLIANCE -->
-      <section class="py-[clamp(72px,10vw,140px)]">
-        <div class="cr-wrap">
-          <header class="flex justify-between items-end gap-[48px] mb-[clamp(48px,6vw,64px)] max-[760px]:flex-col max-[760px]:items-start">
-            <div>
-              <p class="cr-label" data-reveal>05 — Normativa</p>
-              <h2 class="mt-[18px] text-[clamp(52px,7vw,112px)]" data-reveal style="--d:80ms">Cumplimiento <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">total.</span></h2>
-            </div>
-            <p class="max-w-[380px] text-[18px] leading-[1.65] text-[var(--cr-bone-dim)]" data-reveal style="--d:160ms">
-              No solo instalamos sistemas: garantizamos cumplimiento con regulaciones locales e internacionales.
-            </p>
-          </header>
-
-          <div class="grid grid-cols-4 border-t border-b border-[var(--cr-line-strong)] max-[960px]:grid-cols-2 max-[640px]:grid-cols-1" data-reveal style="--d:220ms">
-            {
-              codes.map((c, i) => (
-                <div
-                  class={`py-[36px] px-[28px] flex flex-col gap-[14px] ${
-                    i === 0
-                      ? "border-l-0 pl-0 max-[640px]:border-t-0"
-                      : i === 3
-                        ? "border-l border-[var(--cr-line)] pr-0 max-[960px]:border-l max-[960px]:pl-[28px] max-[640px]:border-l-0! max-[640px]:pl-0! max-[640px]:border-t max-[640px]:border-t-[var(--cr-line)]"
-                        : "border-l border-[var(--cr-line)] max-[960px]:border-l-0! max-[960px]:pl-0! max-[640px]:border-l-0! max-[640px]:pl-0! max-[640px]:border-t max-[640px]:border-t-[var(--cr-line)]"
-                  }`}
-                >
-                  <p class="[font-family:var(--cr-display)] font-black text-[56px] leading-none text-[var(--cr-signal)]">{c.code}</p>
-                  <h3 class="text-[18px] font-bold normal-case">{c.title}</h3>
-                  <p class="text-[16px] leading-[1.55] text-[var(--cr-bone-dim)]">{c.description}</p>
-                </div>
-              ))
-            }
-          </div>
-
-          <div class="mt-[36px] flex flex-wrap gap-[12px]" data-reveal style="--d:280ms">
-            {credentials.map((c) => <span class="py-[12px] px-[18px] border border-[var(--cr-line-strong)] [font-family:var(--cr-mono)] text-[14px] tracking-[0.06em]">{c}</span>)}
-          </div>
-        </div>
-      </section>
-
-      <!-- BENEFITS -->
-      <section class="py-[clamp(72px,10vw,140px)] bg-[var(--cr-ink-2)]">
-        <div class="cr-wrap">
-          <header class="flex justify-between items-end gap-[48px] mb-[clamp(48px,6vw,64px)] max-[760px]:flex-col max-[760px]:items-start">
-            <div>
-              <p class="cr-label" data-reveal>06 — Por qué GVolts</p>
-              <h2 class="mt-[18px] text-[clamp(52px,7vw,112px)]" data-reveal style="--d:80ms">Seis razones <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">para dormir tranquilo.</span></h2>
-            </div>
-          </header>
-
-          <div class="grid grid-cols-3 gap-[24px] max-[960px]:grid-cols-2 max-[640px]:grid-cols-1">
-            {
-              benefits.map((b, i) => (
-                <div class="p-[30px] flex flex-col gap-[16px] bg-[var(--cr-ink-3)] border border-[var(--cr-line)] [transition:transform_0.5s_cubic-bezier(0.16,0.84,0.24,1),border-color_0.3s] hover:-translate-y-[10px] hover:border-[var(--cr-signal)]" data-reveal style={`--d:${i * 70}ms`}>
-                  <h3 class="text-[clamp(28px,2.6vw,36px)]">{b.title}</h3>
-                  <p class="text-[16px] leading-[1.6] text-[var(--cr-bone-dim)]">{b.description}</p>
-                </div>
-              ))
-            }
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <Finale avatar="fire" logo={logoFireAlarm} />
-  </div>
-</Layout>
-
-<script>
-  // Staggered scroll reveals (same behaviour as the home page)
-  const revealEls = document.querySelectorAll<HTMLElement>(".cr [data-reveal]");
-  const revealer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) {
-          e.target.classList.add("is-in");
-          revealer.unobserve(e.target);
+      <div class="grid grid-cols-2 gap-[24px] max-[640px]:grid-cols-1">
+        {
+          features.map((f, i) => (
+            <article class="p-[36px] flex flex-col gap-[16px] bg-[var(--cr-ink-3)] border border-[var(--cr-line)] [transition:transform_0.5s_cubic-bezier(0.16,0.84,0.24,1),border-color_0.3s] hover:-translate-y-[10px] hover:border-[var(--cr-signal)]" data-reveal style={`--d:${i * 90}ms`}>
+              <p class="[font-family:var(--cr-display)] font-black text-[48px] leading-none text-[var(--cr-signal)]">{f.number}</p>
+              <h3 class="text-[clamp(28px,2.6vw,36px)]">{f.title}</h3>
+              <p class="text-[16px] leading-[1.6] text-[var(--cr-bone-dim)]">{f.description}</p>
+              <ul class="m-0 p-0 list-none flex flex-col gap-[10px] text-[16px]">
+                {f.items.map((it) => <li class="flex gap-[12px] items-center before:content-[''] before:w-[8px] before:h-[8px] before:shrink-0 before:bg-[var(--cr-signal)]">{it}</li>)}
+              </ul>
+            </article>
+          ))
         }
-      });
-    },
-    { rootMargin: "0px 0px -8% 0px" },
-  );
-  revealEls.forEach((el) => revealer.observe(el));
+      </div>
+    </div>
+  </section>
 
-  // Stat counters tick up like a meter settling
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const counters = document.querySelectorAll<HTMLElement>("[data-count]");
-  const counterIO = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if (!e.isIntersecting) return;
-      const el = e.target as HTMLElement;
-      counterIO.unobserve(el);
-      const end = Number(el.dataset.count);
-      if (reduce) return;
-      const start = performance.now();
-      const dur = 1600;
-      const step = (now: number) => {
-        const k = Math.min(1, (now - start) / dur);
-        const eased = 1 - Math.pow(1 - k, 4);
-        el.textContent = (end * eased).toFixed(end % 1 !== 0 ? 1 : 0);
-        if (k < 1) requestAnimationFrame(step);
-      };
-      el.textContent = "0";
-      requestAnimationFrame(step);
-    });
-  });
-  counters.forEach((c) => counterIO.observe(c));
-</script>
+  <!-- PROCESS -->
+  <section class="py-[clamp(96px,12vw,180px)]">
+    <div class="cr-wrap grid grid-cols-[minmax(0,0.45fr)_minmax(0,1fr)] gap-[clamp(48px,6vw,96px)] max-[960px]:grid-cols-1">
+      <div class="min-[961px]:sticky min-[961px]:top-[110px] self-start">
+        <p class="cr-label" data-reveal>03 — Implementación</p>
+        <h2 class="mt-[18px] text-[clamp(44px,6vw,96px)]" data-reveal style="--d:80ms">De la evaluación <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">a la protección total.</span></h2>
+        <div class="mt-12 max-w-[340px] max-[960px]:max-w-[240px]" data-reveal style="--d:160ms">
+          <Image src={avatars.fireInstall.src} alt={avatars.fireInstall.alt} widths={[240, 340, 520]} sizes="(min-width: 961px) 340px, 240px" class="w-full h-auto [filter:drop-shadow(0_24px_40px_rgba(0,0,0,0.5))]" loading="lazy" />
+        </div>
+      </div>
+      <ol class="m-0 p-0 list-none relative before:content-[''] before:absolute before:left-[11px] before:top-[12px] before:bottom-[12px] before:w-[2px] before:bg-[var(--cr-line-strong)]">
+        {
+          steps.map((s, i) => (
+            <li class="relative flex gap-[40px] pb-[40px] pl-0 last:pb-0 group" data-reveal style={`--d:${i * 90}ms`}>
+              <span class="shrink-0 w-[24px] h-[24px] box-border border-2 border-[var(--cr-signal)] bg-[var(--cr-ink)] z-[1] group-last:bg-[var(--cr-signal)] group-last:shadow-[0_0_20px_var(--cr-signal)] group-last:border-[var(--cr-signal)]" />
+              <div>
+                <p class="cr-label text-[var(--cr-signal)]">PASO {s.step} · {s.duration.toUpperCase()}</p>
+                <h3 class="mt-[10px] text-[40px]">{s.title}</h3>
+                <p class="mt-[10px] text-[17px] leading-[1.6] text-[var(--cr-bone-dim)]">{s.description}</p>
+                <p class="mt-[10px] [font-family:var(--cr-mono)] text-[14px] tracking-[0.08em] text-[var(--cr-amber)]">ENTREGABLE → {s.deliverable}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- INDUSTRIES -->
+  <section class="py-[clamp(72px,10vw,140px)]">
+    <div class="cr-wrap">
+      <header class="flex justify-between items-end gap-[48px] mb-[clamp(48px,6vw,64px)] max-[760px]:flex-col max-[760px]:items-start">
+        <div>
+          <p class="cr-label" data-reveal>04 — Industrias</p>
+          <h2 class="mt-[18px] text-[clamp(52px,7vw,112px)]" data-reveal style="--d:80ms">Soluciones para <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">cada industria.</span></h2>
+        </div>
+      </header>
+
+      <div class="grid grid-cols-4 gap-[20px] max-[960px]:grid-cols-2 max-[640px]:grid-cols-1">
+        {
+          industries.map((ind, i) => (
+            <article class="p-[36px] flex flex-col gap-[16px] bg-[var(--cr-ink-3)] border border-[var(--cr-line)] [transition:transform_0.5s_cubic-bezier(0.16,0.84,0.24,1),border-color_0.3s] hover:-translate-y-[10px] hover:border-[var(--cr-signal)]" data-reveal style={`--d:${i * 90}ms`}>
+              <h3 class="text-[clamp(28px,2.6vw,36px)]">{ind.title}</h3>
+              <p class="text-[16px] leading-[1.6] text-[var(--cr-bone-dim)]">{ind.description}</p>
+              <ul class="m-0 p-0 list-none flex flex-col gap-[10px] text-[16px] mt-auto pt-[16px] border-t border-[var(--cr-line)] [font-family:var(--cr-mono)] text-[14px] text-[var(--cr-bone-dim)]">
+                {ind.items.map((it) => <li class="flex gap-[12px] items-center">{it}</li>)}
+              </ul>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPLIANCE -->
+  <section class="py-[clamp(72px,10vw,140px)]">
+    <div class="cr-wrap">
+      <header class="flex justify-between items-end gap-[48px] mb-[clamp(48px,6vw,64px)] max-[760px]:flex-col max-[760px]:items-start">
+        <div>
+          <p class="cr-label" data-reveal>05 — Normativa</p>
+          <h2 class="mt-[18px] text-[clamp(52px,7vw,112px)]" data-reveal style="--d:80ms">Cumplimiento <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">total.</span></h2>
+        </div>
+        <p class="max-w-[380px] text-[18px] leading-[1.65] text-[var(--cr-bone-dim)]" data-reveal style="--d:160ms">
+          No solo instalamos sistemas: garantizamos cumplimiento con regulaciones locales e internacionales.
+        </p>
+      </header>
+
+      <div class="grid grid-cols-4 border-t border-b border-[var(--cr-line-strong)] max-[960px]:grid-cols-2 max-[640px]:grid-cols-1" data-reveal style="--d:220ms">
+        {
+          codes.map((c, i) => (
+            <div
+              class={`py-[36px] px-[28px] flex flex-col gap-[14px] ${
+                i === 0
+                  ? "border-l-0 pl-0 max-[640px]:border-t-0"
+                  : i === 3
+                    ? "border-l border-[var(--cr-line)] pr-0 max-[960px]:border-l max-[960px]:pl-[28px] max-[640px]:border-l-0! max-[640px]:pl-0! max-[640px]:border-t max-[640px]:border-t-[var(--cr-line)]"
+                    : "border-l border-[var(--cr-line)] max-[960px]:border-l-0! max-[960px]:pl-0! max-[640px]:border-l-0! max-[640px]:pl-0! max-[640px]:border-t max-[640px]:border-t-[var(--cr-line)]"
+              }`}
+            >
+              <p class="[font-family:var(--cr-display)] font-black text-[56px] leading-none text-[var(--cr-signal)]">{c.code}</p>
+              <h3 class="text-[18px] font-bold normal-case">{c.title}</h3>
+              <p class="text-[16px] leading-[1.55] text-[var(--cr-bone-dim)]">{c.description}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="mt-[36px] flex flex-wrap gap-[12px]" data-reveal style="--d:280ms">
+        {credentials.map((c) => <span class="py-[12px] px-[18px] border border-[var(--cr-line-strong)] [font-family:var(--cr-mono)] text-[14px] tracking-[0.06em]">{c}</span>)}
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFITS -->
+  <section class="py-[clamp(72px,10vw,140px)] bg-[var(--cr-ink-2)]">
+    <div class="cr-wrap">
+      <header class="flex justify-between items-end gap-[48px] mb-[clamp(48px,6vw,64px)] max-[760px]:flex-col max-[760px]:items-start">
+        <div>
+          <p class="cr-label" data-reveal>06 — Por qué GVolts</p>
+          <h2 class="mt-[18px] text-[clamp(52px,7vw,112px)]" data-reveal style="--d:80ms">Seis razones <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">para dormir tranquilo.</span></h2>
+        </div>
+      </header>
+
+      <div class="grid grid-cols-3 gap-[24px] max-[960px]:grid-cols-2 max-[640px]:grid-cols-1">
+        {
+          benefits.map((b, i) => (
+            <div class="p-[30px] flex flex-col gap-[16px] bg-[var(--cr-ink-3)] border border-[var(--cr-line)] [transition:transform_0.5s_cubic-bezier(0.16,0.84,0.24,1),border-color_0.3s] hover:-translate-y-[10px] hover:border-[var(--cr-signal)]" data-reveal style={`--d:${i * 70}ms`}>
+              <h3 class="text-[clamp(28px,2.6vw,36px)]">{b.title}</h3>
+              <p class="text-[16px] leading-[1.6] text-[var(--cr-bone-dim)]">{b.description}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</ControlRoomLayout>

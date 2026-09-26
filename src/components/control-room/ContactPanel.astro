@@ -1,4 +1,5 @@
 ---
+import FormField from "@/components/ui/FormField.astro";
 import { Image } from "astro:assets";
 import { avatars, type AvatarKey } from "@/data/avatar";
 
@@ -79,35 +80,23 @@ const services = [
     </fieldset>
 
     <div class="grid grid-cols-2 gap-4 max-sm:grid-cols-1">
-      <label class="flex flex-col gap-2 text-[15px] font-semibold">
-        Nombre completo
-        <input class="box-border h-[52px] px-4 bg-[var(--cr-ink)] border border-[var(--cr-line-strong)] text-[var(--cr-bone)] [font-family:var(--cr-body)] text-base transition-[border-color] duration-200 hover:border-[color-mix(in_srgb,var(--cr-bone)_60%,transparent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--cr-signal)] focus-visible:outline-offset-0 focus-visible:border-[var(--cr-signal)]" type="text" name="name" autocomplete="name" required minlength="2" placeholder="María González" />
-      </label>
-      <label class="flex flex-col gap-2 text-[15px] font-semibold">
-        Teléfono
-        <input class="box-border h-[52px] px-4 bg-[var(--cr-ink)] border border-[var(--cr-line-strong)] text-[var(--cr-bone)] [font-family:var(--cr-body)] text-base transition-[border-color] duration-200 hover:border-[color-mix(in_srgb,var(--cr-bone)_60%,transparent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--cr-signal)] focus-visible:outline-offset-0 focus-visible:border-[var(--cr-signal)]" type="tel" name="phone" autocomplete="tel" required minlength="10" placeholder="+1 (555) 000-0000" />
-      </label>
+      <FormField label="Nombre completo" type="text" name="name" autocomplete="name" required minlength="2" placeholder="María González" />
+      <FormField label="Teléfono" type="tel" name="phone" autocomplete="tel" required minlength="10" placeholder="+1 (555) 000-0000" />
     </div>
 
     <div class="grid grid-cols-2 gap-4 max-sm:grid-cols-1">
-      <label class="flex flex-col gap-2 text-[15px] font-semibold">
-        Email
-        <input class="box-border h-[52px] px-4 bg-[var(--cr-ink)] border border-[var(--cr-line-strong)] text-[var(--cr-bone)] [font-family:var(--cr-body)] text-base transition-[border-color] duration-200 hover:border-[color-mix(in_srgb,var(--cr-bone)_60%,transparent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--cr-signal)] focus-visible:outline-offset-0 focus-visible:border-[var(--cr-signal)]" type="email" name="email" autocomplete="email" required placeholder="tu@empresa.com" />
-      </label>
-      <label class="flex flex-col gap-2 text-[15px] font-semibold">
-        Código postal
-        <input class="box-border h-[52px] px-4 bg-[var(--cr-ink)] border border-[var(--cr-line-strong)] text-[var(--cr-bone)] [font-family:var(--cr-body)] text-base transition-[border-color] duration-200 hover:border-[color-mix(in_srgb,var(--cr-bone)_60%,transparent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--cr-signal)] focus-visible:outline-offset-0 focus-visible:border-[var(--cr-signal)]" type="text" name="zip" autocomplete="postal-code" required minlength="5" maxlength="10" placeholder="12345" />
-      </label>
+      <FormField label="Email" type="email" name="email" autocomplete="email" required placeholder="tu@empresa.com" />
+      <FormField label="Código postal" type="text" name="zip" autocomplete="postal-code" required minlength="5" maxlength="10" placeholder="12345" />
     </div>
 
-    <label class="flex flex-col gap-2 text-[15px] font-semibold">
-      Cuéntanos tu proyecto
-      <textarea class="box-border h-auto px-4 bg-[var(--cr-ink)] border border-[var(--cr-line-strong)] text-[var(--cr-bone)] [font-family:var(--cr-body)] text-base transition-[border-color] duration-200 hover:border-[color-mix(in_srgb,var(--cr-bone)_60%,transparent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--cr-signal)] focus-visible:outline-offset-0 focus-visible:border-[var(--cr-signal)] py-3.5 leading-normal resize-y" name="message" rows="5" required minlength="10" placeholder={services[0].placeholder} data-message />
-    </label>
+    <FormField label="Cuéntanos tu proyecto" as="textarea" name="message" rows="5" required minlength="10" placeholder={services[0].placeholder} data-message />
 
     <label class="flex items-start gap-3 text-[15px] leading-normal text-[var(--cr-bone-dim)] font-normal">
-      <input class="mt-0.5 w-5 h-5 accent-[var(--cr-signal)]" type="checkbox" required />
-      Acepto que GVolts me contacte sobre esta solicitud según la política de privacidad.
+      <input class="mt-0.5 w-5 h-5 shrink-0 accent-[var(--cr-signal)]" type="checkbox" name="privacy" required />
+      <span>
+        He leído y acepto la <a href="/privacy" target="_blank" class="text-[var(--cr-bone)] underline underline-offset-4 hover:text-[var(--cr-signal)]">política de privacidad</a>
+        y que GVolts me contacte sobre esta solicitud.
+      </span>
     </label>
 
     <button class="cr-btn group justify-center h-16 [font-family:var(--cr-display)] font-extrabold text-2xl disabled:opacity-60 disabled:cursor-not-allowed max-[480px]:text-[19px] max-[480px]:h-14" type="submit">

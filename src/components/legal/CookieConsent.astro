@@ -1,0 +1,224 @@
+---
+import { COOKIE_CATEGORIES } from "@/data/cookies";
+import { ANALYTICS, LEGAL } from "@/data/site";
+
+/**
+ * Aviso y centro de preferencias de cookies. Los scripts de terceros
+ * (analítica y chat) solo se cargan después de que el visitante los acepte.
+ * Cualquier elemento con [data-cookie-settings] reabre las preferencias.
+ */
+const config = {
+  key: LEGAL.consentKey,
+  version: LEGAL.consentVersion,
+  maxAgeMs: LEGAL.consentMonths * 30 * 24 * 60 * 60 * 1000,
+  analytics: ANALYTICS,
+  chatwoot: {
+    url: import.meta.env.PUBLIC_CHATWOOT_URL ?? "",
+    token: import.meta.env.PUBLIC_CHATWOOT_TOKEN ?? "",
+  },
+};
+
+const optional = COOKIE_CATEGORIES.filter((c) => !c.required);
+const required = COOKIE_CATEGORIES.filter((c) => c.required);
+---
+
+<section
+  class="cc fixed z-[95] left-[var(--cr-gutter)] right-[var(--cr-gutter)] bottom-[16px] max-w-[560px] border border-[var(--cr-line-strong)] [background:var(--cr-ink-2)] [box-shadow:0_30px_80px_-20px_rgba(0,0,0,0.8)] max-[860px]:bottom-[calc(68px+env(safe-area-inset-bottom))]"
+  aria-labelledby="cc-title"
+  data-cookie-consent
+  data-config={JSON.stringify(config)}
+  hidden
+>
+  <div class="p-[24px] max-[480px]:p-[18px]">
+    <p class="cr-label flex items-center gap-[10px] text-[var(--cr-signal)]"><span class="cr-led cr-led--signal" aria-hidden="true"></span>Privacidad</p>
+    <h2 id="cc-title" class="mt-[12px] text-[30px]">Usamos cookies</h2>
+    <p class="mt-[10px] text-[16px] leading-[1.55] text-[var(--cr-bone-dim)]">
+      Las necesarias hacen que el sitio funcione. Con tu permiso, también usamos analítica anónima y el chat en vivo.
+      Puedes cambiar tu elección cuando quieras. Más información en la
+      <a href="/cookies" class="text-[var(--cr-bone)] underline underline-offset-4 hover:text-[var(--cr-signal)]">Política de cookies</a>.
+    </p>
+
+    <form class="cc__prefs mt-[18px] border-t border-[var(--cr-line)]" data-cc-prefs hidden>
+      <fieldset class="m-0 p-0 border-0">
+        <legend class="sr-only">Categorías de cookies</legend>
+        {required.map((c) => (
+          <div class="flex items-start justify-between gap-[16px] py-[14px] border-b border-[var(--cr-line)]">
+            <div>
+              <p class="font-semibold text-[16px]">{c.label}</p>
+              <p class="mt-[4px] text-[14px] leading-[1.5] text-[var(--cr-bone-dim)]">{c.description}</p>
+            </div>
+            <span class="cr-label shrink-0 !text-[11px] !text-[var(--cr-ok)] pt-[3px]">Siempre activas</span>
+          </div>
+        ))}
+        {optional.map((c) => (
+          <label class="flex items-start justify-between gap-[16px] py-[14px] border-b border-[var(--cr-line)] cursor-pointer">
+            <span>
+              <span class="block font-semibold text-[16px]">{c.label}</span>
+              <span class="block mt-[4px] text-[14px] leading-[1.5] text-[var(--cr-bone-dim)]">{c.description}</span>
+            </span>
+            <input type="checkbox" name={c.id} class="cc__switch shrink-0 mt-[2px]" />
+          </label>
+        ))}
+      </fieldset>
+    </form>
+
+    <div class="mt-[20px] grid grid-cols-3 gap-[8px] max-[480px]:grid-cols-1" data-cc-actions>
+      <button type="button" class="cr-btn cr-btn--ghost !min-h-[44px] !px-[12px] justify-center !text-[12px]" data-cc="reject">Rechazar</button>
+      <button type="button" class="cr-btn cr-btn--ghost !min-h-[44px] !px-[12px] justify-center !text-[12px]" data-cc="configure" aria-expanded="false">Configurar</button>
+      <button type="button" class="cr-btn !min-h-[44px] !px-[12px] justify-center !text-[12px]" data-cc="accept">Aceptar todas</button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cc:not([hidden]) { animation: cc-in 450ms cubic-bezier(0.2, 0.7, 0.1, 1); }
+  @keyframes cc-in { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+
+  /* Interruptor accesible construido sobre un checkbox nativo */
+  .cc__switch {
+    appearance: none; position: relative; width: 44px; height: 24px; margin: 0; cursor: pointer;
+    border: 1px solid var(--cr-line-strong); background: var(--cr-ink); transition: background 0.2s, border-color 0.2s;
+  }
+  .cc__switch::before {
+    content: ""; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px;
+    background: var(--cr-bone-dim); transition: transform 0.2s, background 0.2s;
+  }
+  .cc__switch:checked { background: var(--cr-signal); border-color: var(--cr-signal); }
+  .cc__switch:checked::before { transform: translateX(20px); background: var(--cr-ink); }
+</style>
+
+<script>
+  type Consent = { v: number; date: number; analytics: boolean; functional: boolean };
+  type Config = {
+    key: string;
+    version: number;
+    maxAgeMs: number;
+    analytics: { src: string; websiteId: string };
+    chatwoot: { url: string; token: string };
+  };
+
+  const w = window as Window & {
+    chatwootSDK?: { run: (opts: { websiteToken: string; baseUrl: string }) => void };
+    gvCookies?: { open: () => void; get: () => Consent | null };
+  };
+
+  const root = document.querySelector<HTMLElement>("[data-cookie-consent]");
+
+  if (root) {
+    const config: Config = JSON.parse(root.dataset.config ?? "{}");
+    const prefs = root.querySelector<HTMLFormElement>("[data-cc-prefs]")!;
+    const configureBtn = root.querySelector<HTMLButtonElement>('[data-cc="configure"]')!;
+    let lastFocus: HTMLElement | null = null;
+
+    const read = (): Consent | null => {
+      try {
+        const raw = localStorage.getItem(config.key);
+        if (!raw) return null;
+        const data = JSON.parse(raw) as Consent;
+        if (data.v !== config.version || Date.now() - data.date > config.maxAgeMs) return null;
+        return data;
+      } catch {
+        return null;
+      }
+    };
+
+    const write = (c: Consent) => {
+      try {
+        localStorage.setItem(config.key, JSON.stringify(c));
+      } catch {
+        /* navegación privada o almacenamiento bloqueado: la elección vale para esta visita */
+      }
+    };
+
+    const loadScript = (src: string, attrs: Record<string, string> = {}) => {
+      if (document.querySelector(`script[src="${src}"]`)) return null;
+      const s = document.createElement("script");
+      s.src = src;
+      s.defer = true;
+      Object.entries(attrs).forEach(([k, v]) => s.setAttribute(k, v));
+      document.head.appendChild(s);
+      return s;
+    };
+
+    const apply = (c: Consent) => {
+      if (c.analytics && config.analytics.src) {
+        loadScript(config.analytics.src, {
+          "data-website-id": config.analytics.websiteId,
+          "data-do-not-track": "true",
+        });
+      }
+      if (c.functional && config.chatwoot.url && config.chatwoot.token) {
+        const { url, token } = config.chatwoot;
+        const s = loadScript(`${url}/packs/js/sdk.js`);
+        if (s) s.onload = () => w.chatwootSDK?.run({ websiteToken: token, baseUrl: url });
+      }
+      document.dispatchEvent(new CustomEvent("gv:consent", { detail: c }));
+    };
+
+    // Solo movemos el foco cuando el visitante abre el panel, nunca al cargar la página
+    const show = (withPrefs = false, moveFocus = false) => {
+      lastFocus = document.activeElement as HTMLElement | null;
+      const current = read();
+      prefs.querySelectorAll<HTMLInputElement>("input[type=checkbox]").forEach((input) => {
+        input.checked = Boolean(current?.[input.name as keyof Consent]);
+      });
+      togglePrefs(withPrefs);
+      root.hidden = false;
+      if (!moveFocus) return;
+      (withPrefs ? prefs.querySelector<HTMLInputElement>("input") : root.querySelector<HTMLButtonElement>("[data-cc]"))?.focus({ preventScroll: true });
+    };
+
+    const hide = () => {
+      const hadFocus = root.contains(document.activeElement);
+      root.hidden = true;
+      if (hadFocus) lastFocus?.focus?.({ preventScroll: true });
+    };
+
+    const togglePrefs = (open: boolean) => {
+      prefs.hidden = !open;
+      configureBtn.setAttribute("aria-expanded", String(open));
+      configureBtn.textContent = open ? "Guardar selección" : "Configurar";
+    };
+
+    const save = (analytics: boolean, functional: boolean) => {
+      const previous = read();
+      const next: Consent = { v: config.version, date: Date.now(), analytics, functional };
+      write(next);
+      hide();
+      // Retirar un permiso ya concedido exige recargar para descargar los scripts
+      const revoked = (previous?.analytics && !analytics) || (previous?.functional && !functional);
+      if (revoked) window.location.reload();
+      else apply(next);
+    };
+
+    root.addEventListener("click", (e) => {
+      const action = (e.target as HTMLElement).closest<HTMLButtonElement>("[data-cc]")?.dataset.cc;
+      if (action === "accept") save(true, true);
+      else if (action === "reject") save(false, false);
+      else if (action === "configure") {
+        if (prefs.hidden) togglePrefs(true);
+        else {
+          const data = new FormData(prefs);
+          save(data.has("analytics"), data.has("functional"));
+        }
+      }
+    });
+
+    root.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && read()) hide();
+    });
+
+    document.addEventListener("click", (e) => {
+      const trigger = (e.target as HTMLElement).closest("[data-cookie-settings]");
+      if (!trigger) return;
+      e.preventDefault();
+      show(true, true);
+    });
+
+    w.gvCookies = { open: () => show(true, true), get: read };
+
+    const stored = read();
+    if (stored) apply(stored);
+    else show();
+  }
+</script>

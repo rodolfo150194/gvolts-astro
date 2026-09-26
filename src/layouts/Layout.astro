@@ -1,43 +1,48 @@
 ---
 import "@/styles/global.css";
+import { SITE } from "@/data/site";
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Imagen para redes sociales (ruta relativa al sitio o URL absoluta). */
+  image?: string;
+  noindex?: boolean;
+}
 
 const {
-  title = "GVOLTS | Advanced Protection Systems - Fire Alarm & Surveillance Installation",
-  description = "Professional fire alarm and surveillance system installation for residential and commercial properties. ISO certified technology with 24/7 monitoring and absolute peace of mind.",
-  image = "/img/logo/logo-gvoltscorp2.png",
+  title = `${SITE.name} — Alarmas de incendio, seguridad y electricidad`,
+  description = SITE.description,
+  image = SITE.logo,
   noindex = false,
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const ogImageURL = new URL(image, Astro.site);
-
-const chatwootUrl = import.meta.env.PUBLIC_CHATWOOT_URL;
-const chatwootToken = import.meta.env.PUBLIC_CHATWOOT_TOKEN;
-
+const site = Astro.site ?? new URL(SITE.url);
+const canonicalURL = new URL(Astro.url.pathname.replace(/(.)\/$/, "$1"), site);
+const ogImageURL = new URL(image, site);
 ---
 
 <!doctype html>
-<html lang="es" class="min-h-full w-full has-[.cr]:overflow-x-clip">
+<html lang={SITE.locale} class="min-h-full w-full has-[.cr]:overflow-x-clip">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
-    {noindex && <meta name="robots" content="noindex, nofollow" />}
-
-    <!-- Canonical URL -->
+    <meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large"} />
     <link rel="canonical" href={canonicalURL} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
 
     <!-- Favicon -->
-    <link rel="icon" type="img/logo/logo-minimalista-gvolts.png" href="/favicon.svg" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-
-    <!-- Preload Critical Resources -->
-    <link rel="preload" href="/img/gvolts/planing-project.webp" as="image" type="image/webp" fetchpriority="high" />
-    <link rel="preload" href="/fonts/RobotoMono-VariableFont_wght.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="icon" type="image/png" href="/img/logo/logo-minimalista-gvolts.png" />
+    <link rel="apple-touch-icon" href="/img/logo/logo-minimalista-gvolts.png" />
+    <meta name="theme-color" content="#111012" />
+    <meta name="color-scheme" content="dark" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:locale" content="es_ES" />
     <meta property="og:title" content={title} />
@@ -50,33 +55,10 @@ const chatwootToken = import.meta.env.PUBLIC_CHATWOOT_TOKEN;
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageURL} />
 
-    <!-- Local font will load with font-display: swap (avoid blocking render) -->
-
-    <!-- Theme Color -->
-    <meta name="theme-color" content="#DC2626" />
-    <script defer src="https://analytics.gvoltscorp.cloud/script.js" data-website-id="5bd6008f-052c-466f-86e1-016f32ff1ee8"></script>
-
-    <!-- Chatwoot Live Chat Widget -->
-    <script is:inline define:vars={{ chatwootUrl, chatwootToken }}>
-      (function(d,t) {
-        var BASE_URL = chatwootUrl;
-        var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-        g.src=BASE_URL+"/packs/js/sdk.js";
-        g.defer = true;
-        g.async = true;
-        s.parentNode.insertBefore(g,s);
-        g.onload=function(){
-          window.chatwootSDK.run({
-            websiteToken: chatwootToken,
-            baseUrl: BASE_URL
-          })
-        }
-      })(document,"script");
-    </script>
-    <title>{title}</title>
+    <!-- Analítica y chat se cargan desde CookieConsent solo con consentimiento -->
     <slot name="head" />
   </head>
-  <body class="min-h-screen w-full has-[.cr]:bg-[#111012] has-[.cr]:overflow-x-clip" id="background-mask">
+  <body class="min-h-screen w-full has-[.cr]:bg-[#111012] has-[.cr]:overflow-x-clip">
     <a
       href="#main"
       class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200] focus:bg-white focus:text-indian-red-700 focus:px-4 focus:py-2 focus:rounded-lg focus:font-bold focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-indian-red-500 focus:ring-offset-2"
@@ -84,39 +66,19 @@ const chatwootToken = import.meta.env.PUBLIC_CHATWOOT_TOKEN;
     >
     <slot />
 
-    <!-- Global Hash Scroll Handler -->
     <script>
-      // Handle hash navigation on page load
-      document.addEventListener('DOMContentLoaded', () => {
-        // Check if there's a hash in the URL
-        const hash = window.location.hash;
-        if (hash) {
-          // Wait a bit for the page to fully render
-          setTimeout(() => {
-            const element = document.querySelector(hash);
-            if (element) {
-              element.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-              });
-            }
-          }, 100);
-        }
-      });
+      // Navegación por ancla con desplazamiento suave (también al cargar con #hash)
+      const scrollToHash = () => {
+        const id = decodeURIComponent(window.location.hash.slice(1));
+        if (!id) return;
+        const target = document.getElementById(id);
+        if (!target) return;
+        const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        target.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+      };
 
-      // Handle hash changes while on the same page
-      window.addEventListener('hashchange', () => {
-        const hash = window.location.hash;
-        if (hash) {
-          const element = document.querySelector(hash);
-          if (element) {
-            element.scrollIntoView({
-              behavior: 'smooth',
-              block: 'start'
-            });
-          }
-        }
-      });
+      window.addEventListener("load", () => setTimeout(scrollToHash, 100), { once: true });
+      window.addEventListener("hashchange", scrollToHash);
     </script>
   </body>
 </html>

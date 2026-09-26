@@ -1,0 +1,62 @@
+---
+import { COOKIE_CATEGORIES, COOKIES } from "@/data/cookies";
+
+/** Tabla de cookies agrupada por categoría, generada desde src/data/cookies.ts. */
+---
+
+<div class="legal-table flex flex-col gap-[32px]">
+  {COOKIE_CATEGORIES.map((category) => {
+    const items = COOKIES.filter((c) => c.category === category.id);
+    return (
+      <div>
+        <h3 class="flex items-center gap-[12px]">
+          {category.label}
+          <span class:list={["cr-label !text-[11px]", category.required ? "!text-[var(--cr-ok)]" : "!text-[var(--cr-amber)]"]}>
+            {category.required ? "Siempre activas" : "Requieren consentimiento"}
+          </span>
+        </h3>
+        <p>{category.description}</p>
+        <div class="mt-[16px] border border-[var(--cr-line)]">
+          <table class="ct w-full border-collapse text-left text-[15px] leading-[1.5]">
+            <thead class="[background:var(--cr-ink-2)]">
+              <tr>
+                <th scope="col" class="cr-label !text-[11px] font-normal px-[16px] py-[12px]">Nombre</th>
+                <th scope="col" class="cr-label !text-[11px] font-normal px-[16px] py-[12px]">Proveedor</th>
+                <th scope="col" class="cr-label !text-[11px] font-normal px-[16px] py-[12px]">Finalidad</th>
+                <th scope="col" class="cr-label !text-[11px] font-normal px-[16px] py-[12px]">Tipo</th>
+                <th scope="col" class="cr-label !text-[11px] font-normal px-[16px] py-[12px]">Duración</th>
+              </tr>
+            </thead>
+            <tbody>
+              {items.map((c) => (
+                <tr class="border-t border-[var(--cr-line)] align-top">
+                  <th scope="row" class="px-[16px] py-[14px] font-normal [font-family:var(--cr-mono)] text-[13px] text-[var(--cr-bone)] whitespace-nowrap">{c.name}</th>
+                  <td data-label="Proveedor" class="px-[16px] py-[14px]">{c.provider}</td>
+                  <td data-label="Finalidad" class="px-[16px] py-[14px]">{c.purpose}</td>
+                  <td data-label="Tipo" class="px-[16px] py-[14px] whitespace-nowrap">{c.type}</td>
+                  <td data-label="Duración" class="px-[16px] py-[14px] whitespace-nowrap">{c.duration}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    );
+  })}
+</div>
+
+<style>
+  /* En pantallas estrechas cada fila se apila como una tarjeta etiquetada */
+  @media (max-width: 720px) {
+    .ct thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    .ct tr, .ct th, .ct td { display: block; }
+    .ct tbody tr { padding: 14px 16px; }
+    .ct tbody th, .ct tbody td { padding: 0 !important; white-space: normal !important; }
+    .ct tbody th { margin-bottom: 10px; }
+    .ct td { display: grid; grid-template-columns: 96px 1fr; gap: 12px; padding-block: 4px !important; }
+    .ct td::before {
+      content: attr(data-label); font-family: var(--cr-mono); font-size: 11px; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--cr-bone-dim); padding-top: 3px;
+    }
+  }
+</style>

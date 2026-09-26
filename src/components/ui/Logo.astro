@@ -1,0 +1,30 @@
+---
+import type { ImageMetadata } from "astro";
+
+/**
+ * Marca de GVolts: imagen del servicio si se pasa `image`, si no el
+ * logotipo tipográfico. `size` escala el wordmark con la fuente (em).
+ */
+interface Props {
+  image?: ImageMetadata;
+  /** Clases de la imagen (alto del logo). */
+  imageClass?: string;
+  /** Clases del wordmark tipográfico (tamaño de fuente). */
+  class?: string;
+  /** Oculta la etiqueta vertical "CORP" en pantallas muy estrechas. */
+  hideCorpOnTiny?: boolean;
+}
+
+const { image, imageClass = "h-[44px] w-auto", class: className = "", hideCorpOnTiny = false } = Astro.props;
+---
+
+<a href="/" class="inline-flex items-center" aria-label="GVolts Corp, inicio">
+  {image ? (
+    <img src={image.src} alt="GVolts Corp" width={image.width} height={image.height} class={imageClass} />
+  ) : (
+    <span class:list={["inline-flex items-stretch [font-family:var(--cr-display)] font-black leading-none tracking-[0.02em]", className]}>
+      <span class="bg-[var(--cr-bone)] text-[var(--cr-ink)] [padding:0.2em_0.2em_0.13em_0.26em]">G</span><span class="bg-[var(--cr-signal-deep)] text-[var(--cr-ink)] [padding:0.2em_0.26em_0.13em_0.13em]">VOLTS</span>
+      <span class:list={["[writing-mode:vertical-rl] [font-family:var(--cr-mono)] text-[max(10px,0.27em)] font-bold tracking-[0.2em] bg-[var(--cr-ink-3)] text-[var(--cr-bone)] [padding:0.1em_0.13em] grid place-items-center", hideCorpOnTiny && "max-[400px]:hidden"]}>CORP</span>
+    </span>
+  )}
+</a>
