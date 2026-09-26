@@ -4,17 +4,20 @@ import iconFire from "@/assets/img/icons/toolts-fire.png";
 import iconSecurity from "@/assets/img/icons/cctv.png";
 import iconElectric from "@/assets/img/icons/toolts-electric.png";
 import { Image } from "astro:assets";
+import { useTranslations } from "@/i18n";
+
+const tr = useTranslations(Astro);
 
 const tabs = [
-  { key: "fire", label: "Incendio", icon: iconFire, accent: "#ff6b35" },
-  { key: "security", label: "Seguridad", icon: iconSecurity, accent: "#4da8ff" },
-  { key: "elec", label: "Electricidad", icon: iconElectric, accent: "#ffd66b" },
+  { key: "fire", label: tr.process.tabs.fire, icon: iconFire, accent: "#ff6b35" },
+  { key: "security", label: tr.process.tabs.security, icon: iconSecurity, accent: "#4da8ff" },
+  { key: "elec", label: tr.process.tabs.elec, icon: iconElectric, accent: "#ffd66b" },
 ] as const;
 ---
 
 <section class="process pt-[clamp(96px,12vw,180px)] pb-[clamp(64px,8vw,100px)]" id="proceso">
   <div class="cr-wrap flex justify-center">
-    <div class="flex border border-[var(--cr-line-strong)] shrink-0" role="tablist" aria-label="Servicio" data-reveal>
+    <div class="flex border border-[var(--cr-line-strong)] shrink-0" role="tablist" aria-label={tr.process.tablistAria} data-reveal>
       {
         tabs.map((t, i) => (
           <button

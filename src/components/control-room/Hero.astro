@@ -2,19 +2,23 @@
 import { Image } from "astro:assets";
 import { CONTACT } from "@/data/company";
 import { avatars } from "@/data/avatar";
+import { fmt, i18n } from "@/i18n";
+
+const { tr, href } = i18n(Astro);
+const h = tr.hero;
 
 // Accesos directos: quien llega sabe qué necesita, que no tenga que buscarlo
 const needs = [
-  { label: "Alarma de incendio", hint: "Instalar, inspeccionar o certificar", href: "/services/fire-alarm", accent: "var(--cr-signal)" },
-  { label: "Cámaras y acceso", hint: "Videovigilancia y control de acceso", href: "/services/security", accent: "var(--cr-ok)" },
-  { label: "Electricista", hint: "Paneles, cargadores y reparaciones", href: "/services/electricity", accent: "var(--cr-amber)" },
-];
+  { href: "/services/fire-alarm", accent: "var(--cr-signal)" },
+  { href: "/services/security", accent: "var(--cr-ok)" },
+  { href: "/services/electricity", accent: "var(--cr-amber)" },
+].map((n, i) => ({ ...n, ...h.needs[i], href: href(n.href) }));
 
 const zones = [
-  { id: "Z01", name: "Rociadores", state: "Descarga", led: "cr-led--signal cr-blink" },
-  { id: "Z02", name: "Control de acceso", state: "Acceso OK", led: "" },
-  { id: "Z03", name: "CCTV servidores", state: "Grabando", led: "cr-led--signal cr-blink" },
-];
+  { id: "Z01", led: "cr-led--signal cr-blink" },
+  { id: "Z02", led: "" },
+  { id: "Z03", led: "cr-led--signal cr-blink" },
+].map((z, i) => ({ ...z, ...h.zones[i] }));
 ---
 
 <section class="hero relative overflow-hidden bg-[var(--cr-ink)] pt-[clamp(32px,6vw,84px)] pb-[clamp(40px,6vw,88px)] max-[640px]:pt-[clamp(40px,10vw,72px)] max-[640px]:pb-[clamp(88px,14vw,120px)]">
@@ -24,27 +28,26 @@ const zones = [
   <div class="cr-wrap hero__grid relative grid grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] max-[960px]:grid-cols-1 gap-[clamp(56px,6vw,96px)] items-center">
     <div class="hero__copy relative z-[1]">
       <p class="cr-label hero__kicker flex items-center gap-[14px] text-[var(--cr-signal)] mb-7" data-reveal>
-        <span class="cr-led cr-led--signal cr-blink"></span>Sistema armado — Electricidad · Incendio · Seguridad
+        <span class="cr-led cr-led--signal cr-blink"></span>{h.kicker}
       </p>
 
       <h1 class="hero__title text-[clamp(60px,8.6vw,140px)]">
-        <span class="line block" data-reveal style="--d:80ms">Protege</span>
-        <span class="line outline block text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]" data-reveal style="--d:160ms">lo que más</span>
-        <span class="line line--signal block text-[var(--cr-signal)]" data-reveal style="--d:240ms">importa<span class="dot text-[var(--cr-bone)] [-webkit-text-stroke:0]">.</span></span>
+        <span class="line block" data-reveal style="--d:80ms">{h.title[0]}</span>
+        <span class="line outline block text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]" data-reveal style="--d:160ms">{h.title[1]}</span>
+        <span class="line line--signal block text-[var(--cr-signal)]" data-reveal style="--d:240ms">{h.title[2]}<span class="dot text-[var(--cr-bone)] [-webkit-text-stroke:0]">.</span></span>
       </h1>
 
       <p class="hero__lede mt-8 max-w-[46ch] text-[clamp(17px,1.4vw,20px)] text-[var(--cr-bone-dim)]" data-reveal style="--d:340ms">
-        Diseñamos, instalamos y vigilamos alarmas contra incendio, videovigilancia inteligente y electricidad
-        certificada. Un solo equipo, del plano al monitoreo.
+        {h.lede}
       </p>
 
       <div class="hero__actions flex flex-wrap gap-[14px] mt-9 max-[640px]:flex-col max-[640px]:items-stretch" data-reveal style="--d:420ms">
-        <a href="/contact" class="cr-btn max-[640px]:justify-center">Cotización gratuita <span aria-hidden="true">→</span></a>
-        <a href={CONTACT.phoneHref} class="cr-btn cr-btn--ghost max-[640px]:justify-center">Llamar {CONTACT.phone}</a>
+        <a href={href("/contact")} class="cr-btn max-[640px]:justify-center">{h.ctaQuote} <span aria-hidden="true">→</span></a>
+        <a href={CONTACT.phoneHref} class="cr-btn cr-btn--ghost max-[640px]:justify-center">{fmt(h.ctaCall, { phone: CONTACT.phone })}</a>
       </div>
 
-      <nav class="mt-12 border-t border-[var(--cr-line-strong)] pt-5" aria-label="¿Qué necesitas?" data-reveal style="--d:500ms">
-        <p class="cr-label mb-3">¿Qué necesitas?</p>
+      <nav class="mt-12 border-t border-[var(--cr-line-strong)] pt-5" aria-label={h.needsTitle} data-reveal style="--d:500ms">
+        <p class="cr-label mb-3">{h.needsTitle}</p>
         <ul class="list-none m-0 p-0 grid grid-cols-3 gap-3 max-[640px]:grid-cols-1">
           {
             needs.map((n) => (
@@ -71,7 +74,7 @@ const zones = [
     <div class="twin relative z-[2] w-full max-w-[min(640px,74vh)] [aspect-ratio:620/760] mx-auto [perspective:1600px] [container-type:inline-size] max-[960px]:max-w-[460px] max-[640px]:[aspect-ratio:620/1000]" data-reveal style="--d:200ms">
       <div class="twin__glow absolute left-[5%] top-[10.5%] w-[90%] h-[73.7%] rounded-full bg-[radial-gradient(closest-side,color-mix(in_srgb,var(--cr-signal)_24%,transparent),transparent)] animate-[twin-glow_4s_ease-in-out_infinite]" aria-hidden="true"></div>
       <!-- Escena WebGL (Three.js); si no carga, queda el plano CSS de abajo -->
-      <div class="twin__3d absolute isolate -inset-x-[7%] -top-[4%] h-[94%] max-[640px]:top-[13%] max-[640px]:h-[60%] opacity-0 transition-opacity duration-700" aria-hidden="true"></div>
+      <div data-twin-labels={JSON.stringify(h.scene)} class="twin__3d absolute isolate -inset-x-[7%] -top-[4%] h-[94%] max-[640px]:top-[13%] max-[640px]:h-[60%] opacity-0 transition-opacity duration-700" aria-hidden="true"></div>
       <div class="twin__plan absolute left-[12%] top-[14.5%] w-[76%] [aspect-ratio:1] [transform-style:preserve-3d] [transform:rotateX(60deg)_rotateZ(-36deg)] animate-[twin-sway_18s_ease-in-out_infinite]" aria-hidden="true">
         <div class="twin__floor absolute inset-0 box-border border-2 border-[var(--cr-line-strong)] bg-[color-mix(in_srgb,var(--cr-ink-3)_90%,transparent)] bg-[image:linear-gradient(var(--cr-line)_1px,transparent_1px),linear-gradient(90deg,var(--cr-line)_1px,transparent_1px)] bg-[size:5%_5%]"></div>
         <div class="twin__sweep-wrap absolute inset-0 overflow-hidden">
@@ -94,10 +97,10 @@ const zones = [
         <div class="twin__marker twin__marker--cam absolute [aspect-ratio:1] [translate:-50%_-50%] w-[3.8%] bg-[var(--cr-ok)] shadow-[0_0_18px_var(--cr-ok)]" style="left:93.27%;top:2.88%"></div>
         <div class="twin__marker twin__marker--amber cr-blink absolute [aspect-ratio:1] [translate:-50%_-50%] w-[4.6%] bg-[var(--cr-amber)] shadow-[0_0_22px_var(--cr-amber)]" style="left:82.3%;top:82.3%"></div>
 
-        <p class="twin__label absolute m-0 [font-family:var(--cr-mono)] text-[13px] max-[640px]:text-[11px] tracking-[0.08em] text-[var(--cr-bone-dim)] whitespace-nowrap" style="left:3.46%;top:3.46%">Z01 · LOBBY</p>
-        <p class="twin__label absolute m-0 [font-family:var(--cr-mono)] text-[13px] max-[640px]:text-[11px] tracking-[0.08em] text-[var(--cr-bone-dim)] whitespace-nowrap" style="left:3.46%;top:46.15%">Z02 · BODEGA</p>
-        <p class="twin__label absolute m-0 [font-family:var(--cr-mono)] text-[13px] max-[640px]:text-[11px] tracking-[0.08em] text-[var(--cr-bone-dim)] whitespace-nowrap" style="left:61.15%;top:55.77%">Z03 · SERVIDORES</p>
-        <p class="twin__label twin__label--amber absolute m-0 [font-family:var(--cr-mono)] text-[13px] max-[640px]:text-[11px] tracking-[0.08em] text-[var(--cr-amber)] whitespace-nowrap" style="left:61.15%;top:92.3%">TABLERO 220V</p>
+        <p class="twin__label absolute m-0 [font-family:var(--cr-mono)] text-[13px] max-[640px]:text-[11px] tracking-[0.08em] text-[var(--cr-bone-dim)] whitespace-nowrap" style="left:3.46%;top:3.46%">{h.scene.lobby}</p>
+        <p class="twin__label absolute m-0 [font-family:var(--cr-mono)] text-[13px] max-[640px]:text-[11px] tracking-[0.08em] text-[var(--cr-bone-dim)] whitespace-nowrap" style="left:3.46%;top:46.15%">{h.scene.storage}</p>
+        <p class="twin__label absolute m-0 [font-family:var(--cr-mono)] text-[13px] max-[640px]:text-[11px] tracking-[0.08em] text-[var(--cr-bone-dim)] whitespace-nowrap" style="left:61.15%;top:55.77%">{h.scene.servers}</p>
+        <p class="twin__label twin__label--amber absolute m-0 [font-family:var(--cr-mono)] text-[13px] max-[640px]:text-[11px] tracking-[0.08em] text-[var(--cr-amber)] whitespace-nowrap" style="left:61.15%;top:92.3%">{h.scene.panel}</p>
       </div>
 
       <div class="cam-card absolute right-0 top-[3.2%] max-[640px]:top-0 w-[40%] max-[640px]:w-[56%] box-border py-[14px] px-4 max-[640px]:px-3 bg-[color-mix(in_srgb,var(--cr-ink-3)_92%,transparent)] border border-[var(--cr-line-strong)] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.8)] animate-[twin-drift_7s_ease-in-out_infinite]">
@@ -105,14 +108,14 @@ const zones = [
           <span>CAM-04 · Z03</span>
           <span class="cam-card__rec flex items-center gap-1.5 text-[var(--cr-signal)]"><span class="cr-led cr-led--signal cr-blink"></span>REC</span>
         </p>
-        <p class="cam-card__body mt-2.5 [font-family:var(--cr-display)] font-bold text-[clamp(18px,2vw,24px)] leading-[1.15] max-[640px]:text-[17px]">Sala de servidores<br /><span class="cam-card__ok text-[var(--cr-ok)]">Sin intrusión</span></p>
+        <p class="cam-card__body mt-2.5 [font-family:var(--cr-display)] font-bold text-[clamp(18px,2vw,24px)] leading-[1.15] max-[640px]:text-[17px]">{h.camRoom}<br /><span class="cam-card__ok text-[var(--cr-ok)]">{h.camOk}</span></p>
       </div>
 
       <div class="panel absolute left-0 bottom-[2.6%] w-[54%] max-[640px]:w-full max-[640px]:bottom-0 bg-[color-mix(in_srgb,var(--cr-ink-3)_94%,transparent)] backdrop-blur-[10px] border border-[var(--cr-line-strong)] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.8)] animate-[twin-drift_9s_ease-in-out_infinite] [animation-delay:-3s]">
-        <Image src={avatars.lean.src} alt={avatars.lean.alt} widths={[240, 360, 520]} sizes="(min-width: 960px) 280px, 50vw" class="panel__tech" loading="eager" />
+        <Image src={avatars.lean.src} alt={tr.avatars.lean} widths={[240, 360, 520]} sizes="(min-width: 960px) 280px, 50vw" class="panel__tech" loading="eager" />
         <div class="panel__head flex justify-between gap-2 whitespace-nowrap py-[10px] px-[14px] border-b border-[var(--cr-line)]">
-          <span class="cr-label max-[640px]:text-[11px]! max-[640px]:tracking-[0.08em]!">Panel de zonas</span>
-          <span class="cr-label panel__armed text-[var(--cr-signal)] max-[640px]:text-[11px]! max-[640px]:tracking-[0.08em]!">Alarma</span>
+          <span class="cr-label max-[640px]:text-[11px]! max-[640px]:tracking-[0.08em]!">{h.panelTitle}</span>
+          <span class="cr-label panel__armed text-[var(--cr-signal)] max-[640px]:text-[11px]! max-[640px]:tracking-[0.08em]!">{h.panelState}</span>
         </div>
         <ul class="list-none m-0 py-1">
           {
@@ -150,7 +153,8 @@ const zones = [
     const load = () =>
       import("./twin-scene")
         .then(({ mountTwin }) => {
-          mountTwin(stage, twin.closest<HTMLElement>(".cr") ?? document.documentElement);
+          const labels = JSON.parse(stage.dataset.twinLabels ?? "{}");
+          mountTwin(stage, twin.closest<HTMLElement>(".cr") ?? document.documentElement, labels);
           twin.classList.add("twin--3d");
         })
         .catch(() => {

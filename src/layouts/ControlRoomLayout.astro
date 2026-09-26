@@ -8,6 +8,7 @@ import JsonLd from "@/components/seo/JsonLd.astro";
 import { generateBreadcrumbSchema } from "@/utils/schemas";
 import { absoluteUrl } from "@/data/site";
 import type { AvatarKey } from "@/data/avatar";
+import { i18n } from "@/i18n";
 import "@/styles/fonts.css";
 import "@/styles/control-room.css";
 
@@ -27,7 +28,10 @@ interface Props {
   logo?: ImageMetadata;
   /** Técnico que se asoma en el cierre. */
   avatar?: AvatarKey;
-  /** Migas de pan (sin "Inicio", se añade solo). Genera su schema BreadcrumbList. */
+  /**
+   * Migas de pan (sin "Inicio", se añade solo). Rutas sin prefijo de idioma
+   * ("/about"): se localizan aquí. Genera su schema BreadcrumbList.
+   */
   breadcrumbs?: { name: string; path: string }[];
   /** Datos estructurados adicionales de la página. */
   schema?: object | object[];
@@ -36,14 +40,15 @@ interface Props {
 }
 
 const { title, description, image, noindex, accent, logo, avatar, breadcrumbs, schema, hideCta } = Astro.props;
+const { tr, href } = i18n(Astro);
 
 const schemas = [
   ...(schema ? (Array.isArray(schema) ? schema : [schema]) : []),
   ...(breadcrumbs?.length
     ? [
         generateBreadcrumbSchema([
-          { name: "Inicio", url: absoluteUrl("/") },
-          ...breadcrumbs.map((b) => ({ name: b.name, url: absoluteUrl(b.path) })),
+          { name: tr.breadcrumbs.home, url: absoluteUrl(href("/")) },
+          ...breadcrumbs.map((b) => ({ name: b.name, url: absoluteUrl(href(b.path)) })),
         ]),
       ]
     : []),

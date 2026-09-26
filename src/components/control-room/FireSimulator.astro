@@ -1,4 +1,8 @@
 ---
+import { fmt, useTranslations } from "@/i18n";
+
+const t = useTranslations(Astro).fireSim;
+
 interface Room {
   id: string;
   name: string;
@@ -11,15 +15,17 @@ interface Room {
 const PLAN_W = 600;
 const PLAN_H = 500;
 
-const rooms: Room[] = [
-  { id: "Z01", name: "Lobby", x: 0, y: 0, w: 216, h: 183 },
-  { id: "Z02", name: "Oficinas", x: 216, y: 0, w: 200, h: 183 },
-  { id: "Z03", name: "Servidores", x: 416, y: 0, w: 184, h: 183 },
-  { id: "Z04", name: "Pasillo", x: 0, y: 183, w: 600, h: 84 },
-  { id: "Z05", name: "Cocina", x: 0, y: 267, w: 184, h: 233 },
-  { id: "Z06", name: "Bodega", x: 184, y: 267, w: 232, h: 233 },
-  { id: "Z07", name: "Sala de juntas", x: 416, y: 267, w: 184, h: 233 },
-];
+const rooms: Room[] = (
+  [
+    { id: "Z01", x: 0, y: 0, w: 216, h: 183 },
+    { id: "Z02", x: 216, y: 0, w: 200, h: 183 },
+    { id: "Z03", x: 416, y: 0, w: 184, h: 183 },
+    { id: "Z04", x: 0, y: 183, w: 600, h: 84 },
+    { id: "Z05", x: 0, y: 267, w: 184, h: 233 },
+    { id: "Z06", x: 184, y: 267, w: 232, h: 233 },
+    { id: "Z07", x: 416, y: 267, w: 184, h: 233 },
+  ] as const
+).map((r) => ({ ...r, name: t.rooms[r.id] }));
 
 const pct = (n: number, base: number) => `${(n / base) * 100}%`;
 ---
@@ -27,36 +33,37 @@ const pct = (n: number, base: number) => `${(n / base) * 100}%`;
 <div
   class="fsim flex flex-col gap-[18px] p-[20px] bg-[color-mix(in_srgb,var(--cr-ink-2)_92%,transparent)] backdrop-blur-[10px] border border-[var(--cr-line-strong)] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.7)] [--fsim-suppress:#7ecbe2]"
   data-fsim
+  data-i18n={JSON.stringify(t.script)}
 >
   <div class="flex justify-between items-center gap-[16px]">
-    <span class="cr-label">Escenario</span>
-    <div class="grid grid-cols-2 border border-[var(--cr-line-strong)]" role="group" aria-label="Escenario de la simulación">
+    <span class="cr-label">{t.scenario}</span>
+    <div class="grid grid-cols-2 border border-[var(--cr-line-strong)]" role="group" aria-label={t.scenarioAria}>
       <button
         type="button"
         class="fsim__seg is-active appearance-none border-0 m-0 h-[40px] px-[14px] cursor-pointer bg-transparent text-[var(--cr-bone-dim)] [font-family:var(--cr-mono)] text-[13px] tracking-[0.1em] uppercase transition-[background-color,color] duration-200"
         data-fsim-mode="off"
-        aria-pressed="true">Sin sistema</button
+        aria-pressed="true">{t.modeOff}</button
       >
       <button
         type="button"
         class="fsim__seg appearance-none border-0 m-0 h-[40px] px-[14px] cursor-pointer bg-transparent text-[var(--cr-bone-dim)] [font-family:var(--cr-mono)] text-[13px] tracking-[0.1em] uppercase transition-[background-color,color] duration-200 border-l border-[var(--cr-line-strong)]"
         data-fsim-mode="on"
-        aria-pressed="false">Con GVolts</button
+        aria-pressed="false">{t.modeOn}</button
       >
     </div>
   </div>
 
   <dl class="grid grid-cols-3 border-t border-[var(--cr-line-strong)] m-0">
     <div class="pt-[14px] pr-[10px] pb-0 pl-0">
-      <dt class="cr-label">Tiempo</dt>
+      <dt class="cr-label">{t.time}</dt>
       <dd class="mt-[6px] [font-family:var(--cr-display)] font-extrabold text-[clamp(28px,3vw,36px)] leading-none tabular-nums max-[520px]:text-[24px]" data-fsim-clock>00:00</dd>
     </div>
     <div class="pt-[14px] pr-[10px] pb-0 pl-[10px] border-l border-[var(--cr-line)]">
-      <dt class="cr-label">Zonas en fuego</dt>
+      <dt class="cr-label">{t.burning}</dt>
       <dd class="mt-[6px] [font-family:var(--cr-display)] font-extrabold text-[clamp(28px,3vw,36px)] leading-none tabular-nums max-[520px]:text-[24px]"><span data-fsim-burning>0</span><span class="text-[var(--cr-bone-dim)] text-[0.5em]">/7</span></dd>
     </div>
     <div class="pt-[14px] pr-[10px] pb-0 pl-[10px] border-l border-[var(--cr-line)]">
-      <dt class="cr-label">Daño estimado</dt>
+      <dt class="cr-label">{t.damage}</dt>
       <dd class="mt-[6px] [font-family:var(--cr-display)] font-extrabold text-[clamp(28px,3vw,36px)] leading-none tabular-nums max-[520px]:text-[24px]"><span data-fsim-damage>0</span><span class="text-[var(--cr-bone-dim)] text-[0.5em]">%</span></dd>
     </div>
   </dl>
@@ -65,10 +72,10 @@ const pct = (n: number, base: number) => `${(n / base) * 100}%`;
 
   <div class="flex flex-col gap-[10px]">
     <div class="flex justify-between items-center [font-family:var(--cr-mono)] text-[12px] tracking-[0.1em] uppercase text-[var(--cr-bone-dim)]">
-      <span>Planta baja · Esc. 1:200</span>
+      <span>{t.plan}</span>
       <span class="inline-flex items-center gap-[8px]">
         <span class="cr-led cr-led--ok" data-fsim-led></span>
-        <span data-fsim-status>En espera</span>
+        <span data-fsim-status>{t.script.status.waiting}</span>
       </span>
     </div>
 
@@ -84,7 +91,7 @@ const pct = (n: number, base: number) => `${(n / base) * 100}%`;
               data-room-id={r.id}
               data-room-name={r.name}
               style={`left:${pct(r.x, PLAN_W)};top:${pct(r.y, PLAN_H)};width:${pct(r.w, PLAN_W)};height:${pct(r.h, PLAN_H)};`}
-              aria-label={`${r.name} — Encender conato aquí`}
+              aria-label={fmt(t.igniteAria, { room: r.name })}
             >
               <span class="flex justify-between items-start">
                 <span class="[font-family:var(--cr-mono)] text-[12px] tracking-[0.1em] opacity-80">{r.id}</span>
@@ -92,27 +99,27 @@ const pct = (n: number, base: number) => `${(n / base) * 100}%`;
               </span>
               <span class="flex flex-col gap-[4px]">
                 <span class="[font-family:var(--cr-display)] font-extrabold text-[20px] leading-none uppercase max-[520px]:text-[15px]">{r.name}</span>
-                <span class="[font-family:var(--cr-mono)] text-[11px] tracking-[0.1em]" data-room-label>NORMAL</span>
+                <span class="[font-family:var(--cr-mono)] text-[11px] tracking-[0.1em]" data-room-label>{t.script.states.normal}</span>
               </span>
             </button>
           ))
         }
       </div>
-      <p class="absolute left-1/2 bottom-[16px] -translate-x-1/2 m-0 py-[8px] px-[14px] bg-[var(--cr-bone)] text-[var(--cr-ink)] [font-family:var(--cr-mono)] text-[12px] tracking-[0.1em] uppercase whitespace-nowrap pointer-events-none" data-fsim-idle>Toca una sala para encender un conato</p>
+      <p class="absolute left-1/2 bottom-[16px] -translate-x-1/2 m-0 py-[8px] px-[14px] bg-[var(--cr-bone)] text-[var(--cr-ink)] [font-family:var(--cr-mono)] text-[12px] tracking-[0.1em] uppercase whitespace-nowrap pointer-events-none" data-fsim-idle>{t.idle}</p>
     </div>
 
     <ul class="m-0 p-0 list-none flex flex-wrap gap-[14px] [font-family:var(--cr-mono)] text-[12px] tracking-[0.08em] uppercase text-[var(--cr-bone-dim)]">
-      <li class="flex items-center gap-[6px]"><span class="w-[10px] h-[10px] inline-block bg-[rgba(237,232,224,0.24)]" data-swatch="smoke"></span>Humo</li>
-      <li class="flex items-center gap-[6px]"><span class="w-[10px] h-[10px] inline-block bg-[var(--cr-signal)]" data-swatch="fire"></span>Fuego</li>
-      <li class="flex items-center gap-[6px]"><span class="w-[10px] h-[10px] inline-block bg-[var(--cr-amber)]" data-swatch="detected"></span>Detectado</li>
-      <li class="flex items-center gap-[6px]"><span class="w-[10px] h-[10px] inline-block bg-[var(--fsim-suppress)]" data-swatch="suppress"></span>Supresión</li>
-      <li class="flex items-center gap-[6px]"><span class="w-[10px] h-[10px] inline-block bg-[var(--cr-ok)]" data-swatch="route"></span>Ruta segura</li>
+      <li class="flex items-center gap-[6px]"><span class="w-[10px] h-[10px] inline-block bg-[rgba(237,232,224,0.24)]" data-swatch="smoke"></span>{t.legend.smoke}</li>
+      <li class="flex items-center gap-[6px]"><span class="w-[10px] h-[10px] inline-block bg-[var(--cr-signal)]" data-swatch="fire"></span>{t.legend.fire}</li>
+      <li class="flex items-center gap-[6px]"><span class="w-[10px] h-[10px] inline-block bg-[var(--cr-amber)]" data-swatch="detected"></span>{t.legend.detected}</li>
+      <li class="flex items-center gap-[6px]"><span class="w-[10px] h-[10px] inline-block bg-[var(--fsim-suppress)]" data-swatch="suppress"></span>{t.legend.suppress}</li>
+      <li class="flex items-center gap-[6px]"><span class="w-[10px] h-[10px] inline-block bg-[var(--cr-ok)]" data-swatch="route"></span>{t.legend.route}</li>
     </ul>
   </div>
 
   <div class="flex justify-between items-center gap-[16px] pt-[14px] border-t border-[var(--cr-line)]">
-    <p class="m-0 text-[14px] leading-[1.45] text-[var(--cr-bone-dim)]" data-fsim-message>Elige un escenario y toca una sala del plano.</p>
-    <button type="button" class="cr-btn cr-btn--ghost shrink-0" data-fsim-reset>Reiniciar</button>
+    <p class="m-0 text-[14px] leading-[1.45] text-[var(--cr-bone-dim)]" data-fsim-message>{t.messageInit}</p>
+    <button type="button" class="cr-btn cr-btn--ghost shrink-0" data-fsim-reset>{t.reset}</button>
   </div>
 </div>
 
@@ -173,10 +180,16 @@ const pct = (n: number, base: number) => `${(n / base) * 100}%`;
 </style>
 
 <script>
+  import type { Dictionary } from "@/i18n";
+  import { fmt, readStrings } from "@/i18n/format";
+
   type RoomState = "normal" | "smoke" | "fire" | "detected" | "suppress" | "controlled" | "alarm" | "clear";
 
   const root = document.querySelector<HTMLElement>("[data-fsim]");
   if (!root) throw new Error("FireSimulator root not found");
+
+  // Textos traducidos (src/i18n → fireSim.script)
+  const S = readStrings<Dictionary["fireSim"]["script"]>(root);
 
   const plan = root.querySelector<HTMLElement>("[data-fsim-plan]");
   const idleMsg = root.querySelector<HTMLElement>("[data-fsim-idle]");
@@ -270,17 +283,7 @@ const pct = (n: number, base: number) => `${(n / base) * 100}%`;
 
       const label = btn.querySelector<HTMLElement>("[data-room-label]");
       const det = btn.querySelector<HTMLElement>("[data-room-det]");
-      const labels: Record<RoomState, string> = {
-        normal: "NORMAL",
-        smoke: "HUMO",
-        fire: "FUEGO",
-        detected: "DETECTADO",
-        suppress: "SUPRESIÓN",
-        controlled: "CONTROLADO",
-        alarm: "ALARMA",
-        clear: "EVACUADO",
-      };
-      if (label) label.textContent = labels[state];
+      if (label) label.textContent = S.states[state];
       if (det) det.style.background = state === "normal" ? "transparent" : "currentColor";
     });
 
@@ -292,17 +295,18 @@ const pct = (n: number, base: number) => `${(n / base) * 100}%`;
     const ignRoom = roomButtons.find((b) => b.dataset.roomId === ignited);
     const place = ignRoom?.dataset.roomName?.toLowerCase() ?? "";
 
-    let message = "Elige un escenario y toca una sala del plano. Cada paso equivale a 30 segundos reales.";
+    const M = S.msg;
+    let message = M.initial;
     if (ignited && !gvolts) {
-      if (t === 0) message = `Conato en ${place}. Nadie lo sabe todavía.`;
-      else if (t <= 2) message = "El humo avanza sin aviso. Sin detectores, el fuego gana minutos.";
-      else if (!done) message = corridorFire ? "Pasillo en llamas: las dos salidas quedan bloqueadas." : "El fuego se extiende sala por sala.";
-      else message = `Detección manual a los 3 minutos · ${damage}% del inmueble afectado.`;
+      if (t === 0) message = fmt(M.off0, { place });
+      else if (t <= 2) message = M.off1;
+      else if (!done) message = corridorFire ? M.offCorridor : M.offSpread;
+      else message = fmt(M.offDone, { damage });
     } else if (ignited && gvolts) {
-      if (t === 0) message = `Conato en ${place} · el sensor multi-criterio analiza humo, calor y CO.`;
-      else if (t === 1) message = "Detector confirma en menos de 30 s · central UL notificada · sirenas y estrobos activos.";
-      else if (t === 2) message = `Supresión automática en ${place} · evacuación por rutas seguras.`;
-      else message = `Incendio controlado en 1 zona · 0 personas en riesgo · daño ${damage}%.`;
+      if (t === 0) message = fmt(M.on0, { place });
+      else if (t === 1) message = M.on1;
+      else if (t === 2) message = fmt(M.on2, { place });
+      else message = fmt(M.onDone, { damage });
     }
 
     if (clockEl) clockEl.textContent = clock;
@@ -319,16 +323,16 @@ const pct = (n: number, base: number) => `${(n / base) * 100}%`;
     const alarmed = ignited && gvolts && t >= 1 && t <= 2;
     if (statusEl) {
       statusEl.textContent = !ignited
-        ? "En espera"
+        ? S.status.waiting
         : gvolts
           ? t >= 3
-            ? "Controlado"
+            ? S.status.controlled
             : t >= 1
-              ? `Alarma · ${ignited}`
-              : "Analizando"
+              ? fmt(S.status.alarm, { id: ignited })
+              : S.status.analyzing
           : done
-            ? "Sin monitoreo"
-            : "Sin detección";
+            ? S.status.unmonitored
+            : S.status.undetected;
     }
     if (ledEl) {
       ledEl.classList.toggle("cr-led--ok", !hot && !alarmed);

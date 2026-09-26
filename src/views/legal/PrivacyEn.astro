@@ -1,0 +1,153 @@
+---
+/** Privacy policy body in English. Section titles come from src/i18n → privacy.toc. */
+import LegalSection from "@/components/legal/LegalSection.astro";
+import { CONTACT } from "@/data/company";
+import { SITE } from "@/data/site";
+import { i18n, type Dictionary } from "@/i18n";
+
+interface Props {
+  toc: Dictionary["privacy"]["toc"];
+}
+
+const { toc } = Astro.props;
+const { href } = i18n(Astro);
+---
+
+<LegalSection id="responsable" title={toc["responsable"]}>
+  <p>
+    The controller of your personal data is <strong>{SITE.legalName}</strong> ("GVolts", "we", "us"), a company that
+    designs, installs and monitors fire alarm, electronic security and electrical systems.
+  </p>
+  <ul>
+    <li><strong>Address:</strong> {CONTACT.address.join(", ")}</li>
+    <li><strong>Email:</strong> <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a></li>
+    <li><strong>Phone:</strong> <a href={CONTACT.phoneHref}>{CONTACT.phone}</a></li>
+  </ul>
+  <p>For any privacy question you can write to us at the email address above.</p>
+</LegalSection>
+
+<LegalSection id="datos" title={toc["datos"]}>
+  <p>We only collect the data we need to help you. Depending on how you interact with us:</p>
+  <h3>Contact and quote form</h3>
+  <ul>
+    <li>Full name, phone number, email address and ZIP code.</li>
+    <li>The service you're interested in and the description of your project.</li>
+  </ul>
+  <h3>Newsletter subscription</h3>
+  <ul>
+    <li>Your email address, if you choose to subscribe to receive promotions or news.</li>
+  </ul>
+  <h3>Live chat</h3>
+  <ul>
+    <li>The messages you send us and, if you provide them, your name and contact details. Only enabled if you accept functional cookies.</li>
+  </ul>
+  <h3>Browsing data</h3>
+  <ul>
+    <li>
+      Aggregate usage statistics (pages viewed, device type, approximate country) through a self-hosted analytics
+      tool that doesn't use tracking cookies or allow us to identify you. Only enabled if you accept it.
+    </li>
+    <li>Technical data your browser sends automatically (IP address, date and time) in the server logs, for security purposes.</li>
+  </ul>
+  <p>We don't collect special categories of data (health, ethnic origin, political opinions, etc.) or payment details through this site.</p>
+</LegalSection>
+
+<LegalSection id="finalidades" title={toc["finalidades"]}>
+  <ul>
+    <li>To answer your inquiries, schedule site visits and prepare quotes.</li>
+    <li>To provide the services you've hired: installation, maintenance, inspections and monitoring.</li>
+    <li>To send you marketing communications only if you've subscribed; you can unsubscribe at any time.</li>
+    <li>To improve the website based on aggregate, anonymous statistics.</li>
+    <li>To protect the site against fraudulent or abusive use and to meet our legal obligations.</li>
+  </ul>
+  <p><strong>We don't sell or rent your personal data</strong>, and we don't use it for automated decision-making or profiling with legal effects on you.</p>
+</LegalSection>
+
+<LegalSection id="base-legal" title={toc["base-legal"]}>
+  <ul>
+    <li><strong>Your consent:</strong> when you submit the form, subscribe or accept optional cookies. You can withdraw it whenever you like.</li>
+    <li><strong>Pre-contractual steps and performance of a contract:</strong> to prepare your quote and provide the service.</li>
+    <li><strong>Legitimate interest:</strong> to keep the site secure and improve our services, always balanced against your rights.</li>
+    <li><strong>Legal obligation:</strong> to comply with tax, accounting and fire safety regulations.</li>
+  </ul>
+</LegalSection>
+
+<LegalSection id="conservacion" title={toc["conservacion"]}>
+  <ul>
+    <li><strong>Contact requests that don't become clients:</strong> up to 24 months from the last contact.</li>
+    <li><strong>Clients:</strong> for the duration of the contractual relationship and, afterwards, for as long as applicable laws require (usually between 5 and 7 years for tax and warranty obligations).</li>
+    <li><strong>Newsletter subscription:</strong> until you unsubscribe.</li>
+    <li><strong>Chat conversations:</strong> up to 12 months.</li>
+    <li><strong>Server technical logs:</strong> a maximum of 90 days.</li>
+  </ul>
+  <p>Once these periods expire, we securely delete or anonymize the data.</p>
+</LegalSection>
+
+<LegalSection id="destinatarios" title={toc["destinatarios"]}>
+  <p>We only share data with providers that help us deliver the service and that are contractually bound to protect it and use it solely on our instructions:</p>
+  <ul>
+    <li><strong>Web hosting and database:</strong> the servers where this site runs and where requests are stored.</li>
+    <li><strong>Email delivery:</strong> Resend, for notifications and welcome emails.</li>
+    <li><strong>Live chat:</strong> Chatwoot, only if you enable functional cookies.</li>
+    <li><strong>Monitoring centers and manufacturers:</strong> when you sign up for a monitoring or warranty service that requires it.</li>
+  </ul>
+  <p>We may also disclose data to public authorities, fire departments or law enforcement when required by law or necessary to respond to an emergency.</p>
+</LegalSection>
+
+<LegalSection id="transferencias" title={toc["transferencias"]}>
+  <p>
+    Some of our providers may process data outside your country of residence. When that happens, we require
+    appropriate safeguards, such as standard contractual clauses or equivalent certifications, so your data keeps
+    the same level of protection.
+  </p>
+</LegalSection>
+
+<LegalSection id="derechos" title={toc["derechos"]}>
+  <p>Depending on the regulations that apply to you, you can exercise the following rights at any time:</p>
+  <ul>
+    <li><strong>Access:</strong> know what data about you we process.</li>
+    <li><strong>Rectification:</strong> correct inaccurate or incomplete data.</li>
+    <li><strong>Erasure:</strong> ask us to delete your data.</li>
+    <li><strong>Objection and restriction:</strong> object to certain processing or ask us to restrict it.</li>
+    <li><strong>Portability:</strong> receive your data in a structured, commonly used format.</li>
+    <li><strong>Withdraw consent:</strong> without affecting the lawfulness of prior processing.</li>
+    <li><strong>Non-discrimination:</strong> you won't be treated differently for exercising your rights.</li>
+  </ul>
+  <p>
+    To exercise them, email us at <a href={`mailto:${CONTACT.email}?subject=Privacy%20rights`}>{CONTACT.email}</a>
+    stating your request. We may ask for additional information to verify your identity. We'll respond within 30
+    days at most (45 days where the law allows it due to the complexity of the request).
+  </p>
+  <p>If you believe we haven't handled your request properly, you can file a complaint with the competent data protection or consumer protection authority.</p>
+</LegalSection>
+
+<LegalSection id="seguridad" title={toc["seguridad"]}>
+  <p>
+    We apply technical and organizational measures proportionate to the risk: encrypted communications (HTTPS),
+    restricted access to the admin panel, strong passwords, backups and staff training. No system is infallible,
+    but if we detect a breach affecting your data we'll notify you and the authorities within the timeframes
+    required by law.
+  </p>
+</LegalSection>
+
+<LegalSection id="clientes" title={toc["clientes"]}>
+  <p>
+    When we install or monitor cameras, access control or alarm systems, the images and logs those systems
+    generate belong to our client. In those cases GVolts acts as a <strong>data processor</strong>: we only access
+    them to provide the contracted service (support, maintenance or alarm verification), following the client's
+    instructions and the signed contract. The client is responsible for informing the people being recorded and
+    for complying with applicable video surveillance regulations.
+  </p>
+</LegalSection>
+
+<LegalSection id="menores" title={toc["menores"]}>
+  <p>This site is intended for adults. We don't knowingly collect data from children under 16. If you believe a minor has provided us with data, contact us and we'll delete it.</p>
+</LegalSection>
+
+<LegalSection id="cambios" title={toc["cambios"]}>
+  <p>
+    We may update this policy to reflect legal changes or changes to our services. We'll publish the current
+    version on this page with its update date and, if the change is significant, we'll let you know through an
+    appropriate channel. See also our <a href={href("/cookies")}>Cookie policy</a>.
+  </p>
+</LegalSection>

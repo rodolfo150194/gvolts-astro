@@ -1,4 +1,8 @@
 ---
+import { useTranslations } from "@/i18n";
+
+const t = useTranslations(Astro).camera;
+
 interface Mode {
   id: "day" | "night" | "ai";
   label: string;
@@ -6,33 +10,14 @@ interface Mode {
   note: string;
 }
 
-const modes: Mode[] = [
-  {
-    id: "day",
-    label: "Día",
-    tag: "MODO DÍA · WDR 120dB",
-    note: "Imagen 4K con WDR para contraluces fuertes: detalle en sombras y en luces al mismo tiempo.",
-  },
-  {
-    id: "night",
-    label: "Nocturno IR",
-    tag: "IR ACTIVO · 30 m",
-    note: "Iluminación infrarroja invisible: imagen nítida hasta 30 metros en oscuridad total.",
-  },
-  {
-    id: "ai",
-    label: "Analítica IA",
-    tag: "IA · 3 ZONAS ACTIVAS",
-    note: "Zonas y líneas virtuales: la IA solo te alerta cuando algo cruza el perímetro.",
-  },
-];
+const modes: Mode[] = (["day", "night", "ai"] as const).map((id) => ({ id, ...t.modes[id] }));
 ---
 
 <div class="flex flex-col gap-4" data-camera-viewer>
   <div class="group relative aspect-[620/480] overflow-hidden bg-black border border-[var(--cr-line-strong)] is-ai" data-cv-frame>
     <img
       src="/img/gvolts/camara-casa.jpg"
-      alt="Vista de cámara de seguridad sobre la fachada de una casa al anochecer"
+      alt={t.imageAlt}
       class="absolute inset-0 w-full h-full object-cover saturate-[.9] contrast-[1.05] transition-[filter] duration-500 group-[.is-night]:grayscale-100 group-[.is-night]:sepia group-[.is-night]:hue-rotate-[70deg] group-[.is-night]:saturate-[2.4] group-[.is-night]:brightness-110 group-[.is-night]:contrast-[1.25] group-[.is-ai]:grayscale-[.85] group-[.is-ai]:brightness-[.72] group-[.is-ai]:contrast-[1.15]"
       data-cv-img
       loading="eager"
@@ -46,16 +31,16 @@ const modes: Mode[] = [
 
     <div class="absolute inset-0 opacity-0 transition-opacity duration-300 group-[.is-ai]:opacity-100" data-cv-ai aria-hidden="true">
       <div class="absolute box-border border-2 border-solid animate-[cv-lock_1.8s_ease-out_infinite] motion-reduce:animate-none!" style="left:13.9%;top:67.1%;width:20%;height:21.7%;border-color:var(--cr-signal)">
-        <span class="absolute -left-[2px] -top-[24px] py-[3px] px-2 text-[var(--cr-ink)] [font-family:var(--cr-mono)] text-[12px] font-bold whitespace-nowrap" style="background:var(--cr-signal)">ZONA 01 · GARAJE</span>
+        <span class="absolute -left-[2px] -top-[24px] py-[3px] px-2 text-[var(--cr-ink)] [font-family:var(--cr-mono)] text-[12px] font-bold whitespace-nowrap" style="background:var(--cr-signal)">{t.zones.garage}</span>
       </div>
       <div class="absolute box-border border-2 border-solid animate-[cv-lock_1.8s_ease-out_infinite] motion-reduce:animate-none!" style="left:42.9%;top:62.5%;width:9.4%;height:28.75%;border-color:var(--cr-amber)">
-        <span class="absolute -left-[2px] -top-[24px] py-[3px] px-2 text-[var(--cr-ink)] [font-family:var(--cr-mono)] text-[12px] font-bold whitespace-nowrap" style="background:var(--cr-amber)">ACCESO PRINCIPAL</span>
+        <span class="absolute -left-[2px] -top-[24px] py-[3px] px-2 text-[var(--cr-ink)] [font-family:var(--cr-mono)] text-[12px] font-bold whitespace-nowrap" style="background:var(--cr-amber)">{t.zones.main}</span>
       </div>
       <div class="absolute box-border border border-dashed border-[rgba(237,232,224,0.7)]" style="left:23.5%;top:20.8%;width:33.9%;height:28.75%">
-        <span class="absolute left-[6px] bottom-[6px] [font-family:var(--cr-mono)] text-[11px] tracking-[0.08em] text-[var(--cr-bone)]">VENTANAS · SIN MOVIMIENTO</span>
+        <span class="absolute left-[6px] bottom-[6px] [font-family:var(--cr-mono)] text-[11px] tracking-[0.08em] text-[var(--cr-bone)]">{t.zones.windows}</span>
       </div>
       <div class="absolute left-0 top-[94.2%] w-[74.2%] border-t-2 border-dashed border-[#e0605a]"></div>
-      <span class="absolute left-[1.9%] top-[89.6%] [font-family:var(--cr-mono)] text-[11px] tracking-[0.1em] text-[#e0605a]">LÍNEA VIRTUAL · PERÍMETRO</span>
+      <span class="absolute left-[1.9%] top-[89.6%] [font-family:var(--cr-mono)] text-[11px] tracking-[0.1em] text-[#e0605a]">{t.zones.line}</span>
     </div>
 
     <div
@@ -74,7 +59,7 @@ const modes: Mode[] = [
     </div>
   </div>
 
-  <div class="grid grid-cols-3 gap-2 max-[480px]:grid-cols-2 max-[480px]:gap-1.5" role="group" aria-label="Modo de cámara">
+  <div class="grid grid-cols-3 gap-2 max-[480px]:grid-cols-2 max-[480px]:gap-1.5" role="group" aria-label={t.modeAria}>
     {
       modes.map((m) => (
         <button

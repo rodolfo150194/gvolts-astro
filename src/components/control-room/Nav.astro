@@ -4,15 +4,29 @@ import { ChevronDown, Phone } from "@lucide/astro";
 import Logo from "@/components/ui/Logo.astro";
 import SocialLinks from "@/components/ui/SocialLinks.astro";
 import { CONTACT } from "@/data/company";
-import { NAV_COMPANY as links, NAV_SERVICES as services } from "@/data/site";
+import { NAV_COMPANY, NAV_SERVICES, navLinks } from "@/data/site";
+import { LOCALES, LOCALE_META, fmt, i18n, switchLocalePath } from "@/i18n";
 
 interface Props {
   logo?: ImageMetadata;
 }
 
 const { logo } = Astro.props;
+const { locale, tr, href } = i18n(Astro);
+const services = navLinks(NAV_SERVICES, locale);
+const links = navLinks(NAV_COMPANY, locale);
 const path = Astro.url.pathname.replace(/(.)\/$/, "$1");
 const current = (href: string) => (path === href ? "page" : undefined);
+
+// Selector de idioma: la misma página en cada idioma
+const languages = LOCALES.map((l) => ({
+  locale: l,
+  label: LOCALE_META[l].label,
+  name: LOCALE_META[l].name,
+  lang: LOCALE_META[l].htmlLang,
+  href: switchLocalePath(path, l),
+  active: l === locale,
+}));
 
 ---
 
@@ -26,17 +40,17 @@ const current = (href: string) => (path === href ? "page" : undefined);
     </div>
   </div>
 
-  <nav class="cr-wrap flex items-center justify-between gap-[24px] h-[72px] max-[640px]:gap-[16px] max-[400px]:h-[60px]" aria-label="Principal">
+  <nav class="cr-wrap flex items-center justify-between gap-[24px] h-[72px] max-[640px]:gap-[16px] max-[400px]:h-[60px]" aria-label={tr.nav.primary}>
     <Logo image={logo} imageClass="h-[44px] w-auto max-[400px]:h-[36px]" class="text-[30px] max-[640px]:text-[24px] max-[400px]:text-[19px]" hideCorpOnTiny />
 
-    <ul class="flex gap-[36px] list-none m-0 p-0 [font-family:var(--cr-mono)] text-[14px] tracking-[0.1em] uppercase max-[860px]:hidden">
+    <ul class="flex gap-[36px] max-[1100px]:gap-[22px] list-none m-0 p-0 [font-family:var(--cr-mono)] text-[14px] tracking-[0.1em] uppercase max-[860px]:hidden">
       <li class="relative group flex items-center">
         <button
           type="button"
           aria-haspopup="true"
           class="flex items-center gap-[6px] relative py-[6px] m-0 bg-transparent border-0 appearance-none cursor-pointer [font-family:var(--cr-mono)] text-[14px] leading-none tracking-[0.1em] uppercase text-[var(--cr-bone)] after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-px after:w-full after:bg-[var(--cr-signal)] after:origin-right after:scale-x-0 after:transition-transform after:duration-[350ms] after:ease-[cubic-bezier(0.2,0.7,0.1,1)] group-hover:after:origin-left group-hover:after:scale-x-100"
         >
-          Servicios
+          {tr.nav.services}
           <ChevronDown size={14} class="transition-transform duration-300 group-hover:rotate-180" />
         </button>
         <ul
@@ -55,11 +69,22 @@ const current = (href: string) => (path === href ? "page" : undefined);
     </ul>
 
     <div class="flex items-center gap-[12px] max-[860px]:hidden">
-      <a href={CONTACT.phoneHref} class="cr-btn cr-btn--ghost !min-h-[44px] !px-[16px] gap-[8px]"><Phone size={15} aria-hidden="true" />{CONTACT.phone}</a>
-      <a href="/contact" class="cr-btn !min-h-[44px] !px-[20px]">Cotizar gratis</a>
+      <ul class="lang-switch flex items-stretch h-[44px] list-none m-0 p-0 border border-[var(--cr-line-strong)] [font-family:var(--cr-mono)] text-[12px] font-semibold tracking-[0.14em] uppercase" aria-label={tr.lang.label}>
+        {languages.map((l) => (
+          <li class="flex">
+            {l.active ? (
+              <span class="lang-switch__item is-active" aria-current="true" title={l.name}>{l.label}</span>
+            ) : (
+              <a href={l.href} hreflang={l.lang} lang={l.lang} class="lang-switch__item" title={l.name} aria-label={fmt(tr.lang.switchTo, { language: l.name })} data-lang-switch>{l.label}</a>
+            )}
+          </li>
+        ))}
+      </ul>
+      <a href={CONTACT.phoneHref} class="cr-btn cr-btn--ghost !min-h-[44px] !px-[16px] gap-[8px] whitespace-nowrap max-[1239px]:!hidden"><Phone size={15} aria-hidden="true" />{CONTACT.phone}</a>
+      <a href={href("/contact")} class="cr-btn !min-h-[44px] !px-[20px] whitespace-nowrap">{tr.nav.quote}</a>
     </div>
 
-    <a href={CONTACT.phoneHref} class="hidden ml-auto items-center justify-center w-[44px] h-[44px] border border-[var(--cr-line-strong)] text-[var(--cr-signal)] max-[860px]:flex" aria-label={`Llamar al ${CONTACT.phone}`}>
+    <a href={CONTACT.phoneHref} class="hidden ml-auto items-center justify-center w-[44px] h-[44px] border border-[var(--cr-line-strong)] text-[var(--cr-signal)] max-[860px]:flex" aria-label={fmt(tr.nav.callAria, { phone: CONTACT.phone })}>
       <Phone size={18} />
     </a>
 
@@ -69,7 +94,9 @@ const current = (href: string) => (path === href ? "page" : undefined);
       data-nav-toggle
       aria-expanded="false"
       aria-controls="nav-mobile"
-      aria-label="Abrir menú"
+      aria-label={tr.nav.openMenu}
+      data-label-open={tr.nav.openMenu}
+      data-label-close={tr.nav.closeMenu}
     >
       <span class="block w-[20px] h-[2px] mx-auto bg-[var(--cr-bone)]"></span>
       <span class="block w-[20px] h-[2px] mx-auto bg-[var(--cr-bone)]"></span>
@@ -81,7 +108,7 @@ const current = (href: string) => (path === href ? "page" : undefined);
     <li class="border-b border-[var(--cr-line)]">
       <details class="group">
         <summary class="flex items-center justify-between py-[14px] cursor-pointer list-none [&::-webkit-details-marker]:hidden">
-          Servicios
+          {tr.nav.services}
           <ChevronDown size={16} class="transition-transform duration-300 group-open:rotate-180" />
         </summary>
         <ul class="list-none m-0 pb-[10px] pl-[16px] normal-case tracking-normal">
@@ -92,10 +119,25 @@ const current = (href: string) => (path === href ? "page" : undefined);
       </details>
     </li>
     {links.map((l) => <li class="border-b border-[var(--cr-line)]"><a href={l.href} aria-current={current(l.href)} class="block py-[14px] aria-[current=page]:text-[var(--cr-signal)]">{l.label}</a></li>)}
-    <li class="border-b border-[var(--cr-line)]"><a href="/contact" class="cr-btn !block !px-0 !py-[14px] !min-h-[44px] my-[12px]">Cotizar gratis</a></li>
+    <li class="border-b border-[var(--cr-line)]"><a href={href("/contact")} class="cr-btn !block !px-0 !py-[14px] !min-h-[44px] my-[12px]">{tr.nav.quote}</a></li>
+
+    <li class="flex items-center justify-between gap-[16px] py-[14px] border-b border-[var(--cr-line)]">
+      <span class="cr-label">{tr.lang.label}</span>
+      <ul class="lang-switch flex items-stretch h-[44px] list-none m-0 p-0 border border-[var(--cr-line-strong)] text-[13px] font-semibold tracking-[0.14em]" aria-label={tr.lang.label}>
+        {languages.map((l) => (
+          <li class="flex">
+            {l.active ? (
+              <span class="lang-switch__item is-active" aria-current="true">{l.label}<span class="sr-only"> · {l.name}</span></span>
+            ) : (
+              <a href={l.href} hreflang={l.lang} lang={l.lang} class="lang-switch__item" aria-label={fmt(tr.lang.switchTo, { language: l.name })} data-lang-switch>{l.label}</a>
+            )}
+          </li>
+        ))}
+      </ul>
+    </li>
 
     <li class="pt-[16px] normal-case tracking-normal">
-      <p class="cr-label mb-[10px]">Contacto</p>
+      <p class="cr-label mb-[10px]">{tr.nav.contact}</p>
       <a href={CONTACT.phoneHref} class="block py-[4px] text-[var(--cr-bone-dim)] hover:text-[var(--cr-signal)]">{CONTACT.phone}</a>
       <a href={`mailto:${CONTACT.email}`} class="block py-[4px] text-[var(--cr-bone-dim)] hover:text-[var(--cr-signal)]">{CONTACT.email}</a>
       <p class="py-[4px] text-[var(--cr-bone-dim)]">{CONTACT.address.join(", ")}</p>
@@ -108,14 +150,31 @@ const current = (href: string) => (path === href ? "page" : undefined);
 <!-- Barra fija en móvil: las dos acciones que busca quien llega desde el teléfono -->
 <div class="cr-actionbar fixed inset-x-0 bottom-0 z-[80] hidden grid-cols-2 border-t border-[var(--cr-line-strong)] [background:var(--cr-ink)] max-[860px]:grid pb-[env(safe-area-inset-bottom)]">
   <a href={CONTACT.phoneHref} class="flex items-center justify-center gap-[10px] h-[56px] [font-family:var(--cr-mono)] text-[14px] font-semibold tracking-[0.1em] uppercase text-[var(--cr-bone)] border-r border-[var(--cr-line-strong)]">
-    <Phone size={16} aria-hidden="true" />Llamar
+    <Phone size={16} aria-hidden="true" />{tr.nav.call}
   </a>
-  <a href="/contact" class="flex items-center justify-center gap-[10px] h-[56px] [font-family:var(--cr-mono)] text-[14px] font-semibold tracking-[0.1em] uppercase bg-[var(--cr-signal)] text-[var(--cr-ink)]">
-    Cotizar gratis <span aria-hidden="true">→</span>
+  <a href={href("/contact")} class="flex items-center justify-center gap-[10px] h-[56px] [font-family:var(--cr-mono)] text-[14px] font-semibold tracking-[0.1em] uppercase bg-[var(--cr-signal)] text-[var(--cr-ink)]">
+    {tr.nav.quote} <span aria-hidden="true">→</span>
   </a>
 </div>
 
+<style>
+  .lang-switch__item {
+    display: grid; place-items: center; min-width: 44px; padding: 0 12px;
+    color: var(--cr-bone-dim); transition: background-color 0.2s, color 0.2s;
+  }
+  .lang-switch li + li .lang-switch__item { border-left: 1px solid var(--cr-line-strong); }
+  a.lang-switch__item:hover, a.lang-switch__item:focus-visible { color: var(--cr-bone); background: var(--cr-ink-3); }
+  .lang-switch__item.is-active { background: var(--cr-signal); color: var(--cr-ink); }
+</style>
+
 <script>
+  // Al cambiar de idioma se conserva el ancla (#seccion) de la página actual
+  document.querySelectorAll<HTMLAnchorElement>("[data-lang-switch]").forEach((link) => {
+    link.addEventListener("click", () => {
+      if (window.location.hash) link.hash = window.location.hash;
+    });
+  });
+
   const siteNav = document.querySelector<HTMLElement>("[data-site-nav]");
   const navSpacer = document.querySelector<HTMLElement>("[data-site-nav-spacer]");
   const syncNavSpacer = () => {
@@ -134,7 +193,7 @@ const current = (href: string) => (path === href ? "page" : undefined);
     toggle.addEventListener("click", () => {
       const isOpen = toggle.getAttribute("aria-expanded") === "true";
       toggle.setAttribute("aria-expanded", String(!isOpen));
-      toggle.setAttribute("aria-label", isOpen ? "Abrir menú" : "Cerrar menú");
+      toggle.setAttribute("aria-label", (isOpen ? toggle.dataset.labelOpen : toggle.dataset.labelClose) ?? "");
       mobile.hidden = isOpen;
       syncNavSpacer();
     });
@@ -142,7 +201,7 @@ const current = (href: string) => (path === href ? "page" : undefined);
     mobile.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", () => {
         toggle.setAttribute("aria-expanded", "false");
-        toggle.setAttribute("aria-label", "Abrir menú");
+        toggle.setAttribute("aria-label", toggle.dataset.labelOpen ?? "");
         mobile.hidden = true;
         syncNavSpacer();
       });
@@ -151,7 +210,7 @@ const current = (href: string) => (path === href ? "page" : undefined);
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && toggle.getAttribute("aria-expanded") === "true") {
         toggle.setAttribute("aria-expanded", "false");
-        toggle.setAttribute("aria-label", "Abrir menú");
+        toggle.setAttribute("aria-label", toggle.dataset.labelOpen ?? "");
         mobile.hidden = true;
         syncNavSpacer();
         toggle.focus();

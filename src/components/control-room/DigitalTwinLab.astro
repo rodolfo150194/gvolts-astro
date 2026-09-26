@@ -1,4 +1,6 @@
 ---
+import { useTranslations } from "@/i18n";
+
 /*
  * Gemelo digital · laboratorio de simulaciones.
  * One shared isometric floor plan (CSS 3D) whose overlays change per tab.
@@ -11,6 +13,7 @@ interface Props {
 }
 
 const { enhance3d = false } = Astro.props;
+const t = useTranslations(Astro).lab;
 
 interface Tab {
   id: "fire" | "intruder" | "access" | "power";
@@ -20,16 +23,16 @@ interface Tab {
 }
 
 const tabs: Tab[] = [
-  { id: "fire", n: "01", label: "Incendio controlado", accent: "var(--cr-signal)" },
-  { id: "intruder", n: "02", label: "Detección de intruso", accent: "var(--cr-ok)" },
-  { id: "access", n: "03", label: "Acceso por huella", accent: "var(--lab-blue)" },
-  { id: "power", n: "04", label: "Control eléctrico", accent: "var(--cr-amber)" },
+  { id: "fire", n: "01", label: t.tabs.fire, accent: "var(--cr-signal)" },
+  { id: "intruder", n: "02", label: t.tabs.intruder, accent: "var(--cr-ok)" },
+  { id: "access", n: "03", label: t.tabs.access, accent: "var(--lab-blue)" },
+  { id: "power", n: "04", label: t.tabs.power, accent: "var(--cr-amber)" },
 ];
 
 const circuits = [
-  { id: "c1", name: "C1 · Luces" },
-  { id: "c2", name: "C2 · Servidores" },
-  { id: "c3", name: "C3 · Clima" },
+  { id: "c1", name: t.circuits.c1 },
+  { id: "c2", name: t.circuits.c2 },
+  { id: "c3", name: t.circuits.c3 },
 ];
 ---
 
@@ -40,25 +43,26 @@ const circuits = [
   data-lab
   data-twin3d={enhance3d ? "" : undefined}
   data-scenario="fire"
+  data-i18n={JSON.stringify(t.script)}
+  data-twin3d-labels={enhance3d ? JSON.stringify(t.scene3d) : undefined}
 >
   <div class="absolute inset-0 opacity-50 bg-[linear-gradient(var(--cr-line)_1px,transparent_1px),linear-gradient(90deg,var(--cr-line)_1px,transparent_1px)] bg-[size:88px_88px] [mask-image:radial-gradient(ellipse_at_70%_60%,#000_10%,transparent_70%)]" aria-hidden="true"></div>
 
   <div class="cr-wrap relative">
     <header class="flex justify-between items-end gap-12 mb-[clamp(36px,5vw,56px)] max-[960px]:flex-col max-[960px]:items-start max-[960px]:gap-6">
       <div>
-        <p class="cr-label inline-flex items-center gap-3 text-[var(--cr-ok)]" data-reveal><span class="cr-led cr-blink"></span>Gemelo digital · Simulación en vivo</p>
-        <h2 id="lab-title" class="mt-[18px] text-[clamp(44px,6.4vw,104px)]" data-reveal style="--d:80ms">Mira tu inmueble<br /><span class="outline text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">reaccionar solo.</span></h2>
+        <p class="cr-label inline-flex items-center gap-3 text-[var(--cr-ok)]" data-reveal><span class="cr-led cr-blink"></span>{t.kicker}</p>
+        <h2 id="lab-title" class="mt-[18px] text-[clamp(44px,6.4vw,104px)]" data-reveal style="--d:80ms">{t.title1}<br /><span class="outline text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">{t.title2}</span></h2>
       </div>
       <p class="max-w-[420px] text-[18px] leading-[1.65] text-[var(--cr-bone-dim)] max-[640px]:text-[16px]" data-reveal style="--d:160ms">
-        Cuatro escenarios reales sobre el mismo plano. Detección, alerta y respuesta automática, tal como los ve
-        nuestra central de monitoreo.
+        {t.lede}
       </p>
     </header>
 
     <div
       class="grid grid-cols-4 gap-px bg-[var(--cr-line-strong)] border border-[var(--cr-line-strong)] max-[760px]:grid-cols-2"
       role="tablist"
-      aria-label="Escenarios del gemelo digital"
+      aria-label={t.tablistAria}
       data-reveal
       style="--d:200ms"
     >
@@ -92,12 +96,12 @@ const circuits = [
       data-reveal
       style="--d:260ms"
     >
-      <p class="sr-only" data-lab-desc>Simulación: un detector de humo identifica un conato en la sala de servidores, activa la alarma y los rociadores hasta controlar el fuego.</p>
+      <p class="sr-only" data-lab-desc>{t.script.fire.desc}</p>
 
       <!-- Stage: the shared 3D plan -->
       <div class="lab__stage-box relative flex flex-col border border-[var(--cr-line-strong)] bg-[color-mix(in_srgb,var(--cr-ink-2)_70%,transparent)] min-w-0">
         <div class="flex justify-between items-center gap-3 px-[16px] py-[12px] border-b border-[var(--cr-line)] [font-family:var(--cr-mono)] text-[10.5px] tracking-[0.12em] uppercase text-[var(--cr-bone-dim)] max-[480px]:px-[12px] max-[480px]:text-[9.5px] max-[480px]:tracking-[0.08em]">
-          <span class="truncate">Planta 01 · Gemelo digital</span>
+          <span class="truncate">{t.planTitle}</span>
           <span class="inline-flex items-center gap-[8px] shrink-0"><span class="cr-led" data-lab-led></span><span data-lab-code>SIM-01</span></span>
         </div>
 
@@ -194,7 +198,7 @@ const circuits = [
                     <circle class="lab__ring" cx="283" cy="158" r="12" fill="none" stroke="currentColor" stroke-width="2.5"></circle>
                   </g>
                   <rect data-reader x="275" y="150" width="16" height="16" fill="var(--lab-blue)"></rect>
-                  <text x="150" y="214" class="lab__svgtext">LECTOR L-02</text>
+                  <text x="150" y="214" class="lab__svgtext">{t.plan.reader}</text>
                   <g data-person-a transform="translate(60 180)" opacity="0">
                     <circle r="8" fill="var(--cr-bone)"></circle>
                   </g>
@@ -235,11 +239,11 @@ const circuits = [
               <div class="absolute bg-[var(--cr-line-strong)] left-[54%] top-[42.3%] w-[3.9%] h-[2px] [transform:translateZ(1px)]"></div>
               <div class="absolute bg-[var(--cr-line-strong)] left-[57.7%] top-[61.5%] w-[42.3%] h-[2px] [transform:translateZ(1px)]"></div>
 
-              <p class="lab__label absolute m-0 [transform:translateZ(1px)]" style="left:3.5%;top:3.5%">Z01 · LOBBY</p>
-              <p class="lab__label absolute m-0 [transform:translateZ(1px)]" style="left:3.5%;top:45.5%">Z02 · BODEGA</p>
-              <p class="lab__label absolute m-0 [transform:translateZ(1px)]" style="left:61%;top:3.5%">Z03 · SERVIDORES</p>
-              <p class="lab__label absolute m-0 [transform:translateZ(1px)]" style="left:61%;top:65%">Z04 · ELÉCTRICO</p>
-              <p class="lab__label absolute m-0 text-[var(--cr-amber)]! [transform:translateZ(1px)]" style="left:61%;top:92%">TABLERO 220V</p>
+              <p class="lab__label absolute m-0 [transform:translateZ(1px)]" style="left:3.5%;top:3.5%">{t.plan.z01}</p>
+              <p class="lab__label absolute m-0 [transform:translateZ(1px)]" style="left:3.5%;top:45.5%">{t.plan.z02}</p>
+              <p class="lab__label absolute m-0 [transform:translateZ(1px)]" style="left:61%;top:3.5%">{t.plan.z03}</p>
+              <p class="lab__label absolute m-0 [transform:translateZ(1px)]" style="left:61%;top:65%">{t.plan.z04}</p>
+              <p class="lab__label absolute m-0 text-[var(--cr-amber)]! [transform:translateZ(1px)]" style="left:61%;top:92%">{t.plan.panel}</p>
 
               <div class="lab__frame absolute inset-0 box-border border border-dashed [transform:translateZ(7cqw)]"></div>
             </div>
@@ -248,7 +252,7 @@ const circuits = [
           {enhance3d && <div class="lab__three absolute inset-0 hidden" data-twin3d-mount />}
 
           <p class="lab__chip absolute right-[12px] top-[12px] max-w-[46%] m-0 inline-flex items-center gap-[8px] py-[7px] px-[10px] bg-[color-mix(in_srgb,var(--cr-ink-3)_92%,transparent)] border border-[var(--cr-line-strong)] shadow-[0_20px_40px_-16px_rgba(0,0,0,0.8)] [font-family:var(--cr-mono)] text-[10.5px] tracking-[0.08em] uppercase leading-[1.3] animate-[lab-drift_7s_ease-in-out_infinite] max-[480px]:right-[8px] max-[480px]:top-[8px] max-[480px]:text-[9px] max-[480px]:py-[5px] max-[480px]:px-[8px]">
-            <span class="cr-led shrink-0" data-lab-chip-led></span><span class="min-w-0" data-lab-chip>Sistema armado</span>
+            <span class="cr-led shrink-0" data-lab-chip-led></span><span class="min-w-0" data-lab-chip>{t.chipArmed}</span>
           </p>
         </div>
 
@@ -259,14 +263,14 @@ const circuits = [
       <div class="flex flex-col gap-[18px] p-[20px] min-w-0 bg-[color-mix(in_srgb,var(--cr-ink-2)_92%,transparent)] backdrop-blur-[10px] border border-[var(--cr-line-strong)] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.7)] max-[480px]:p-[16px]">
         <div class="flex flex-col gap-[8px]">
           <p class="flex justify-between items-center gap-3 [font-family:var(--cr-mono)] text-[10.5px] tracking-[0.12em] uppercase text-[var(--cr-bone-dim)]">
-            <span>Estado del evento</span>
-            <span class="inline-flex items-center gap-[8px]" ><span class="cr-led" data-lab-status-led></span><span data-lab-status>Normal</span></span>
+            <span>{t.eventStatus}</span>
+            <span class="inline-flex items-center gap-[8px]" ><span class="cr-led" data-lab-status-led></span><span data-lab-status>{t.statusNormal}</span></span>
           </p>
-          <p class="[font-family:var(--cr-display)] font-extrabold uppercase text-[clamp(28px,3vw,40px)] leading-[0.95] min-h-[1.9em] [overflow-wrap:anywhere]" data-lab-headline>Sistema normal</p>
+          <p class="[font-family:var(--cr-display)] font-extrabold uppercase text-[clamp(28px,3vw,40px)] leading-[0.95] min-h-[1.9em] [overflow-wrap:anywhere]" data-lab-headline>{t.headlineNormal}</p>
           <p class="text-[14px] leading-[1.5] text-[var(--cr-bone-dim)] min-h-[3em]" data-lab-message></p>
         </div>
 
-        <ol class="list-none m-0 p-0 grid grid-cols-4 max-[480px]:grid-cols-2 max-[480px]:gap-y-[14px] border-t border-[var(--cr-line-strong)]" aria-label="Línea de tiempo del evento">
+        <ol class="list-none m-0 p-0 grid grid-cols-4 max-[480px]:grid-cols-2 max-[480px]:gap-y-[14px] border-t border-[var(--cr-line-strong)]" aria-label={t.timelineAria}>
           {
             [0, 1, 2, 3].map((i) => (
               <li class="lab__step relative pt-[14px] pr-[6px] min-w-0" data-lab-step={i}>
@@ -275,7 +279,7 @@ const circuits = [
                   <span class="lab__step-dot w-[8px] h-[8px] shrink-0 border border-[var(--cr-line-strong)]" />
                   <span data-lab-step-time>—</span>
                 </span>
-                <span class="lab__step-label block mt-[6px] [font-family:var(--cr-display)] font-bold uppercase text-[clamp(13px,1.05vw,15px)] leading-[1.05] [hyphens:auto] [overflow-wrap:break-word] max-[480px]:text-[14px]" data-lab-step-label>Paso</span>
+                <span class="lab__step-label block mt-[6px] [font-family:var(--cr-display)] font-bold uppercase text-[clamp(13px,1.05vw,15px)] leading-[1.05] [hyphens:auto] [overflow-wrap:break-word] max-[480px]:text-[14px]" data-lab-step-label>{t.stepPlaceholder}</span>
               </li>
             ))
           }
@@ -323,9 +327,9 @@ const circuits = [
             </svg>
           </div>
           <div class="flex flex-col gap-[6px] min-w-0">
-            <span class="cr-label text-[10px]">Lector biométrico · L-02</span>
-            <span class="[font-family:var(--cr-display)] font-extrabold uppercase text-[22px] leading-none [overflow-wrap:anywhere]" data-fp-result>Coloque su huella</span>
-            <span class="[font-family:var(--cr-mono)] text-[11px] tracking-[0.06em] text-[var(--cr-bone-dim)]" data-fp-user>Sala de servidores · Z03</span>
+            <span class="cr-label text-[10px]">{t.fpReader}</span>
+            <span class="[font-family:var(--cr-display)] font-extrabold uppercase text-[22px] leading-none [overflow-wrap:anywhere]" data-fp-result>{t.script.access.fp.place}</span>
+            <span class="[font-family:var(--cr-mono)] text-[11px] tracking-[0.06em] text-[var(--cr-bone-dim)]" data-fp-user>{t.script.access.user.room}</span>
           </div>
         </div>
 
@@ -355,13 +359,13 @@ const circuits = [
         </div>
 
         <div class="flex flex-col gap-[8px] pt-[14px] border-t border-[var(--cr-line)] min-h-[128px]">
-          <span class="cr-label text-[10px]">Registro de eventos</span>
+          <span class="cr-label text-[10px]">{t.log}</span>
           <ul class="list-none m-0 p-0 flex flex-col gap-[6px] [font-family:var(--cr-mono)] text-[11px] leading-[1.4] tracking-[0.02em]" data-lab-log></ul>
         </div>
 
         <div class="flex justify-between items-center gap-[16px] pt-[14px] mt-auto border-t border-[var(--cr-line)]">
           <p class="m-0 [font-family:var(--cr-mono)] text-[10.5px] tracking-[0.1em] uppercase text-[var(--cr-bone-dim)]" data-lab-clock>T+00.0 s</p>
-          <button type="button" class="cr-btn cr-btn--ghost shrink-0 min-h-[44px]! px-[20px]!" data-lab-reset>Reiniciar <span aria-hidden="true">↺</span></button>
+          <button type="button" class="cr-btn cr-btn--ghost shrink-0 min-h-[44px]! px-[20px]!" data-lab-reset>{t.reset} <span aria-hidden="true">↺</span></button>
         </div>
       </div>
     </div>
@@ -518,6 +522,10 @@ const circuits = [
 </style>
 
 <script>
+  import type { Dictionary } from "@/i18n";
+  import { fmt as format, readStrings } from "@/i18n/format";
+
+  type LabStrings = Dictionary["lab"]["script"];
   type ScenarioId = "fire" | "intruder" | "access" | "power";
   type Tone = "ok" | "amber" | "signal" | "blue";
   type ZoneState = "" | "alert" | "warn" | "info" | "ok" | "blue";
@@ -576,6 +584,12 @@ const circuits = [
   };
 
   const init = (root: HTMLElement) => {
+    // Textos traducidos (src/i18n → lab.script), inyectados en data-i18n
+    const S = readStrings<LabStrings>(root);
+    type Text = { status: string; headline: string; message: string; chip: string };
+    const say = (x: Text, message = x.message) => ({ status: x.status, headline: x.headline, message, chip: x.chip });
+    const at = (labels: string[], times: number[]) => times.map((time, i) => ({ label: labels[i] ?? "", at: time }));
+    const log = (texts: string[], rows: [number, Tone][]) => rows.map(([time, tone], i) => ({ at: time, text: texts[i] ?? "", tone }));
     const $ = <T extends Element = HTMLElement>(sel: string) => root.querySelector<T>(sel);
     const $$ = <T extends Element = HTMLElement>(sel: string) => [...root.querySelectorAll<T>(sel)];
 
@@ -644,22 +658,17 @@ const circuits = [
       code: "SIM-01",
       dur: 15,
       final: 11.5,
-      desc: "Simulación: un detector de humo identifica un conato en la sala de servidores, activa la alarma y los rociadores hasta controlar el fuego.",
-      statLabels: ["Temperatura", "Humo", "Rociadores"],
-      steps: [
-        { label: "Detección", at: 2.5 },
-        { label: "Alarma", at: 4 },
-        { label: "Supresión", at: 6.5 },
-        { label: "Controlado", at: 10 },
-      ],
-      events: [
-        { at: 0.2, text: "Sistema armado · 4 zonas", tone: "ok" },
-        { at: 2.5, text: "Humo detectado · DET-07 · Z03", tone: "amber" },
-        { at: 4, text: "Alarma general · central UL notificada", tone: "signal" },
-        { at: 6.5, text: "Rociadores activados · 3/3", tone: "blue" },
-        { at: 10, text: "Incendio controlado · 0 heridos", tone: "ok" },
-        { at: 12, text: "Sistema rearmado", tone: "ok" },
-      ],
+      desc: S.fire.desc,
+      statLabels: S.fire.statLabels as Scenario["statLabels"],
+      steps: at(S.fire.steps, [2.5, 4, 6.5, 10]),
+      events: log(S.fire.events, [
+        [0.2, "ok"],
+        [2.5, "amber"],
+        [4, "signal"],
+        [6.5, "blue"],
+        [10, "ok"],
+        [12, "ok"],
+      ]),
       render(t) {
         const grow = ease(seg(t, 1.8, 6.5));
         const shrink = ease(seg(t, 6.5, 10));
@@ -680,17 +689,17 @@ const circuits = [
 
         const temp = Math.round(24 + 47 * fireK + (t >= 10 ? 2 * (1 - seg(t, 10, 14)) : 0));
         const smoke = Math.round(smokeK * 38);
-        const stats: Frame["stats"] = [`${temp} °C`, `${smoke}%`, spraying ? "3/3 ON" : t >= 10.5 ? "Cerrados" : "0/3"];
+        const stats: Frame["stats"] = [`${temp} °C`, `${smoke}%`, spraying ? "3/3 ON" : t >= 10.5 ? S.fire.closed : "0/3"];
 
         if (t < 2.5)
-          return { tone: "ok", status: "Normal", headline: "Sistema normal", message: t < 1.2 ? "Detectores multicriterio vigilando humo, calor y CO en las 4 zonas." : "Un conato empieza en la sala de servidores…", chip: "Sistema armado", step: -1, stats };
+          return { tone: "ok", ...say(S.fire.normal, t < 1.2 ? S.fire.normal.message : S.fire.normal.message2), step: -1, stats };
         if (t < 4)
-          return { tone: "amber", status: "Detección · Z03", headline: "Humo detectado · Z03", message: "DET-07 confirma humo en menos de 30 s y verifica con el sensor de calor.", chip: "DET-07 · Humo", step: 0, stats, zones: { Z03: "warn" } };
+          return { tone: "amber", ...say(S.fire.detect), step: 0, stats, zones: { Z03: "warn" } };
         if (t < 6.5)
-          return { tone: "signal", status: "Alarma · Z03", headline: "Alarma activada", message: "Sirenas y estrobos activos, central UL notificada y evacuación en curso.", chip: "Alarma · Z03", step: 1, stats, zones: { Z03: "alert" } };
+          return { tone: "signal", ...say(S.fire.alarm), step: 1, stats, zones: { Z03: "alert" } };
         if (t < 10)
-          return { tone: "blue", status: "Supresión", headline: "Supresión en curso", message: "Rociadores de la zona afectada liberan agua; el resto del inmueble sigue seco.", chip: "Rociadores ON", step: 2, stats, zones: { Z03: "info" } };
-        return { tone: "ok", status: "Controlado", headline: "Incendio controlado", message: "Fuego extinguido en 1 zona. Temperatura normalizada y sistema rearmado.", chip: "Controlado · Z03", step: 3, stats, zones: { Z03: "ok" } };
+          return { tone: "blue", ...say(S.fire.suppress), step: 2, stats, zones: { Z03: "info" } };
+        return { tone: "ok", ...say(S.fire.controlled), step: 3, stats, zones: { Z03: "ok" } };
       },
     };
 
@@ -732,21 +741,16 @@ const circuits = [
       code: "SIM-02",
       dur: r1(TD + 10),
       final: r1(TD + 6.5),
-      desc: "Simulación: la cámara CAM-03 barre la bodega, detecta a un intruso, alerta a la central y un guardia llega a la zona.",
-      statLabels: ["Cámara", "Objetivo", "Guardia"],
-      steps: [
-        { label: "Patrulla", at: 0 },
-        { label: "Detección", at: r1(TD) },
-        { label: "Despacho", at: r1(TD + 1.5) },
-        { label: "Resuelto", at: r1(TD + 5.5) },
-      ],
-      events: [
-        { at: 0.2, text: "Ronda automática · CAM-03", tone: "ok" },
-        { at: r1(TD), text: "Movimiento en Z02 · IA verifica persona", tone: "amber" },
-        { at: r1(TD + 0.6), text: "Intrusión detectada · CAM-03", tone: "signal" },
-        { at: r1(TD + 1.5), text: "Guardia despachado · ETA 4 s", tone: "amber" },
-        { at: r1(TD + 5.5), text: "Intruso interceptado · zona asegurada", tone: "ok" },
-      ],
+      desc: S.intruder.desc,
+      statLabels: S.intruder.statLabels as Scenario["statLabels"],
+      steps: at(S.intruder.steps, [0, r1(TD), r1(TD + 1.5), r1(TD + 5.5)]),
+      events: log(S.intruder.events, [
+        [0.2, "ok"],
+        [r1(TD), "amber"],
+        [r1(TD + 0.6), "signal"],
+        [r1(TD + 1.5), "amber"],
+        [r1(TD + 5.5), "ok"],
+      ]),
       render(t) {
         const detected = t >= TD;
         const p = detected ? along([intrAt(TD), intrStop], seg(t, TD, TD + 0.6)) : intrAt(t);
@@ -784,18 +788,19 @@ const circuits = [
         };
 
         const eta = Math.max(0, Math.ceil(TD + 5.5 - t));
+        const st = S.intruder.stats;
         const stats: Frame["stats"] = [
-          detected && !resolved ? "Siguiendo" : "Barrido",
-          detected ? (resolved ? "Retenido" : "1 persona") : "—",
-          t < TD + 1.5 ? "En base" : resolved ? (back > 0 ? "Regresa" : "En sitio") : `ETA ${eta} s`,
+          detected && !resolved ? st.tracking : st.sweep,
+          detected ? (resolved ? st.held : st.person) : "—",
+          t < TD + 1.5 ? st.atBase : resolved ? (back > 0 ? st.returning : st.onSite) : format(st.eta, { s: eta }),
         ];
         if (!detected)
-          return { tone: "ok", status: "Patrulla", headline: "Perímetro seguro", message: "CAM-03 barre la bodega con analítica IA: solo alerta si detecta una persona.", chip: "CAM-03 · REC", step: 0, stats };
+          return { tone: "ok", ...say(S.intruder.patrol), step: 0, stats };
         if (t < TD + 1.5)
-          return { tone: "signal", status: "Alerta · Z02", headline: "Intrusión detectada · CAM-03", message: "La IA confirma una persona en Z02 fuera de horario. Central notificada con video en vivo.", chip: "Intrusión · CAM-03", step: 1, stats, zones: { Z02: "alert" } };
+          return { tone: "signal", ...say(S.intruder.alert), step: 1, stats, zones: { Z02: "alert" } };
         if (!resolved)
-          return { tone: "amber", status: "Despacho", headline: "Guardia en camino", message: "El guardia recibe la ruta más corta y el video en su móvil mientras la cámara sigue al objetivo.", chip: "Guardia · ETA", step: 2, stats, zones: { Z02: "alert" } };
-        return { tone: "ok", status: "Resuelto", headline: "Zona asegurada", message: "Intruso interceptado en Z02. Evento guardado con clip de video para la policía.", chip: "Resuelto · Z02", step: 3, stats, zones: { Z02: "ok" } };
+          return { tone: "amber", ...say(S.intruder.dispatch), step: 2, stats, zones: { Z02: "alert" } };
+        return { tone: "ok", ...say(S.intruder.resolved), step: 3, stats, zones: { Z02: "ok" } };
       },
     };
 
@@ -806,21 +811,16 @@ const circuits = [
       code: "SIM-03",
       dur: 17,
       final: 14.2,
-      desc: "Simulación: un visitante sin registro es rechazado por el lector de huella; después un usuario autorizado entra a la sala de servidores.",
-      statLabels: ["Lector", "Usuario", "Puerta"],
-      steps: [
-        { label: "Llegada", at: 8 },
-        { label: "Escaneo", at: 10 },
-        { label: "Verificación", at: 12 },
-        { label: "Acceso", at: 12.8 },
-      ],
-      events: [
-        { at: 2.5, text: "Lectura de huella · L-02", tone: "blue" },
-        { at: 4.5, text: "Acceso denegado · huella no registrada", tone: "signal" },
-        { at: 10, text: "Lectura de huella · L-02", tone: "blue" },
-        { at: 12, text: "Acceso concedido · M. Rivera", tone: "ok" },
-        { at: 15.8, text: "Puerta cerrada · Z03 asegurada", tone: "ok" },
-      ],
+      desc: S.access.desc,
+      statLabels: S.access.statLabels as Scenario["statLabels"],
+      steps: at(S.access.steps, [8, 10, 12, 12.8]),
+      events: log(S.access.events, [
+        [2.5, "blue"],
+        [4.5, "signal"],
+        [10, "blue"],
+        [12, "ok"],
+        [15.8, "ok"],
+      ]),
       render(t) {
         // attempt A (denied)
         const aIn = ease(seg(t, 0.5, 2.5));
@@ -854,29 +854,30 @@ const circuits = [
         setAttr(reader, "fill", fp);
         sim = { aPos, aOpacity: t < 0.5 ? 0 : 1 - seg(t, 7, 7.6), bPos, bOpacity: t < 8 ? 0 : 1 - seg(t, 16, 16.8), open, scanning, denied, granted };
         if (fpResult) {
-          fpResult.textContent = scanning ? "Escaneando…" : denied ? "Acceso denegado" : granted ? "Acceso concedido" : "Coloque su huella";
+          fpResult.textContent = scanning ? S.access.fp.scanning : denied ? S.access.fp.denied : granted ? S.access.fp.granted : S.access.fp.place;
           fpResult.style.color = denied ? "var(--cr-signal)" : granted ? "var(--cr-ok)" : "";
         }
-        if (fpUser) fpUser.textContent = denied ? "Huella no registrada · intento 1/3" : granted ? "M. Rivera · TI · nivel 2" : "Sala de servidores · Z03";
+        if (fpUser) fpUser.textContent = denied ? S.access.user.denied : granted ? S.access.user.granted : S.access.user.room;
 
+        const st = S.access.stats;
         const stats: Frame["stats"] = [
-          scanning ? "Leyendo" : denied ? "Bloqueo" : "Listo",
-          denied ? "Desconocido" : granted || t >= 16 ? "M. Rivera" : "—",
-          open > 0.05 ? "Abierta" : "Cerrada",
+          scanning ? st.reading : denied ? st.locked : st.ready,
+          denied ? st.unknown : granted || t >= 16 ? "M. Rivera" : "—",
+          open > 0.05 ? st.open : st.closed,
         ];
         if (t < 2.5)
-          return { tone: "blue", status: "En espera", headline: "Lector listo", message: "Solo el personal registrado puede entrar a la sala de servidores.", chip: "L-02 · Listo", step: 0, stats };
+          return { tone: "blue", ...say(S.access.waiting), step: 0, stats };
         if (t < 4.5)
-          return { tone: "blue", status: "Escaneo", headline: "Leyendo huella…", message: "Comparando la huella con la base cifrada de usuarios autorizados.", chip: "L-02 · Escaneo", step: 1, stats };
+          return { tone: "blue", ...say(S.access.scan), step: 1, stats };
         if (t < 8)
-          return { tone: "signal", status: "Denegado", headline: "Acceso denegado", message: "Huella no registrada: la puerta sigue bloqueada y la central recibe el intento.", chip: "Denegado · L-02", step: 2, fail: true, stats, zones: { Z01: "alert" } };
+          return { tone: "signal", ...say(S.access.denied), step: 2, fail: true, stats, zones: { Z01: "alert" } };
         if (t < 10)
-          return { tone: "blue", status: "En espera", headline: "Nuevo intento", message: "Un usuario autorizado se acerca al lector L-02.", chip: "L-02 · Listo", step: 0, stats };
+          return { tone: "blue", ...say(S.access.retry), step: 0, stats };
         if (t < 12)
-          return { tone: "blue", status: "Escaneo", headline: "Leyendo huella…", message: "Comparando la huella con la base cifrada de usuarios autorizados.", chip: "L-02 · Escaneo", step: 1, stats };
+          return { tone: "blue", ...say(S.access.scan), step: 1, stats };
         if (t < 12.8)
-          return { tone: "ok", status: "Concedido", headline: "Acceso concedido · M. Rivera", message: "Identidad verificada en 0,4 s. Cerradura liberada.", chip: "Concedido · M. Rivera", step: 2, stats, zones: { Z03: "blue" } };
-        return { tone: "ok", status: "Concedido", headline: "Acceso concedido · M. Rivera", message: "Entrada registrada con fecha, hora y usuario. La puerta se cierra sola.", chip: "Concedido · M. Rivera", step: 3, stats, zones: { Z03: "blue" } };
+          return { tone: "ok", ...say(S.access.granted), step: 2, stats, zones: { Z03: "blue" } };
+        return { tone: "ok", ...say(S.access.logged), step: 3, stats, zones: { Z03: "blue" } };
       },
     };
 
@@ -896,21 +897,16 @@ const circuits = [
       code: "SIM-04",
       dur: 15,
       final: 11,
-      desc: "Simulación: el tablero de 220 V alimenta tres circuitos; una sobrecarga en la bodega dispara el breaker automáticamente y la carga se restablece por una ruta de respaldo.",
-      statLabels: ["Tensión", "Corriente", "Circuitos"],
-      steps: [
-        { label: "Normal", at: 0 },
-        { label: "Sobrecarga", at: 4.8 },
-        { label: "Disparo", at: 6 },
-        { label: "Restablecido", at: 10 },
-      ],
-      events: [
-        { at: 0.2, text: "Tablero 220 V · 3 circuitos activos", tone: "ok" },
-        { at: 4.8, text: "Sobrecarga C3 · >32 A", tone: "amber" },
-        { at: 6, text: "Disparo automático · breaker C3", tone: "signal" },
-        { at: 8.5, text: "Transferencia a ruta de respaldo", tone: "amber" },
-        { at: 10, text: "C3 restablecido · carga estable", tone: "ok" },
-      ],
+      desc: S.power.desc,
+      statLabels: S.power.statLabels as Scenario["statLabels"],
+      steps: at(S.power.steps, [0, 4.8, 6, 10]),
+      events: log(S.power.events, [
+        [0.2, "ok"],
+        [4.8, "amber"],
+        [6, "signal"],
+        [8.5, "amber"],
+        [10, "ok"],
+      ]),
       render(t) {
         const [c1, c2, c3] = load(t);
         const over = t >= 4.8 && t < 6;
@@ -951,14 +947,14 @@ const circuits = [
         }
         const stats: Frame["stats"] = ["220 V", `${Math.round(total)} A`, tripped ? "2/3" : "3/3"];
         if (t < 4.8)
-          return { tone: "ok", status: "Estable", headline: "Carga estable", message: t < 4 ? "El tablero reparte 220 V a tres circuitos y mide cada uno en tiempo real." : "El clima de la bodega empieza a exigir más corriente…", chip: "Tablero · 220 V", step: 0, stats, zones: t >= 4 ? { Z02: "warn" } : {} };
+          return { tone: "ok", ...say(S.power.stable, t < 4 ? S.power.stable.message : S.power.stable.message2), step: 0, stats, zones: t >= 4 ? { Z02: "warn" } : {} };
         if (t < 6)
-          return { tone: "signal", status: "Sobrecarga", headline: "Sobrecarga en C3", message: `C3 supera su límite de ${LIMIT} A: riesgo de calentamiento en el cableado de la bodega.`, chip: "C3 · Sobrecarga", step: 1, stats, zones: { Z02: "alert", Z04: "warn" } };
+          return { tone: "signal", ...say(S.power.overload, format(S.power.overload.message, { limit: LIMIT })), step: 1, stats, zones: { Z02: "alert", Z04: "warn" } };
         if (t < 8.5)
-          return { tone: "amber", status: "Disparo C3", headline: "Breaker disparado", message: "El breaker inteligente corta C3 en milisegundos. Servidores e iluminación no se enteran.", chip: "Disparo · C3", step: 2, stats, zones: { Z02: "warn" } };
+          return { tone: "amber", ...say(S.power.trip), step: 2, stats, zones: { Z02: "warn" } };
         if (t < 10)
-          return { tone: "amber", status: "Transferencia", headline: "Ruta de respaldo", message: "La carga de la bodega se transfiere a la ruta de respaldo con consumo limitado.", chip: "C3 · Respaldo", step: 2, stats };
-        return { tone: "ok", status: "Restablecido", headline: "Energía restablecida", message: "C3 vuelve a operar dentro de su límite. Evento registrado para mantenimiento.", chip: "C3 · Restablecido", step: 3, stats, zones: { Z02: "ok" } };
+          return { tone: "amber", ...say(S.power.transfer), step: 2, stats };
+        return { tone: "ok", ...say(S.power.restored), step: 3, stats, zones: { Z02: "ok" } };
       },
     };
 

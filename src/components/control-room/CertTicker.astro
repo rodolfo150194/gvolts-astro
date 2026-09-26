@@ -1,13 +1,7 @@
 ---
-const items = [
-  "NFPA 72",
-  "UL 864",
-  "Código NEC",
-  "Técnicos NICET III · IV",
-  "Central UL 24/7",
-  "Garantía 5 años en equipos",
-  "Licencia Master Electrician",
-];
+import { useTranslations } from "@/i18n";
+
+const items = useTranslations(Astro).certTicker;
 ---
 
 <div class="cert-ticker h-24 flex items-center overflow-hidden bg-[var(--cr-signal)] text-[var(--cr-ink)]" aria-hidden="true">

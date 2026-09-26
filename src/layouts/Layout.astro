@@ -1,6 +1,7 @@
 ---
 import "@/styles/global.css";
 import { SITE } from "@/data/site";
+import { DEFAULT_LOCALE, LOCALES, LOCALE_META, getLocale, localizePath, splitLocale, t } from "@/i18n";
 
 interface Props {
   title?: string;
@@ -10,9 +11,12 @@ interface Props {
   noindex?: boolean;
 }
 
+const locale = getLocale(Astro);
+const tr = t(locale);
+
 const {
-  title = `${SITE.name} — Alarmas de incendio, seguridad y electricidad`,
-  description = SITE.description,
+  title = tr.meta.title,
+  description = tr.meta.description,
   image = SITE.logo,
   noindex = false,
 } = Astro.props;
@@ -20,10 +24,15 @@ const {
 const site = Astro.site ?? new URL(SITE.url);
 const canonicalURL = new URL(Astro.url.pathname.replace(/(.)\/$/, "$1"), site);
 const ogImageURL = new URL(image, site);
+
+// La misma página en cada idioma (hreflang); x-default apunta al inglés
+const { path: basePath } = splitLocale(canonicalURL.pathname);
+const alternates = LOCALES.map((l) => ({ hreflang: LOCALE_META[l].hreflang, href: new URL(localizePath(basePath, l), site) }));
+const xDefault = new URL(localizePath(basePath, DEFAULT_LOCALE), site);
 ---
 
 <!doctype html>
-<html lang={SITE.locale} class="min-h-full w-full has-[.cr]:overflow-x-clip">
+<html lang={LOCALE_META[locale].htmlLang} class="min-h-full w-full has-[.cr]:overflow-x-clip">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -32,6 +41,8 @@ const ogImageURL = new URL(image, site);
     <meta name="generator" content={Astro.generator} />
     <meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large"} />
     <link rel="canonical" href={canonicalURL} />
+    {alternates.map((a) => <link rel="alternate" hreflang={a.hreflang} href={a.href} />)}
+    <link rel="alternate" hreflang="x-default" href={xDefault} />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
     <!-- Favicon -->
@@ -44,7 +55,8 @@ const ogImageURL = new URL(image, site);
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={SITE.name} />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:locale" content="es_ES" />
+    <meta property="og:locale" content={LOCALE_META[locale].ogLocale} />
+    {LOCALES.filter((l) => l !== locale).map((l) => <meta property="og:locale:alternate" content={LOCALE_META[l].ogLocale} />)}
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImageURL} />
@@ -62,7 +74,7 @@ const ogImageURL = new URL(image, site);
     <a
       href="#main"
       class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200] focus:bg-white focus:text-indian-red-700 focus:px-4 focus:py-2 focus:rounded-lg focus:font-bold focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-indian-red-500 focus:ring-offset-2"
-      >Saltar al contenido</a
+      >{tr.meta.skip}</a
     >
     <slot />
 

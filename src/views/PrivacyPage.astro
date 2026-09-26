@@ -1,0 +1,27 @@
+---
+/**
+ * Política de privacidad (/privacy y /es/privacy). El cuerpo legal vive en un
+ * componente por idioma (src/views/legal); título, entradilla e índice en src/i18n → privacy.
+ */
+import LegalLayout from "@/layouts/LegalLayout.astro";
+import PrivacyEn from "@/views/legal/PrivacyEn.astro";
+import PrivacyEs from "@/views/legal/PrivacyEs.astro";
+import { SITE } from "@/data/site";
+import { fmt, getLocale, t } from "@/i18n";
+
+const locale = getLocale(Astro);
+const p = t(locale).privacy;
+const toc = Object.entries(p.toc).map(([id, label]) => ({ id, label }));
+const Body = locale === "es" ? PrivacyEs : PrivacyEn;
+---
+
+<LegalLayout
+  title={fmt(p.meta.title, { site: SITE.name })}
+  description={p.meta.description}
+  heading={p.heading}
+  lede={p.lede}
+  path="/privacy"
+  toc={toc}
+>
+  <Body toc={p.toc} />
+</LegalLayout>

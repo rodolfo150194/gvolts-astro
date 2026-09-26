@@ -1,0 +1,224 @@
+---
+/** Alarmas contra incendio (/services/fire-alarm y /es/services/fire-alarm). Textos en src/i18n → fireAlarm. */
+import { Image } from "astro:assets";
+import ControlRoomLayout from "@/layouts/ControlRoomLayout.astro";
+import FireSimulator from "@/components/control-room/FireSimulator.astro";
+import { avatars } from "@/data/avatar";
+import logoFireAlarm from "@/assets/img/logo/G_VOLTS_llama_completo.webp";
+import { generateServiceSchema } from "@/utils/schemas";
+import { absoluteUrl } from "@/data/site";
+import { i18n } from "@/i18n";
+
+const { tr, href } = i18n(Astro);
+const t = tr.fireAlarm;
+
+const serviceSchema = generateServiceSchema(t.schema.name, t.schema.description, absoluteUrl(href("/services/fire-alarm")));
+
+const pad = (i: number) => String(i + 1).padStart(2, "0");
+const features = t.features.map((f, i) => ({ ...f, number: pad(i) }));
+const steps = t.steps.map((s, i) => ({ ...s, step: pad(i) }));
+const industries = t.industries;
+const codes = ["NFPA 72", "NFPA 101", "UL 864", "ADA"].map((code, i) => ({ code, ...t.codes[i] }));
+const credentials = t.credentials;
+const benefits = t.benefits;
+---
+
+<ControlRoomLayout
+  title={t.meta.title}
+  description={t.meta.description}
+  accent="fire"
+  logo={logoFireAlarm}
+  avatar="fire"
+  breadcrumbs={[{ name: tr.breadcrumbs.services, path: "/#servicios" }, { name: t.breadcrumb, path: "/services/fire-alarm" }]}
+  schema={serviceSchema}
+>
+  <!-- HERO -->
+  <section class="relative overflow-hidden pt-[clamp(48px,8vw,110px)] pb-[clamp(64px,9vw,130px)] [background:radial-gradient(60%_50%_at_85%_20%,color-mix(in_srgb,var(--cr-signal)_16%,transparent),transparent_70%),linear-gradient(var(--cr-line)_1px,transparent_1px)_0_0/100%_88px,var(--cr-ink)] max-[640px]:pt-[clamp(40px,10vw,72px)] max-[640px]:pb-[clamp(88px,14vw,120px)]">
+    <div class="cr-wrap grid grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] gap-[clamp(32px,5vw,72px)] items-center max-[960px]:grid-cols-1">
+      <div>
+        <p class="cr-label flex items-center gap-[14px] text-[var(--cr-signal)] mb-[28px]" data-reveal>
+          <span class="w-[40px] h-px bg-current"></span>{t.kicker}
+        </p>
+
+        <h1 class="[font-family:var(--cr-display)] font-black uppercase leading-[0.84] text-[clamp(60px,8.6vw,140px)]">
+          <span class="block" data-reveal style="--d:80ms">{t.title[0]}</span>
+          <span class="block" data-reveal style="--d:160ms">{t.title[1]}</span>
+          <span class="block text-[var(--cr-signal)]" data-reveal style="--d:240ms">{t.title[2]}<span class="text-[var(--cr-bone)]">.</span></span>
+        </h1>
+
+        <p class="mt-[32px] max-w-[46ch] text-[clamp(17px,1.4vw,20px)] text-[var(--cr-bone-dim)]" data-reveal style="--d:340ms">
+          {t.lede}
+        </p>
+
+        <div class="flex flex-wrap gap-[14px] mt-[36px] max-[640px]:flex-col max-[640px]:items-stretch" data-reveal style="--d:420ms">
+          <a href={href("/contact")} class="cr-btn max-[640px]:justify-center">{t.ctaQuote} <span aria-hidden="true">→</span></a>
+          <a href={href("/projects")} class="cr-btn cr-btn--ghost max-[640px]:justify-center">{t.ctaProjects}</a>
+        </div>
+
+        <dl class="grid grid-cols-3 mt-[56px] border-t border-[var(--cr-line-strong)] max-[640px]:grid-cols-2 max-[640px]:gap-y-[20px]" data-reveal style="--d:500ms">
+          <div class="pt-[18px] pr-[16px] pb-0 pl-0">
+            <dt class="cr-label">{t.stats.detection}</dt>
+            <dd class="mt-[6px] [font-family:var(--cr-display)] font-extrabold text-[clamp(40px,4.6vw,64px)] leading-none tabular-nums"><span data-count="99.8">99.8</span><span class="text-[var(--cr-signal)]">%</span></dd>
+          </div>
+          <div class="pt-[18px] pr-[16px] pb-0 pl-[16px] border-l border-[var(--cr-line)]">
+            <dt class="cr-label">{t.stats.response}</dt>
+            <dd class="mt-[6px] [font-family:var(--cr-display)] font-extrabold text-[clamp(40px,4.6vw,64px)] leading-none tabular-nums"><span class="text-[var(--cr-signal)]">&lt;</span>30s</dd>
+          </div>
+          <div class="pt-[18px] pr-[16px] pb-0 pl-[16px] border-l border-[var(--cr-line)] max-[640px]:col-[1/-1] max-[640px]:pl-0 max-[640px]:border-l-0 max-[640px]:border-t max-[640px]:border-t-[var(--cr-line)] max-[640px]:pt-[18px]">
+            <dt class="cr-label">{t.stats.certification}</dt>
+            <dd class="mt-[6px] [font-family:var(--cr-display)] font-extrabold text-[clamp(40px,4.6vw,64px)] leading-none tabular-nums">NFPA</dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="relative" data-reveal style="--d:200ms">
+        <FireSimulator />
+      </div>
+    </div>
+  </section>
+  <!-- FEATURES -->
+  <section class="py-[clamp(72px,10vw,140px)] bg-[var(--cr-ink-2)]">
+    <div class="cr-wrap">
+      <header class="flex justify-between items-end gap-[48px] mb-[clamp(48px,6vw,64px)] max-[760px]:flex-col max-[760px]:items-start">
+        <div>
+          <p class="cr-label" data-reveal>{t.featuresLabel}</p>
+          <h2 class="mt-[18px] text-[clamp(52px,7vw,112px)]" data-reveal style="--d:80ms">{t.featuresTitle1}<br /><span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">{t.featuresTitle2}</span></h2>
+        </div>
+        <p class="max-w-[380px] text-[18px] leading-[1.65] text-[var(--cr-bone-dim)]" data-reveal style="--d:160ms">
+          {t.featuresText}
+        </p>
+      </header>
+
+      <div class="grid grid-cols-2 gap-[24px] max-[640px]:grid-cols-1">
+        {
+          features.map((f, i) => (
+            <article class="p-[36px] flex flex-col gap-[16px] bg-[var(--cr-ink-3)] border border-[var(--cr-line)] [transition:transform_0.5s_cubic-bezier(0.16,0.84,0.24,1),border-color_0.3s] hover:-translate-y-[10px] hover:border-[var(--cr-signal)]" data-reveal style={`--d:${i * 90}ms`}>
+              <p class="[font-family:var(--cr-display)] font-black text-[48px] leading-none text-[var(--cr-signal)]">{f.number}</p>
+              <h3 class="text-[clamp(28px,2.6vw,36px)]">{f.title}</h3>
+              <p class="text-[16px] leading-[1.6] text-[var(--cr-bone-dim)]">{f.description}</p>
+              <ul class="m-0 p-0 list-none flex flex-col gap-[10px] text-[16px]">
+                {f.items.map((it) => <li class="flex gap-[12px] items-center before:content-[''] before:w-[8px] before:h-[8px] before:shrink-0 before:bg-[var(--cr-signal)]">{it}</li>)}
+              </ul>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="py-[clamp(96px,12vw,180px)]">
+    <div class="cr-wrap grid grid-cols-[minmax(0,0.45fr)_minmax(0,1fr)] gap-[clamp(48px,6vw,96px)] max-[960px]:grid-cols-1">
+      <div class="min-[961px]:sticky min-[961px]:top-[110px] self-start">
+        <p class="cr-label" data-reveal>{t.processLabel}</p>
+        <h2 class="mt-[18px] text-[clamp(44px,6vw,96px)]" data-reveal style="--d:80ms">{t.processTitle1} <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">{t.processTitle2}</span></h2>
+        <div class="mt-12 max-w-[340px] max-[960px]:max-w-[240px]" data-reveal style="--d:160ms">
+          <Image src={avatars.fireInstall.src} alt={tr.avatars.fireInstall} widths={[240, 340, 520]} sizes="(min-width: 961px) 340px, 240px" class="w-full h-auto [filter:drop-shadow(0_24px_40px_rgba(0,0,0,0.5))]" loading="lazy" />
+        </div>
+      </div>
+      <ol class="m-0 p-0 list-none relative before:content-[''] before:absolute before:left-[11px] before:top-[12px] before:bottom-[12px] before:w-[2px] before:bg-[var(--cr-line-strong)]">
+        {
+          steps.map((s, i) => (
+            <li class="relative flex gap-[40px] pb-[40px] pl-0 last:pb-0 group" data-reveal style={`--d:${i * 90}ms`}>
+              <span class="shrink-0 w-[24px] h-[24px] box-border border-2 border-[var(--cr-signal)] bg-[var(--cr-ink)] z-[1] group-last:bg-[var(--cr-signal)] group-last:shadow-[0_0_20px_var(--cr-signal)] group-last:border-[var(--cr-signal)]" />
+              <div>
+                <p class="cr-label text-[var(--cr-signal)]">{t.stepLabel} {s.step} · {s.duration.toUpperCase()}</p>
+                <h3 class="mt-[10px] text-[40px]">{s.title}</h3>
+                <p class="mt-[10px] text-[17px] leading-[1.6] text-[var(--cr-bone-dim)]">{s.description}</p>
+                <p class="mt-[10px] [font-family:var(--cr-mono)] text-[14px] tracking-[0.08em] text-[var(--cr-amber)]">{t.deliverable} → {s.deliverable}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- INDUSTRIES -->
+  <section class="py-[clamp(72px,10vw,140px)]">
+    <div class="cr-wrap">
+      <header class="flex justify-between items-end gap-[48px] mb-[clamp(48px,6vw,64px)] max-[760px]:flex-col max-[760px]:items-start">
+        <div>
+          <p class="cr-label" data-reveal>{t.industriesLabel}</p>
+          <h2 class="mt-[18px] text-[clamp(52px,7vw,112px)]" data-reveal style="--d:80ms">{t.industriesTitle1} <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">{t.industriesTitle2}</span></h2>
+        </div>
+      </header>
+
+      <div class="grid grid-cols-4 gap-[20px] max-[960px]:grid-cols-2 max-[640px]:grid-cols-1">
+        {
+          industries.map((ind, i) => (
+            <article class="p-[36px] flex flex-col gap-[16px] bg-[var(--cr-ink-3)] border border-[var(--cr-line)] [transition:transform_0.5s_cubic-bezier(0.16,0.84,0.24,1),border-color_0.3s] hover:-translate-y-[10px] hover:border-[var(--cr-signal)]" data-reveal style={`--d:${i * 90}ms`}>
+              <h3 class="text-[clamp(28px,2.6vw,36px)]">{ind.title}</h3>
+              <p class="text-[16px] leading-[1.6] text-[var(--cr-bone-dim)]">{ind.description}</p>
+              <ul class="m-0 p-0 list-none flex flex-col gap-[10px] text-[16px] mt-auto pt-[16px] border-t border-[var(--cr-line)] [font-family:var(--cr-mono)] text-[14px] text-[var(--cr-bone-dim)]">
+                {ind.items.map((it) => <li class="flex gap-[12px] items-center">{it}</li>)}
+              </ul>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPLIANCE -->
+  <section class="py-[clamp(72px,10vw,140px)]">
+    <div class="cr-wrap">
+      <header class="flex justify-between items-end gap-[48px] mb-[clamp(48px,6vw,64px)] max-[760px]:flex-col max-[760px]:items-start">
+        <div>
+          <p class="cr-label" data-reveal>{t.complianceLabel}</p>
+          <h2 class="mt-[18px] text-[clamp(52px,7vw,112px)]" data-reveal style="--d:80ms">{t.complianceTitle1} <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">{t.complianceTitle2}</span></h2>
+        </div>
+        <p class="max-w-[380px] text-[18px] leading-[1.65] text-[var(--cr-bone-dim)]" data-reveal style="--d:160ms">
+          {t.complianceText}
+        </p>
+      </header>
+
+      <div class="grid grid-cols-4 border-t border-b border-[var(--cr-line-strong)] max-[960px]:grid-cols-2 max-[640px]:grid-cols-1" data-reveal style="--d:220ms">
+        {
+          codes.map((c, i) => (
+            <div
+              class={`py-[36px] px-[28px] flex flex-col gap-[14px] ${
+                i === 0
+                  ? "border-l-0 pl-0 max-[640px]:border-t-0"
+                  : i === 3
+                    ? "border-l border-[var(--cr-line)] pr-0 max-[960px]:border-l max-[960px]:pl-[28px] max-[640px]:border-l-0! max-[640px]:pl-0! max-[640px]:border-t max-[640px]:border-t-[var(--cr-line)]"
+                    : "border-l border-[var(--cr-line)] max-[960px]:border-l-0! max-[960px]:pl-0! max-[640px]:border-l-0! max-[640px]:pl-0! max-[640px]:border-t max-[640px]:border-t-[var(--cr-line)]"
+              }`}
+            >
+              <p class="[font-family:var(--cr-display)] font-black text-[56px] leading-none text-[var(--cr-signal)]">{c.code}</p>
+              <h3 class="text-[18px] font-bold normal-case">{c.title}</h3>
+              <p class="text-[16px] leading-[1.55] text-[var(--cr-bone-dim)]">{c.description}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="mt-[36px] flex flex-wrap gap-[12px]" data-reveal style="--d:280ms">
+        {credentials.map((c) => <span class="py-[12px] px-[18px] border border-[var(--cr-line-strong)] [font-family:var(--cr-mono)] text-[14px] tracking-[0.06em]">{c}</span>)}
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFITS -->
+  <section class="py-[clamp(72px,10vw,140px)] bg-[var(--cr-ink-2)]">
+    <div class="cr-wrap">
+      <header class="flex justify-between items-end gap-[48px] mb-[clamp(48px,6vw,64px)] max-[760px]:flex-col max-[760px]:items-start">
+        <div>
+          <p class="cr-label" data-reveal>{t.benefitsLabel}</p>
+          <h2 class="mt-[18px] text-[clamp(52px,7vw,112px)]" data-reveal style="--d:80ms">{t.benefitsTitle1} <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">{t.benefitsTitle2}</span></h2>
+        </div>
+      </header>
+
+      <div class="grid grid-cols-3 gap-[24px] max-[960px]:grid-cols-2 max-[640px]:grid-cols-1">
+        {
+          benefits.map((b, i) => (
+            <div class="p-[30px] flex flex-col gap-[16px] bg-[var(--cr-ink-3)] border border-[var(--cr-line)] [transition:transform_0.5s_cubic-bezier(0.16,0.84,0.24,1),border-color_0.3s] hover:-translate-y-[10px] hover:border-[var(--cr-signal)]" data-reveal style={`--d:${i * 70}ms`}>
+              <h3 class="text-[clamp(28px,2.6vw,36px)]">{b.title}</h3>
+              <p class="text-[16px] leading-[1.6] text-[var(--cr-bone-dim)]">{b.description}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</ControlRoomLayout>

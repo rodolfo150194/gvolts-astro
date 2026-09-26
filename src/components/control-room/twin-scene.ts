@@ -48,12 +48,38 @@ const PANEL_POS: [number, number] = [428, 428];
 const DOOR_HINGE: [number, number] = [170, 220];
 const DOOR_LEN = 60;
 const READER_POS: [number, number] = [244, 214];
-const LABELS: { text: string; x: number; y: number; tone?: "amber" | "signal" }[] = [
-  { text: "Z01 · LOBBY", x: 60, y: 30 },
-  { text: "ROCIADORES ACTIVOS", x: 70, y: 185, tone: "signal" },
-  { text: "Z02 · BODEGA", x: 70, y: 470 },
-  { text: "Z03 · SERVIDORES", x: 400, y: 295 },
-  { text: "TABLERO 220V", x: 428, y: 490, tone: "amber" },
+/**
+ * Textos de la escena. Llegan traducidos desde Hero.astro (`hero.scene` en
+ * src/i18n); los valores por defecto solo se usan si falta alguno.
+ */
+export interface TwinLabels {
+  lobby: string;
+  sprinklers: string;
+  storage: string;
+  servers: string;
+  panel: string;
+  person: string;
+  granted: string;
+  reading: string;
+  reader: string;
+}
+const DEFAULT_LABELS: TwinLabels = {
+  lobby: "Z01 · LOBBY",
+  sprinklers: "SPRINKLERS ACTIVE",
+  storage: "Z02 · WAREHOUSE",
+  servers: "Z03 · SERVERS",
+  panel: "220V PANEL",
+  person: "PERSON · 97%",
+  granted: "ACCESS GRANTED",
+  reading: "READING CARD…",
+  reader: "READER L-02",
+};
+const LABELS: { key: keyof TwinLabels; x: number; y: number; tone?: "amber" | "signal" }[] = [
+  { key: "lobby", x: 60, y: 30 },
+  { key: "sprinklers", x: 70, y: 185, tone: "signal" },
+  { key: "storage", x: 70, y: 470 },
+  { key: "servers", x: 400, y: 295 },
+  { key: "panel", x: 428, y: 490, tone: "amber" },
 ];
 
 const fract = (x: number) => x - Math.floor(x);
@@ -95,7 +121,8 @@ function glowTexture() {
   return tex;
 }
 
-export function mountTwin(container: HTMLElement, root: HTMLElement) {
+export function mountTwin(container: HTMLElement, root: HTMLElement, labels: Partial<TwinLabels> = {}) {
+  const L: TwinLabels = { ...DEFAULT_LABELS, ...labels };
   const signal = cssColor(root, "--cr-signal", "#e0605a");
   const ok = cssColor(root, "--cr-ok", "#7ee2a8");
   const amber = cssColor(root, "--cr-amber", "#ffd66b");
@@ -445,7 +472,7 @@ export function mountTwin(container: HTMLElement, root: HTMLElement) {
   const box = document.createElement("div");
   box.style.cssText = `width:${isSmall ? 22 : 30}px;height:${isSmall ? 34 : 46}px;border:1.5px solid var(--cr-ok);box-shadow:0 0 12px color-mix(in srgb,var(--cr-ok) 50%,transparent);position:relative;transition:opacity .25s`;
   const boxTag = document.createElement("span");
-  boxTag.textContent = "PERSONAL · 97%";
+  boxTag.textContent = L.person;
   boxTag.style.cssText = `position:absolute;left:-1.5px;bottom:100%;font-family:var(--cr-mono);font-size:${isSmall ? 8 : 9.5}px;letter-spacing:.06em;white-space:nowrap;color:var(--cr-ink);background:var(--cr-ok);padding:1px 4px`;
   box.appendChild(boxTag);
   const boxObj = new CSS2DObject(box);
@@ -462,9 +489,9 @@ export function mountTwin(container: HTMLElement, root: HTMLElement) {
   scene.add(panelHalo);
 
   // ── Etiquetas HTML (nítidas a cualquier resolución) ──────────────
-  LABELS.forEach(({ text, x, y, tone }) => {
+  LABELS.forEach(({ key, x, y, tone }) => {
     const el = document.createElement("p");
-    el.textContent = text;
+    el.textContent = L[key];
     el.style.cssText = `margin:0;font-family:var(--cr-mono);font-size:${isSmall ? 11 : 13}px;letter-spacing:.08em;white-space:nowrap;color:${
       tone === "amber" ? "var(--cr-amber)" : tone === "signal" ? "var(--cr-signal)" : "var(--cr-bone-dim)"
     };text-shadow:0 1px 6px rgba(0,0,0,.8)`;
@@ -614,7 +641,7 @@ export function mountTwin(container: HTMLElement, root: HTMLElement) {
     readerLed.material.color.copy(ledCol);
     readerLed.scale.setScalar(granted ? 0.5 : 0.32);
     (doorway.material as THREE.MeshBasicMaterial).opacity = open * 0.45;
-    const text = granted ? "ACCESO CONCEDIDO" : scanning ? "LEYENDO TARJETA…" : "LECTOR L-02";
+    const text = granted ? L.granted : scanning ? L.reading : L.reader;
     if (accessLabel.textContent !== text) accessLabel.textContent = text;
     accessLabel.style.color = granted ? "var(--cr-ok)" : scanning ? "var(--cr-bone)" : "var(--cr-bone-dim)";
     let pp: [number, number];

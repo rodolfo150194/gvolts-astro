@@ -1,4 +1,6 @@
 ---
+import { i18n } from "@/i18n";
+
 interface Cert {
   id: string;
   code: string;
@@ -20,6 +22,8 @@ interface Props {
 }
 
 const { service = "all" } = Astro.props;
+const { tr, href } = i18n(Astro);
+const t = tr.certifications;
 
 const COLORS: Record<string, string> = {
   fire: "var(--cr-signal)",
@@ -28,36 +32,34 @@ const COLORS: Record<string, string> = {
   company: "var(--cr-bone)",
 };
 
-const LABELS: Record<string, string> = {
-  fire: "Incendio",
-  security: "Seguridad",
-  elec: "Electricidad",
-  company: "Empresa",
-};
+const LABELS: Record<string, string> = t.areas;
+const scriptStrings = { areas: t.areas, pending: t.pending, valid: t.valid };
 
 const PENDING_COLOR = "rgba(237,232,224,0.4)";
 
 const FL_LICENSE_URL = "https://www.myfloridalicense.com/LicenseDetail.asp?SID=&id=3FBDAA616905C8046A4E3EDED073B898";
 const NICET_VERIFY_URL = "https://nicet.useclarus.com/view/verify/";
 
-const allCerts: Cert[] = [
-  { id: "nfpa72", code: "NFPA 72", sub: "NFPA", k: ["fire"], short: "Alarmas de incendio", name: "Código Nacional de Alarmas de Incendio", desc: "Norma para la instalación, prueba y mantenimiento de sistemas de alarma contra incendio.", you: "Tu sistema se diseña y prueba para pasar la inspección de bomberos a la primera." },
-  { id: "nfpa101", code: "NFPA 101", sub: "NFPA", k: ["fire", "elec"], short: "Seguridad humana", name: "Código de Seguridad Humana", desc: "Requisitos de evacuación, notificación e iluminación de emergencia.", you: "Rutas de salida, señalización y avisos pensados para que todos salgan a tiempo." },
-  { id: "ul864", code: "UL 864", sub: "UL", k: ["fire"], short: "Paneles listados", name: "Unidades de control certificadas", desc: "Paneles de incendio listados y aprobados por UL.", you: "El cerebro de tu sistema es un equipo probado, no un genérico." },
-  { id: "ada", code: "ADA", sub: "ACCESO", k: ["fire"], short: "Accesibilidad", name: "Notificación accesible", desc: "Dispositivos de notificación visual certificados para personas con discapacidad auditiva.", you: "Nadie se queda sin enterarse de una alarma." },
-  { id: "nicet", code: "NICET", sub: "III · IV", k: ["fire"], short: "Técnicos nivel III y IV", name: "Técnicos certificados NICET", desc: "Técnicos con certificación NICET en sus niveles avanzados.", you: "Quien instala tu sistema está acreditado para hacerlo.", url: NICET_VERIFY_URL },
-  { id: "central", code: "UL", sub: "24/7", k: ["security", "fire"], short: "Central de monitoreo", name: "Central de monitoreo certificada UL", desc: "Monitoreo continuo con respuesta menor a 30 segundos.", you: "Si algo pasa, despachamos ayuda mientras verificamos la emergencia." },
-  { id: "sec1", code: "[—]", sub: "PENDIENTE", k: ["security"], pending: true, short: "[Certificación CCTV]", name: "[Certificación de fabricante CCTV]", desc: "[Agrega aquí la certificación de fabricante o integrador de videovigilancia que tenga el equipo.]", you: "[Beneficio para el cliente.]" },
-  { id: "sec2", code: "[—]", sub: "PENDIENTE", k: ["security"], pending: true, short: "[Licencia de seguridad]", name: "[Licencia de seguridad electrónica]", desc: "[Agrega aquí la licencia o registro de seguridad electrónica aplicable.]", you: "[Beneficio para el cliente.]" },
-  { id: "nec", code: "NEC", sub: "CÓDIGO", k: ["elec"], short: "Código Eléctrico Nacional", name: "Código Eléctrico Nacional", desc: "Todas las instalaciones eléctricas cumplen o superan el NEC y los códigos locales.", you: "Instalaciones que aprueban la inspección sin observaciones." },
-  { id: "nec700", code: "NEC 700", sub: "EMERGENCIA", k: ["elec", "fire"], short: "Sistemas de emergencia", name: "Sistemas eléctricos de emergencia", desc: "Iluminación de vida, letreros EXIT y alimentación ininterrumpida.", you: "La luz de salida sigue encendida aunque se vaya la energía." },
-  { id: "master", code: "MASTER", sub: "LICENCIA", k: ["elec"], short: "Master Electrician", name: "Licencia estatal Master Electrician", desc: "Licencia estatal de maestro electricista activa.", you: "Tu obra la firma un electricista con el nivel más alto de licencia.", url: FL_LICENSE_URL },
-  { id: "osha", code: "OSHA 30", sub: "HORAS", k: ["elec", "company"], short: "Seguridad laboral", name: "OSHA 30 horas", desc: "Capacitación de 30 horas en seguridad laboral para todo el equipo.", you: "Obra segura para nuestro equipo y para tu gente." },
-  { id: "lic", code: "LIC", sub: "ESTATAL", k: ["company"], short: "Licencia de contratista", name: "Licencia estatal de contratista", desc: "Licencia estatal de contratista activa.", you: "Contratas a una empresa formal y registrada.", url: FL_LICENSE_URL },
-  { id: "ulet", code: "UL·ETL", sub: "EQUIPOS", k: ["company", "elec"], short: "Certificación UL y ETL", name: "Equipos UL y ETL", desc: "Equipos y fixtures listados por UL y ETL.", you: "Cada equipo instalado cuenta con certificación de seguridad." },
-  { id: "ins", code: "$2M", sub: "SEGURO", k: ["company"], short: "Seguro de responsabilidad", name: "Seguro de responsabilidad", desc: "$2M en responsabilidad general y $5M umbrella.", you: "Tu inmueble está cubierto durante toda la obra." },
-  { id: "nfpam", code: "NFPA", sub: "MIEMBRO", k: ["company", "fire"], short: "Membresía NFPA", name: "Membresía activa en NFPA", desc: "Miembros activos de la National Fire Protection Association.", you: "Nos mantenemos al día con cada actualización de norma." },
+// Datos técnicos de cada sello; los textos (sub, short, name, desc, you) están en src/i18n (`certifications.certs`)
+const base: Omit<Cert, "sub" | "short" | "name" | "desc" | "you">[] = [
+  { id: "nfpa72", code: "NFPA 72", k: ["fire"] },
+  { id: "nfpa101", code: "NFPA 101", k: ["fire", "elec"] },
+  { id: "ul864", code: "UL 864", k: ["fire"] },
+  { id: "ada", code: "ADA", k: ["fire"] },
+  { id: "nicet", code: "NICET", k: ["fire"], url: NICET_VERIFY_URL },
+  { id: "central", code: "UL", k: ["security", "fire"] },
+  { id: "sec1", code: "[—]", k: ["security"], pending: true },
+  { id: "sec2", code: "[—]", k: ["security"], pending: true },
+  { id: "nec", code: "NEC", k: ["elec"] },
+  { id: "nec700", code: "NEC 700", k: ["elec", "fire"] },
+  { id: "master", code: "MASTER", k: ["elec"], url: FL_LICENSE_URL },
+  { id: "osha", code: "OSHA 30", k: ["elec", "company"] },
+  { id: "lic", code: "LIC", k: ["company"], url: FL_LICENSE_URL },
+  { id: "ulet", code: "UL·ETL", k: ["company", "elec"] },
+  { id: "ins", code: "$2M", k: ["company"] },
+  { id: "nfpam", code: "NFPA", k: ["company", "fire"] },
 ];
+const allCerts: Cert[] = base.map((c) => ({ ...c, ...t.certs[c.id as keyof typeof t.certs] }));
 
 // Las pendientes son plantillas por rellenar: no se muestran al público hasta tener el dato real
 const certs = allCerts.filter((c) => !c.pending);
@@ -75,17 +77,17 @@ const initial = shown[0] ?? certs[0];
 const initialColor = colorOf(initial, service);
 ---
 
-<section class="certifications relative border-t border-[var(--cr-line)] bg-[#0b0a0c] py-[clamp(96px,12vw,160px)]" id="certificaciones" data-cert-section data-initial-filter={service}>
+<section class="certifications relative border-t border-[var(--cr-line)] bg-[#0b0a0c] py-[clamp(96px,12vw,160px)]" id="certificaciones" data-cert-section data-initial-filter={service} data-i18n={JSON.stringify(scriptStrings)}>
   <div class="cr-wrap flex flex-col gap-[clamp(40px,5vw,56px)]">
     <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-8">
       <div class="flex flex-col gap-[22px]">
-        <p class="cr-label text-[var(--cr-signal)]" data-reveal>04 — Credenciales</p>
+        <p class="cr-label text-[var(--cr-signal)]" data-reveal>{t.label}</p>
         <h2 class="text-[clamp(48px,7vw,104px)] leading-[0.88]" data-reveal style="--d:80ms">
-          Certificados, <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">no promesas.</span>
+          {t.title1} <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">{t.title2}</span>
         </h2>
       </div>
 
-      <div role="group" aria-label="Filtrar certificaciones por servicio" class="flex flex-wrap justify-start md:justify-end gap-2 max-w-[620px]" data-reveal style="--d:120ms">
+      <div role="group" aria-label={t.filterAria} class="flex flex-wrap justify-start md:justify-end gap-2 max-w-[620px]" data-reveal style="--d:120ms">
         {
           filterKeys.map((key) => (
             <button
@@ -95,7 +97,7 @@ const initialColor = colorOf(initial, service);
               aria-pressed={key === service ? "true" : "false"}
             >
               <span class="w-2 h-2 shrink-0" style={`background-color:${key === "all" ? "var(--cr-bone)" : COLORS[key]}`} />
-              {key === "all" ? "Todas" : LABELS[key]} <span class="opacity-60">{countFor(key)}</span>
+              {key === "all" ? t.all : LABELS[key]} <span class="opacity-60">{countFor(key)}</span>
             </button>
           ))
         }
@@ -121,7 +123,7 @@ const initialColor = colorOf(initial, service);
               data-cert-url={c.url}
               data-cert-doc={c.doc}
               aria-pressed={c.id === initial.id ? "true" : "false"}
-              aria-label={`${c.name}${c.pending ? " (pendiente de completar)" : ""}`}
+              aria-label={`${c.name}${c.pending ? t.pendingSuffix : ""}`}
               data-reveal
               style={`--d:${Math.min(i * 25, 300)}ms`}
             >
@@ -165,13 +167,13 @@ const initialColor = colorOf(initial, service);
       >
         <p class="flex justify-between [font-family:var(--cr-mono)] text-[13px] tracking-[0.14em] uppercase text-[var(--cr-bone-dim)]">
           <span data-cert-detail-area>{initial.k.map((k) => LABELS[k]).join(" · ")}</span>
-          <span data-cert-detail-status style={`color:${initial.pending ? "var(--cr-amber)" : "var(--cr-ok)"}`}>{initial.pending ? "Por completar" : "Vigente · verificable"}</span>
+          <span data-cert-detail-status style={`color:${initial.pending ? "var(--cr-amber)" : "var(--cr-ok)"}`}>{initial.pending ? t.pending : t.valid}</span>
         </p>
         <p class="[font-family:var(--cr-display)] font-black text-[clamp(56px,9vw,96px)] leading-[0.85]" data-cert-detail-code style={`color:${initialColor}`}>{initial.code}</p>
         <h3 class="[font-family:var(--cr-display)] font-extrabold text-[clamp(26px,3vw,34px)] leading-none uppercase" data-cert-detail-name>{initial.name}</h3>
         <p class="text-[17px] leading-[1.6] text-[rgba(237,232,224,0.72)]" data-cert-detail-desc>{initial.desc}</p>
         <div class="p-[18px] bg-[rgba(237,232,224,0.05)] border-l-[3px] flex flex-col gap-2" data-cert-detail-you-box style={`border-left-color:${initialColor}`}>
-          <p class="[font-family:var(--cr-mono)] text-[13px] tracking-[0.14em] uppercase text-[var(--cr-bone-dim)]">Qué significa para ti</p>
+          <p class="[font-family:var(--cr-mono)] text-[13px] tracking-[0.14em] uppercase text-[var(--cr-bone-dim)]">{t.youLabel}</p>
           <p class="text-[17px] leading-[1.55]" data-cert-detail-you>{initial.you}</p>
         </div>
         <div class="flex flex-wrap gap-2" data-cert-detail-tags>
@@ -191,7 +193,7 @@ const initialColor = colorOf(initial, service);
             class:list={["cert-inkbtn flex items-center justify-between h-14 px-[22px] bg-[var(--cr-bone)] text-[var(--cr-ink)] font-bold text-[17px]", { hidden: !initial.url }]}
             data-cert-cta-url
           >
-            Verificar licencia <span aria-hidden="true">↗</span>
+            {t.verify} <span aria-hidden="true">↗</span>
           </a>
           <a
             href={initial.doc ?? "#"}
@@ -199,14 +201,14 @@ const initialColor = colorOf(initial, service);
             class:list={["cert-inkbtn flex items-center justify-between h-14 px-[22px] bg-[var(--cr-bone)] text-[var(--cr-ink)] font-bold text-[17px]", { hidden: !initial.doc }]}
             data-cert-cta-doc
           >
-            Descargar documento <span aria-hidden="true">↓</span>
+            {t.download} <span aria-hidden="true">↓</span>
           </a>
           <a
-            href="/contact"
+            href={href("/contact")}
             class:list={["cert-inkbtn flex items-center justify-between h-14 px-[22px] bg-[var(--cr-bone)] text-[var(--cr-ink)] font-bold text-[17px]", { hidden: initial.url || initial.doc }]}
             data-cert-cta-contact
           >
-            Pide el documento en tu visita técnica <span aria-hidden="true">→</span>
+            {t.askDoc} <span aria-hidden="true">→</span>
           </a>
         </div>
       </div>
@@ -271,16 +273,13 @@ const initialColor = colorOf(initial, service);
     elec: "var(--cr-amber)",
     company: "var(--cr-bone)",
   };
-  const LABELS: Record<string, string> = {
-    fire: "Incendio",
-    security: "Seguridad",
-    elec: "Electricidad",
-    company: "Empresa",
-  };
   const PENDING_COLOR = "rgba(237,232,224,0.4)";
 
   const root = document.querySelector<HTMLElement>("[data-cert-section]");
   if (!root) throw new Error("Certifications root not found");
+
+  const strings: { areas: Record<string, string>; pending: string; valid: string } = JSON.parse(root.dataset.i18n ?? "{}");
+  const LABELS = strings.areas ?? {};
 
   const filterBtns = [...root.querySelectorAll<HTMLButtonElement>("[data-cert-filter]")];
   const seals = [...root.querySelectorAll<HTMLButtonElement>("[data-cert-seal]")];
@@ -352,7 +351,7 @@ const initialColor = colorOf(initial, service);
     if (youBox) youBox.style.borderLeftColor = color;
     if (areaEl) areaEl.textContent = keys.map((k) => LABELS[k] ?? k).join(" · ");
     if (statusEl) {
-      statusEl.textContent = pending ? "Por completar" : "Vigente · verificable";
+      statusEl.textContent = pending ? strings.pending : strings.valid;
       statusEl.style.color = pending ? "var(--cr-amber)" : "var(--cr-ok)";
     }
     if (tagsEl) {

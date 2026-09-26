@@ -1,4 +1,6 @@
 ---
+import { useTranslations } from "@/i18n";
+
 interface Phase {
   n: string;
   title: string;
@@ -10,13 +12,14 @@ interface Props {
 }
 
 const { phases } = Astro.props;
+const t = useTranslations(Astro).about;
 ---
 
 <section class="phases py-[clamp(80px,10vw,150px)] border-t border-[var(--cr-line)]" id="proceso" data-phases>
   <div class="cr-wrap">
     <header class="phases__head">
-      <p class="cr-label" data-reveal>02 — Metodología</p>
-      <h2 class="mt-[18px] text-[length:clamp(48px,7vw,100px)]" data-reveal style="--d:80ms">Del plano<br />a la protección.</h2>
+      <p class="cr-label" data-reveal>{t.phasesLabel}</p>
+      <h2 class="mt-[18px] text-[length:clamp(48px,7vw,100px)]" data-reveal style="--d:80ms">{t.phasesTitle1}<br />{t.phasesTitle2}</h2>
     </header>
 
     <ol class="phases__grid list-none m-0 mt-[clamp(48px,6vw,80px)] p-0 grid grid-cols-1 min-[860px]:grid-cols-3 gap-[1px] bg-[var(--cr-line)] border border-[var(--cr-line)]">

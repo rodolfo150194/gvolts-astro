@@ -46,19 +46,36 @@ export default defineConfig({
        filter: (page) => !new URL(page).pathname.startsWith('/admin'),
        // Coherente con las URL canónicas (sin barra final)
        serialize: (item) => {
-         const url = new URL(item.url);
-         if (url.pathname !== '/') url.pathname = url.pathname.replace(/\/$/, '');
-         return { ...item, url: url.href };
+         const clean = (href) => {
+           const url = new URL(href);
+           if (url.pathname !== '/') url.pathname = url.pathname.replace(/\/$/, '');
+           return url.href;
+         };
+         return {
+           ...item,
+           url: clean(item.url),
+           links: item.links?.map((link) => ({ ...link, url: clean(link.url) })),
+         };
        },
+       // Alternativas hreflang entre /ruta (inglés) y /es/ruta (español)
        i18n: {
-         defaultLocale: 'es',
+         defaultLocale: 'en',
          locales: {
+           en: 'en-US',
            es: 'es-ES',
          },
        },
      }),
      copyEmailTemplates()
    ],
+  // Inglés en la raíz (/about) y español bajo /es (/es/about). Ver src/i18n.
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'es'],
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
   vite: {
     resolve: {
       alias: {

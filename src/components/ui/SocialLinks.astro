@@ -1,5 +1,6 @@
 ---
 import { socials } from "@/data/socials";
+import { useTranslations } from "@/i18n";
 
 /** Enlaces a redes sociales. El aspecto de cada enlace se controla con `linkClass`. */
 interface Props {
@@ -8,6 +9,8 @@ interface Props {
 }
 
 const { class: className = "flex gap-[12px]", linkClass = "" } = Astro.props;
+const tr = useTranslations(Astro);
+const ariaLabel = (name: string, fallback: string) => tr.socials[name as keyof typeof tr.socials] ?? fallback;
 ---
 
 <ul class:list={["list-none m-0 p-0", className]}>
@@ -15,7 +18,7 @@ const { class: className = "flex gap-[12px]", linkClass = "" } = Astro.props;
     <li class="contents">
       <a
         href={social.url}
-        aria-label={social.ariaLabel}
+        aria-label={ariaLabel(social.name, social.ariaLabel)}
         class:list={["text-[var(--cr-bone-dim)] transition-colors hover:text-[var(--cr-signal)]", linkClass]}
         target="_blank"
         rel="noopener noreferrer"
