@@ -6,8 +6,9 @@ import Finale from "@/components/control-room/Finale.astro";
 import CookieConsent from "@/components/legal/CookieConsent.astro";
 import JsonLd from "@/components/seo/JsonLd.astro";
 import { generateBreadcrumbSchema } from "@/utils/schemas";
-import { absoluteUrl, GOOGLE_FONTS_URL } from "@/data/site";
+import { absoluteUrl } from "@/data/site";
 import type { AvatarKey } from "@/data/avatar";
+import "@/styles/fonts.css";
 import "@/styles/control-room.css";
 
 /**
@@ -51,10 +52,10 @@ const schemas = [
 
 <Layout title={title} description={description} image={image} noindex={noindex}>
   <Fragment slot="head">
-    <link rel="preload" href="/fonts/JetBrainsMono-VariableFont_wght.ttf" as="font" type="font/ttf" crossorigin />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href={GOOGLE_FONTS_URL} />
+    <!-- Fuentes autoalojadas (src/styles/fonts.css): precarga de las que pinta el primer pantallazo -->
+    <link rel="preload" href="/fonts/BigShouldersDisplay-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/HankenGrotesk-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/JetBrainsMono-latin.woff2" as="font" type="font/woff2" crossorigin />
     <noscript><style>.cr [data-reveal] { opacity: 1 !important; transform: none !important; }</style></noscript>
     {schemas.length > 0 && <JsonLd schema={schemas} />}
     <slot name="head" />

@@ -15,10 +15,6 @@ export const SITE = {
 /** Construye una URL absoluta del sitio a partir de una ruta. */
 export const absoluteUrl = (path = "/") => new URL(path, SITE.url).href.replace(/\/$/, "");
 
-/** Tipografías de Google usadas por el diseño Control Room. */
-export const GOOGLE_FONTS_URL =
-  "https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700;800;900&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap";
-
 export interface NavLink {
   label: string;
   href: string;

@@ -51,13 +51,6 @@
   --cr-signal-deep: #2f7fd1;
 }
 
-@font-face {
-  font-family: "JetBrains Mono";
-  src: url("/fonts/JetBrainsMono-VariableFont_wght.ttf") format("truetype");
-  font-weight: 100 800;
-  font-display: swap;
-}
-
 /* Film grain over everything — gives the dark surfaces a physical feel */
 .cr::after {
   content: "";
