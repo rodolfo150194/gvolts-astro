@@ -22,6 +22,7 @@ import iconBoxElectric from "@/assets/img/icons/box-electric.png";
 import iconHatElectric from "@/assets/img/icons/hat-electric.png";
 import iconToolsElectric from "@/assets/img/icons/toolts-electric.png";
 import iconIndustrial from "@/assets/img/icons/industrial.png";
+import { fmt, useTranslations } from "@/i18n";
 
 type Service = "security" | "fire" | "elec";
 
@@ -42,44 +43,24 @@ interface Step {
   icon: ImageMetadata;
 }
 
-const DATA: Record<Service, { eyebrow: string; title: string; titleOutline: string; steps: Step[] }> = {
-  security: {
-    eyebrow: "Cómo funciona",
-    title: "Así protege",
-    titleOutline: "tu sistema.",
-    steps: [
-      { title: "Detecta", tag: "CÁMARAS 4K", desc: "Cámaras 4K con visión nocturna vigilan cada acceso y perímetro, de día y de noche.", why: "Imagen nítida hasta 30 m en oscuridad total.", spec: "8MP · IR 30 m · IP67 · WDR 120dB", icon: iconCctv },
-      { title: "Analiza", tag: "IA INCORPORADA", desc: "La IA distingue personas, vehículos y placas, y descarta sombras, animales y lluvia.", why: "99% menos eventos falsos: solo te alerta cuando importa.", spec: "Facial 1:N · LPR/ANPR · Líneas virtuales", icon: iconLighthub },
-      { title: "Notifica", tag: "APP MÓVIL", desc: "Recibes el clip del evento en tu móvil en segundos, estés donde estés.", why: "Ves lo que pasa y decides al momento.", spec: "iOS · Android · Web", icon: iconMobileControl },
-      { title: "Controla", tag: "ACCESO BIOMÉTRICO", desc: "Huella, rostro, tarjeta o móvil abren solo a quien autorizas, en el horario que defines.", why: "Solo quien tú decidas, cuando tú decidas.", spec: "Failsafe / Failsecure · 10,000 usuarios", icon: iconAccess },
-      { title: "Resguarda", tag: "LOCAL + NUBE", desc: "Todo queda grabado y registrado en disco local y en la nube cifrada.", why: "Evidencia disponible y protegida contra accesos indebidos.", spec: "RAID 5 · 30 días · AES-256 · VPN", icon: iconCloud },
-    ],
-  },
-  fire: {
-    eyebrow: "Cómo funciona",
-    title: "Del humo",
-    titleOutline: "a la respuesta.",
-    steps: [
-      { title: "Detecta", tag: "MULTI-SENSOR", desc: "Humo fotoeléctrico, calor y CO combinados distinguen una tostada de un incendio real.", why: "Reducción del 95% en falsas alarmas.", spec: "Fotoeléctrico · Calor · CO", icon: iconAlarm },
-      { title: "Ubica", tag: "PANEL DIRECCIONABLE", desc: "El panel identifica la ubicación exacta del evento en segundos.", why: "Evacuación por zona, sin pánico general.", spec: "Mapeo en tiempo real · UL 864", icon: iconUbication },
-      { title: "Alerta", tag: "SIRENAS + ESTROBOS", desc: "Sirenas estroboscópicas sincronizadas y mensajes de voz alertan a todos al instante.", why: "Nadie se queda sin enterarse, incluidas personas con discapacidad auditiva.", spec: "NFPA 72 · ADA · Voz pregrabada", icon: iconBoton },
-      { title: "Suprime", tag: "SUPRESIÓN", desc: "Rociadores, gas limpio FM-200 y control de humo responden de forma automática.", why: "Se minimizan los daños antes de que llegue ayuda.", spec: "Rociadores · FM-200 · Compuertas", icon: iconExtintor },
-      { title: "Monitorea", tag: "CENTRAL UL 24/7", desc: "La central certificada recibe la señal y despacha ayuda mientras verifica.", why: "Respuesta en menos de 30 segundos, 24/7.", spec: "Central UL · Batería de respaldo 72 h", icon: iconCertificado },
-    ],
-  },
-  elec: {
-    eyebrow: "Cómo funciona",
-    title: "De la acometida",
-    titleOutline: "a cada toma.",
-    steps: [
-      { title: "Entrada", tag: "DEMANDA", desc: "Calculamos la demanda y coordinamos con la compañía eléctrica desde el origen.", why: "Tu instalación queda dimensionada para lo que realmente consumes.", spec: "Cálculo de demanda · Planos sellados", icon: iconBlueprint },
-      { title: "Tablero", tag: "PANEL 200–400 A", desc: "Paneles modernos con espacio para crecer y puesta a tierra correcta.", why: "Capacidad para vehículo eléctrico, ampliaciones y equipos nuevos.", spec: "200 A · 400 A · Transferencia sin interrupción", icon: iconBoxElectric },
-      { title: "Protege", tag: "AFCI · GFCI", desc: "Breakers AFCI/GFCI y pruebas de continuidad, aislamiento, polaridad y tierra antes de energizar.", why: "Se previenen arcos, descargas e incendios de origen eléctrico.", spec: "AFCI · GFCI · Pruebas antes de energizar", icon: iconHatElectric },
-      { title: "Circuitos", tag: "DISTRIBUCIÓN", desc: "Líneas dedicadas con el calibre correcto para cada equipo de alto consumo.", why: "Aprobado por el inspector sin observaciones.", spec: "Calibre según NEC · EV 240 V · Mini-split", icon: iconToolsElectric },
-      { title: "Respalda", tag: "ATS · UPS", desc: "Transfer switch automático, generadores y UPS mantienen tu operación en apagones.", why: "Tus equipos críticos no se detienen.", spec: "Transfer automático · Diésel / gas · UPS", icon: iconIndustrial },
-    ],
-  },
+// Textos por servicio en src/i18n (`circuit.services`); aquí solo el icono de cada paso
+const ICONS: Record<Service, ImageMetadata[]> = {
+  security: [iconCctv, iconLighthub, iconMobileControl, iconAccess, iconCloud],
+  fire: [iconAlarm, iconUbication, iconBoton, iconExtintor, iconCertificado],
+  elec: [iconBlueprint, iconBoxElectric, iconHatElectric, iconToolsElectric, iconIndustrial],
 };
+
+const c = useTranslations(Astro).circuit;
+const DATA = Object.fromEntries(
+  (Object.keys(ICONS) as Service[]).map((key) => [
+    key,
+    {
+      eyebrow: c.eyebrow,
+      ...c.services[key],
+      steps: c.services[key].steps.map((st, i): Step => ({ ...st, icon: ICONS[key][i] })),
+    },
+  ]),
+) as Record<Service, { eyebrow: string; title: string; titleOutline: string; steps: Step[] }>;
 
 const D = DATA[service] ?? DATA.security;
 const pad = (n: number) => String(n).padStart(2, "0");
@@ -112,7 +93,7 @@ for (let i = 0; i < 4; i++) {
         </h2>
       </div>
       <div class="sc__meter" aria-hidden="true">
-        <p class="cr-label flex items-center gap-2"><span class="sc__blink"></span>Circuito activo</p>
+        <p class="cr-label flex items-center gap-2"><span class="sc__blink"></span>{c.active}</p>
         <p class="sc__pct"><span data-circuit-pct>20</span><small>%</small></p>
       </div>
     </header>
@@ -129,7 +110,7 @@ for (let i = 0; i < 4; i++) {
                 type="button"
                 data-node={i}
                 aria-pressed={i === 0 ? "true" : "false"}
-                aria-label={`Paso ${i + 1}: ${st.title}`}
+                aria-label={fmt(c.stepAria, { n: i + 1, title: st.title })}
                 data-state={i === 0 ? "here" : "todo"}
               >
                 <span class="sc__pulse" aria-hidden="true" />
@@ -167,7 +148,7 @@ for (let i = 0; i < 4; i++) {
                 <p class="max-w-[560px] text-[18px] leading-[1.55] text-[var(--cr-bone-dim)]">{st.desc}</p>
               </div>
               <div class="sc__rise sc__why">
-                <p class="cr-label text-[var(--cr-signal)]">Por qué importa</p>
+                <p class="cr-label text-[var(--cr-signal)]">{c.why}</p>
                 <p class="text-[18px] font-semibold leading-[1.45]">{st.why}</p>
                 <p class="[font-family:var(--cr-mono)] text-[14px] text-[var(--cr-bone-dim)]">{st.spec}</p>
               </div>
@@ -176,8 +157,8 @@ for (let i = 0; i < 4; i++) {
         }
       </div>
       <div class="sc__nav">
-        <button class="sc__btn" type="button" data-circuit-next aria-label="Paso siguiente">Siguiente →</button>
-        <button class="sc__btn sc__btn--dim" type="button" data-circuit-prev aria-label="Paso anterior">← Anterior</button>
+        <button class="sc__btn" type="button" data-circuit-next aria-label={c.nextAria}>{c.next}</button>
+        <button class="sc__btn sc__btn--dim" type="button" data-circuit-prev aria-label={c.prevAria}>{c.prev}</button>
       </div>
     </div>
   </div>

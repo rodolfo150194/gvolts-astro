@@ -5,33 +5,10 @@
  * (visita sin costo, presupuesto en 24 h, garantía, central 24/7).
  */
 import faqAvatar from "@/assets/img/avatar/faq.png";
+import { useTranslations } from "@/i18n";
 
-const faqs = [
-  {
-    q: "¿Cuánto cuesta la visita y el presupuesto?",
-    a: "Nada. Visitamos el inmueble sin costo y te entregamos un diagnóstico y un presupuesto cerrado en 24 horas.",
-  },
-  {
-    q: "¿Trabajan con hogares o solo con empresas?",
-    a: "Con los dos. Instalamos en casas, locales, restaurantes, oficinas y bodegas.",
-  },
-  {
-    q: "¿Trabajan en mi zona?",
-    a: "Indícanos tu código postal en el formulario de contacto o llámanos y te confirmamos al momento.",
-  },
-  {
-    q: "¿Mi sistema pasará la inspección?",
-    a: "Diseñamos e instalamos según NFPA 72 y el código NEC, con técnicos certificados y licencia estatal activa. Hacemos las pruebas y te entregamos el certificado de cumplimiento.",
-  },
-  {
-    q: "¿Qué garantía tengo?",
-    a: "5 años en equipos y 2 años en mano de obra, por escrito en cada instalación.",
-  },
-  {
-    q: "¿Quién vigila el sistema después de instalarlo?",
-    a: "Nuestra central de monitoreo certificada UL, 24 horas al día, todos los días del año.",
-  },
-];
+const t = useTranslations(Astro).faq;
+const faqs = t.items;
 
 const faqSchema = {
   "@context": "https://schema.org",
@@ -48,9 +25,9 @@ const faqSchema = {
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   <div class="cr-wrap">
     <header class="mx-auto max-w-[760px] text-center">
-      <p class="cr-label" data-reveal>05 — Preguntas</p>
+      <p class="cr-label" data-reveal>{t.label}</p>
       <h2 class="mt-[18px] text-[clamp(44px,4.4vw,72px)]" data-reveal style="--d:80ms">
-        Dudas <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">frecuentes.</span>
+        {t.title1} <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">{t.title2}</span>
       </h2>
     </header>
 

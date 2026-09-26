@@ -7,7 +7,8 @@ import SocialLinks from "@/components/ui/SocialLinks.astro";
 import FooterLinks from "@/components/ui/FooterLinks.astro";
 import { avatars, type AvatarKey } from "@/data/avatar";
 import { CONTACT } from "@/data/company";
-import { NAV_COMPANY, NAV_LEGAL, NAV_SERVICES, SITE } from "@/data/site";
+import { NAV_COMPANY, NAV_LEGAL, NAV_SERVICES, SITE, navLinks } from "@/data/site";
+import { i18n } from "@/i18n";
 
 interface Props {
   logo?: ImageMetadata;
@@ -19,6 +20,8 @@ interface Props {
 
 const { logo, avatar = "general", hideCta = false } = Astro.props;
 const tech = avatars[avatar];
+const { locale, tr, href } = i18n(Astro);
+const f = tr.finale;
 const year = new Date().getFullYear();
 
 ---
@@ -27,12 +30,12 @@ const year = new Date().getFullYear();
 <section class="fin bg-[var(--cr-signal-deep)] text-[var(--cr-ink)] py-[clamp(96px,12vw,170px)] [clip-path:polygon(0_48px,48px_0,100%_0,100%_100%,0_100%)]">
   <div class="cr-wrap relative">
     <div class="fin__content">
-    <p class="cr-label !text-[var(--cr-ink)]" data-reveal>Siguiente paso</p>
-    <h2 class="mt-[18px] text-[length:clamp(60px,11vw,176px)] min-[900px]:text-[length:clamp(60px,8.4vw,140px)] max-[720px]:text-[length:clamp(38px,13vw,60px)]" data-reveal style="--d:80ms">¿Tu inmueble<br />está protegido?</h2>
+    <p class="cr-label !text-[var(--cr-ink)]" data-reveal>{f.kicker}</p>
+    <h2 class="mt-[18px] text-[length:clamp(60px,11vw,176px)] min-[900px]:text-[length:clamp(60px,8.4vw,140px)] max-[720px]:text-[length:clamp(38px,13vw,60px)]" data-reveal style="--d:80ms">{f.title1}<br />{f.title2}</h2>
     <div class="flex flex-wrap justify-between items-end gap-[32px] mt-[48px] max-[720px]:items-start max-[520px]:flex-col max-[520px]:items-stretch" data-reveal style="--d:160ms">
-      <p class="max-w-[42ch] text-[19px]">Agenda una visita técnica sin costo. Te entregamos un diagnóstico y un presupuesto cerrado en 24 horas.</p>
-      <a href="/contact" class="group inline-flex items-center gap-[28px] pt-[20px] pr-[20px] pb-[20px] pl-[32px] bg-[var(--cr-ink)] !text-[var(--cr-bone)] [font-family:var(--cr-mono)] text-[15px] font-semibold tracking-[0.14em] uppercase transition-[background] duration-300 max-[720px]:gap-[18px] max-[720px]:pt-[16px] max-[720px]:pr-[16px] max-[720px]:pb-[16px] max-[720px]:pl-[22px] max-[520px]:justify-between">
-        <span>Agendar visita</span>
+      <p class="max-w-[42ch] text-[19px]">{f.text}</p>
+      <a href={href("/contact")} class="group inline-flex items-center gap-[28px] pt-[20px] pr-[20px] pb-[20px] pl-[32px] bg-[var(--cr-ink)] !text-[var(--cr-bone)] [font-family:var(--cr-mono)] text-[15px] font-semibold tracking-[0.14em] uppercase transition-[background] duration-300 max-[720px]:gap-[18px] max-[720px]:pt-[16px] max-[720px]:pr-[16px] max-[720px]:pb-[16px] max-[720px]:pl-[22px] max-[520px]:justify-between">
+        <span>{f.cta}</span>
         <span class="fin__arrow grid place-items-center w-[48px] h-[48px] bg-[var(--cr-signal)] text-[var(--cr-ink)] text-[20px] max-[720px]:w-[40px] max-[720px]:h-[40px]" aria-hidden="true"><span>→</span></span>
       </a>
     </div>
@@ -40,8 +43,8 @@ const year = new Date().getFullYear();
 
     <!-- Técnico de guardia: sube desde el borde inferior al entrar en pantalla -->
     <div class="fin__av" data-reveal style="--d:240ms">
-      <p class="fin__tag"><span class="fin__led" aria-hidden="true"></span>Técnico de guardia · en línea</p>
-      <Image src={tech.src} alt={tech.alt} widths={[320, 480, 640, 960]} sizes="(min-width: 900px) min(34vw, 500px), 82vw" class="fin__img" loading="lazy" />
+      <p class="fin__tag"><span class="fin__led" aria-hidden="true"></span>{f.techTag}</p>
+      <Image src={tech.src} alt={tr.avatars[avatar]} widths={[320, 480, 640, 960]} sizes="(min-width: 900px) min(34vw, 500px), 82vw" class="fin__img" loading="lazy" />
     </div>
   </div>
 </section>
@@ -93,15 +96,15 @@ const year = new Date().getFullYear();
     <div class="grid [grid-template-columns:minmax(0,1fr)_auto] items-start gap-[clamp(32px,4vw,72px)] max-[1100px]:[grid-template-columns:1fr]">
       <!-- Contenido: a la izquierda del logo y por encima -->
       <div class="min-w-0" data-reveal>
-        <p class="cr-label mb-[25px]">¿Hablamos?</p>
+        <p class="cr-label mb-[25px]">{f.talk}</p>
         <a href={CONTACT.phoneHref} class="block [font-family:var(--cr-display)] font-extrabold text-[length:clamp(36px,4.6vw,68px)] leading-none transition-colors duration-200 hover:!text-[var(--cr-signal)]">{CONTACT.phone}</a>
-        <p class="mt-[16px] max-w-[46ch] text-[var(--cr-bone-dim)]">Llámanos o <a href="/contact" class="text-[var(--cr-bone)] underline underline-offset-4 hover:text-[var(--cr-signal)]">pide tu cotización</a> y te respondemos en menos de 24 horas.</p>
+        <p class="mt-[16px] max-w-[46ch] text-[var(--cr-bone-dim)]">{f.callOr} <a href={href("/contact")} class="text-[var(--cr-bone)] underline underline-offset-4 hover:text-[var(--cr-signal)]">{f.quoteLink}</a> {f.respond}</p>
       </div>
 
       <!-- Logo: extremo derecho, con redes sociales encima -->
       <div class="flex flex-col items-end gap-[28px] max-[1100px]:items-start">
         <div class="flex flex-col items-end gap-[14px] max-[1100px]:items-start">
-          <p class="cr-label">Síguenos</p>
+          <p class="cr-label">{f.follow}</p>
           <SocialLinks
             class="flex flex-wrap gap-[10px]"
             linkClass="grid place-items-center w-[46px] h-[46px] border border-[var(--cr-line-strong)] transition-[background,color,border-color,transform] duration-300 hover:bg-[var(--cr-signal)] hover:border-[var(--cr-signal)] hover:!text-[var(--cr-ink)] hover:-translate-y-[2px] max-[520px]:w-[44px] max-[520px]:h-[44px]"
@@ -115,44 +118,44 @@ const year = new Date().getFullYear();
     <!-- Enlaces: ancho completo -->
     <div class="w-full mt-[clamp(40px,5vw,64px)] pt-[clamp(36px,4vw,56px)] border-t border-[var(--cr-line)] grid [grid-template-columns:1.5fr_1fr_1fr] gap-[clamp(32px,4vw,56px)] max-[820px]:grid-cols-2 max-[520px]:grid-cols-1" data-reveal>
           <div>
-            <p class="cr-label mb-[18px]">Contacto</p>
+            <p class="cr-label mb-[18px]">{f.contact}</p>
             <dl class="m-0">
               <div class="flex items-baseline gap-[16px] py-[13px] border-t border-[var(--cr-line)]">
-                <dt class="cr-label w-[46px] shrink-0 !text-[10px]">Tel</dt>
+                <dt class="cr-label w-[46px] shrink-0 !text-[10px]">{f.tel}</dt>
                 <dd class="m-0 [font-family:var(--cr-display)] font-bold text-[length:clamp(19px,1.9vw,26px)] leading-[1.15]">
                   <a href={CONTACT.phoneHref} class="transition-colors duration-200 hover:!text-[var(--cr-signal)]">{CONTACT.phone}</a>
                 </dd>
               </div>
               <div class="flex items-baseline gap-[16px] py-[13px] border-t border-[var(--cr-line)]">
-                <dt class="cr-label w-[46px] shrink-0 !text-[10px]">Mail</dt>
+                <dt class="cr-label w-[46px] shrink-0 !text-[10px]">{f.mail}</dt>
                 <dd class="m-0 [font-family:var(--cr-display)] font-bold text-[length:clamp(19px,1.9vw,26px)] leading-[1.15]">
                   <a href={`mailto:${CONTACT.email}`} class="transition-colors duration-200 hover:!text-[var(--cr-signal)]">{CONTACT.email}</a>
                 </dd>
               </div>
               <div class="flex items-start gap-[16px] py-[13px] border-t border-[var(--cr-line)]">
-                <dt class="cr-label w-[46px] shrink-0 !text-[10px] mt-[3px]">Dir</dt>
+                <dt class="cr-label w-[46px] shrink-0 !text-[10px] mt-[3px]">{f.address}</dt>
                 <dd class="m-0 text-[var(--cr-bone-dim)]">{CONTACT.address[0]}<br />{CONTACT.address[1]}</dd>
               </div>
               <div class="flex items-center gap-[16px] py-[13px] border-y border-[var(--cr-line)]">
-                <dt class="sr-only">Estado</dt>
-                <dd class="m-0 flex items-center gap-[10px] [font-family:var(--cr-mono)] text-[13px] tracking-[0.1em] uppercase text-[var(--cr-bone-dim)]"><span class="cr-led"></span>Central operativa 24/7/365</dd>
+                <dt class="sr-only">{f.status}</dt>
+                <dd class="m-0 flex items-center gap-[10px] [font-family:var(--cr-mono)] text-[13px] tracking-[0.1em] uppercase text-[var(--cr-bone-dim)]"><span class="cr-led"></span>{f.central}</dd>
               </div>
             </dl>
           </div>
 
-          <FooterLinks title="Servicios" links={NAV_SERVICES} />
-          <FooterLinks title="Empresa" links={NAV_COMPANY} />
+          <FooterLinks title={f.services} links={navLinks(NAV_SERVICES, locale)} />
+          <FooterLinks title={f.company} links={navLinks(NAV_COMPANY, locale)} />
     </div>
 
     <div class="cr-label flex justify-between items-center flex-wrap gap-x-[24px] gap-y-[12px] mt-[clamp(56px,8vw,100px)] pt-[24px] pb-[32px] border-t border-[var(--cr-line)] !text-[10.5px]">
       <span>© {year} {SITE.name}</span>
-      <nav aria-label="Legal">
+      <nav aria-label={f.legalNav}>
         <ul class="flex flex-wrap gap-x-[20px] gap-y-[8px] list-none m-0 p-0">
-          {NAV_LEGAL.map((l) => (
+          {navLinks(NAV_LEGAL, locale).map((l) => (
             <li><a href={l.href} class="hover:text-[var(--cr-signal)] transition-colors">{l.label}</a></li>
           ))}
           <li>
-            <button type="button" class="p-0 bg-transparent border-0 cursor-pointer uppercase [font:inherit] tracking-[inherit] text-inherit hover:text-[var(--cr-signal)] transition-colors" data-cookie-settings>Preferencias de cookies</button>
+            <button type="button" class="p-0 bg-transparent border-0 cursor-pointer uppercase [font:inherit] tracking-[inherit] text-inherit hover:text-[var(--cr-signal)] transition-colors" data-cookie-settings>{f.cookiePrefs}</button>
           </li>
         </ul>
       </nav>
@@ -163,7 +166,7 @@ const year = new Date().getFullYear();
   <button
     type="button"
     class="fixed bottom-[24px] right-[88px] z-[90] grid place-items-center w-[52px] h-[52px] p-0 bg-[var(--cr-signal)] text-[var(--cr-ink)] border border-[var(--cr-signal)] cursor-pointer [clip-path:polygon(0_0,calc(100%-14px)_0,100%_14px,100%_100%,14px_100%,0_calc(100%-14px))] opacity-0 invisible translate-y-[12px] transition-[opacity,transform,background,border-color] duration-[350ms] ease-[cubic-bezier(0.2,0.7,0.1,1)] hover:bg-[var(--cr-bone)] hover:border-[var(--cr-bone)] [&.is-visible]:opacity-100 [&.is-visible]:visible [&.is-visible]:translate-y-0 [&_svg]:w-[22px] [&_svg]:h-[22px] md:bottom-[28px] md:right-[100px]"
-    aria-label="Volver arriba"
+    aria-label={f.backToTop}
     data-cr-top
   >
     <ArrowUp stroke-width={2.5} />

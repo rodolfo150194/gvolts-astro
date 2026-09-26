@@ -1,42 +1,48 @@
 ---
 import { COOKIE_CATEGORIES, COOKIES } from "@/data/cookies";
+import { useTranslations } from "@/i18n";
 
 /** Tabla de cookies agrupada por categoría, generada desde src/data/cookies.ts. */
+const { cookieData: d, cookieConsent } = useTranslations(Astro);
 ---
 
 <div class="legal-table flex flex-col gap-[32px]">
   {COOKIE_CATEGORIES.map((category) => {
     const items = COOKIES.filter((c) => c.category === category.id);
+    const text = d.categories[category.id];
     return (
       <div>
         <h3 class="flex items-center gap-[12px]">
-          {category.label}
+          {text.label}
           <span class:list={["cr-label !text-[11px]", category.required ? "!text-[var(--cr-ok)]" : "!text-[var(--cr-amber)]"]}>
-            {category.required ? "Siempre activas" : "Requieren consentimiento"}
+            {category.required ? cookieConsent.alwaysActive : d.requiresConsent}
           </span>
         </h3>
-        <p>{category.description}</p>
+        <p>{text.description}</p>
         <div class="mt-[16px] border border-[var(--cr-line)]">
           <table class="ct w-full border-collapse text-left text-[15px] leading-[1.5]">
             <thead class="[background:var(--cr-ink-2)]">
               <tr>
-                <th scope="col" class="cr-label !text-[11px] font-normal px-[16px] py-[12px]">Nombre</th>
-                <th scope="col" class="cr-label !text-[11px] font-normal px-[16px] py-[12px]">Proveedor</th>
-                <th scope="col" class="cr-label !text-[11px] font-normal px-[16px] py-[12px]">Finalidad</th>
-                <th scope="col" class="cr-label !text-[11px] font-normal px-[16px] py-[12px]">Tipo</th>
-                <th scope="col" class="cr-label !text-[11px] font-normal px-[16px] py-[12px]">Duración</th>
+                <th scope="col" class="cr-label !text-[11px] font-normal px-[16px] py-[12px]">{d.columns.name}</th>
+                <th scope="col" class="cr-label !text-[11px] font-normal px-[16px] py-[12px]">{d.columns.provider}</th>
+                <th scope="col" class="cr-label !text-[11px] font-normal px-[16px] py-[12px]">{d.columns.purpose}</th>
+                <th scope="col" class="cr-label !text-[11px] font-normal px-[16px] py-[12px]">{d.columns.type}</th>
+                <th scope="col" class="cr-label !text-[11px] font-normal px-[16px] py-[12px]">{d.columns.duration}</th>
               </tr>
             </thead>
             <tbody>
-              {items.map((c) => (
-                <tr class="border-t border-[var(--cr-line)] align-top">
-                  <th scope="row" class="px-[16px] py-[14px] font-normal [font-family:var(--cr-mono)] text-[13px] text-[var(--cr-bone)] whitespace-nowrap">{c.name}</th>
-                  <td data-label="Proveedor" class="px-[16px] py-[14px]">{c.provider}</td>
-                  <td data-label="Finalidad" class="px-[16px] py-[14px]">{c.purpose}</td>
-                  <td data-label="Tipo" class="px-[16px] py-[14px] whitespace-nowrap">{c.type}</td>
-                  <td data-label="Duración" class="px-[16px] py-[14px] whitespace-nowrap">{c.duration}</td>
-                </tr>
-              ))}
+              {items.map((c) => {
+                const item = d.items[c.id];
+                return (
+                  <tr class="border-t border-[var(--cr-line)] align-top">
+                    <th scope="row" class="px-[16px] py-[14px] font-normal [font-family:var(--cr-mono)] text-[13px] text-[var(--cr-bone)] whitespace-nowrap">{item.name}</th>
+                    <td data-label={d.columns.provider} class="px-[16px] py-[14px]">{item.provider}</td>
+                    <td data-label={d.columns.purpose} class="px-[16px] py-[14px]">{item.purpose}</td>
+                    <td data-label={d.columns.type} class="px-[16px] py-[14px] whitespace-nowrap">{d.types[c.type]}</td>
+                    <td data-label={d.columns.duration} class="px-[16px] py-[14px] whitespace-nowrap">{item.duration}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

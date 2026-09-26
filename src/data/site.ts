@@ -1,3 +1,5 @@
+import { localizePath, t, type Locale } from "@/i18n";
+
 /**
  * Configuración global del sitio. Única fuente de verdad para la URL base,
  * la navegación (menú, pie de página) y los datos legales.
@@ -7,9 +9,8 @@ export const SITE = {
   legalName: "GVoltsCorp",
   url: "https://gvoltscorp.cloud",
   logo: "/img/logo/logo-gvoltscorp2.png",
-  locale: "es",
-  description:
-    "Diseñamos, instalamos y monitoreamos alarmas contra incendios, videovigilancia y sistemas eléctricos certificados para hogares y negocios.",
+  /** Idioma principal. Los textos traducibles viven en src/i18n (meta.description, etc.). */
+  locale: "en",
 } as const;
 
 /** Construye una URL absoluta del sitio a partir de una ruta. */
@@ -20,22 +21,32 @@ export interface NavLink {
   href: string;
 }
 
-export const NAV_SERVICES: NavLink[] = [
-  { label: "Alarmas de Incendio", href: "/services/fire-alarm" },
-  { label: "Seguridad Electrónica", href: "/services/security" },
-  { label: "Electricidad", href: "/services/electricity" },
+/** Entrada de menú: `key` apunta a `links` del diccionario; `href` es la ruta sin prefijo de idioma. */
+export interface NavItem {
+  key: keyof ReturnType<typeof t>["links"];
+  href: string;
+}
+
+export const NAV_SERVICES: NavItem[] = [
+  { key: "fireAlarm", href: "/services/fire-alarm" },
+  { key: "security", href: "/services/security" },
+  { key: "electricity", href: "/services/electricity" },
 ];
 
-export const NAV_COMPANY: NavLink[] = [
-  { label: "Proyectos", href: "/projects" },
-  { label: "Nosotros", href: "/about" },
-  { label: "Contacto", href: "/contact" },
+export const NAV_COMPANY: NavItem[] = [
+  { key: "projects", href: "/projects" },
+  { key: "about", href: "/about" },
+  { key: "contact", href: "/contact" },
 ];
 
-export const NAV_LEGAL: NavLink[] = [
-  { label: "Política de privacidad", href: "/privacy" },
-  { label: "Política de cookies", href: "/cookies" },
+export const NAV_LEGAL: NavItem[] = [
+  { key: "privacy", href: "/privacy" },
+  { key: "cookies", href: "/cookies" },
 ];
+
+/** Traduce y localiza una lista de enlaces del menú. */
+export const navLinks = (items: NavItem[], locale: Locale): NavLink[] =>
+  items.map((item) => ({ label: t(locale).links[item.key], href: localizePath(item.href, locale) }));
 
 /** Analítica web (Umami autoalojado). Solo se carga con consentimiento. */
 export const ANALYTICS = {

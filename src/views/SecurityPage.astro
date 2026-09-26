@@ -1,0 +1,202 @@
+---
+/** Seguridad electrónica (/services/security y /es/services/security). Textos en src/i18n → security. */
+import ControlRoomLayout from "@/layouts/ControlRoomLayout.astro";
+import CameraViewer from "@/components/control-room/CameraViewer.astro";
+import { avatars } from "@/data/avatar";
+import logoSecurity from "@/assets/img/logo/G_VOLTS_huella_completo.webp";
+import { generateServiceSchema } from "@/utils/schemas";
+import { Image } from 'astro:assets';
+import instalacion2 from "@/assets/img/gvolts/instalacion2.jpg";
+import controlDeAcceso from "@/assets/img/gvolts/control-de-acceso.jpg";
+import { absoluteUrl } from "@/data/site";
+import { i18n } from "@/i18n";
+
+const { tr, href } = i18n(Astro);
+const t = tr.security;
+
+const serviceSchema = generateServiceSchema(t.schema.name, t.schema.description, absoluteUrl(href("/services/security")));
+
+const highlights = t.highlights;
+const solutionImages = [instalacion2, controlDeAcceso];
+const solutions = t.solutions.map((s, i) => ({ ...s, image: solutionImages[i] }));
+const ecosystem = t.ecosystem;
+---
+
+<ControlRoomLayout
+  title={t.meta.title}
+  description={t.meta.description}
+  accent="security"
+  logo={logoSecurity}
+  avatar="security"
+  breadcrumbs={[{ name: tr.breadcrumbs.services, path: "/#servicios" }, { name: t.breadcrumb, path: "/services/security" }]}
+  schema={serviceSchema}
+>
+  <!-- HERO -->
+  <section class="relative overflow-hidden pt-[clamp(40px,10vw,72px)] pb-[clamp(88px,14vw,120px)] sm:pt-[clamp(48px,8vw,110px)] sm:pb-[clamp(64px,9vw,130px)] [background:radial-gradient(60%_50%_at_85%_20%,color-mix(in_srgb,var(--cr-signal)_16%,transparent),transparent_70%),linear-gradient(var(--cr-line)_1px,transparent_1px)_0_0/100%_88px,var(--cr-ink)]">
+    <div class="cr-wrap grid grid-cols-1 min-[960px]:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] gap-[clamp(40px,6vw,96px)] items-center">
+      <div>
+        <p class="cr-label flex items-center gap-[14px] text-[var(--cr-signal)] mb-7" data-reveal>
+          <span class="w-10 h-px bg-current"></span>{t.kicker}
+        </p>
+
+        <h1 class="[font-family:var(--cr-display)] font-black uppercase leading-[0.84] text-[length:clamp(52px,7.4vw,118px)]">
+          <span class="block" data-reveal style="--d:80ms">{t.title[0]}</span>
+          <span class="block text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]" data-reveal style="--d:160ms">{t.title[1]}</span>
+          <span class="block text-[var(--cr-signal)]" data-reveal style="--d:240ms">{t.title[2]}</span>
+        </h1>
+
+        <p class="mt-8 max-w-[48ch] text-[length:clamp(17px,1.4vw,20px)] text-[var(--cr-bone-dim)]" data-reveal style="--d:340ms">
+          {t.lede}
+        </p>
+
+        <div class="flex flex-col items-stretch sm:flex-row sm:flex-wrap gap-[14px] mt-9" data-reveal style="--d:420ms">
+          <a href={href("/contact")} class="cr-btn justify-center sm:justify-normal">{t.ctaDemo} <span aria-hidden="true">→</span></a>
+          <a href="#soluciones" class="cr-btn cr-btn--ghost justify-center sm:justify-normal">{t.ctaSolutions}</a>
+        </div>
+
+        <dl class="grid grid-cols-2 gap-y-5 sm:grid-cols-3 sm:gap-y-0 mt-14 border-t border-[var(--cr-line-strong)]" data-reveal style="--d:500ms">
+          <div class="pt-[18px] pr-4">
+            <dt class="cr-label">{t.stats.uhd}</dt>
+            <dd class="mt-1.5 [font-family:var(--cr-display)] font-extrabold text-[length:clamp(36px,4vw,56px)] leading-none [font-variant-numeric:tabular-nums]">4<span class="text-[var(--cr-signal)]">K</span></dd>
+          </div>
+          <div class="pt-[18px] pr-4 pl-4 border-l border-[var(--cr-line)]">
+            <dt class="cr-label">{t.stats.cloud}</dt>
+            <dd class="mt-1.5 [font-family:var(--cr-display)] font-extrabold text-[length:clamp(36px,4vw,56px)] leading-none [font-variant-numeric:tabular-nums]">30<span class="text-[var(--cr-signal)]">{t.days}</span></dd>
+          </div>
+          <div class="pt-[18px] pr-4 col-span-2 border-t border-[var(--cr-line)] sm:col-span-1 sm:border-t-0 sm:pl-4 sm:border-l sm:border-[var(--cr-line)]">
+            <dt class="cr-label">{t.stats.uptime}</dt>
+            <dd class="mt-1.5 [font-family:var(--cr-display)] font-extrabold text-[length:clamp(36px,4vw,56px)] leading-none [font-variant-numeric:tabular-nums]"><span data-count="99.9">99.9</span><span class="text-[var(--cr-signal)]">%</span></dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="relative" data-reveal style="--d:200ms">
+        <CameraViewer />
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="py-[clamp(72px,10vw,140px)] border-t border-[var(--cr-line)]">
+    <div class="cr-wrap grid grid-cols-1 min-[960px]:grid-cols-2 gap-[clamp(48px,6vw,96px)]">
+      <div>
+        <p class="cr-label" data-reveal>{t.intro.label}</p>
+        <h2 class="mt-[18px] text-[length:clamp(40px,5.4vw,84px)]" data-reveal style="--d:80ms">{t.intro.title1} <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">{t.intro.title2}</span></h2>
+      </div>
+      <div data-reveal style="--d:200ms">
+        <p class="text-[19px] leading-[1.7] text-[color-mix(in_srgb,var(--cr-bone)_80%,transparent)]">
+          {t.intro.text}
+        </p>
+        <ul class="mt-8 p-0 list-none flex flex-col border-t border-[var(--cr-line)]">
+          {highlights.map((h) => (
+            <li class="py-[18px] border-b border-[var(--cr-line)] text-[18px] pl-8 relative before:content-[''] before:absolute before:left-0 before:top-1/2 before:[translate:0_-50%] before:w-2 before:h-2 before:bg-[var(--cr-signal)]">
+              {h}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOLUTIONS -->
+  <section id="soluciones" class="py-[clamp(72px,10vw,140px)] bg-[var(--cr-ink-2)]">
+    <div class="cr-wrap">
+      <header class="mb-[clamp(48px,6vw,64px)] flex flex-col items-start gap-8 min-[761px]:flex-row min-[761px]:justify-between min-[761px]:items-end">
+        <div>
+          <p class="cr-label" data-reveal>{t.solutionsLabel}</p>
+          <h2 class="mt-[18px] text-[length:clamp(46px,6.4vw,100px)]" data-reveal style="--d:80ms">{t.solutionsTitle1} <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">{t.solutionsTitle2}</span></h2>
+        </div>
+        <div class="w-[clamp(220px,26vw,360px)] shrink-0 max-[760px]:self-end" data-reveal style="--d:160ms">
+          <Image src={avatars.securityAccess.src} alt={tr.avatars.securityAccess} widths={[240, 360, 520]} sizes="(min-width: 761px) 26vw, 220px" class="w-full h-auto [filter:drop-shadow(0_24px_40px_rgba(0,0,0,0.5))]" loading="lazy" />
+        </div>
+      </header>
+
+      {
+        solutions.map((s, i) => (
+          <article
+            class={`grid grid-cols-1 min-[960px]:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] gap-[clamp(32px,5vw,64px)] items-stretch ${i > 0 ? "mt-[clamp(56px,8vw,96px)]" : ""}`}
+            data-reveal
+            style={`--d:${i * 90}ms`}
+            data-reverse={i % 2 === 1}
+          >
+            <div class={`relative min-h-[420px] overflow-hidden ${i % 2 === 1 ? "min-[960px]:order-2" : ""}`}>
+              <Image src={s.image} alt={s.imageAlt} loading="lazy" format="webp" class="w-full h-full object-cover block grayscale-[.6] contrast-[1.1]" />
+              <span class="absolute left-5 top-5 py-1.5 px-2.5 bg-[var(--cr-ink)] [font-family:var(--cr-mono)] text-sm tracking-[0.12em] text-[var(--cr-signal)]">{s.tag}</span>
+            </div>
+            <div class="flex flex-col gap-6">
+              <h3 class="text-[length:clamp(34px,4vw,52px)]">{s.title}</h3>
+              <p class="text-[19px] italic text-[var(--cr-signal)]">{s.tagline}</p>
+              <div class="flex flex-col border-t border-[var(--cr-line)]">
+                {s.items.map((it) => (
+                  <div class="py-5 border-b border-[var(--cr-line)] flex flex-col gap-2">
+                    <h4 class="text-lg font-bold">{it.title}</h4>
+                    <p class="text-[16px] leading-[1.55] text-[var(--cr-bone-dim)]">{it.description}</p>
+                    <p class="[font-family:var(--cr-mono)] text-sm text-[var(--cr-amber)]">{it.spec}</p>
+                  </div>
+                ))}
+              </div>
+              <div class="mt-auto flex flex-col items-stretch sm:flex-row sm:justify-between sm:items-center gap-5 py-6 px-7 bg-[var(--cr-ink-3)] border border-[var(--cr-line)] text-left">
+                <div>
+                  <p class="[font-family:var(--cr-display)] font-extrabold text-[38px] leading-none">{s.price}</p>
+                  <p class="mt-1.5 text-[15px] text-[var(--cr-bone-dim)]">{s.priceNote}</p>
+                </div>
+                <a href={href("/contact")} class="cr-btn">{t.quote} <span aria-hidden="true">→</span></a>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- ECOSYSTEM -->
+  <section class="py-[clamp(72px,10vw,140px)]">
+    <div class="cr-wrap grid grid-cols-1 min-[960px]:grid-cols-[minmax(0,0.55fr)_minmax(0,1fr)] gap-[clamp(48px,6vw,80px)] items-center">
+      <div class="relative w-[min(100%,420px)] aspect-square mx-auto" data-reveal aria-hidden="true">
+        <div class="absolute inset-0 rounded-full border border-dashed border-[var(--cr-line-strong)] animate-[sec-orbit_30s_linear_infinite]">
+          <span class="absolute w-[6%] h-[6%] bg-[var(--cr-signal)] left-[47%] -top-[3%]"></span>
+          <span class="absolute w-[6%] h-[6%] bg-[var(--cr-signal-deep)] -left-[3%] top-[47%]"></span>
+          <span class="absolute w-[6%] h-[6%] bg-[var(--cr-amber)] -right-[3%] top-[47%]"></span>
+        </div>
+        <div class="absolute inset-[17%] rounded-full border border-solid border-[color-mix(in_srgb,var(--cr-signal)_35%,transparent)] animate-[sec-orbit_30s_linear_infinite] [animation-direction:reverse]">
+          <span class="absolute w-[6%] h-[6%] rounded-full bg-[var(--cr-bone)] left-[47%] -bottom-[3%]"></span>
+        </div>
+        <div class="absolute inset-[34.5%] flex flex-col items-center justify-center gap-1.5 bg-[var(--cr-ink-2)] border border-[var(--cr-signal)] rounded-full text-[var(--cr-signal)]">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="6" y="2" width="12" height="20" rx="2" />
+            <path d="M12 18h.01" />
+          </svg>
+          <span class="[font-family:var(--cr-mono)] text-[12px] tracking-[0.12em]">GVOLTS APP</span>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-9">
+        <div>
+          <p class="cr-label" data-reveal>{t.ecosystemLabel}</p>
+          <h2 class="mt-[18px] text-[length:clamp(40px,5.6vw,84px)]" data-reveal style="--d:80ms">{t.ecosystemTitle1} <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">{t.ecosystemTitle2}</span></h2>
+        </div>
+        <div class="flex flex-col border-t border-[var(--cr-line)]">
+          {
+            ecosystem.map((e, i) => (
+              <div class="py-[22px] border-b border-[var(--cr-line)] flex flex-col gap-2.5" data-reveal style={`--d:${i * 90}ms`}>
+                <h3 class="text-xl font-bold">{e.title}</h3>
+                <p class="text-[16px] leading-[1.55] text-[var(--cr-bone-dim)]">{e.description}</p>
+                {e.tags.length > 0 && (
+                  <p class="flex flex-wrap gap-2">
+                    {e.tags.map((t) => <span class="py-1 px-2.5 border border-[var(--cr-line-strong)] [font-family:var(--cr-mono)] text-[13px]">{t}</span>)}
+                  </p>
+                )}
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+</ControlRoomLayout>
+
+<style>
+  @keyframes sec-orbit {
+    to { transform: rotate(360deg); }
+  }
+</style>

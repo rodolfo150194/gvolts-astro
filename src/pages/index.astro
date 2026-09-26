@@ -1,38 +1,6 @@
 ---
-import ControlRoomLayout from "@/layouts/ControlRoomLayout.astro";
-import Hero from "@/components/control-room/Hero.astro";
-import CertTicker from "@/components/control-room/CertTicker.astro";
-import Services from "@/components/control-room/Services.astro";
-import DigitalTwin3D from "@/components/control-room/DigitalTwin3D.astro";
-import Process from "@/components/control-room/Process.astro";
-import Certifications from "@/components/control-room/Certifications.astro";
-import Faq from "@/components/control-room/Faq.astro";
-import { generateOrganizationSchema } from "@/utils/schemas";
-import { CONTACT } from "@/data/company";
-import { socials } from "@/data/socials";
-import { absoluteUrl, SITE } from "@/data/site";
-
-const organizationSchema = generateOrganizationSchema({
-  name: SITE.legalName,
-  url: SITE.url,
-  logo: absoluteUrl(SITE.logo),
-  description: SITE.description,
-  telephone: CONTACT.phone,
-  email: CONTACT.email,
-  socialMedia: socials.map((s) => s.url),
-});
+// Página en inglés (idioma principal): el contenido vive en src/views/HomePage.astro y el idioma sale de la URL (ver src/i18n).
+import HomePage from "@/views/HomePage.astro";
 ---
 
-<ControlRoomLayout
-  title="GVolts Corp — Alarmas de incendio, seguridad y electricidad"
-  description={SITE.description}
-  schema={organizationSchema}
->
-  <Hero />
-  <CertTicker />
-  <Services />
-  <DigitalTwin3D />
-  <Process />
-  <Certifications />
-  <Faq />
-</ControlRoomLayout>
+<HomePage />

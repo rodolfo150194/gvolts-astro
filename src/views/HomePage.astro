@@ -1,0 +1,41 @@
+---
+/**
+ * Página de inicio. La renderizan src/pages/index.astro (inglés) y
+ * src/pages/es/index.astro (español); el idioma sale de la URL.
+ */
+import ControlRoomLayout from "@/layouts/ControlRoomLayout.astro";
+import Hero from "@/components/control-room/Hero.astro";
+import CertTicker from "@/components/control-room/CertTicker.astro";
+import Services from "@/components/control-room/Services.astro";
+import DigitalTwin3D from "@/components/control-room/DigitalTwin3D.astro";
+import Process from "@/components/control-room/Process.astro";
+import Certifications from "@/components/control-room/Certifications.astro";
+import Faq from "@/components/control-room/Faq.astro";
+import { generateOrganizationSchema } from "@/utils/schemas";
+import { CONTACT } from "@/data/company";
+import { socials } from "@/data/socials";
+import { absoluteUrl, SITE } from "@/data/site";
+import { useTranslations } from "@/i18n";
+
+const tr = useTranslations(Astro);
+
+const organizationSchema = generateOrganizationSchema({
+  name: SITE.legalName,
+  url: SITE.url,
+  logo: absoluteUrl(SITE.logo),
+  description: tr.meta.description,
+  telephone: CONTACT.phone,
+  email: CONTACT.email,
+  socialMedia: socials.map((s) => s.url),
+});
+---
+
+<ControlRoomLayout title={tr.meta.title} description={tr.meta.description} schema={organizationSchema}>
+  <Hero />
+  <CertTicker />
+  <Services />
+  <DigitalTwin3D />
+  <Process />
+  <Certifications />
+  <Faq />
+</ControlRoomLayout>

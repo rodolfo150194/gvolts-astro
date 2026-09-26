@@ -1,5 +1,6 @@
 ---
 import type { ImageMetadata } from "astro";
+import { i18n } from "@/i18n";
 
 /**
  * Marca de GVolts: imagen del servicio si se pasa `image`, si no el
@@ -16,9 +17,10 @@ interface Props {
 }
 
 const { image, imageClass = "h-[44px] w-auto", class: className = "", hideCorpOnTiny = false } = Astro.props;
+const { tr, href } = i18n(Astro);
 ---
 
-<a href="/" class="inline-flex items-center" aria-label="GVolts Corp, inicio">
+<a href={href("/")} class="inline-flex items-center" aria-label={tr.nav.logoAria}>
   {image ? (
     <img src={image.src} alt="GVolts Corp" width={image.width} height={image.height} class={imageClass} />
   ) : (

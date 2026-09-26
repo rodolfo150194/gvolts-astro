@@ -3,48 +3,27 @@ import { Image } from "astro:assets";
 import alarmFuego from "@/assets/img/gvolts/alarm-fuego.jpg";
 import camaraCasa from "@/assets/img/gvolts/camara-casa.jpg";
 import electric from "@/assets/img/gvolts/electric.jpg";
+import { i18n } from "@/i18n";
+
+const { tr, href } = i18n(Astro);
+const t = tr.servicesSection;
 
 const services = [
-  {
-    tag: "S-01 · INCENDIO",
-    accent: "var(--cr-signal)",
-    title: "Alarmas contra incendio",
-    description: "Detecta, alerta y protege. Tecnología certificada que actúa antes de que sea tarde.",
-    items: ["Detección multi-sensor inteligente", "Certificación NFPA 72", "Monitoreo por central UL"],
-    image: alarmFuego,
-    href: "/services/fire-alarm",
-  },
-  {
-    tag: "S-02 · SEGURIDAD",
-    accent: "var(--cr-ok)",
-    title: "Vigilancia inteligente",
-    description: "Videovigilancia 4K con IA y control de acceso biométrico. Todo desde tu móvil.",
-    items: ["Cámaras 4K con visión nocturna", "Analíticas con IA incorporada", "App iOS, Android y web"],
-    image: camaraCasa,
-    href: "/services/security",
-  },
-  {
-    tag: "S-03 · ELECTRICIDAD",
-    accent: "var(--cr-amber)",
-    title: "Instalaciones eléctricas",
-    description: "De circuitos residenciales a subestaciones comerciales, 100% al código NEC.",
-    items: ["Paneles de 200 A y 400 A", "Cargadores para vehículos eléctricos", "Emergencias en 15 minutos"],
-    image: electric,
-    href: "/services/electricity",
-  },
-];
+  { accent: "var(--cr-signal)", image: alarmFuego, href: "/services/fire-alarm" },
+  { accent: "var(--cr-ok)", image: camaraCasa, href: "/services/security" },
+  { accent: "var(--cr-amber)", image: electric, href: "/services/electricity" },
+].map((s, i) => ({ ...s, ...t.cards[i], href: href(s.href) }));
 ---
 
 <section class="services py-[clamp(96px,12vw,180px)]" id="servicios">
   <div class="cr-wrap">
     <header class="services__head flex justify-between items-end gap-12 mb-[clamp(48px,6vw,72px)] max-[960px]:flex-col max-[960px]:items-start">
       <div>
-        <p class="cr-label" data-reveal>01 — Sistemas</p>
-        <h2 class="mt-[18px] text-[clamp(48px,7vw,112px)]" data-reveal style="--d:80ms">Tres disciplinas.<br /><span class="outline text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">Un solo equipo.</span></h2>
+        <p class="cr-label" data-reveal>{t.label}</p>
+        <h2 class="mt-[18px] text-[clamp(48px,7vw,112px)]" data-reveal style="--d:80ms">{t.title1}<br /><span class="outline text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">{t.title2}</span></h2>
       </div>
       <p class="services__aside max-w-[400px] text-[18px] leading-[1.65] text-[var(--cr-bone-dim)]" data-reveal style="--d:160ms">
-        Un único responsable para todo lo que mantiene tu inmueble seguro y encendido. Menos proveedores, cero
-        huecos entre sistemas.
+        {t.aside}
       </p>
     </header>
 
@@ -76,7 +55,7 @@ const services = [
                 ))}
               </ul>
               <span class="card__link mt-auto [font-family:var(--cr-mono)] text-[14px] tracking-[0.12em] uppercase" style={`color:${s.accent}`}>
-                Explorar sistema <span class="arrow inline-block transition-transform duration-300 group-hover:translate-x-1.5" aria-hidden="true">→</span>
+                {t.explore} <span class="arrow inline-block transition-transform duration-300 group-hover:translate-x-1.5" aria-hidden="true">→</span>
               </span>
             </div>
           </a>

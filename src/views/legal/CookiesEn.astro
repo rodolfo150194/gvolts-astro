@@ -1,0 +1,75 @@
+---
+/** Cookie policy body in English. Section titles come from src/i18n → cookiesPage.toc. */
+import LegalSection from "@/components/legal/LegalSection.astro";
+import CookieTable from "@/components/legal/CookieTable.astro";
+import { CONTACT } from "@/data/company";
+import { LEGAL } from "@/data/site";
+import { i18n, type Dictionary } from "@/i18n";
+
+interface Props {
+  toc: Dictionary["cookiesPage"]["toc"];
+}
+
+const { toc } = Astro.props;
+const { tr, href } = i18n(Astro);
+
+const browsers = [
+  { name: "Google Chrome", url: "https://support.google.com/chrome/answer/95647?hl=en" },
+  { name: "Mozilla Firefox", url: "https://support.mozilla.org/en-US/kb/enable-and-disable-cookies-website-preferences" },
+  { name: "Safari", url: "https://support.apple.com/guide/safari/sfri11471/mac" },
+  { name: "Microsoft Edge", url: "https://support.microsoft.com/en-us/microsoft-edge/delete-cookies-in-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09" },
+];
+---
+
+<LegalSection id="que-son" title={toc["que-son"]}>
+  <p>
+    Cookies are small files a website stores in your browser to remember information about your visit. Similar
+    technologies, such as the browser's local storage (<em>localStorage</em>), serve a similar purpose. In this
+    policy we use "cookies" to refer to all of them.
+  </p>
+</LegalSection>
+
+<LegalSection id="como-usamos" title={toc["como-usamos"]}>
+  <ul>
+    <li><strong>Essential:</strong> make the site work and remember your cookie choice. They don't require consent.</li>
+    <li><strong>Analytics:</strong> aggregate, anonymous statistics through a self-hosted tool (Umami). They aren't shared with third parties or used for advertising.</li>
+    <li><strong>Functional:</strong> enable live chat (Chatwoot) and keep your conversation between visits.</li>
+  </ul>
+  <p><strong>We don't use advertising cookies</strong> or social media cookies to track you across other sites. Links to our social media profiles simply take you to their pages; those platforms apply their own policies.</p>
+</LegalSection>
+
+<LegalSection id="listado" title={toc["listado"]}>
+  <p>This is the up-to-date inventory of cookies and similar technologies this site may set:</p>
+  <CookieTable />
+</LegalSection>
+
+<LegalSection id="gestionar" title={toc["gestionar"]}>
+  <p>
+    The first time you visit the site we show you a notice so you can accept, reject or customize optional
+    cookies. Rejecting is as easy as accepting, and no optional cookie is enabled before you choose. We keep your
+    choice for {LEGAL.consentMonths} months; after that we'll ask you again.
+  </p>
+  <p>You can change or withdraw your consent at any time:</p>
+  <p class="!mt-[24px]">
+    <button type="button" class="cr-btn" data-cookie-settings>Cookie settings <span aria-hidden="true">→</span></button>
+  </p>
+  <p class="!mt-[24px]">You'll also find the "{tr.finale.cookiePrefs}" link in the footer of every page.</p>
+</LegalSection>
+
+<LegalSection id="navegador" title={toc["navegador"]}>
+  <p>You can also block or delete cookies from your browser settings. Keep in mind that blocking essential cookies may stop some parts of the site from working.</p>
+  <ul>
+    {browsers.map((b) => (
+      <li><a href={b.url} target="_blank" rel="noopener noreferrer">{b.name}</a></li>
+    ))}
+  </ul>
+  <p>Our analytics respects your browser's "Do Not Track" signal: if it's on, your visit isn't recorded.</p>
+</LegalSection>
+
+<LegalSection id="cambios" title={toc["cambios"]}>
+  <p>
+    If we add new tools we'll update this page and ask for your consent again. For any questions, email us at
+    <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>. To learn more about how we handle your data, see our
+    <a href={href("/privacy")}>Privacy policy</a>.
+  </p>
+</LegalSection>

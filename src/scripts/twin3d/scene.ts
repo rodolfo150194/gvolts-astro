@@ -248,14 +248,24 @@ export function mountTwin3D(root: HTMLElement, mount: HTMLElement): () => void {
     labelObjs.push({ obj, tag });
     return el;
   };
-  label("Z01 · Lobby", W([190, 40], 0.1), "all", undefined, "Z01");
-  label("Z02 · Bodega", W([60, 310], 0.1), "all", undefined, "Z02");
-  label("Z03 · Servidores", W([470, 130], 0.1), "all", undefined, "Z03");
-  label("Z04 · Eléctrico", W([495, 495], 0.1), "all", undefined, "Z04");
-  label("Tablero 220V", W([440, 440], 2.15), "all", "var(--cr-amber)", "220V");
+  // Textos traducidos que DigitalTwinLab deja en data-twin3d-labels (src/i18n → lab.scene3d)
+  const L = {
+    z01: "Z01 · Lobby",
+    z02: "Z02 · Warehouse",
+    z03: "Z03 · Servers",
+    z04: "Z04 · Electrical",
+    panel: "220V Panel",
+    reader: "Reader L-02",
+    ...(JSON.parse(root.dataset.twin3dLabels ?? "{}") as Record<string, string>),
+  };
+  label(L.z01, W([190, 40], 0.1), "all", undefined, "Z01");
+  label(L.z02, W([60, 310], 0.1), "all", undefined, "Z02");
+  label(L.z03, W([470, 130], 0.1), "all", undefined, "Z03");
+  label(L.z04, W([495, 495], 0.1), "all", undefined, "Z04");
+  label(L.panel, W([440, 440], 2.15), "all", "var(--cr-amber)", "220V");
   label("DET-07", W([410, 150], 3), "fire");
   label("CAM-03", W([285, 232], 3), "intruder");
-  label("Lector L-02", W([300, 175], 3.1), "access");
+  label(L.reader, W([300, 175], 3.1), "access");
   label("C1", W([150, 110], 1), "power", "var(--cr-amber)");
   label("C2", W([420, 40], 2.4), "power", "var(--cr-amber)");
   label("C3", W([230, 500], 1.3), "power", "var(--cr-amber)");

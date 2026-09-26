@@ -2,22 +2,28 @@
 import FormField from "@/components/ui/FormField.astro";
 import { Image } from "astro:assets";
 import { avatars, type AvatarKey } from "@/data/avatar";
+import { i18n } from "@/i18n";
+
+const { tr, href } = i18n(Astro);
+const t = tr.contactPanel;
 
 // Técnico que "atiende" el formulario: cambia de casco según el sistema elegido
-const techs: { key: AvatarKey; service: string; label: string; line: string }[] = [
-  { key: "point", service: "", label: "Técnico de guardia", line: "Hola, soy tu técnico de guardia. Elige un sistema y te cuento cómo lo resolvemos." },
-  { key: "fire", service: "fire-alarm", label: "Técnico de incendio", line: "Detección, alarma y supresión. Te dejamos listo para la inspección de bomberos." },
-  { key: "security", service: "security", label: "Técnico de seguridad", line: "Cámaras con IA y acceso biométrico. Lo vas a ver todo desde tu móvil." },
-  { key: "elec", service: "electricity", label: "Técnico electricista", line: "Paneles, cargadores EV y respaldo. Medimos todo antes de energizar." },
-  { key: "general", service: "other", label: "Jefe de obra", line: "¿Varios sistemas? Coordinamos los tres en una sola obra, con un solo equipo." },
-];
+const techs: { key: AvatarKey; service: string; label: string; line: string }[] = (
+  [
+    { key: "point", service: "" },
+    { key: "fire", service: "fire-alarm" },
+    { key: "security", service: "security" },
+    { key: "elec", service: "electricity" },
+    { key: "general", service: "other" },
+  ] as const
+).map((x, i) => ({ ...x, ...t.techs[i] }));
 
 const services = [
-  { id: "fire-alarm", label: "Incendio", color: "var(--cr-signal)", placeholder: "Ej.: restaurante de 300 m², necesitamos pasar la inspección de bomberos." },
-  { id: "security", label: "Seguridad", color: "#4da8ff", placeholder: "Ej.: oficina con 2 accesos, queremos cámaras con IA y control biométrico." },
-  { id: "electricity", label: "Electricidad", color: "var(--cr-amber)", placeholder: "Ej.: casa con panel de 100 A, queremos instalar un cargador para auto eléctrico." },
-  { id: "other", label: "Varios", color: "var(--cr-bone)", placeholder: "Ej.: obra nueva, necesitamos los tres sistemas coordinados." },
-];
+  { id: "fire-alarm", color: "var(--cr-signal)" },
+  { id: "security", color: "#4da8ff" },
+  { id: "electricity", color: "var(--cr-amber)" },
+  { id: "other", color: "var(--cr-bone)" },
+].map((x, i) => ({ ...x, ...t.services[i] }));
 ---
 
 <div class="ctp-shell w-full">
@@ -48,17 +54,17 @@ const services = [
 
 <div class="ctp w-full bg-[var(--cr-ink-2)] border border-[var(--cr-line-strong)] shadow-[0_40px_80px_-30px_rgba(0,0,0,0.9)]" data-reveal style="--d:200ms">
   <div class="flex justify-between items-center px-7 py-[18px] border-b border-[var(--cr-line)] [font-family:var(--cr-mono)] text-sm tracking-[0.14em] uppercase max-[480px]:flex-wrap max-[480px]:gap-2 max-[480px]:px-[18px] max-[480px]:py-[14px]">
-    <span class="text-[var(--cr-bone-dim)] max-[400px]:text-[12px]">Solicitud de visita técnica</span>
+    <span class="text-[var(--cr-bone-dim)] max-[400px]:text-[12px]">{t.header}</span>
     <span class="flex items-center gap-2 text-[var(--cr-signal)] data-[sent]:text-[var(--cr-ok)]" data-status>
       <span class="cr-led cr-blink" data-status-led></span>
-      <span data-status-text aria-live="polite">Canal abierto</span>
+      <span data-status-text aria-live="polite">{t.statusOpen}</span>
     </span>
   </div>
 
-  <form class="flex flex-col gap-6 py-8 px-7 max-[480px]:gap-5 max-[480px]:py-6 max-[480px]:px-[18px]" id="contact-form" data-form>
+  <form class="flex flex-col gap-6 py-8 px-7 max-[480px]:gap-5 max-[480px]:py-6 max-[480px]:px-[18px]" id="contact-form" data-form data-i18n={JSON.stringify(t.script)}>
     <fieldset class="m-0 p-0 border-0 flex flex-col gap-3">
-      <legend class="cr-label mb-1">¿Qué sistema te interesa?</legend>
-      <div class="grid grid-cols-4 gap-2 max-sm:grid-cols-2 max-[400px]:grid-cols-1" role="radiogroup" aria-label="Servicio de interés">
+      <legend class="cr-label mb-1">{t.legend}</legend>
+      <div class="grid grid-cols-4 gap-2 max-sm:grid-cols-2 max-[400px]:grid-cols-1" role="radiogroup" aria-label={t.radioAria}>
         {
           services.map((s, i) => (
             <button
@@ -80,34 +86,34 @@ const services = [
     </fieldset>
 
     <div class="grid grid-cols-2 gap-4 max-sm:grid-cols-1">
-      <FormField label="Nombre completo" type="text" name="name" autocomplete="name" required minlength="2" placeholder="María González" />
-      <FormField label="Teléfono" type="tel" name="phone" autocomplete="tel" required minlength="10" placeholder="+1 (555) 000-0000" />
+      <FormField label={t.fields.name} type="text" name="name" autocomplete="name" required minlength="2" placeholder={t.fields.namePlaceholder} />
+      <FormField label={t.fields.phone} type="tel" name="phone" autocomplete="tel" required minlength="10" placeholder="+1 (555) 000-0000" />
     </div>
 
     <div class="grid grid-cols-2 gap-4 max-sm:grid-cols-1">
-      <FormField label="Email" type="email" name="email" autocomplete="email" required placeholder="tu@empresa.com" />
-      <FormField label="Código postal" type="text" name="zip" autocomplete="postal-code" required minlength="5" maxlength="10" placeholder="12345" />
+      <FormField label={t.fields.email} type="email" name="email" autocomplete="email" required placeholder={t.fields.emailPlaceholder} />
+      <FormField label={t.fields.zip} type="text" name="zip" autocomplete="postal-code" required minlength="5" maxlength="10" placeholder="12345" />
     </div>
 
-    <FormField label="Cuéntanos tu proyecto" as="textarea" name="message" rows="5" required minlength="10" placeholder={services[0].placeholder} data-message />
+    <FormField label={t.fields.message} as="textarea" name="message" rows="5" required minlength="10" placeholder={services[0].placeholder} data-message />
 
     <label class="flex items-start gap-3 text-[15px] leading-normal text-[var(--cr-bone-dim)] font-normal">
       <input class="mt-0.5 w-5 h-5 shrink-0 accent-[var(--cr-signal)]" type="checkbox" name="privacy" required />
       <span>
-        He leído y acepto la <a href="/privacy" target="_blank" class="text-[var(--cr-bone)] underline underline-offset-4 hover:text-[var(--cr-signal)]">política de privacidad</a>
-        y que GVolts me contacte sobre esta solicitud.
+        {t.privacy1} <a href={href("/privacy")} target="_blank" class="text-[var(--cr-bone)] underline underline-offset-4 hover:text-[var(--cr-signal)]">{t.privacyLink}</a>
+        {t.privacy2}
       </span>
     </label>
 
     <button class="cr-btn group justify-center h-16 [font-family:var(--cr-display)] font-extrabold text-2xl disabled:opacity-60 disabled:cursor-not-allowed max-[480px]:text-[19px] max-[480px]:h-14" type="submit">
       <span aria-live="polite">
-        <span data-submit-text>Enviar solicitud</span>
-        <span class="ctp__submit-loading" data-submit-loading hidden>Enviando…</span>
+        <span data-submit-text>{t.submit}</span>
+        <span class="ctp__submit-loading" data-submit-loading hidden>{t.sending}</span>
       </span>
       <span class="inline-block transition-transform duration-300 group-hover:translate-x-[6px]" aria-hidden="true">→</span>
     </button>
 
-    <p class="[font-family:var(--cr-mono)] text-[13px] tracking-[0.1em] text-center text-[var(--cr-bone-dim)]">Evaluación sin compromiso · cotización con financiamiento</p>
+    <p class="[font-family:var(--cr-mono)] text-[13px] tracking-[0.1em] text-center text-[var(--cr-bone-dim)]">{t.note}</p>
 
     <p class="m-0 py-3.5 px-4 bg-[color-mix(in_srgb,var(--cr-signal)_14%,transparent)] border border-[var(--cr-signal)] text-[var(--cr-bone)] text-[15px]" data-error hidden aria-live="assertive"></p>
   </form>
@@ -116,9 +122,9 @@ const services = [
     <span class="w-16 h-16 flex items-center justify-center bg-[var(--cr-ok)]">
       <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#111012" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
     </span>
-    <h2 class="text-[clamp(48px,6vw,72px)] leading-[0.9]">Solicitud<br />recibida.</h2>
-    <p class="text-lg leading-[1.6] text-[var(--cr-bone-dim)]">Un técnico de <strong data-success-service>nuestro equipo</strong> te contactará en menos de 24 horas para agendar la visita.</p>
-    <button type="button" class="cr-btn cr-btn--ghost" data-again>Enviar otra solicitud</button>
+    <h2 class="text-[clamp(48px,6vw,72px)] leading-[0.9]">{t.successTitle1}<br />{t.successTitle2}</h2>
+    <p class="text-lg leading-[1.6] text-[var(--cr-bone-dim)]">{t.successText1} <strong data-success-service>{t.script.labels.other}</strong> {t.successText2}</p>
+    <button type="button" class="cr-btn cr-btn--ghost" data-again>{t.again}</button>
   </div>
 </div>
 </div>
@@ -172,6 +178,8 @@ const services = [
 
 <script>
   import { actions } from "astro:actions";
+  import type { Dictionary } from "@/i18n";
+  import { fmt, readStrings } from "@/i18n/format";
 
   const panel = document.querySelector<HTMLElement>(".ctp");
   if (panel) {
@@ -189,12 +197,9 @@ const services = [
     const successService = panel.querySelector<HTMLElement>("[data-success-service]")!;
     const againButton = panel.querySelector<HTMLButtonElement>("[data-again]")!;
 
-    const labels: Record<string, string> = {
-      "fire-alarm": "alarmas contra incendios",
-      security: "seguridad",
-      electricity: "electricidad",
-      other: "nuestro equipo",
-    };
+    // Textos traducidos (src/i18n → contactPanel.script)
+    const S = readStrings<Dictionary["contactPanel"]["script"]>(form);
+    const labels: Record<string, string> = S.labels;
 
     let selected = chips[0]?.dataset.service ?? "fire-alarm";
 
@@ -254,7 +259,7 @@ const services = [
       submitLoading.hidden = false;
 
       const formData = new FormData(form);
-      const serviceLabel = labels[selected] ?? "nuestro equipo";
+      const serviceLabel = labels[selected] ?? labels.other;
 
       try {
         const { error } = await actions.contact({
@@ -263,12 +268,12 @@ const services = [
           phone: formData.get("phone") as string,
           zip: formData.get("zip") as string,
           service: selected as "fire-alarm" | "security" | "electricity" | "other",
-          subject: `Solicitud de visita técnica — ${serviceLabel}`,
+          subject: fmt(S.subject, { service: serviceLabel }),
           message: formData.get("message") as string,
         });
 
         if (error) {
-          errorEl.textContent = error.message || "Error de validación. Por favor, revisa los campos.";
+          errorEl.textContent = error.message || S.validation;
           errorEl.hidden = false;
           return;
         }
@@ -276,13 +281,13 @@ const services = [
         form.hidden = true;
         successEl.hidden = false;
         successService.textContent = serviceLabel;
-        showTech(selected, "¡Recibido! Te llamo en menos de 24 horas para agendar la visita.");
-        statusText.textContent = "Recibida";
+        showTech(selected, S.received);
+        statusText.textContent = S.statusReceived;
         statusEl.setAttribute("data-sent", "");
         statusLed.classList.remove("cr-led--signal");
         successEl.focus();
       } catch {
-        errorEl.textContent = "Hubo un error al enviar tu solicitud. Por favor, intenta nuevamente.";
+        errorEl.textContent = S.error;
         errorEl.hidden = false;
       } finally {
         submitButton.disabled = false;
@@ -295,7 +300,7 @@ const services = [
       form.reset();
       form.hidden = false;
       successEl.hidden = true;
-      statusText.textContent = "Canal abierto";
+      statusText.textContent = S.statusOpen;
       statusEl.removeAttribute("data-sent");
       chips.forEach((c, i) => {
         c.setAttribute("aria-checked", i === 0 ? "true" : "false");

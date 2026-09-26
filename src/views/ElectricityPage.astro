@@ -1,0 +1,280 @@
+---
+/** Servicios eléctricos (/services/electricity y /es/services/electricity). Textos en src/i18n → electricity. */
+import { Image } from "astro:assets";
+import ControlRoomLayout from "@/layouts/ControlRoomLayout.astro";
+import BreakerPanel from "@/components/control-room/BreakerPanel.astro";
+import { avatars } from "@/data/avatar";
+import { CONTACT } from "@/data/company";
+import logoElectricity from "@/assets/img/logo/G_VOLTS_rayo_completo.webp";
+import { generateServiceSchema } from "@/utils/schemas";
+import { absoluteUrl } from "@/data/site";
+import { i18n } from "@/i18n";
+
+const { tr, href } = i18n(Astro);
+const t = tr.electricity;
+
+const serviceSchema = generateServiceSchema(t.schema.name, t.schema.description, absoluteUrl(href("/services/electricity")));
+
+const credentials = t.credentials;
+const residentialServices = t.residential;
+const commercialServices = t.commercial;
+
+// Icono de cada especialidad (el texto está en el diccionario)
+const specialtyIcons = [
+  "M5 17h14M6 17v2M18 17v2M3 13l2-6h14l2 6v4H3z M7 13h.01M17 13h.01",
+  "circle-sun",
+  "M2 20V8l6 4V8l6 4V4h8v16z M17 16h1M12 16h1M7 16h1",
+  "M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z",
+];
+const specialties = t.specialties.map((s, i) => ({ ...s, icon: specialtyIcons[i] }));
+
+const steps = t.steps.map((s, i) => ({ ...s, step: String(i + 1).padStart(2, "0") }));
+const safety = t.safety;
+---
+
+<ControlRoomLayout
+  title={t.meta.title}
+  description={t.meta.description}
+  accent="electricity"
+  logo={logoElectricity}
+  avatar="elec"
+  breadcrumbs={[{ name: tr.breadcrumbs.services, path: "/#servicios" }, { name: t.breadcrumb, path: "/services/electricity" }]}
+  schema={serviceSchema}
+>
+  <!-- HERO -->
+  <section class="relative pt-[clamp(48px,8vw,110px)] pb-[clamp(64px,9vw,130px)] overflow-hidden [background:radial-gradient(60%_50%_at_85%_20%,color-mix(in_srgb,var(--cr-signal)_16%,transparent),transparent_70%),linear-gradient(var(--cr-line)_1px,transparent_1px)_0_0/100%_88px,var(--cr-ink)] max-[640px]:pt-[clamp(40px,10vw,72px)] max-[640px]:pb-[clamp(88px,14vw,120px)]">
+    <div class="cr-wrap grid grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] gap-[clamp(40px,6vw,96px)] items-center max-[960px]:grid-cols-1">
+      <div>
+        <p class="cr-label flex items-center gap-[14px] text-[var(--cr-signal)] mb-[28px]" data-reveal>
+          <span class="w-[40px] h-px bg-current"></span>{t.kicker}
+        </p>
+
+        <h1 class="[font-family:var(--cr-display)] font-black uppercase leading-[0.84] text-[clamp(52px,7.4vw,118px)]">
+          <span class="block" data-reveal style="--d:80ms">{t.title[0]}</span>
+          <span class="block text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]" data-reveal style="--d:160ms">{t.title[1]}</span>
+          <span class="block text-[var(--cr-signal)]" data-reveal style="--d:240ms">{t.title[2]}</span>
+        </h1>
+
+        <p class="mt-[32px] max-w-[48ch] text-[clamp(17px,1.4vw,20px)] text-[var(--cr-bone-dim)]" data-reveal style="--d:340ms">
+          {t.lede}
+        </p>
+
+        <div class="flex flex-wrap gap-[14px] mt-[36px] max-[640px]:flex-col max-[640px]:items-stretch" data-reveal style="--d:420ms">
+          <a href={href("/contact")} class="cr-btn max-[640px]:justify-center">{t.ctaInspection} <span aria-hidden="true">→</span></a>
+          <a href={CONTACT.phoneHref} class="cr-btn cr-btn--ghost max-[640px]:justify-center">{t.ctaEmergency}</a>
+        </div>
+
+        <dl class="grid grid-cols-3 mt-[56px] border-t border-[var(--cr-line-strong)] max-[640px]:grid-cols-2 max-[640px]:gap-y-[20px]" data-reveal style="--d:500ms">
+          <div class="pt-[18px] pr-[16px] pb-0 pl-0">
+            <dt class="cr-label">{t.stats.code}</dt>
+            <dd class="mt-[6px] [font-family:var(--cr-display)] font-extrabold text-[clamp(36px,4vw,56px)] leading-none [font-variant-numeric:tabular-nums]">NEC</dd>
+          </div>
+          <div class="pt-[18px] pr-[16px] pb-0 pl-[16px] border-l border-[var(--cr-line)]">
+            <dt class="cr-label">{t.stats.response}</dt>
+            <dd class="mt-[6px] [font-family:var(--cr-display)] font-extrabold text-[clamp(36px,4vw,56px)] leading-none [font-variant-numeric:tabular-nums]"><span data-count="15">15</span><span class="text-[var(--cr-signal)]">{t.minutes}</span></dd>
+          </div>
+          <div class="pt-[18px] pr-[16px] pb-0 pl-[16px] border-l border-[var(--cr-line)] max-[640px]:col-span-2 max-[640px]:pl-0 max-[640px]:border-l-0 max-[640px]:border-t max-[640px]:border-[var(--cr-line)] max-[640px]:pt-[18px]">
+            <dt class="cr-label">{t.stats.warranty}</dt>
+            <dd class="mt-[6px] [font-family:var(--cr-display)] font-extrabold text-[clamp(36px,4vw,56px)] leading-none [font-variant-numeric:tabular-nums]"><span data-count="100">100</span><span class="text-[var(--cr-signal)]">%</span></dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="relative" data-reveal style="--d:200ms">
+        <BreakerPanel />
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="py-[clamp(72px,10vw,140px)] border-t border-[var(--cr-line)]">
+    <div class="cr-wrap grid grid-cols-2 gap-[clamp(48px,6vw,96px)] max-[960px]:grid-cols-1">
+      <div>
+        <p class="cr-label" data-reveal>{t.intro.label}</p>
+        <h2 class="mt-[18px] text-[clamp(40px,5.4vw,84px)]" data-reveal style="--d:80ms">{t.intro.title1} <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">{t.intro.title2}</span></h2>
+      </div>
+      <div data-reveal style="--d:200ms">
+        <p class="text-[19px] leading-[1.7] text-[color-mix(in_srgb,var(--cr-bone)_80%,transparent)]">
+          {t.intro.text}
+        </p>
+        <ul class="mt-[32px] mx-0 mb-0 p-0 list-none flex flex-col border-t border-[var(--cr-line)]">
+          {credentials.map((c) => (
+            <li class="relative py-[18px] pl-[32px] border-b border-[var(--cr-line)] text-[18px] before:content-[''] before:absolute before:left-0 before:top-1/2 before:[translate:0_-50%] before:w-[8px] before:h-[8px] before:bg-[var(--cr-signal)]">
+              {c}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES WITH TABS -->
+  <section class="py-[clamp(72px,10vw,140px)] bg-[var(--cr-ink-2)]">
+    <div class="cr-wrap">
+      <header class="flex justify-between items-end gap-[48px] mb-[clamp(48px,6vw,64px)] max-[760px]:flex-col max-[760px]:items-start">
+        <div>
+          <p class="cr-label" data-reveal>{t.servicesLabel}</p>
+          <h2 class="mt-[18px] text-[clamp(46px,6.4vw,100px)]" data-reveal style="--d:80ms">{t.servicesTitle1} <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">{t.servicesTitle2}</span></h2>
+        </div>
+        <div class="flex border border-[var(--cr-line-strong)] shrink-0" role="tablist" aria-label={t.tabsAria} data-reveal style="--d:160ms">
+          <button type="button" role="tab" class="appearance-none h-[56px] px-[28px] border-0 bg-transparent text-[var(--cr-bone-dim)] [font-family:var(--cr-mono)] text-[14px] tracking-[0.12em] uppercase cursor-pointer transition-[background-color,color] duration-200 hover:text-[var(--cr-bone)] aria-selected:bg-[var(--cr-signal)] aria-selected:text-[var(--cr-ink)]" aria-selected="true" data-el-tab="res">{t.tabResidential}</button>
+          <button type="button" role="tab" class="appearance-none h-[56px] px-[28px] border-0 bg-transparent text-[var(--cr-bone-dim)] [font-family:var(--cr-mono)] text-[14px] tracking-[0.12em] uppercase cursor-pointer transition-[background-color,color] duration-200 hover:text-[var(--cr-bone)] aria-selected:bg-[var(--cr-signal)] aria-selected:text-[var(--cr-ink)]" aria-selected="false" data-el-tab="com">{t.tabCommercial}</button>
+        </div>
+      </header>
+
+      <div data-el-panel="res">
+        <p class="text-[20px] text-[color-mix(in_srgb,var(--cr-bone)_72%,transparent)] mb-[24px]">{t.residentialIntro}</p>
+        <div class="grid grid-cols-2 gap-[24px] max-[960px]:grid-cols-1">
+          {
+            residentialServices.map((s) => (
+              <article class="p-[36px] flex flex-col gap-[16px] bg-[var(--cr-ink)] border border-[var(--cr-line)] [transition:transform_0.5s_cubic-bezier(0.16,0.84,0.24,1),border-color_0.3s] hover:-translate-y-[10px] hover:border-[var(--cr-signal)]">
+                <h3 class="text-[clamp(28px,2.6vw,36px)]">{s.title}</h3>
+                <p class="text-[16px] leading-[1.6] text-[var(--cr-bone-dim)]">{s.description}</p>
+                <ul class="m-0 p-0 list-none flex flex-col gap-[8px] text-[15px]">
+                  {s.items.map((it) => <li class="flex gap-[10px] items-center before:content-['✓'] before:text-[var(--cr-signal)] before:shrink-0">{it}</li>)}
+                </ul>
+                <p class="flex flex-wrap gap-[8px] mt-auto">
+                  {s.tags.map((t) => <span class="px-[10px] py-[6px] border border-[color-mix(in_srgb,var(--cr-signal)_50%,transparent)] text-[var(--cr-signal)] [font-family:var(--cr-mono)] text-[13px]">{t}</span>)}
+                </p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+
+      <div data-el-panel="com" hidden>
+        <p class="text-[20px] text-[color-mix(in_srgb,var(--cr-bone)_72%,transparent)] mb-[24px]">{t.commercialIntro}</p>
+        <div class="grid grid-cols-2 gap-[24px] max-[960px]:grid-cols-1">
+          {
+            commercialServices.map((s) => (
+              <article class="p-[36px] flex flex-col gap-[16px] bg-[var(--cr-ink)] border border-[var(--cr-line)] [transition:transform_0.5s_cubic-bezier(0.16,0.84,0.24,1),border-color_0.3s] hover:-translate-y-[10px] hover:border-[var(--cr-signal)]">
+                <h3 class="text-[clamp(28px,2.6vw,36px)]">{s.title}</h3>
+                <p class="text-[16px] leading-[1.6] text-[var(--cr-bone-dim)]">{s.description}</p>
+                <ul class="m-0 p-0 list-none flex flex-col gap-[8px] text-[15px]">
+                  {s.items.map((it) => <li class="flex gap-[10px] items-center before:content-['✓'] before:text-[var(--cr-signal)] before:shrink-0">{it}</li>)}
+                </ul>
+                <p class="flex flex-wrap gap-[8px] mt-auto">
+                  {s.tags.map((t) => <span class="px-[10px] py-[6px] border border-[color-mix(in_srgb,var(--cr-signal)_50%,transparent)] text-[var(--cr-signal)] [font-family:var(--cr-mono)] text-[13px]">{t}</span>)}
+                </p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPECIALTIES -->
+  <section class="py-[clamp(72px,10vw,140px)]">
+    <div class="cr-wrap">
+      <header class="flex justify-between items-end gap-[48px] mb-[clamp(48px,6vw,64px)] max-[760px]:flex-col max-[760px]:items-start">
+        <div>
+          <p class="cr-label" data-reveal>{t.specialtiesLabel}</p>
+          <h2 class="mt-[18px] text-[clamp(46px,6.4vw,100px)]" data-reveal style="--d:80ms">{t.specialtiesTitle1} <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">{t.specialtiesTitle2}</span></h2>
+        </div>
+      </header>
+
+      <div class="grid grid-cols-4 gap-[20px] max-[960px]:grid-cols-2 max-[640px]:grid-cols-1">
+        {
+          specialties.map((s, i) => (
+            <article class="p-[30px] flex flex-col gap-[16px] bg-[var(--cr-ink-3)] border border-[var(--cr-line)] [transition:transform_0.5s_cubic-bezier(0.16,0.84,0.24,1),border-color_0.3s] hover:-translate-y-[10px] hover:border-[var(--cr-signal)]" data-reveal style={`--d:${i * 90}ms`}>
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--cr-signal)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                {s.icon === "circle-sun" ? (
+                  <>
+                    <circle cx="12" cy="12" r="4" />
+                    <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+                  </>
+                ) : (
+                  <path d={s.icon} />
+                )}
+              </svg>
+              <h3 class="text-[clamp(28px,2.6vw,36px)]">{s.title}</h3>
+              <p class="text-[16px] leading-[1.6] text-[var(--cr-bone-dim)]">{s.description}</p>
+              <ul class="m-0 p-0 list-none flex flex-col gap-[8px] text-[15px] mt-auto pt-[16px] border-t border-[var(--cr-line)] text-[14px] text-[var(--cr-bone-dim)]">
+                {s.items.map((it) => <li class="flex gap-[10px] items-center before:content-[''] before:w-[6px] before:h-[6px] before:bg-[var(--cr-signal)]">{it}</li>)}
+              </ul>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="py-[clamp(96px,12vw,180px)] bg-[var(--cr-ink-2)]">
+    <div class="cr-wrap grid grid-cols-[minmax(0,0.45fr)_minmax(0,1fr)] gap-[clamp(48px,6vw,96px)] max-[960px]:grid-cols-1">
+      <div class="min-[961px]:sticky min-[961px]:top-[110px] self-start">
+        <p class="cr-label" data-reveal>{t.processLabel}</p>
+        <h2 class="mt-[18px] text-[clamp(44px,6vw,96px)]" data-reveal style="--d:80ms">{t.processTitle1} <span class="text-transparent [-webkit-text-stroke:1.5px_var(--cr-bone)]">{t.processTitle2}</span></h2>
+        <div class="mt-12 max-w-[340px] max-[960px]:max-w-[240px]" data-reveal style="--d:160ms">
+          <Image src={avatars.elecPanel.src} alt={tr.avatars.elecPanel} widths={[240, 340, 520]} sizes="(min-width: 961px) 340px, 240px" class="w-full h-auto [filter:drop-shadow(0_24px_40px_rgba(0,0,0,0.5))]" loading="lazy" />
+        </div>
+      </div>
+      <ol class="m-0 p-0 list-none relative before:content-[''] before:absolute before:left-[11px] before:top-[12px] before:bottom-[12px] before:w-[2px] before:bg-[var(--cr-line-strong)]">
+        {
+          steps.map((s, i) => (
+            <li class="group relative flex gap-[40px] pb-[40px] last:pb-0" data-reveal style={`--d:${i * 90}ms`}>
+              <span class="shrink-0 w-[24px] h-[24px] box-border border-2 border-[var(--cr-signal)] bg-[var(--cr-ink)] z-[1] group-last:bg-[var(--cr-signal)] group-last:shadow-[0_0_20px_var(--cr-signal)]" />
+              <div>
+                <p class="cr-label text-[var(--cr-signal)]">{t.stepLabel} {s.step}</p>
+                <h3 class="mt-[10px] text-[40px]">{s.title}</h3>
+                <p class="mt-[10px] text-[17px] leading-[1.6] text-[var(--cr-bone-dim)]">{s.description}</p>
+                <p class="mt-[10px] [font-family:var(--cr-mono)] text-[14px] tracking-[0.08em] text-[var(--cr-amber)]">{t.deliverable} → {s.deliverable}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- SAFETY -->
+  <section class="py-[clamp(72px,10vw,140px)]">
+    <div class="cr-wrap">
+      <header class="flex justify-between items-end gap-[48px] mb-[clamp(48px,6vw,64px)] max-[760px]:flex-col max-[760px]:items-start">
+        <div>
+          <p class="cr-label" data-reveal>{t.safetyLabel}</p>
+          <h2 data-reveal style="--d:80ms">{t.safetyTitle1} <span class="text-[var(--cr-signal)]">{t.safetyTitle2}</span></h2>
+        </div>
+        <p class="max-w-[380px] text-[18px] leading-[1.65] text-[var(--cr-bone-dim)]" data-reveal style="--d:160ms">
+          {t.safetyText}
+        </p>
+      </header>
+
+      <div class="grid grid-cols-4 border-t border-[var(--cr-line-strong)] max-[960px]:grid-cols-2 max-[640px]:grid-cols-1" data-reveal style="--d:220ms">
+        {
+          safety.map((s, i) => (
+            <div
+              class:list={[
+                "pt-[32px] pr-[28px] pb-0 pl-0 flex flex-col gap-[14px] border-l border-[var(--cr-line)] max-[640px]:!border-l-0 max-[640px]:!pl-0 max-[640px]:border-t max-[640px]:pt-[24px]",
+                i === 0 && "border-l-0 max-[640px]:border-t-0",
+                i === 3 && "pr-0",
+                i === 1 && "max-[960px]:border-l-0 max-[960px]:pl-0",
+              ]}
+            >
+              <h3 class="text-[20px] font-bold normal-case [font-family:var(--cr-body)]">{s.title}</h3>
+              <p class="text-[16px] leading-[1.6] text-[var(--cr-bone-dim)]">{s.description}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</ControlRoomLayout>
+
+<script>
+
+  // Services tabs (residential / commercial)
+  const tabButtons = document.querySelectorAll<HTMLButtonElement>("[data-el-tab]");
+  const panels = document.querySelectorAll<HTMLElement>("[data-el-panel]");
+
+  tabButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const target = btn.dataset.elTab;
+      tabButtons.forEach((b) => b.setAttribute("aria-selected", String(b === btn)));
+      panels.forEach((p) => {
+        p.hidden = p.dataset.elPanel !== target;
+      });
+    });
+  });
+</script>
